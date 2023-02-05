@@ -21,7 +21,9 @@ export const MainContainer = ({ children }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Box p={40}>{children}</Box>
+      <Box p={40} width="100%">
+        {children}
+      </Box>
     </StyledMainContainer>
   );
 };
