@@ -9,6 +9,9 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --grey-color: rgb(189, 189, 189);
+  --accent-color: rgb(33, 150, 243);
+  --hover-background-gray-color: rgb(33, 150, 243);
 }
 
 @media (prefers-color-scheme: dark) {

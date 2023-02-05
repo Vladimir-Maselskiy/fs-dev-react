@@ -1,8 +1,16 @@
+import { useState } from 'react';
 import { IFSet } from '@/interfaces/interfaces';
+import {
+  AiOutlineMinus,
+  AiOutlinePlus,
+} from 'react-icons/ai';
 import { Box } from '../Box/Box';
 import {
+  StyledButton,
   StyledFSetItem,
   StyledInput,
+  StyledLabel,
+  StyledSetsCounter,
 } from './FSetItem.styled';
 
 interface IProp {
@@ -10,58 +18,82 @@ interface IProp {
 }
 
 export const FSetItem = ({ fSet }: IProp) => {
+  const [counter, setCounter] = useState<string>('1');
+
+  const onChangeCounterByClick = (num: number): void => {
+    if (+counter <= 0 && num < 0) return;
+    if (+counter >= 99 && num > 0) return;
+    setCounter(prev => String(+prev + num));
+  };
+
+  const onChangeCounterByInput = (
+    e: React.FormEvent<HTMLInputElement>
+  ) => {
+    const data = e.currentTarget.value;
+    if (data === '') {
+      setCounter('0');
+      return;
+    }
+
+    if (data.length > 2 && data[0] === '0') {
+      const newValue = data.slice(1);
+      setCounter(newValue);
+      return;
+    }
+
+    if (+data >= +0 && +data <= 99) {
+      setCounter(data);
+      return;
+    }
+  };
+
   return (
     <StyledFSetItem>
       <Box display="flex" flexDirection="column">
-        <label className="label">
+        <StyledLabel>
           Ширина
           <StyledInput type="number" />
-        </label>
+        </StyledLabel>
 
-        <label>
+        <StyledLabel>
           Висота
-          <input
-            type="number"
-            className="size-input"
-            data-input="height"
-          />
-        </label>
+          <StyledInput type="number" />
+        </StyledLabel>
 
-        <div>
+        <Box width={160}>
           <p>Кількість</p>
-
-          <button type="button" data-action="decrement">
-            <svg
-              className="counter-button__icon"
-              data-action="decrement"
-            >
-              <use
-                href="/symbol-defs.769bc48b.svg#icon-minus"
-                data-action="decrement"
-              ></use>
-            </svg>
-          </button>
-
-          <span
-            data-value="value"
-            className="counter-value"
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
           >
-            1
-          </span>
-
-          <button type="button" data-action="increment">
-            <svg
-              className="counter-button__icon"
-              data-action="increment"
+            <StyledButton
+              type="button"
+              onClick={() => onChangeCounterByClick(-1)}
             >
-              <use
-                className="counter-button_icon__icon"
-                href="/symbol-defs.769bc48b.svg#icon-plus"
-                data-action="increment"
-              ></use>
-            </svg>
-          </button>
-        </div>
+              <AiOutlineMinus
+                size={40}
+                color="var(--accent-color)"
+              />
+            </StyledButton>
+
+            <StyledSetsCounter
+              type="number"
+              value={counter}
+              onChange={onChangeCounterByInput}
+            />
+
+            <StyledButton
+              type="button"
+              onClick={() => onChangeCounterByClick(1)}
+            >
+              <AiOutlinePlus
+                size={40}
+                color="var(--accent-color)"
+              />
+            </StyledButton>
+          </Box>
+        </Box>
 
         <div className="required-option">
           <div className="side-of-hinge-radio-block">
