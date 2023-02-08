@@ -27,7 +27,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    console.log('fSetsArray.length', fSetsArray.length);
     if (fSetsArray.length === 0)
       setFSetsArray([getNewSet()]);
   }, []);

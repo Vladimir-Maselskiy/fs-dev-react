@@ -11,7 +11,13 @@ import {
   StyledInput,
   StyledLabel,
   StyledSetsCounter,
+  StyledSetsOptionButton,
 } from './FSetItem.styled';
+import IconOptions from '../../img/options.svg';
+import IconTypeOfWindow from '../../img/type-of-window.svg';
+import IconMacoLogo from '../../img/maco-logo.svg';
+import { RiDeleteBin2Line } from 'react-icons/ri';
+// import img from '../../img/traveller.png';
 
 interface IProp {
   fSet: IFSet;
@@ -49,7 +55,7 @@ export const FSetItem = ({ fSet }: IProp) => {
 
   return (
     <StyledFSetItem>
-      <Box display="flex" flexDirection="column">
+      <Box>
         <StyledLabel>
           Ширина
           <StyledInput type="number" />
@@ -59,13 +65,24 @@ export const FSetItem = ({ fSet }: IProp) => {
           Висота
           <StyledInput type="number" />
         </StyledLabel>
-
-        <Box width={160}>
+      </Box>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          width={160}
+        >
           <p>Кількість</p>
           <Box
             display="flex"
             alignItems="center"
             justifyContent="space-between"
+            width="100%"
           >
             <StyledButton
               type="button"
@@ -76,13 +93,11 @@ export const FSetItem = ({ fSet }: IProp) => {
                 color="var(--accent-color)"
               />
             </StyledButton>
-
             <StyledSetsCounter
               type="number"
               value={counter}
               onChange={onChangeCounterByInput}
             />
-
             <StyledButton
               type="button"
               onClick={() => onChangeCounterByClick(1)}
@@ -94,36 +109,51 @@ export const FSetItem = ({ fSet }: IProp) => {
             </StyledButton>
           </Box>
         </Box>
-
-        <div className="required-option">
-          <div className="side-of-hinge-radio-block">
-            <p className="side-of-hinge-radio-block__label">
-              Сторона петель:
-            </p>
-            <label>
-              <input
-                type="radio"
-                name="side-of-hinge-1"
-                className="side-of-hinge-css"
-                value="left"
-              />
-              Ліворуч
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="side-of-hinge-1"
-                className="side-of-hinge-css"
-                value="right"
-                checked={true}
-              />
-              Праворуч
-            </label>
-          </div>
-          <div className="system-of-pvc-block">
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+        >
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            mt={10}
+          >
+            <p>Сторона петель:</p>
+            <Box
+              display="flex"
+              width={160}
+              justifyContent="space-between"
+            >
+              <label>
+                <input
+                  type="radio"
+                  name={`side-of-hinge-${fSet.id}`}
+                  value="left"
+                />
+                Ліворуч
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name={`side-of-hinge-${fSet.id}`}
+                  value="right"
+                  defaultChecked={true}
+                />
+                Праворуч
+              </label>
+            </Box>
+          </Box>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            width={260}
+            mt={10}
+          >
             <label htmlFor="size">Профільна система</label>
-            <select className="select-block">
-              <option value="13" selected={true}>
+            <select>
+              <option value="13" defaultChecked={true}>
                 13-та серія
               </option>
               <option value="9">9-та серія</option>
@@ -133,42 +163,26 @@ export const FSetItem = ({ fSet }: IProp) => {
               <option value="Rehau">Rehau(13)</option>
               <option value="Veka">Veka(13)</option>
             </select>
-          </div>
-        </div>
+          </Box>
+        </Box>
+      </Box>
 
-        <div className="remove-option-button-block">
-          <button
-            type="button"
-            className="button-icon type-of-opening"
-            data-action="open-second-modal"
-          >
-            <svg className="button-icon-svg">
-              <use href="/symbol-defs.769bc48b.svg#icon-window"></use>
-            </svg>
-          </button>
-
-          <button
-            type="button"
-            data-option="1"
-            className="button-icon option-button"
-            data-action="options"
-            disabled={true}
-          >
-            <svg className="button-icon-svg">
-              <use href="/symbol-defs.769bc48b.svg#icon-cogs"></use>
-            </svg>
-          </button>
-
-          <button
-            type="button"
-            className="button-icon remote-button"
-            data-action="remote"
-          >
-            <svg className="button-icon-svg">
-              <use href="/symbol-defs.769bc48b.svg#icon-bin"></use>
-            </svg>
-          </button>
-        </div>
+      <Box display="flex" flexDirection="column">
+        <StyledSetsOptionButton type="button">
+          <IconMacoLogo width={32} height={32} />
+        </StyledSetsOptionButton>
+        <StyledSetsOptionButton type="button">
+          <IconOptions fill="var(--accent-color)" />
+        </StyledSetsOptionButton>
+        <StyledSetsOptionButton type="button">
+          <IconTypeOfWindow fill="var(--accent-color)" />
+        </StyledSetsOptionButton>
+        <StyledSetsOptionButton type="button">
+          <RiDeleteBin2Line
+            size={32}
+            color="var(--accent-color)"
+          />
+        </StyledSetsOptionButton>
       </Box>
     </StyledFSetItem>
   );

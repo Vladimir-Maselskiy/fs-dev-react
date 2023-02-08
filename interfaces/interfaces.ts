@@ -2,7 +2,7 @@ export interface IFSet {
   id: string;
   width: null | number;
   height: null | number;
-  quantitySet: number;
+  quantitySet: string;
   sideOfHinge: 'left' | 'right';
   systemOfPVC: '13' | '9' | 'Rehau' | 'Veka' | 'Salamander';
   gorizontalLock: boolean;
