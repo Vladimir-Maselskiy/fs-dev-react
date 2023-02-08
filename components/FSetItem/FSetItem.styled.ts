@@ -26,10 +26,16 @@ export const StyledInput = styled.input`
   width: 90px;
   text-align: center;
   font-size: 32px;
+  -moz-appearance: textfield;
   color: #2196f3;
   border-radius: 4px;
   font-weight: 700;
   border: 2px solid var(--grey-color);
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 export const StyledButton = styled.button`
   display: flex;
@@ -51,6 +57,11 @@ export const StyledSetsCounter = styled.input`
   border-radius: 4px;
   font-weight: 700;
   border: 1px solid var(--grey-color);
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 export const StyledSetsOptionButton = styled.button`
   /* background-color: var(--accent-color); */

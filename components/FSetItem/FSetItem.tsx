@@ -25,6 +25,8 @@ interface IProp {
 
 export const FSetItem = ({ fSet }: IProp) => {
   const [counter, setCounter] = useState<string>('1');
+  const [width, setWidth] = useState<string>('');
+  const [height, setHeight] = useState<string>('');
 
   const onChangeCounterByClick = (num: number): void => {
     if (+counter <= 0 && num < 0) return;
@@ -33,22 +35,24 @@ export const FSetItem = ({ fSet }: IProp) => {
   };
 
   const onChangeCounterByInput = (
-    e: React.FormEvent<HTMLInputElement>
+    e: React.FormEvent<HTMLInputElement>,
+    toFixed: number,
+    setValue: (newValue: string) => void
   ) => {
     const data = e.currentTarget.value;
     if (data === '') {
-      setCounter('0');
+      setValue('0');
       return;
     }
 
-    if (data.length > 2 && data[0] === '0') {
+    if (data.length > toFixed && data[0] === '0') {
       const newValue = data.slice(1);
-      setCounter(newValue);
+      setValue(newValue);
       return;
     }
 
-    if (+data >= +0 && +data <= 99) {
-      setCounter(data);
+    if (+data >= 0 && data.length <= toFixed) {
+      setValue(data);
       return;
     }
   };
@@ -58,12 +62,24 @@ export const FSetItem = ({ fSet }: IProp) => {
       <Box>
         <StyledLabel>
           Ширина
-          <StyledInput type="number" />
+          <StyledInput
+            type="number"
+            value={width}
+            onChange={e =>
+              onChangeCounterByInput(e, 4, setWidth)
+            }
+          />
         </StyledLabel>
 
         <StyledLabel>
           Висота
-          <StyledInput type="number" />
+          <StyledInput
+            type="number"
+            value={height}
+            onChange={e =>
+              onChangeCounterByInput(e, 4, setHeight)
+            }
+          />
         </StyledLabel>
       </Box>
       <Box
@@ -96,7 +112,9 @@ export const FSetItem = ({ fSet }: IProp) => {
             <StyledSetsCounter
               type="number"
               value={counter}
-              onChange={onChangeCounterByInput}
+              onChange={e =>
+                onChangeCounterByInput(e, 2, setCounter)
+              }
             />
             <StyledButton
               type="button"

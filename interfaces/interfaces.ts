@@ -1,7 +1,7 @@
 export interface IFSet {
   id: string;
-  width: null | number;
-  height: null | number;
+  width: null | string;
+  height: null | string;
   quantitySet: string;
   sideOfHinge: 'left' | 'right';
   systemOfPVC: '13' | '9' | 'Rehau' | 'Veka' | 'Salamander';
