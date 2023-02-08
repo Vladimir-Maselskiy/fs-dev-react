@@ -63,9 +63,3 @@ export const StyledSetsCounter = styled.input`
     margin: 0;
   }
 `;
-export const StyledSetsOptionButton = styled.button`
-  /* background-color: var(--accent-color); */
-  &:not(:first-child) {
-    margin-top: 10px;
-  }
-`;

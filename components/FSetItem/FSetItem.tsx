@@ -11,22 +11,23 @@ import {
   StyledInput,
   StyledLabel,
   StyledSetsCounter,
-  StyledSetsOptionButton,
 } from './FSetItem.styled';
-import IconOptions from '../../img/options.svg';
-import IconTypeOfWindow from '../../img/type-of-window.svg';
-import IconMacoLogo from '../../img/maco-logo.svg';
-import { RiDeleteBin2Line } from 'react-icons/ri';
-// import img from '../../img/traveller.png';
+import { ControlButtons } from '../СontrolButtons/СontrolButtons';
 
 interface IProp {
   fSet: IFSet;
 }
 
 export const FSetItem = ({ fSet }: IProp) => {
-  const [counter, setCounter] = useState<string>('1');
-  const [width, setWidth] = useState<string>('');
-  const [height, setHeight] = useState<string>('');
+  const [
+    isOptitionButtonDisabled,
+    setIsOptitionButtonDisabled,
+  ] = useState(true);
+  const [counter, setCounter] = useState<string>(
+    fSet.quantitySet
+  );
+  const [width, setWidth] = useState<string>(fSet.width);
+  const [height, setHeight] = useState<string>(fSet.height);
 
   const onChangeCounterByClick = (num: number): void => {
     if (+counter <= 0 && num < 0) return;
@@ -184,24 +185,9 @@ export const FSetItem = ({ fSet }: IProp) => {
           </Box>
         </Box>
       </Box>
-
-      <Box display="flex" flexDirection="column">
-        <StyledSetsOptionButton type="button">
-          <IconMacoLogo width={32} height={32} />
-        </StyledSetsOptionButton>
-        <StyledSetsOptionButton type="button">
-          <IconOptions fill="var(--accent-color)" />
-        </StyledSetsOptionButton>
-        <StyledSetsOptionButton type="button">
-          <IconTypeOfWindow fill="var(--accent-color)" />
-        </StyledSetsOptionButton>
-        <StyledSetsOptionButton type="button">
-          <RiDeleteBin2Line
-            size={32}
-            color="var(--accent-color)"
-          />
-        </StyledSetsOptionButton>
-      </Box>
+      <ControlButtons
+        isOptitionButtonDisabled={isOptitionButtonDisabled}
+      />
     </StyledFSetItem>
   );
 };
