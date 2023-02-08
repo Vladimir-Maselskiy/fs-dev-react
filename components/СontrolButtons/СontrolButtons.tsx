@@ -24,13 +24,10 @@ export const ControlButtons = ({
         <IconOptions />
       </StyledControlButton>
       <StyledControlButton type="button">
-        <IconTypeOfWindow fill="var(--accent-color)" />
+        <IconTypeOfWindow />
       </StyledControlButton>
       <StyledControlButton type="button">
-        <RiDeleteBin2Line
-          size={32}
-          color="var(--accent-color)"
-        />
+        <RiDeleteBin2Line size={32} />
       </StyledControlButton>
     </Box>
   );
