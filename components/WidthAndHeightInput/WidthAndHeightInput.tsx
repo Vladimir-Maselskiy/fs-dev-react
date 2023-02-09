@@ -6,13 +6,15 @@ import {
   StyledInput,
   StyledLabel,
 } from './WidthAndHeightInput.styled';
+import { useFSetsContext } from '@/context/state';
+import { IFSet } from '@/interfaces/interfaces';
 
 type TProps = {
   width: string;
   setWidth: React.Dispatch<React.SetStateAction<string>>;
   height: string;
   setHeight: React.Dispatch<React.SetStateAction<string>>;
-  id: string;
+  fSet: IFSet;
 };
 
 export const WidthAndHeightInput = ({
@@ -20,8 +22,10 @@ export const WidthAndHeightInput = ({
   setWidth,
   height,
   setHeight,
-  id,
+  fSet,
 }: TProps) => {
+  const { fSetsArray, setFSetsArray } = useFSetsContext();
+
   return (
     <Box>
       <StyledLabel>
@@ -29,8 +33,9 @@ export const WidthAndHeightInput = ({
         <StyledInput
           type="number"
           value={width}
+          name="width"
           onInput={e => onInputInInput(e, 4, setWidth)}
-          onBlur={e => onBlurInput(e, id)}
+          onBlur={e => onBlurInput(e, fSet, setFSetsArray)}
         />
       </StyledLabel>
 
@@ -39,7 +44,9 @@ export const WidthAndHeightInput = ({
         <StyledInput
           type="number"
           value={height}
+          name="height"
           onInput={e => onInputInInput(e, 4, setHeight)}
+          onBlur={e => onBlurInput(e, fSet, setFSetsArray)}
         />
       </StyledLabel>
     </Box>

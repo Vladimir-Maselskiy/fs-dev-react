@@ -2,8 +2,8 @@ import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
 
 export const getSetById = (
-  id: string
+  id: string,
+  fSetsArray: IFSet[]
 ): IFSet | undefined => {
-  const { fSetsArray } = useFSetsContext();
   return fSetsArray.find(set => set.id === id);
 };

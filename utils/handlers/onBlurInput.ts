@@ -1,18 +1,28 @@
+import { IFSet } from '@/interfaces/interfaces';
+import React from 'react';
 import { checkHeightOnSizeRestrictions } from '../checkHeightOnSizeRestrictions';
 import { checkWidthOnSizeRestrictions } from '../checkWidthOnSizeRestrictions';
 import { getSetById } from '../getSetById';
+import { setInputValidation } from '../setInputValidation';
+import { setValueOfInputInFSet } from '../setValueOfInputInFSet';
 
 export const onBlurInput = (
-  e: React.FormEvent<HTMLInputElement>,
-  id: string
+  e: React.FocusEvent<HTMLInputElement, Element>,
+  fSet: IFSet,
+  setFSetsArray: React.Dispatch<
+    React.SetStateAction<IFSet[]>
+  >
 ) => {
-  const currentSet = getSetById(id);
-  if (currentSet) {
-    const isValidWidth =
-      checkWidthOnSizeRestrictions(currentSet);
-    const isValidHeight =
-      checkHeightOnSizeRestrictions(currentSet);
+  const currentInput = e.target;
+  if (
+    currentInput.name === 'width' ||
+    currentInput.name === 'height'
+  ) {
+    setValueOfInputInFSet(
+      currentInput.value,
+      fSet,
+      setFSetsArray,
+      currentInput.name
+    );
   }
-
-  console.log('change');
 };
