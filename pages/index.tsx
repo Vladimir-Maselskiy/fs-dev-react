@@ -13,11 +13,12 @@ import {
   IFSetsArray,
 } from '@/interfaces/interfaces';
 import { Box } from '@/components/Box/Box';
+import { useFSetsContext } from '@/context/state';
 
 // const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const [fSetsArray, setFSetsArray] = useState<IFSet[]>([]);
+  const { fSetsArray, setFSetsArray } = useFSetsContext();
 
   const addNewFSet = (): void => {
     const newSet = getNewSet(

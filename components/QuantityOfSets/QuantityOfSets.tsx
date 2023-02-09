@@ -1,4 +1,4 @@
-import { onChangeCounterByInput } from '@/utils/onChangeCounterByInput';
+import { onInputInInput } from '@/utils/onInputInInput';
 import React from 'react';
 import {
   AiOutlineMinus,
@@ -51,9 +51,7 @@ export const QuantityOfSets = ({
         <StyledSetsCounter
           type="number"
           value={counter}
-          onChange={e =>
-            onChangeCounterByInput(e, 2, setCounter)
-          }
+          onChange={e => onInputInInput(e, 2, setCounter)}
         />
         <StyledButton
           type="button"

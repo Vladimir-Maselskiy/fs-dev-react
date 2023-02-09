@@ -1,4 +1,5 @@
-import { onChangeCounterByInput } from '@/utils/onChangeCounterByInput';
+import { onInputInInput } from '@/utils/onInputInInput';
+import { onBlurInput } from '@/utils/onBlurInput';
 import React from 'react';
 import { Box } from '../Box/Box';
 import {
@@ -18,7 +19,7 @@ export const WidthAndHeightInput = ({
   setWidth,
   height,
   setHeight,
-} : TProps) => {
+}: TProps) => {
   return (
     <Box>
       <StyledLabel>
@@ -26,9 +27,8 @@ export const WidthAndHeightInput = ({
         <StyledInput
           type="number"
           value={width}
-          onChange={e =>
-            onChangeCounterByInput(e, 4, setWidth)
-          }
+          onInput={e => onInputInInput(e, 4, setWidth)}
+          onBlur={e => onBlurInput(e)}
         />
       </StyledLabel>
 
@@ -37,9 +37,7 @@ export const WidthAndHeightInput = ({
         <StyledInput
           type="number"
           value={height}
-          onChange={e =>
-            onChangeCounterByInput(e, 4, setHeight)
-          }
+          onInput={e => onInputInInput(e, 4, setHeight)}
         />
       </StyledLabel>
     </Box>
