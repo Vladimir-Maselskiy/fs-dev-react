@@ -1,4 +1,4 @@
-import { onInputInInput } from '@/utils/onInputInInput';
+import { onInputInInput } from '@/utils/handlers/onInputInInput';
 import React from 'react';
 import {
   AiOutlineMinus,

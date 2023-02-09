@@ -1,5 +1,5 @@
-import { onInputInInput } from '@/utils/onInputInInput';
-import { onBlurInput } from '@/utils/onBlurInput';
+import { onInputInInput } from '@/utils/handlers/onInputInInput';
+import { onBlurInput } from '@/utils/handlers/onBlurInput';
 import React from 'react';
 import { Box } from '../Box/Box';
 import {

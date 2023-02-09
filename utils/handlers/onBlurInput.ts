@@ -1,6 +1,6 @@
-import { checkHeightOnSizeRestrictions } from './checkHeightOnSizeRestrictions';
-import { checkWidthOnSizeRestrictions } from './checkWidthOnSizeRestrictions';
-import { getSetById } from './getSetById';
+import { checkHeightOnSizeRestrictions } from '../checkHeightOnSizeRestrictions';
+import { checkWidthOnSizeRestrictions } from '../checkWidthOnSizeRestrictions';
+import { getSetById } from '../getSetById';
 
 export const onBlurInput = (
   e: React.FormEvent<HTMLInputElement>,

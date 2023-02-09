@@ -4,8 +4,8 @@ import {
 } from './CurrentRate.styled';
 import { BiEuro } from 'react-icons/bi';
 import { useState, useEffect } from 'react';
-import { setStartRate } from '@/utils/setStartRate';
-import { getCurrentRate } from '@/utils/getCurrentRate';
+import { setStartRate } from '@/utils/rate/setStartRate';
+import { getCurrentRate } from '@/utils/rate/getCurrentRate';
 import { Oval } from 'react-loader-spinner';
 
 export const CurrentRate = () => {
