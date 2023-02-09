@@ -29,6 +29,7 @@ export const FSetItem = ({ fSet }: IProp) => {
         height={height}
         setWidth={setWidth}
         setHeight={setHeight}
+        id={fSet.id}
       />
       <Box
         display="flex"

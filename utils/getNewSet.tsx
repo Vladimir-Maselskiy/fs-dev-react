@@ -4,8 +4,10 @@ export const getNewSet = (id = '0'): IFSet => {
   id = String(+id + 1);
   return {
     id,
+    brand: 'maco',
     width: '',
     height: '',
+    isWidthAndHeightValid: false,
     quantitySet: '1',
     sideOfHinge: 'right',
     systemOfPVC: '13',

@@ -1,7 +1,9 @@
 export interface IFSet {
   id: string;
+  brand: 'maco' | 'vorne';
   width: string;
-  height:  string;
+  height: string;
+  isWidthAndHeightValid: boolean;
   quantitySet: string;
   sideOfHinge: 'left' | 'right';
   systemOfPVC: '13' | '9' | 'Rehau' | 'Veka' | 'Salamander';

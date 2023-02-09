@@ -12,6 +12,7 @@ type TProps = {
   setWidth: React.Dispatch<React.SetStateAction<string>>;
   height: string;
   setHeight: React.Dispatch<React.SetStateAction<string>>;
+  id: string;
 };
 
 export const WidthAndHeightInput = ({
@@ -19,6 +20,7 @@ export const WidthAndHeightInput = ({
   setWidth,
   height,
   setHeight,
+  id,
 }: TProps) => {
   return (
     <Box>
@@ -28,7 +30,7 @@ export const WidthAndHeightInput = ({
           type="number"
           value={width}
           onInput={e => onInputInInput(e, 4, setWidth)}
-          onBlur={e => onBlurInput(e)}
+          onBlur={e => onBlurInput(e, id)}
         />
       </StyledLabel>
 
