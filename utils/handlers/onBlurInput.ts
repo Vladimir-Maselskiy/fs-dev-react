@@ -24,5 +24,26 @@ export const onBlurInput = (
       setFSetsArray,
       currentInput.name
     );
+
+    let isValid;
+    if (currentInput.name === 'width') {
+      isValid = checkWidthOnSizeRestrictions(fSet);
+      setInputValidation(
+        isValid,
+        setFSetsArray,
+        fSet,
+        'isWidthValid'
+      );
+    }
+
+    if (currentInput.name === 'height') {
+      isValid = checkHeightOnSizeRestrictions(fSet);
+      setInputValidation(
+        isValid,
+        setFSetsArray,
+        fSet,
+        'isHeightValid'
+      );
+    }
   }
 };

@@ -1,6 +1,6 @@
 import { onInputInInput } from '@/utils/handlers/onInputInInput';
 import { onBlurInput } from '@/utils/handlers/onBlurInput';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '../Box/Box';
 import {
   StyledInput,
@@ -39,6 +39,7 @@ export const WidthAndHeightInput = ({
           type="number"
           value={width}
           name="width"
+          borderStyle={fSet.isWidthValid}
           onInput={e => onInputInInput(e, 4, setWidth)}
           onBlur={e => onBlurInput(e, fSet, setFSetsArray)}
           onKeyDown={e => {
@@ -59,6 +60,7 @@ export const WidthAndHeightInput = ({
           type="number"
           value={height}
           name="height"
+          borderStyle={fSet.isHeightValid}
           onInput={e => onInputInInput(e, 4, setHeight)}
           onBlur={e => onBlurInput(e, fSet, setFSetsArray)}
           onKeyDown={e => {

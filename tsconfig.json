@@ -3,7 +3,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "/custom.d.ts"
+    "/custom.d.ts",
+    "components/WidthAndHeightInput/WidthAndHeightInput.styled.ts"
   ],
   "compilerOptions": {
     "target": "es5",

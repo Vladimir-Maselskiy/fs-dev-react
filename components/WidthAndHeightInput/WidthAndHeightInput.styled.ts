@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { borderStyle } from 'styled-system';
 
 export const StyledLabel = styled.label`
   display: flex;
@@ -6,7 +7,9 @@ export const StyledLabel = styled.label`
   font-size: 24px;
 `;
 
-export const StyledInput = styled.input`
+export const StyledInput = styled.input<{
+  borderStyle: 'initial' | 'valid' | 'invalid';
+}>`
   width: 90px;
   text-align: center;
   font-size: 32px;
@@ -14,7 +17,16 @@ export const StyledInput = styled.input`
   color: #2196f3;
   border-radius: 4px;
   font-weight: 700;
-  border: 2px solid var(--grey-color);
+  border: ${p => {
+    switch (p.borderStyle) {
+      case 'initial':
+        return '2px solid var(--grey-color)';
+      case 'invalid':
+        return '2px solid red';
+      case 'valid':
+        return '2px solid blue';
+    }
+  }};
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;

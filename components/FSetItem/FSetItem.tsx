@@ -28,26 +28,6 @@ export const FSetItem = ({ fSet }: IProp) => {
   const [height, setHeight] = useState<string>(fSet.height);
 
   useEffect(() => {
-    const isValid = checkWidthOnSizeRestrictions(fSet);
-    setInputValidation(
-      isValid,
-      setFSetsArray,
-      fSet,
-      'isWidthValid'
-    );
-  }, [fSet.width]);
-
-  useEffect(() => {
-    const isValid = checkHeightOnSizeRestrictions(fSet);
-    setInputValidation(
-      isValid,
-      setFSetsArray,
-      fSet,
-      'isHeightValid'
-    );
-  }, [fSet.height]);
-
-  useEffect(() => {
     if (fSet.isWidthValid && fSet.isHeightValid) {
       setIsOptitionButtonDisabled(false);
     } else setIsOptitionButtonDisabled(true);

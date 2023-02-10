@@ -3,8 +3,8 @@ export interface IFSet {
   brand: 'maco' | 'vorne';
   width: string;
   height: string;
-  isWidthValid: boolean;
-  isHeightValid: boolean;
+  isWidthValid: 'initial' | 'valid' | 'invalid';
+  isHeightValid: 'initial' | 'valid' | 'invalid';
   quantitySet: string;
   sideOfHinge: 'left' | 'right';
   systemOfPVC: '13' | '9' | 'Rehau' | 'Veka' | 'Salamander';

@@ -14,7 +14,9 @@ export const setInputValidation = (
       fieldName === 'isWidthValid' ||
       fieldName === 'isHeightValid'
     )
-      prev[index][fieldName] = isValid;
+      prev[index][fieldName] = isValid
+        ? 'valid'
+        : 'invalid';
     return [...prev];
   });
   setTimeout(() => console.log(fSet), 200);
