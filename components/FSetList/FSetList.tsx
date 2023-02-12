@@ -10,12 +10,16 @@ interface IProps {
   setCurrentSetId: React.Dispatch<
     React.SetStateAction<string>
   >;
+  setCurrentModalNumber: React.Dispatch<
+    React.SetStateAction<number>
+  >;
 }
 
 export default function FSetList({
   fSetsArray,
   setIsModalOpen,
   setCurrentSetId,
+  setCurrentModalNumber,
 }: IProps) {
   return (
     <StyledFSetList>
@@ -25,6 +29,7 @@ export default function FSetList({
           fSet={fSet}
           setIsModalOpen={setIsModalOpen}
           setCurrentSetId={setCurrentSetId}
+          setCurrentModalNumber={setCurrentModalNumber}
         ></FSetItem>
       ))}
     </StyledFSetList>

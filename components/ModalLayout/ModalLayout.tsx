@@ -1,9 +1,8 @@
-import { Modal } from 'antd';
 import React from 'react';
-import { padding } from 'styled-system';
+import { StyledModal } from './ModalLayout.styled';
 
 type TProps = {
-  children: JSX.Element;
+  children: JSX.Element | null;
   setIsModalOpen: React.Dispatch<
     React.SetStateAction<boolean>
   >;
@@ -21,12 +20,12 @@ export const ModalLayout = ({
   };
 
   return (
-    <Modal
+    <StyledModal
       open={isModalOpen}
       onOk={handleOk}
       onCancel={handleCancel}
     >
-      <form>{children}</form>
-    </Modal>
+      {children}
+    </StyledModal>
   );
 };

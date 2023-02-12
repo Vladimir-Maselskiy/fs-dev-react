@@ -11,6 +11,7 @@ import { Box } from '@/components/Box/Box';
 import { useFSetsContext } from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { ModalSetOption } from '@/components/ModalSetOption/ModalSetOption';
+import { CurrentModal } from '@/CurrentModal/CurrentModal';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -18,6 +19,8 @@ export default function Home() {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentSetId, setCurrentSetId] = useState('');
+  const [currentModalNumber, setCurrentModalNumber] =
+    useState(0);
 
   const addNewFSet = (): void => {
     const newSet = getNewSet(
@@ -39,6 +42,7 @@ export default function Home() {
           fSetsArray={fSetsArray}
           setIsModalOpen={setIsModalOpen}
           setCurrentSetId={setCurrentSetId}
+          setCurrentModalNumber={setCurrentModalNumber}
         />
         <AddNewFSetButton addNewFSet={addNewFSet}>
           Додати
@@ -48,7 +52,10 @@ export default function Home() {
             setIsModalOpen={setIsModalOpen}
             isModalOpen={isModalOpen}
           >
-            <ModalSetOption id={currentSetId} />
+            <CurrentModal
+              id={currentSetId}
+              modalNumber={currentModalNumber}
+            />
           </ModalLayout>
         )}
       </Box>

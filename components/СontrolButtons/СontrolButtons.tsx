@@ -14,6 +14,9 @@ type TProps = {
   setCurrentSetId: React.Dispatch<
     React.SetStateAction<string>
   >;
+  setCurrentModalNumber: React.Dispatch<
+    React.SetStateAction<number>
+  >;
 };
 
 export const ControlButtons = ({
@@ -21,10 +24,18 @@ export const ControlButtons = ({
   setIsModalOpen,
   id,
   setCurrentSetId,
+  setCurrentModalNumber,
 }: TProps) => {
   return (
     <Box display="flex" flexDirection="column">
-      <StyledControlButton type="button">
+      <StyledControlButton
+        type="button"
+        onClick={e => {
+          setIsModalOpen(true);
+          setCurrentSetId(id);
+          setCurrentModalNumber(1);
+        }}
+      >
         <IconMacoLogo width={32} height={32} />
       </StyledControlButton>
       <StyledControlButton
@@ -33,11 +44,19 @@ export const ControlButtons = ({
         onClick={e => {
           setIsModalOpen(true);
           setCurrentSetId(id);
+          setCurrentModalNumber(2);
         }}
       >
         <IconOptions />
       </StyledControlButton>
-      <StyledControlButton type="button">
+      <StyledControlButton
+        type="button"
+        onClick={e => {
+          setIsModalOpen(true);
+          setCurrentSetId(id);
+          setCurrentModalNumber(3);
+        }}
+      >
         <IconTypeOfWindow />
       </StyledControlButton>
       <StyledControlButton type="button">

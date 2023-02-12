@@ -19,12 +19,16 @@ interface IProp {
   setCurrentSetId: React.Dispatch<
     React.SetStateAction<string>
   >;
+  setCurrentModalNumber: React.Dispatch<
+    React.SetStateAction<number>
+  >;
 }
 
 export const FSetItem = ({
   fSet,
   setIsModalOpen,
   setCurrentSetId,
+  setCurrentModalNumber,
 }: IProp) => {
   const { setFSetsArray } = useFSetsContext();
   const [
@@ -71,6 +75,7 @@ export const FSetItem = ({
         setIsModalOpen={setIsModalOpen}
         id={fSet.id}
         setCurrentSetId={setCurrentSetId}
+        setCurrentModalNumber={setCurrentModalNumber}
       />
     </StyledFSetItem>
   );

@@ -5,7 +5,7 @@ const maco = {
   maxHeight: 2400,
 };
 
-export const typeOfOpeningSelectOpions = [
+export const typeOfHingeSidePress = [
   { value: 'hingeSide-type-1', label: ' 1шт - накладний' },
   { value: 'hingeSide-type-2', label: '2шт - накладний' },
   {
@@ -28,6 +28,13 @@ export const typeOfOpeningSelectOpions = [
     value: 'hingeSide-type-7',
     label: 'Без прижиму',
   },
+];
+export const typeOfOpeningSelectOpions = [
+  { value: 'type-1', label: 'Поворотно-відкидна' },
+  { value: 'type-2', label: 'Поворотна' },
+  { value: 'type-3', label: 'Фрамуга' },
+  { value: 'type-4', label: 'Штульп активна' },
+  { value: 'type-5', label: 'Штульп пасивна' },
 ];
 
 export default { maco };
