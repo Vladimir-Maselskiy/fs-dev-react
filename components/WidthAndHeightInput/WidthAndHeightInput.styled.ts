@@ -24,7 +24,7 @@ export const StyledInput = styled.input<{
       case 'invalid':
         return '2px solid red';
       case 'valid':
-        return '2px solid blue';
+        return '2px solid var(--accent-color)';
     }
   }};
   &::-webkit-outer-spin-button,

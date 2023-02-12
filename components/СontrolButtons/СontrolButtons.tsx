@@ -7,10 +7,20 @@ import { Box } from '../Box/Box';
 
 type TProps = {
   isOptitionButtonDisabled: boolean;
+  setIsModalOpen: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+  id: string;
+  setCurrentSetId: React.Dispatch<
+    React.SetStateAction<string>
+  >;
 };
 
 export const ControlButtons = ({
   isOptitionButtonDisabled,
+  setIsModalOpen,
+  id,
+  setCurrentSetId,
 }: TProps) => {
   return (
     <Box display="flex" flexDirection="column">
@@ -20,6 +30,10 @@ export const ControlButtons = ({
       <StyledControlButton
         type="button"
         disabled={isOptitionButtonDisabled}
+        onClick={e => {
+          setIsModalOpen(true);
+          setCurrentSetId(id);
+        }}
       >
         <IconOptions />
       </StyledControlButton>

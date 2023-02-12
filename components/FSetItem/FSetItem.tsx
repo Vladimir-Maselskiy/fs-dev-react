@@ -13,9 +13,19 @@ import { checkHeightOnSizeRestrictions } from '@/utils/checkHeightOnSizeRestrict
 
 interface IProp {
   fSet: IFSet;
+  setIsModalOpen: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+  setCurrentSetId: React.Dispatch<
+    React.SetStateAction<string>
+  >;
 }
 
-export const FSetItem = ({ fSet }: IProp) => {
+export const FSetItem = ({
+  fSet,
+  setIsModalOpen,
+  setCurrentSetId,
+}: IProp) => {
   const { setFSetsArray } = useFSetsContext();
   const [
     isOptitionButtonDisabled,
@@ -28,7 +38,10 @@ export const FSetItem = ({ fSet }: IProp) => {
   const [height, setHeight] = useState<string>(fSet.height);
 
   useEffect(() => {
-    if (fSet.isWidthValid && fSet.isHeightValid) {
+    if (
+      fSet.isWidthValid === 'valid' &&
+      fSet.isHeightValid === 'valid'
+    ) {
       setIsOptitionButtonDisabled(false);
     } else setIsOptitionButtonDisabled(true);
   }, [fSet.isWidthValid, fSet.isHeightValid]);
@@ -55,6 +68,9 @@ export const FSetItem = ({ fSet }: IProp) => {
       </Box>
       <ControlButtons
         isOptitionButtonDisabled={isOptitionButtonDisabled}
+        setIsModalOpen={setIsModalOpen}
+        id={fSet.id}
+        setCurrentSetId={setCurrentSetId}
       />
     </StyledFSetItem>
   );
