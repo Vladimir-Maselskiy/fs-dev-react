@@ -15,6 +15,8 @@ export interface IFSet {
     | 'type-3'
     | 'type-4'
     | 'type-5';
+  hanleDistance: string;
+  shtulpGetriebe: 'shtulpGetriebe' | 'latch';
 }
 export interface IFSetsArray {
   fSetsArray: IFSet[];

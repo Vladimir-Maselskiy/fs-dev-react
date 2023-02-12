@@ -48,7 +48,7 @@ export default function Home() {
             setIsModalOpen={setIsModalOpen}
             isModalOpen={isModalOpen}
           >
-            {/* <ModalSetOption id={currentSetId} /> */}
+            <ModalSetOption id={currentSetId} />
           </ModalLayout>
         )}
       </Box>

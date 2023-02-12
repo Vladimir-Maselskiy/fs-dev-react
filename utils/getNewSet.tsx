@@ -7,12 +7,14 @@ export const getNewSet = (id = '0'): IFSet => {
     brand: 'maco',
     width: '',
     height: '',
-    isWidthValid: "initial",
-    isHeightValid: "initial",
+    isWidthValid: 'initial',
+    isHeightValid: 'initial',
     quantitySet: '1',
     sideOfHinge: 'right',
     systemOfPVC: '13',
     gorizontalLock: false,
     typeOfOpening: 'type-1',
+    hanleDistance: 'center',
+    shtulpGetriebe: 'latch',
   };
 };
