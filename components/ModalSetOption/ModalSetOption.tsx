@@ -46,6 +46,7 @@ export const ModalSetOption = ({ id }: TProps) => {
       });
       setShtulpGetriebe(fSet.shtulpGetriebe);
       setIsTurnTiltGetriebe(fSet.isTurnTiltGetriebe);
+      console.log('fSet', fSet);
     }
   }, [id]);
 
@@ -74,8 +75,6 @@ export const ModalSetOption = ({ id }: TProps) => {
         label="Висота від низу до ручки"
         name="hanleDistance"
         labelAlign="left"
-        labelCol={{ span: 0 }}
-        wrapperCol={{ span: 6 }}
       >
         <InputNumber
           min={Number(hanleDistanceRestrictions.min)}
@@ -92,6 +91,7 @@ export const ModalSetOption = ({ id }: TProps) => {
         name="isTurnTiltGetriebe"
         valuePropName="checked"
         labelAlign="left"
+        initialValue={false}
       >
         <Checkbox
           id="isTurnTiltGetriebe"
@@ -102,20 +102,22 @@ export const ModalSetOption = ({ id }: TProps) => {
           checked={isTurnTiltGetriebe}
           onChange={onChangeTurnTiltGetriebe}
         />
-
-        {/* </label> */}
       </Form.Item>
-      <Box mt={10}>
-        <p>Штульп:</p>
-        <Radio.Group
-          onChange={onChangeShtulpGetriebe}
-          value={shtulpGetriebe}
-          style={{ marginTop: '5px' }}
-        >
-          <Radio value="shtulpGetriebe">Привід</Radio>
-          <Radio value="latch">Шпінгалети</Radio>
+      <Form.Item
+        label="Штульп"
+        name="shtulpGetriebe"
+        labelAlign="left"
+        initialValue={shtulpGetriebe}
+      >
+        <Radio.Group onChange={onChangeShtulpGetriebe}>
+          <Radio value="shtulpGetriebe">
+            Штульп-привід
+          </Radio>
+          <Radio value="latch" defaultChecked={true}>
+            Шпінгалети
+          </Radio>
         </Radio.Group>
-      </Box>
+      </Form.Item>
       <Space style={{ marginTop: '10px' }} wrap>
         <p>Прижим зі сторони петель</p>
         <Select

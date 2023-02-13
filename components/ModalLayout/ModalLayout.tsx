@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledModal } from './ModalLayout.styled';
-import { Form, ConfigProvider } from 'antd';
+import { Form, ConfigProvider, Button } from 'antd';
 
 type TProps = {
   children: JSX.Element | null;
@@ -17,11 +17,14 @@ export const ModalLayout = ({
 }: TProps) => {
   const handleCancel = () => {
     setIsModalOpen(false);
+    form.resetFields();
   };
 
   const [form] = Form.useForm();
+
   const onFinishHandleSubmit = (values: any) => {
     console.log('onFinishHandleSubmit', values);
+    form.resetFields();
   };
   const onValuesChange = (values: any) => {
     console.log(values);
@@ -32,6 +35,7 @@ export const ModalLayout = ({
       open={isModalOpen}
       onOk={form.submit}
       onCancel={handleCancel}
+      destroyOnClose={true}
     >
       <ConfigProvider
         theme={{
@@ -48,7 +52,7 @@ export const ModalLayout = ({
         }}
       >
         <Form
-          labelCol={{ span: 12 }}
+          labelCol={{ span: 0 }}
           wrapperCol={{ span: 0 }}
           layout="horizontal"
           form={form}
