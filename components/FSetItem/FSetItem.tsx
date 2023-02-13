@@ -7,9 +7,6 @@ import { ImportantSetsOptions } from '../ImportantSetsOptions/ImportantSetsOptio
 import { QuantityOfSets } from '../QuantityOfSets/QuantityOfSets';
 import { WidthAndHeightInput } from '../WidthAndHeightInput/WidthAndHeightInput';
 import { useFSetsContext } from '@/context/state';
-import { checkWidthOnSizeRestrictions } from '@/utils/checkWidthOnSizeRestrictions';
-import { setInputValidation } from '@/utils/setInputValidation';
-import { checkHeightOnSizeRestrictions } from '@/utils/checkHeightOnSizeRestrictions';
 
 interface IProp {
   fSet: IFSet;

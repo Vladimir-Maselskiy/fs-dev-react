@@ -10,7 +10,6 @@ import { getNewSet } from '@/utils/getNewSet';
 import { Box } from '@/components/Box/Box';
 import { useFSetsContext } from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
-import { ModalSetOption } from '@/components/ModalSetOption/ModalSetOption';
 import { CurrentModal } from '@/CurrentModal/CurrentModal';
 
 // const inter = Inter({ subsets: ['latin'] });
@@ -47,17 +46,16 @@ export default function Home() {
         <AddNewFSetButton addNewFSet={addNewFSet}>
           Додати
         </AddNewFSetButton>
-        {isModalOpen && (
-          <ModalLayout
-            setIsModalOpen={setIsModalOpen}
-            isModalOpen={isModalOpen}
-          >
-            <CurrentModal
-              id={currentSetId}
-              modalNumber={currentModalNumber}
-            />
-          </ModalLayout>
-        )}
+
+        <ModalLayout
+          setIsModalOpen={setIsModalOpen}
+          isModalOpen={isModalOpen}
+        >
+          <CurrentModal
+            id={currentSetId}
+            modalNumber={currentModalNumber}
+          />
+        </ModalLayout>
       </Box>
     </MainContainer>
   );

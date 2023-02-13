@@ -1,4 +1,7 @@
 import {
+  Form,
+  Row,
+  Col,
   InputNumber,
   Checkbox,
   Radio,
@@ -13,6 +16,7 @@ import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
 import { IFSet } from '@/interfaces/interfaces';
 import { typeOfHingeSidePress } from '@/const';
+import { grid } from 'styled-system';
 
 type TProps = {
   id: string;
@@ -42,7 +46,6 @@ export const ModalSetOption = ({ id }: TProps) => {
   }, [id]);
 
   const onChangeShtulpGetriebe = (e: RadioChangeEvent) => {
-    console.log('radio checked', e.target.value);
     setShtulpGetriebe(e.target.value);
   };
 
@@ -56,69 +59,71 @@ export const ModalSetOption = ({ id }: TProps) => {
         </p>
       </Box>
       <Divider />
-      <Box>
-        <Box mt={10}>
-          <label>
-            Висота від низу до ручки:
-            <InputNumber
-              size="small"
-              min={Number(hanleDistanceRestrictions.min)}
-              max={Number(hanleDistanceRestrictions.max)}
-              style={{
-                width: '70px',
-                marginLeft: '10px',
-              }}
-              placeholder={String(Number(fSet?.height) / 2)}
-            />
-          </label>
-        </Box>
-        <Box mt={10}>
-          <label data-select="select">
-            Поворотно-відкидний привід(покращений прижим)
-            <Checkbox style={{ marginLeft: '10px' }} />
-          </label>
-        </Box>
-        <Box mt={10}>
-          <p>Штульп:</p>
-          <Radio.Group
-            onChange={onChangeShtulpGetriebe}
-            value={shtulpGetriebe}
-            style={{ marginTop: '5px' }}
-          >
-            <Radio value="shtulpGetriebe">Привід</Radio>
-            <Radio value="latch">Шпінгалети</Radio>
-          </Radio.Group>
-        </Box>
-        <Space style={{ marginTop: '10px' }} wrap>
-          <p>Прижим зі сторони петель</p>
-          <Select
-            defaultValue={typeOfHingeSidePress[1]}
-            style={{ width: 200 }}
-            //   onChange={handleChange}
-            options={typeOfHingeSidePress}
-            listHeight={150}
+
+      <Form.Item name="hanleDistance">
+        <label>
+          Висота від низу до ручки:
+          <InputNumber
+            min={Number(hanleDistanceRestrictions.min)}
+            max={Number(hanleDistanceRestrictions.max)}
+            style={{
+              width: '70px',
+              marginLeft: '10px',
+            }}
+            placeholder={String(Number(fSet?.height) / 2)}
           />
-        </Space>
-        <Box mt={10}>
-          <label>
-            Зимове провітрювання
-            <Checkbox style={{ marginLeft: '10px' }} />
-          </label>
-        </Box>
-        <Box mt={10}>
-          <label data-select="select">
-            Нижній горизонтальний прижим
-            <Checkbox style={{ marginLeft: '10px' }} />
-          </label>
-        </Box>
-        <Box mt={10}>
-          <label>
-            Без нижньої петлі
-            <Checkbox style={{ marginLeft: '10px' }} />
-          </label>
-        </Box>
-        <Divider />
+        </label>
+      </Form.Item>
+
+      <Form.Item name="isTurnTiltGetriebe">
+        <label>
+          П/в привід, покращений прижим:
+          <Checkbox
+            id="isTurnTiltGetriebe"
+            style={{ marginLeft: '10px' }}
+          />
+        </label>
+      </Form.Item>
+      <Box mt={10}>
+        <p>Штульп:</p>
+        <Radio.Group
+          onChange={onChangeShtulpGetriebe}
+          value={shtulpGetriebe}
+          style={{ marginTop: '5px' }}
+        >
+          <Radio value="shtulpGetriebe">Привід</Radio>
+          <Radio value="latch">Шпінгалети</Radio>
+        </Radio.Group>
       </Box>
+      <Space style={{ marginTop: '10px' }} wrap>
+        <p>Прижим зі сторони петель</p>
+        <Select
+          defaultValue={typeOfHingeSidePress[1]}
+          style={{ width: 200 }}
+          //   onChange={handleChange}
+          options={typeOfHingeSidePress}
+          listHeight={150}
+        />
+      </Space>
+      <Box mt={10}>
+        <label>
+          Зимове провітрювання
+          <Checkbox style={{ marginLeft: '10px' }} />
+        </label>
+      </Box>
+      <Box mt={10}>
+        <label data-select="select">
+          Нижній горизонтальний прижим
+          <Checkbox style={{ marginLeft: '10px' }} />
+        </label>
+      </Box>
+      <Box mt={10}>
+        <label>
+          Без нижньої петлі
+          <Checkbox style={{ marginLeft: '10px' }} />
+        </label>
+      </Box>
+      <Divider />
     </Box>
   );
 };
