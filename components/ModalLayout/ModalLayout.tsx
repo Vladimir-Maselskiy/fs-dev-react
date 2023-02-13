@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledModal } from './ModalLayout.styled';
-import { Form } from 'antd';
+import { Form, ConfigProvider } from 'antd';
 
 type TProps = {
   children: JSX.Element | null;
@@ -21,7 +21,7 @@ export const ModalLayout = ({
 
   const [form] = Form.useForm();
   const onFinishHandleSubmit = (values: any) => {
-    console.log(values);
+    console.log('onFinishHandleSubmit', values);
   };
   const onValuesChange = (values: any) => {
     console.log(values);
@@ -33,16 +33,31 @@ export const ModalLayout = ({
       onOk={form.submit}
       onCancel={handleCancel}
     >
-      <Form
-        wrapperCol={{ span: 24 }}
-        layout="horizontal"
-        labelAlign="left"
-        form={form}
-        onFinish={onFinishHandleSubmit}
-        onValuesChange={onValuesChange}
+      <ConfigProvider
+        theme={{
+          token: {
+            screenXS: 320, // for grid (row/col)
+            screenXSMin: 300, // default is 1600, for List
+            screenXSMax: 320, // default is 1600, for List
+            screenSMMin: 321,
+            screenSM: 480,
+            screenSMMax: 480,
+            screenMDMin: 481,
+            screenMD: 481,
+          },
+        }}
       >
-        {children}
-      </Form>
+        <Form
+          labelCol={{ span: 12 }}
+          wrapperCol={{ span: 0 }}
+          layout="horizontal"
+          form={form}
+          onFinish={onFinishHandleSubmit}
+          onValuesChange={onValuesChange}
+        >
+          {children}
+        </Form>
+      </ConfigProvider>
     </StyledModal>
   );
 };

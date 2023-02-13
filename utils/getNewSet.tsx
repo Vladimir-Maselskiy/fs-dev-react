@@ -16,5 +16,6 @@ export const getNewSet = (id = '0'): IFSet => {
     typeOfOpening: 'type-1',
     hanleDistance: 'center',
     shtulpGetriebe: 'latch',
+    isTurnTiltGetriebe: false,
   };
 };

@@ -8,15 +8,16 @@ import {
   Select,
   Space,
   Divider,
+  ConfigProvider,
 } from 'antd';
 import type { RadioChangeEvent } from 'antd';
+import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/getSetById';
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
 import { IFSet } from '@/interfaces/interfaces';
 import { typeOfHingeSidePress } from '@/const';
-import { grid } from 'styled-system';
 
 type TProps = {
   id: string;
@@ -25,6 +26,8 @@ type TProps = {
 export const ModalSetOption = ({ id }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [fSet, setFSet] = useState<IFSet | null>(null);
+  const [isTurnTiltGetriebe, setIsTurnTiltGetriebe] =
+    useState(false);
   const [
     hanleDistanceRestrictions,
     setHanleDistanceRestrictions,
@@ -42,11 +45,18 @@ export const ModalSetOption = ({ id }: TProps) => {
         max: String(Number(fSet.height) - 235),
       });
       setShtulpGetriebe(fSet.shtulpGetriebe);
+      setIsTurnTiltGetriebe(fSet.isTurnTiltGetriebe);
     }
   }, [id]);
 
   const onChangeShtulpGetriebe = (e: RadioChangeEvent) => {
     setShtulpGetriebe(e.target.value);
+  };
+
+  const onChangeTurnTiltGetriebe = (
+    e: CheckboxChangeEvent
+  ) => {
+    setIsTurnTiltGetriebe(prev => !prev);
   };
 
   return (
@@ -60,29 +70,40 @@ export const ModalSetOption = ({ id }: TProps) => {
       </Box>
       <Divider />
 
-      <Form.Item name="hanleDistance">
-        <label>
-          Висота від низу до ручки:
-          <InputNumber
-            min={Number(hanleDistanceRestrictions.min)}
-            max={Number(hanleDistanceRestrictions.max)}
-            style={{
-              width: '70px',
-              marginLeft: '10px',
-            }}
-            placeholder={String(Number(fSet?.height) / 2)}
-          />
-        </label>
+      <Form.Item
+        label="Висота від низу до ручки"
+        name="hanleDistance"
+        labelAlign="left"
+        labelCol={{ span: 0 }}
+        wrapperCol={{ span: 6 }}
+      >
+        <InputNumber
+          min={Number(hanleDistanceRestrictions.min)}
+          max={Number(hanleDistanceRestrictions.max)}
+          style={{
+            width: '70px',
+          }}
+          placeholder={String(Number(fSet?.height) / 2)}
+        />
       </Form.Item>
 
-      <Form.Item name="isTurnTiltGetriebe">
-        <label>
-          П/в привід, покращений прижим:
-          <Checkbox
-            id="isTurnTiltGetriebe"
-            style={{ marginLeft: '10px' }}
-          />
-        </label>
+      <Form.Item
+        label="П/в привід, покращений прижим"
+        name="isTurnTiltGetriebe"
+        valuePropName="checked"
+        labelAlign="left"
+      >
+        <Checkbox
+          id="isTurnTiltGetriebe"
+          style={{
+            marginLeft: 'onChangeTurnTiltGetriebe10px',
+          }}
+          defaultChecked={false}
+          checked={isTurnTiltGetriebe}
+          onChange={onChangeTurnTiltGetriebe}
+        />
+
+        {/* </label> */}
       </Form.Item>
       <Box mt={10}>
         <p>Штульп:</p>
