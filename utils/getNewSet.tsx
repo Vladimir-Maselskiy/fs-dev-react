@@ -14,8 +14,10 @@ export const getNewSet = (id = '0'): IFSet => {
     systemOfPVC: '13',
     gorizontalLock: false,
     typeOfOpening: 'type-1',
-    hanleDistance: 'center',
+    hanleDistance: undefined,
     shtulpGetriebe: 'latch',
     isTurnTiltGetriebe: false,
+    typeOfHingeSidePress: 'hingeSidePress-type-2',
+    microVentilation: true,
   };
 };

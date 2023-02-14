@@ -50,12 +50,10 @@ export default function Home() {
         <ModalLayout
           setIsModalOpen={setIsModalOpen}
           isModalOpen={isModalOpen}
-        >
-          <CurrentModal
-            id={currentSetId}
-            modalNumber={currentModalNumber}
-          />
-        </ModalLayout>
+          currentModal={CurrentModal}
+          id={currentSetId}
+          modalNumber={currentModalNumber}
+        />
       </Box>
       {/* <TestComonent /> */}
     </MainContainer>

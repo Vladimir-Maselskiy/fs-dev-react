@@ -5,27 +5,33 @@ const maco = {
   maxHeight: 2400,
 };
 
-export const typeOfHingeSidePress = [
-  { value: 'hingeSide-type-1', label: ' 1шт - накладний' },
-  { value: 'hingeSide-type-2', label: '2шт - накладний' },
+export const typeOfHingeSidePressConst = [
   {
-    value: 'hingeSide-type-3',
+    value: 'hingeSidePress-type-1',
+    label: ' 1шт - накладний',
+  },
+  {
+    value: 'hingeSidePress-type-2',
+    label: '2шт - накладний',
+  },
+  {
+    value: 'hingeSidePress-type-3',
     label: '1шт - фальц. петля нерег.',
   },
   {
-    value: 'hingeSide-type-4',
+    value: 'hingeSidePress-type-4',
     label: '2шт - фальц. петля нерег.',
   },
   {
-    value: 'hingeSide-type-5',
+    value: 'hingeSidePress-type-5',
     label: '1шт - фальц. петля рег.',
   },
   {
-    value: 'hingeSide-type-6',
+    value: 'hingeSidePress-type-6',
     label: '2шт - фальц. петля рег.',
   },
   {
-    value: 'hingeSide-type-7',
+    value: 'hingeSidePress-type-7',
     label: 'Без прижиму',
   },
 ];

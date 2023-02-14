@@ -3,17 +3,21 @@ import { StyledModal } from './ModalLayout.styled';
 import { Form, ConfigProvider, Button } from 'antd';
 
 type TProps = {
-  children: JSX.Element | null;
   setIsModalOpen: React.Dispatch<
     React.SetStateAction<boolean>
   >;
   isModalOpen: boolean;
+  currentModal: React.ElementType;
+  id: string;
+  modalNumber: number;
 };
 
 export const ModalLayout = ({
-  children,
   setIsModalOpen,
   isModalOpen,
+  currentModal: CurrentModal,
+  id,
+  modalNumber,
 }: TProps) => {
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -36,18 +40,17 @@ export const ModalLayout = ({
       onOk={form.submit}
       onCancel={handleCancel}
       destroyOnClose={true}
+      afterClose={() => {
+        form.resetFields();
+        
+      }}
     >
       <ConfigProvider
         theme={{
           token: {
-            screenXS: 320, // for grid (row/col)
-            screenXSMin: 300, // default is 1600, for List
-            screenXSMax: 320, // default is 1600, for List
-            screenSMMin: 321,
-            screenSM: 480,
-            screenSMMax: 480,
-            screenMDMin: 481,
-            screenMD: 481,
+            screenXS: 320,
+            screenXSMin: 300,
+            screenXSMax: 320,
           },
         }}
       >
@@ -59,7 +62,11 @@ export const ModalLayout = ({
           onFinish={onFinishHandleSubmit}
           onValuesChange={onValuesChange}
         >
-          {children}
+          <CurrentModal
+            id={id}
+            modalNumber={modalNumber}
+            form={form}
+          />
         </Form>
       </ConfigProvider>
     </StyledModal>

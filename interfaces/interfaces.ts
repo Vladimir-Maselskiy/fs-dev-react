@@ -1,3 +1,16 @@
+export const ALLTypeOfHingeSidePressConst = [
+  'hingeSidePress-type-1',
+  'hingeSidePress-type-2',
+  'hingeSidePress-type-3',
+  'hingeSidePress-type-4',
+  'hingeSidePress-type-5',
+  'hingeSidePress-type-6',
+  'hingeSidePress-type-7',
+] as const;
+
+export type TTypeOfHingeSidePress =
+  typeof ALLTypeOfHingeSidePressConst[number];
+
 export interface IFSet {
   id: string;
   brand: 'maco' | 'vorne';
@@ -15,10 +28,13 @@ export interface IFSet {
     | 'type-3'
     | 'type-4'
     | 'type-5';
-  hanleDistance: string;
+  hanleDistance: string | undefined;
   shtulpGetriebe: 'shtulpGetriebe' | 'latch';
   isTurnTiltGetriebe: boolean;
+  typeOfHingeSidePress: TTypeOfHingeSidePress;
+  microVentilation: true
 }
+
 export interface IFSetsArray {
   fSetsArray: IFSet[];
 }
