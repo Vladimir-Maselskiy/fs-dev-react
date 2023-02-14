@@ -1,9 +1,7 @@
 import { Box } from '../Box/Box';
 import { StyledMainContainer } from './MainContainer.styled';
-import img from '../../images/tileable-doodle.png';
 
 import Head from 'next/head';
-import { ReactComponentElement } from 'react';
 
 type Props = {
   children?: JSX.Element;
@@ -21,7 +19,7 @@ export const MainContainer = ({ children }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Box p={40} width="100%">
+      <Box p={40} width="100%" minWidth={550}>
         {children}
       </Box>
     </StyledMainContainer>
