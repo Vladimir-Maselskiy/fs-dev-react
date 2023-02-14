@@ -1,15 +1,18 @@
 import React from 'react';
-import { Select, Space } from 'antd';
+import { Select, Form } from 'antd';
 import { typeOfOpeningSelectOpions } from '@/const';
 
 type TProps = {
   id: string;
+  form: any;
 };
 
-export const ModalTypeOfOpening = ({ id }: TProps) => {
+export const ModalTypeOfOpening = ({
+  id,
+  form,
+}: TProps) => {
   return (
-    <Space style={{ marginTop: '10px' }} wrap>
-      <p>Прижим зі сторони петель</p>
+    <Form.Item label="Тип відкривання" name="typeOfOpening">
       <Select
         defaultValue={typeOfOpeningSelectOpions[0]}
         style={{ width: 200 }}
@@ -17,6 +20,6 @@ export const ModalTypeOfOpening = ({ id }: TProps) => {
         options={typeOfOpeningSelectOpions}
         listHeight={150}
       />
-    </Space>
+    </Form.Item>
   );
 };

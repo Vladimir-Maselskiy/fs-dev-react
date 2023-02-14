@@ -32,7 +32,9 @@ export interface IFSet {
   shtulpGetriebe: 'shtulpGetriebe' | 'latch';
   isTurnTiltGetriebe: boolean;
   typeOfHingeSidePress: TTypeOfHingeSidePress;
-  microVentilation: true
+  microVentilation: boolean;
+  isGorizontalLock: boolean;
+  isWithoutBottomHinge: boolean;
 }
 
 export interface IFSetsArray {

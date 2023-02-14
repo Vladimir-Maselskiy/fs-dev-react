@@ -42,7 +42,6 @@ export const ModalLayout = ({
       destroyOnClose={true}
       afterClose={() => {
         form.resetFields();
-        
       }}
     >
       <ConfigProvider
@@ -61,6 +60,7 @@ export const ModalLayout = ({
           form={form}
           onFinish={onFinishHandleSubmit}
           onValuesChange={onValuesChange}
+          labelAlign="left"
         >
           <CurrentModal
             id={id}

@@ -15,18 +15,20 @@ export const CurrentModal = ({
   form,
 }: TProps) => {
   const [Modal, setModal] = useState<JSX.Element>(
-    <ModalSetOption id={id} form={form}/>
+    <ModalSetOption id={id} form={form} />
   );
   useEffect(() => {
     switch (modalNumber) {
       case 1:
-        setModal(<ModalSetBrand id={id} />);
+        setModal(<ModalSetBrand id={id} form={form} />);
         break;
       case 2:
         setModal(<ModalSetOption id={id} form={form} />);
         break;
       case 3:
-        setModal(<ModalTypeOfOpening id={id} />);
+        setModal(
+          <ModalTypeOfOpening id={id} form={form} />
+        );
         break;
     }
   }, [modalNumber]);

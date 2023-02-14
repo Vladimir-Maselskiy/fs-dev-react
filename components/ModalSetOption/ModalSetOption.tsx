@@ -4,7 +4,6 @@ import {
   Checkbox,
   Radio,
   Select,
-  Space,
   Divider,
 } from 'antd';
 import type { RadioChangeEvent } from 'antd';
@@ -45,8 +44,17 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     useState<TTypeOfHingeSidePress>(
       'hingeSidePress-type-2'
     );
+  const [microVentilation, setMicroVentilation] =
+    useState(true);
+
+  const [isGorizontalLock, setIsGorizontalLock] =
+    useState(true);
+
+  const [isWithoutBottomHinge, setIsWithoutBottomHinge] =
+    useState(false);
 
   useEffect(() => {
+    console.log('rerender');
     const originalfSet = getSetById(id, fSetsArray);
     if (originalfSet) {
       const fSet = { ...originalfSet };
@@ -59,8 +67,9 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       setShtulpGetriebe(fSet.shtulpGetriebe);
       setIsTurnTiltGetriebe(fSet.isTurnTiltGetriebe);
       setTypeOfHingeSidePress(fSet.typeOfHingeSidePress);
-
-      console.log('fSet', fSet);
+      setMicroVentilation(fSet.microVentilation);
+      setIsGorizontalLock(fSet.isGorizontalLock);
+      setIsWithoutBottomHinge(fSet.isWithoutBottomHinge);
     }
   }, [id]);
 
@@ -84,6 +93,21 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     if (fSet) setFSet({ ...fSet, typeOfHingeSidePress });
   }, [typeOfHingeSidePress]);
 
+  useEffect(() => {
+    form.setFieldsValue({ microVentilation });
+    if (fSet) setFSet({ ...fSet, microVentilation });
+  }, [microVentilation]);
+
+  useEffect(() => {
+    form.setFieldsValue({ isGorizontalLock });
+    if (fSet) setFSet({ ...fSet, isGorizontalLock });
+  }, [isGorizontalLock]);
+
+  useEffect(() => {
+    form.setFieldsValue({ isWithoutBottomHinge });
+    if (fSet) setFSet({ ...fSet, isWithoutBottomHinge });
+  }, [isWithoutBottomHinge]);
+
   const onChangeHanleDistance = (value: number | null) => {
     if (value) setHanleDistance(String(value));
   };
@@ -91,9 +115,14 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     setShtulpGetriebe(e.target.value);
   };
 
-  const onChangeTurnTiltGetriebe = () => {
-    setIsTurnTiltGetriebe(prev => !prev);
+  const onChangeTurnTiltGetriebe = (
+    e: CheckboxChangeEvent
+  ) => {
+    const boolean = e.target.checked;
+    console.log('onChangeTurnTiltGetriebe', boolean);
+    setIsTurnTiltGetriebe(boolean);
   };
+
   const handleChangeTypeOfHingeSidePress = (
     e: CheckboxChangeEvent,
     option:
@@ -106,7 +135,6 @@ export const ModalSetOption = ({ id, form }: TProps) => {
           label: string;
         }[]
   ) => {
-    console.log('handleChangeTypeOfHingeSidePress', option);
     if (
       !Array.isArray(option) &&
       isStringInUnion(
@@ -115,6 +143,27 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       )
     )
       setTypeOfHingeSidePress(option.value);
+  };
+
+  const onChangeMicroVentilation = (
+    e: CheckboxChangeEvent
+  ) => {
+    const boolean = e.target.checked;
+    setMicroVentilation(boolean);
+  };
+
+  const onChangeIsGorizontalLock = (
+    e: CheckboxChangeEvent
+  ) => {
+    const boolean = e.target.checked;
+    setIsGorizontalLock(boolean);
+  };
+
+  const onChangeIsWithoutBottomHinge = (
+    e: CheckboxChangeEvent
+  ) => {
+    const boolean = e.target.checked;
+    setIsWithoutBottomHinge(boolean);
   };
 
   return (
@@ -131,7 +180,6 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       <Form.Item
         label="Висота від низу до ручки"
         name="hanleDistance"
-        labelAlign="left"
       >
         <InputNumber
           min={Number(hanleDistanceRestrictions.min)}
@@ -148,24 +196,16 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       <Form.Item
         label="П/в привід, покращений прижим"
         name="isTurnTiltGetriebe"
-        labelAlign="left"
+        valuePropName="checked"
       >
         <Checkbox
-          id="isTurnTiltGetriebe"
-          style={{
-            marginLeft: 'onChangeTurnTiltGetriebe10px',
-          }}
           checked={isTurnTiltGetriebe}
           onChange={onChangeTurnTiltGetriebe}
-          value={isTurnTiltGetriebe}
+          // value={isTurnTiltGetriebe}
         />
       </Form.Item>
 
-      <Form.Item
-        label="Штульп"
-        name="shtulpGetriebe"
-        labelAlign="left"
-      >
+      <Form.Item label="Штульп" name="shtulpGetriebe">
         <Radio.Group onChange={onChangeShtulpGetriebe}>
           <Radio value="shtulpGetriebe">
             Штульп-привід
@@ -177,10 +217,8 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       <Form.Item
         label="Прижим зі сторони петель"
         name="typeOfHingeSidePress"
-        labelAlign="left"
       >
         <Select
-          style={{ width: 200 }}
           onChange={handleChangeTypeOfHingeSidePress}
           options={typeOfHingeSidePressConst}
           listHeight={150}
@@ -189,23 +227,36 @@ export const ModalSetOption = ({ id, form }: TProps) => {
 
       <Form.Item
         label="Зимове провітрювання"
-        name="typeOfHingeSidePress"
-        labelAlign="left"
+        name="microVentilation"
+        valuePropName="checked"
       >
-        <Checkbox style={{ marginLeft: '10px' }} />
+        <Checkbox
+          checked={microVentilation}
+          onChange={onChangeMicroVentilation}
+        />
       </Form.Item>
-      <Box mt={10}>
-        <label data-select="select">
-          Нижній горизонтальний прижим
-          <Checkbox style={{ marginLeft: '10px' }} />
-        </label>
-      </Box>
-      <Box mt={10}>
-        <label>
-          Без нижньої петлі
-          <Checkbox style={{ marginLeft: '10px' }} />
-        </label>
-      </Box>
+
+      <Form.Item
+        label="Нижній горизонтальний прижим"
+        name="isGorizontalLock"
+        valuePropName="checked"
+      >
+        <Checkbox
+          checked={isGorizontalLock}
+          onChange={onChangeIsGorizontalLock}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Без нижньої петлі"
+        name="isWithoutBottomHinge"
+        valuePropName="checked"
+      >
+        <Checkbox
+          checked={isWithoutBottomHinge}
+          onChange={onChangeIsWithoutBottomHinge}
+        />
+      </Form.Item>
       <Divider />
     </Box>
   );
