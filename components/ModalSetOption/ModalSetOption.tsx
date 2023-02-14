@@ -18,7 +18,7 @@ import {
   TTypeOfHingeSidePress,
 } from '@/interfaces/interfaces';
 import { typeOfHingeSidePressConst } from '@/const';
-import { isStringInUnion } from '@/utils/ts-utils/isStringInUnion';
+import { isStringInUnionTypeOfHingeSidePress } from '@/utils/ts-utils/isStringInUnion';
 
 type TProps = {
   id: string;
@@ -137,7 +137,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
   ) => {
     if (
       !Array.isArray(option) &&
-      isStringInUnion(
+      isStringInUnionTypeOfHingeSidePress(
         option.value,
         ALLTypeOfHingeSidePressConst
       )

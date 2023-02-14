@@ -7,9 +7,19 @@ export const ALLTypeOfHingeSidePressConst = [
   'hingeSidePress-type-6',
   'hingeSidePress-type-7',
 ] as const;
+export const ALLTypeOfOpeningConst = [
+  'type-1',
+  'type-2',
+  'type-3',
+  'type-4',
+  'type-5',
+] as const;
 
 export type TTypeOfHingeSidePress =
   typeof ALLTypeOfHingeSidePressConst[number];
+
+export type TTypeOfOpenimg =
+  typeof ALLTypeOfOpeningConst[number];
 
 export interface IFSet {
   id: string;
@@ -22,12 +32,7 @@ export interface IFSet {
   sideOfHinge: 'left' | 'right';
   systemOfPVC: '13' | '9' | 'Rehau' | 'Veka' | 'Salamander';
   gorizontalLock: boolean;
-  typeOfOpening:
-    | 'type-1'
-    | 'type-2'
-    | 'type-3'
-    | 'type-4'
-    | 'type-5';
+  typeOfOpening: TTypeOfOpenimg;
   hanleDistance: string | undefined;
   shtulpGetriebe: 'shtulpGetriebe' | 'latch';
   isTurnTiltGetriebe: boolean;
