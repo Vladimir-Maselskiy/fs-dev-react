@@ -53,6 +53,11 @@ export const ModalSetOption = ({ id, form }: TProps) => {
   const [isWithoutBottomHinge, setIsWithoutBottomHinge] =
     useState(false);
 
+  const [
+    isGorizontalLockDisabled,
+    setIsGorizontalLockDisabled,
+  ] = useState(false);
+
   useEffect(() => {
     console.log('rerender');
     const originalfSet = getSetById(id, fSetsArray);
@@ -107,6 +112,20 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     form.setFieldsValue({ isWithoutBottomHinge });
     if (fSet) setFSet({ ...fSet, isWithoutBottomHinge });
   }, [isWithoutBottomHinge]);
+
+  useEffect(() => {
+    if (
+      fSet?.typeOfOpening === 'type-2' &&
+      fSet.isTurnTiltGetriebe === false
+    ) {
+      setIsGorizontalLockDisabled(true);
+    } else if (
+      fSet?.typeOfOpening === 'type-5' &&
+      fSet.shtulpGetriebe === 'latch'
+    ) {
+      setIsGorizontalLockDisabled(true);
+    } else setIsGorizontalLockDisabled(false);
+  }, [fSet]);
 
   const onChangeHanleDistance = (value: number | null) => {
     if (value) setHanleDistance(String(value));
@@ -176,87 +195,106 @@ export const ModalSetOption = ({ id, form }: TProps) => {
         </p>
       </Box>
       <Divider />
+      {fSet?.typeOfOpening !== 'type-3' && (
+        <Form.Item
+          label="Висота від низу до ручки"
+          name="hanleDistance"
+        >
+          <InputNumber
+            min={Number(hanleDistanceRestrictions.min)}
+            max={Number(hanleDistanceRestrictions.max)}
+            style={{
+              width: '70px',
+            }}
+            placeholder={String(Number(fSet?.height) / 2)}
+            onChange={onChangeHanleDistance}
+            stringMode={true}
+          />
+        </Form.Item>
+      )}
 
-      <Form.Item
-        label="Висота від низу до ручки"
-        name="hanleDistance"
-      >
-        <InputNumber
-          min={Number(hanleDistanceRestrictions.min)}
-          max={Number(hanleDistanceRestrictions.max)}
-          style={{
-            width: '70px',
-          }}
-          placeholder={String(Number(fSet?.height) / 2)}
-          onChange={onChangeHanleDistance}
-          stringMode={true}
-        />
-      </Form.Item>
+      {fSet?.typeOfOpening === 'type-2' && (
+        <Form.Item
+          label="П/в привід, покращений прижим"
+          name="isTurnTiltGetriebe"
+          valuePropName="checked"
+        >
+          <Checkbox
+            checked={isTurnTiltGetriebe}
+            onChange={onChangeTurnTiltGetriebe}
+            // value={isTurnTiltGetriebe}
+          />
+        </Form.Item>
+      )}
 
-      <Form.Item
-        label="П/в привід, покращений прижим"
-        name="isTurnTiltGetriebe"
-        valuePropName="checked"
-      >
-        <Checkbox
-          checked={isTurnTiltGetriebe}
-          onChange={onChangeTurnTiltGetriebe}
-          // value={isTurnTiltGetriebe}
-        />
-      </Form.Item>
+      {fSet?.typeOfOpening === 'type-5' && (
+        <Form.Item label="Штульп" name="shtulpGetriebe">
+          <Radio.Group onChange={onChangeShtulpGetriebe}>
+            <Radio value="shtulpGetriebe">
+              Штульп-привід
+            </Radio>
+            <Radio value="latch">Шпінгалети</Radio>
+          </Radio.Group>
+        </Form.Item>
+      )}
 
-      <Form.Item label="Штульп" name="shtulpGetriebe">
-        <Radio.Group onChange={onChangeShtulpGetriebe}>
-          <Radio value="shtulpGetriebe">
-            Штульп-привід
-          </Radio>
-          <Radio value="latch">Шпінгалети</Radio>
-        </Radio.Group>
-      </Form.Item>
+      {typeof fSet?.typeOfOpening === 'string' &&
+        ['type-2', 'type-3', 'type-5'].includes(
+          fSet?.typeOfOpening
+        ) && (
+          <Form.Item
+            label="Прижим зі сторони петель"
+            name="typeOfHingeSidePress"
+          >
+            <Select
+              onChange={handleChangeTypeOfHingeSidePress}
+              options={typeOfHingeSidePressConst}
+              listHeight={150}
+            />
+          </Form.Item>
+        )}
+      {typeof fSet?.typeOfOpening === 'string' &&
+        ['type-1', 'type-4'].includes(
+          fSet?.typeOfOpening
+        ) && (
+          <Form.Item
+            label="Зимове провітрювання"
+            name="microVentilation"
+            valuePropName="checked"
+          >
+            <Checkbox
+              checked={microVentilation}
+              onChange={onChangeMicroVentilation}
+            />
+          </Form.Item>
+        )}
 
-      <Form.Item
-        label="Прижим зі сторони петель"
-        name="typeOfHingeSidePress"
-      >
-        <Select
-          onChange={handleChangeTypeOfHingeSidePress}
-          options={typeOfHingeSidePressConst}
-          listHeight={150}
-        />
-      </Form.Item>
+      {fSet?.typeOfOpening !== 'type-3' && (
+        <Form.Item
+          label="Нижній горизонтальний прижим"
+          name="isGorizontalLock"
+          valuePropName="checked"
+        >
+          <Checkbox
+            checked={isGorizontalLock}
+            onChange={onChangeIsGorizontalLock}
+            disabled={isGorizontalLockDisabled}
+          />
+        </Form.Item>
+      )}
 
-      <Form.Item
-        label="Зимове провітрювання"
-        name="microVentilation"
-        valuePropName="checked"
-      >
-        <Checkbox
-          checked={microVentilation}
-          onChange={onChangeMicroVentilation}
-        />
-      </Form.Item>
-
-      <Form.Item
-        label="Нижній горизонтальний прижим"
-        name="isGorizontalLock"
-        valuePropName="checked"
-      >
-        <Checkbox
-          checked={isGorizontalLock}
-          onChange={onChangeIsGorizontalLock}
-        />
-      </Form.Item>
-
-      <Form.Item
-        label="Без нижньої петлі"
-        name="isWithoutBottomHinge"
-        valuePropName="checked"
-      >
-        <Checkbox
-          checked={isWithoutBottomHinge}
-          onChange={onChangeIsWithoutBottomHinge}
-        />
-      </Form.Item>
+      {fSet?.typeOfOpening !== 'type-3' && (
+        <Form.Item
+          label="Без нижньої петлі"
+          name="isWithoutBottomHinge"
+          valuePropName="checked"
+        >
+          <Checkbox
+            checked={isWithoutBottomHinge}
+            onChange={onChangeIsWithoutBottomHinge}
+          />
+        </Form.Item>
+      )}
       <Divider />
     </Box>
   );

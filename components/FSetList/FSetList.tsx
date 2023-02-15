@@ -1,4 +1,7 @@
 import { IFSet } from '@/interfaces/interfaces';
+import { marginTop } from 'styled-system';
+
+import { Box } from '../Box/Box';
 import { FSetItem } from '../FSetItem/FSetItem';
 import { StyledFSetList } from './FSetList.styled';
 
@@ -22,16 +25,18 @@ export default function FSetList({
   setCurrentModalNumber,
 }: IProps) {
   return (
-    <StyledFSetList>
-      {fSetsArray.map(fSet => (
-        <FSetItem
-          key={fSet.id}
-          fSet={fSet}
-          setIsModalOpen={setIsModalOpen}
-          setCurrentSetId={setCurrentSetId}
-          setCurrentModalNumber={setCurrentModalNumber}
-        ></FSetItem>
-      ))}
-    </StyledFSetList>
+    <Box display="flex" flexDirection="column" mt={10}>
+      <StyledFSetList>
+        {fSetsArray.map(fSet => (
+          <FSetItem
+            key={fSet.id}
+            fSet={fSet}
+            setIsModalOpen={setIsModalOpen}
+            setCurrentSetId={setCurrentSetId}
+            setCurrentModalNumber={setCurrentModalNumber}
+          ></FSetItem>
+        ))}
+      </StyledFSetList>
+    </Box>
   );
 }

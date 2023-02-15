@@ -1,11 +1,11 @@
+import { useState, useEffect } from 'react';
+import { Button } from 'antd';
 // import Head from 'next/head';
 // import Image from 'next/image';
 // import { Inter } from '@next/font/google';
 import { MainContainer } from '@/components/MainContainer/MainContainer';
 import { CurrentRate } from '@/components/CurrentRate/CurrentRate';
-import { useState, useEffect } from 'react';
 import FSetList from '@/components/FSetList/FSetList';
-import { AddNewFSetButton } from '../components/AddNewFSetButton/AddNewFSetButton';
 import { getNewSet } from '@/utils/getNewSet';
 import { Box } from '@/components/Box/Box';
 import { useFSetsContext } from '@/context/state';
@@ -35,17 +35,41 @@ export default function Home() {
 
   return (
     <MainContainer>
-      <Box width="100%">
-        <CurrentRate />
+      <>
+        <Box
+          width="100%"
+          display="flex"
+          justifyContent="space-between"
+        >
+          <CurrentRate />
+          <Button
+            type="primary"
+            style={{ marginLeft: 'auto' }}
+          >
+            Розрахувати
+          </Button>
+        </Box>
         <FSetList
           fSetsArray={fSetsArray}
           setIsModalOpen={setIsModalOpen}
           setCurrentSetId={setCurrentSetId}
           setCurrentModalNumber={setCurrentModalNumber}
         />
-        <AddNewFSetButton addNewFSet={addNewFSet}>
-          Додати
-        </AddNewFSetButton>
+        <Box
+          mt={10}
+          display="flex"
+          justifyContent="space-between"
+        >
+          <Button type="primary" onClick={addNewFSet}>
+            Додати
+          </Button>
+          <Button
+            type="primary"
+            style={{ marginLeft: 'auto' }}
+          >
+            Розрахувати
+          </Button>
+        </Box>
 
         <ModalLayout
           setIsModalOpen={setIsModalOpen}
@@ -54,8 +78,9 @@ export default function Home() {
           id={currentSetId}
           modalNumber={currentModalNumber}
         />
-      </Box>
-      {/* <TestComonent /> */}
+
+        {/* <TestComonent /> */}
+      </>
     </MainContainer>
   );
 }

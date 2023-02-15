@@ -70,7 +70,7 @@ export const ModalTypeOfOpening = ({
       <Select
         onChange={handleChange}
         options={typeOfOpeningSelectOpions}
-        listHeight={150}
+        listHeight={170}
       />
     </Form.Item>
   );
