@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Radio, Form } from 'antd';
-import url from '../../img/maco-logo.svg';
-import { Box } from '../Box/Box';
 import IconMacoLogo from '../../img/maco-logo.svg';
 import IconMacoLogoGray from '../../img/maco-logo-gray.svg';
 import IconVorneLogo from '../../img/vorne-logo.svg';
 import IconVorneLogoGray from '../../img/vorne-logo-gray.svg';
+import IconWinkhausLogo from '../../img/winkhaus-logo.svg';
+import IconWinkhauseLogoGray from '../../img/winkhaus-logo-gray.svg';
+
 import type { RadioChangeEvent } from 'antd';
 import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
@@ -19,9 +20,9 @@ type TProps = {
 export const ModalSetBrand = ({ id, form }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [fSet, setFSet] = useState<IFSet | null>(null);
-  const [brand, setBrand] = useState<'maco' | 'vorne'>(
-    'maco'
-  );
+  const [brand, setBrand] = useState<
+    'maco' | 'vorne' | 'winkhaus'
+  >('maco');
 
   const onChangeBrand = (e: RadioChangeEvent) => {
     setBrand(e.target.value);
@@ -86,6 +87,21 @@ export const ModalSetBrand = ({ id, form }: TProps) => {
             <IconVorneLogo width={80} />
           ) : (
             <IconVorneLogoGray width={80} />
+          )}
+        </Radio.Button>
+        <Radio.Button
+          value="winkhaus"
+          style={{
+            height: 100,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {brand === 'winkhaus' ? (
+            <IconWinkhausLogo width={80} />
+          ) : (
+            <IconWinkhauseLogoGray width={80} />
           )}
         </Radio.Button>
       </Radio.Group>

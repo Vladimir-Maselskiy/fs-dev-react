@@ -4,6 +4,7 @@ import IconOptions from '../../img/options.svg';
 import IconTypeOfWindow from '../../img/type-of-window.svg';
 import IconMacoLogo from '../../img/maco-logo.svg';
 import IconVorneLogo from '../../img/vorne-logo.svg';
+import IconWinkhausLogo from '../../img/winkhaus-logo.svg';
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import { Box } from '../Box/Box';
 import { useFSetsContext } from '@/context/state';
@@ -55,6 +56,9 @@ export const ControlButtons = ({
           )}
           {fSet?.brand === 'vorne' && (
             <IconVorneLogo width={32} />
+          )}
+          {fSet?.brand === 'winkhaus' && (
+            <IconWinkhausLogo width={32} />
           )}
         </>
       </StyledControlButton>
