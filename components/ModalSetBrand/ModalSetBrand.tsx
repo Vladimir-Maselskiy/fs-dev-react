@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Radio, Form, Input, Checkbox, Button } from 'antd';
+import { Radio, Form } from 'antd';
 import url from '../../img/maco-logo.svg';
 import { Box } from '../Box/Box';
 import IconMacoLogo from '../../img/maco-logo.svg';
 import IconMacoLogoGray from '../../img/maco-logo-gray.svg';
+import IconVorneLogo from '../../img/vorne-logo.svg';
+import IconVorneLogoGray from '../../img/vorne-logo-gray.svg';
 import type { RadioChangeEvent } from 'antd';
 import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
+import { getSetById } from '@/utils/getSetById';
 
 type TProps = {
   id: string;
@@ -25,55 +28,67 @@ export const ModalSetBrand = ({ id, form }: TProps) => {
   };
 
   useEffect(() => {
+    console.log('rerender');
+    const originalfSet = getSetById(id, fSetsArray);
+    if (originalfSet) {
+      const fSet = { ...originalfSet };
+      setFSet(fSet);
+      setBrand(fSet.brand);
+    }
+  }, [id]);
+
+  useEffect(() => {
     form.setFieldsValue({ brand });
     if (fSet) setFSet({ ...fSet, brand });
   }, [brand]);
 
   return (
-    <Radio.Group
-      defaultValue="a"
-      onChange={onChangeBrand}
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
+    <Form.Item name="brand">
+      <Radio.Group
+        defaultValue="a"
+        onChange={onChangeBrand}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
 
-        gap: '10px',
-        paddingTop: '40px',
-        paddingBottom: '10px',
-      }}
-      // buttonStyle="solid"
-      optionType="button"
-    >
-      <Radio.Button
-        value="maco"
-        style={{
-          height: 100,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          gap: '10px',
+          paddingTop: '40px',
+          paddingBottom: '10px',
         }}
+        // buttonStyle="solid"
+        optionType="button"
       >
-        {brand === 'maco' ? (
-          <IconMacoLogo width={80} height={80} />
-        ) : (
-          <IconMacoLogoGray width={80} height={80} />
-        )}
-      </Radio.Button>
-      <Radio.Button
-        value="vorne"
-        style={{
-          height: 100,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {brand === 'maco' ? (
-          <IconMacoLogo width={80} height={80} />
-        ) : (
-          <IconMacoLogoGray width={80} height={80} />
-        )}
-      </Radio.Button>
-    </Radio.Group>
+        <Radio.Button
+          value="maco"
+          style={{
+            height: 100,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {brand === 'maco' ? (
+            <IconMacoLogo width={80} height={80} />
+          ) : (
+            <IconMacoLogoGray width={80} height={80} />
+          )}
+        </Radio.Button>
+        <Radio.Button
+          value="vorne"
+          style={{
+            height: 100,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {brand === 'vorne' ? (
+            <IconVorneLogo width={80} />
+          ) : (
+            <IconVorneLogoGray width={80} />
+          )}
+        </Radio.Button>
+      </Radio.Group>
+    </Form.Item>
   );
 };

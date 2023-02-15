@@ -12,7 +12,6 @@ export const getNewSet = (id = '0'): IFSet => {
     quantitySet: '1',
     sideOfHinge: 'right',
     systemOfPVC: '13',
-    gorizontalLock: false,
     typeOfOpening: 'type-1',
     hanleDistance: undefined,
     shtulpGetriebe: 'latch',
@@ -20,6 +19,6 @@ export const getNewSet = (id = '0'): IFSet => {
     typeOfHingeSidePress: 'hingeSidePress-type-2',
     microVentilation: true,
     isGorizontalLock: true,
-    isWithoutBottomHinge: false
+    isWithoutBottomHinge: false,
   };
 };

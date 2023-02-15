@@ -31,7 +31,6 @@ export interface IFSet {
   quantitySet: string;
   sideOfHinge: 'left' | 'right';
   systemOfPVC: '13' | '9' | 'Rehau' | 'Veka' | 'Salamander';
-  gorizontalLock: boolean;
   typeOfOpening: TTypeOfOpenimg;
   hanleDistance: string | undefined;
   shtulpGetriebe: 'shtulpGetriebe' | 'latch';
