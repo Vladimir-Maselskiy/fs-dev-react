@@ -150,6 +150,8 @@ export const WidthAndHeightInput = ({
       <Box>
         <StyledP>Ширина</StyledP>
         <InputNumber
+          type="number"
+          inputMode="numeric"
           pattern="\d"
           ref={widthInputRef}
           min={minWith}
@@ -171,6 +173,7 @@ export const WidthAndHeightInput = ({
         <StyledP>Висота</StyledP>
         <InputNumber
           type="number"
+          inputMode="numeric"
           pattern="\d"
           ref={heihtInputRef}
           min={minHeight}
