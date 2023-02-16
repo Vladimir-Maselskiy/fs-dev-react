@@ -11,6 +11,7 @@ import type { RadioChangeEvent } from 'antd';
 import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
 import { getSetById } from '@/utils/getSetById';
+import { setIsInputValid } from '@/utils/setIsInputValid';
 
 type TProps = {
   id: string;
@@ -29,7 +30,6 @@ export const ModalSetBrand = ({ id, form }: TProps) => {
   };
 
   useEffect(() => {
-    console.log('rerender');
     const originalfSet = getSetById(id, fSetsArray);
     if (originalfSet) {
       const fSet = { ...originalfSet };

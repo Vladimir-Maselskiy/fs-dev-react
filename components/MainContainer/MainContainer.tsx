@@ -15,6 +15,11 @@ export const MainContainer = ({ children }: Props) => {
         token: {
           colorPrimary: 'rgb(33, 150, 243)',
         },
+        components: {
+          InputNumber: {
+            colorText: 'rgb(33, 150, 243)',
+          },
+        },
       }}
     >
       <StyledMainContainer>

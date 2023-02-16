@@ -19,30 +19,34 @@ export const ImportantSetsOptions = ({ fSet }: TProps) => {
         alignItems="center"
         mt={10}
       >
-        <p>Сторона петель:</p>
-        <Box
-          display="flex"
-          width={160}
-          justifyContent="space-between"
-        >
-          <label>
-            <input
-              type="radio"
-              name={`side-of-hinge-${fSet.id}`}
-              value="left"
-            />
-            Ліворуч
-          </label>
-          <label>
-            <input
-              type="radio"
-              name={`side-of-hinge-${fSet.id}`}
-              value="right"
-              defaultChecked={true}
-            />
-            Праворуч
-          </label>
-        </Box>
+        {fSet.typeOfOpening !== 'type-3' && (
+          <>
+            <p>Сторона петель:</p>
+            <Box
+              display="flex"
+              width={160}
+              justifyContent="space-between"
+            >
+              <label>
+                <input
+                  type="radio"
+                  name={`side-of-hinge-${fSet.id}`}
+                  value="left"
+                />
+                Ліворуч
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name={`side-of-hinge-${fSet.id}`}
+                  value="right"
+                  defaultChecked={true}
+                />
+                Праворуч
+              </label>
+            </Box>
+          </>
+        )}
       </Box>
       <Box
         display="flex"

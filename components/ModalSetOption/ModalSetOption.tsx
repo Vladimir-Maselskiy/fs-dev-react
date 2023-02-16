@@ -59,7 +59,6 @@ export const ModalSetOption = ({ id, form }: TProps) => {
   ] = useState(false);
 
   useEffect(() => {
-    console.log('rerender');
     const originalfSet = getSetById(id, fSetsArray);
     if (originalfSet) {
       const fSet = { ...originalfSet };
@@ -138,7 +137,6 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     e: CheckboxChangeEvent
   ) => {
     const boolean = e.target.checked;
-    console.log('onChangeTurnTiltGetriebe', boolean);
     setIsTurnTiltGetriebe(boolean);
   };
 

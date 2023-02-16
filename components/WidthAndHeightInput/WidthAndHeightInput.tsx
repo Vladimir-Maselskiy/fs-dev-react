@@ -4,6 +4,9 @@ import { useFSetsContext } from '@/context/state';
 import { InputNumber } from 'antd';
 import { getSetById } from '@/utils/getSetById';
 import { getValidateStatus } from '@/utils/getValidateStatus';
+import { setIsInputValid } from '@/utils/setIsInputValid';
+import { StyledP } from './WidthAndHeightInput.styled';
+import { getSetRestrictions } from '@/utils/getSetRestrictions';
 
 type TProps = {
   id: string;
@@ -75,6 +78,23 @@ export const WidthAndHeightInput = ({
     } else setIsOptitionButtonDisabled(true);
   }, [fSet?.isWidthValid, fSet?.isHeightValid]);
 
+  useEffect(() => {
+    if (fSet?.width && fSet.height) {
+      const widthStatus = getValidateStatus(
+        fSet,
+        'width',
+        getSetRestrictions(fSet)
+      );
+      setFrontStatusWidthInput(widthStatus);
+      const heightStatus = getValidateStatus(
+        fSet,
+        'height',
+        getSetRestrictions(fSet)
+      );
+      setFrontStatusHeightInput(heightStatus);
+    }
+  }, [fSet?.typeOfOpening, fSet?.brand]);
+
   const onChangeWidthInput = (value: number | null) => {
     if (value) {
       setWidth(value);
@@ -95,32 +115,44 @@ export const WidthAndHeightInput = ({
   };
 
   const onBlurWidthInput = () => {
-    if (fSet)
-      setFrontStatusWidthInput(
-        getValidateStatus(fSet, 'width', {
-          minWith,
-          minHeight,
-          maxHeight,
-          maxWidth,
-        })
+    if (fSet) {
+      const status = getValidateStatus(fSet, 'width', {
+        minWith,
+        minHeight,
+        maxHeight,
+        maxWidth,
+      });
+      setFrontStatusWidthInput(status);
+      setIsInputValid(
+        fSetsArray,
+        setFSetsArray,
+        fSet.id,
+        'isWidthValid'
       );
+    }
   };
   const onBlurHeightInput = () => {
-    if (fSet)
-      setFrontStatusHeightInput(
-        getValidateStatus(fSet, 'height', {
-          minWith,
-          minHeight,
-          maxHeight,
-          maxWidth,
-        })
+    if (fSet) {
+      const status = getValidateStatus(fSet, 'height', {
+        minWith,
+        minHeight,
+        maxHeight,
+        maxWidth,
+      });
+      setFrontStatusHeightInput(status);
+      setIsInputValid(
+        fSetsArray,
+        setFSetsArray,
+        fSet.id,
+        'isHeightValid'
       );
+    }
   };
 
   return (
     <Box>
       <Box>
-        <p>Ширина</p>
+        <StyledP>Ширина</StyledP>
         <InputNumber
           ref={widthInputRef}
           min={minWith}
@@ -139,7 +171,7 @@ export const WidthAndHeightInput = ({
         />
       </Box>
       <Box mt={10}>
-        <p>Висота</p>
+        <StyledP>Висота</StyledP>
         <InputNumber
           ref={heihtInputRef}
           min={minHeight}

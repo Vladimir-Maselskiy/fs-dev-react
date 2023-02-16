@@ -12,14 +12,6 @@ import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/getSetById';
 import { height } from 'styled-system';
 
-// const onFinish = (values: any) => {
-//   console.log('Success:', values);
-// };
-
-// const onFinishFailed = (errorInfo: any) => {
-//   console.log('Failed:', errorInfo);
-// };
-
 export const TestComonent = () => {
   const { fSetsArray } = useFSetsContext();
   const [fSet, setFSet] = useState(
@@ -35,10 +27,8 @@ export const TestComonent = () => {
         setFSet({ ...fSet, height: 0 });
       } else {
         setFSet({ ...fSet, height: fSet.height + 1 });
-        console.log('else');
       }
   };
-  console.log('fSet?.height', fSet?.height);
   return (
     // <Form
     //   name="basic"

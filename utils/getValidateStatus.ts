@@ -19,4 +19,5 @@ export const getValidateStatus = (
       return undefined;
     } else return 'error';
   }
+  return 'error';
 };

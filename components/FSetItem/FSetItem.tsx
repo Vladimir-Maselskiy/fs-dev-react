@@ -7,7 +7,7 @@ import { ImportantSetsOptions } from '../ImportantSetsOptions/ImportantSetsOptio
 import { QuantityOfSets } from '../QuantityOfSets/QuantityOfSets';
 import { WidthAndHeightInput } from '../WidthAndHeightInput/WidthAndHeightInput';
 import { useFSetsContext } from '@/context/state';
-import { getSetRestrictions } from '@/utils/rate/getSetRestrictions';
+import { getSetRestrictions } from '@/utils/getSetRestrictions';
 import { TRestrictions } from '@/const';
 
 interface IProp {

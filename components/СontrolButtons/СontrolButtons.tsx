@@ -10,6 +10,7 @@ import { Box } from '../Box/Box';
 import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/getSetById';
 import { IFSet } from '@/interfaces/interfaces';
+import { setIsInputValid } from '@/utils/setIsInputValid';
 
 type TProps = {
   isOptitionButtonDisabled: boolean;
@@ -32,13 +33,30 @@ export const ControlButtons = ({
   setCurrentSetId,
   setCurrentModalNumber,
 }: TProps) => {
-  const { fSetsArray } = useFSetsContext();
+  const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [fSet, setFSet] = useState<IFSet | null>(null);
 
   useEffect(() => {
     const currentSet = getSetById(id, fSetsArray);
     if (currentSet) setFSet(currentSet);
   }, [fSetsArray]);
+
+  useEffect(() => {
+    if (fSet) {
+      setIsInputValid(
+        fSetsArray,
+        setFSetsArray,
+        fSet.id,
+        'isWidthValid'
+      );
+      setIsInputValid(
+        fSetsArray,
+        setFSetsArray,
+        fSet.id,
+        'isHeightValid'
+      );
+    }
+  }, [fSet?.brand, fSet?.typeOfOpening]);
 
   return (
     <Box display="flex" flexDirection="column">

@@ -50,27 +50,20 @@ export const QuantityOfSets = ({
           }
           onClick={() => onChangeCounterByClick(-1)}
         ></Button>
-        <ConfigProvider
-          theme={{
-            token: {
-              colorText: 'rgb(33, 150, 243)',
-            },
+
+        <InputNumber
+          min={1}
+          max={99}
+          controls={false}
+          style={{
+            width: '60px',
+            height: '50px',
+            fontSize: '30px',
+            paddingTop: '10px',
           }}
-        >
-          <InputNumber
-            min={1}
-            max={99}
-            controls={false}
-            style={{
-              width: '60px',
-              height: '50px',
-              fontSize: '30px',
-              paddingTop: '10px',
-            }}
-            onChange={onChangeInput}
-            value={counter}
-          />
-        </ConfigProvider>
+          onChange={onChangeInput}
+          value={counter}
+        />
         <Button
           type="default"
           style={{ width: '50px', height: '50px' }}

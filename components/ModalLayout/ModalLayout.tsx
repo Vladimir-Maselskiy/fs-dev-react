@@ -4,6 +4,7 @@ import { Form, ConfigProvider, Button } from 'antd';
 import { getSetById } from '@/utils/getSetById';
 import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
+import { setIsInputValid } from '@/utils/setIsInputValid';
 
 type TProps = {
   setIsModalOpen: React.Dispatch<
@@ -43,15 +44,13 @@ export const ModalLayout = ({
   }, [fSet]);
 
   const onFinishHandleSubmit = (values: any) => {
-    console.log('onFinishHandleSubmit', values);
     const currentSet = getSetById(id, fSetsArray);
+
     if (currentSet) setFSet({ ...currentSet, ...values });
     form.resetFields();
     setIsModalOpen(false);
   };
-  const onValuesChange = (values: any) => {
-    console.log(values);
-  };
+  const onValuesChange = (values: any) => {};
 
   return (
     <StyledModal
