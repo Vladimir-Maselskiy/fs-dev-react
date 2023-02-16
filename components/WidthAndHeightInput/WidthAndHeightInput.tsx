@@ -7,18 +7,14 @@ import { getValidateStatus } from '@/utils/getValidateStatus';
 import { setIsInputValid } from '@/utils/setIsInputValid';
 import { StyledP } from './WidthAndHeightInput.styled';
 import { getSetRestrictions } from '@/utils/getSetRestrictions';
+import { TRestrictions } from '@/const';
 
 type TProps = {
   id: string;
   setIsOptitionButtonDisabled: React.Dispatch<
     React.SetStateAction<boolean>
   >;
-  restrictions: {
-    minWith: number;
-    maxWidth: number;
-    minHeight: number;
-    maxHeight: number;
-  };
+  restrictions: TRestrictions;
 };
 
 export const WidthAndHeightInput = ({
@@ -154,6 +150,7 @@ export const WidthAndHeightInput = ({
       <Box>
         <StyledP>Ширина</StyledP>
         <InputNumber
+          pattern="\d"
           ref={widthInputRef}
           min={minWith}
           max={maxWidth}
@@ -173,6 +170,7 @@ export const WidthAndHeightInput = ({
       <Box mt={10}>
         <StyledP>Висота</StyledP>
         <InputNumber
+          pattern="\d"
           ref={heihtInputRef}
           min={minHeight}
           max={maxHeight}
