@@ -11,6 +11,7 @@ import { Box } from '@/components/Box/Box';
 import { useFSetsContext } from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/CurrentModal/CurrentModal';
+import { TestComonent } from '@/components/TestComonent/TestComonent';
 
 // const inter = Inter({ subsets: ['latin'] });
 

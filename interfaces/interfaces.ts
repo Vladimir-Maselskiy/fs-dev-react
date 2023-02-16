@@ -24,8 +24,8 @@ export type TTypeOfOpenimg =
 export interface IFSet {
   id: string;
   brand: 'maco' | 'vorne' | 'winkhaus';
-  width: string;
-  height: string;
+  width: number | undefined;
+  height: number | undefined;
   isWidthValid: 'initial' | 'valid' | 'invalid';
   isHeightValid: 'initial' | 'valid' | 'invalid';
   quantitySet: number;

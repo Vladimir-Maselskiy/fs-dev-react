@@ -5,8 +5,8 @@ export const getNewSet = (id = '0'): IFSet => {
   return {
     id,
     brand: 'maco',
-    width: '',
-    height: '',
+    width: undefined,
+    height: undefined,
     isWidthValid: 'initial',
     isHeightValid: 'initial',
     quantitySet: 1,

@@ -1,97 +1,162 @@
-import { onInputInInput } from '@/utils/handlers/onInputInInput';
-import { onBlurInput } from '@/utils/handlers/onBlurInput';
 import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '../Box/Box';
-import {
-  StyledInput,
-  StyledLabel,
-} from './WidthAndHeightInput.styled';
 import { useFSetsContext } from '@/context/state';
-import { IFSet } from '@/interfaces/interfaces';
-import { onKeyDownOnInput } from '@/utils/handlers/onKeyDownOnInput';
-import { Form, InputNumber } from 'antd';
+import { InputNumber } from 'antd';
+import { getSetById } from '@/utils/getSetById';
+import { getValidateStatus } from '@/utils/getValidateStatus';
 
 type TProps = {
-  width: string;
-  setWidth: React.Dispatch<React.SetStateAction<string>>;
-  height: string;
-  setHeight: React.Dispatch<React.SetStateAction<string>>;
-  fSet: IFSet;
+  id: string;
+  setIsOptitionButtonDisabled: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+  restrictions: {
+    minWith: number;
+    maxWidth: number;
+    minHeight: number;
+    maxHeight: number;
+  };
 };
 
 export const WidthAndHeightInput = ({
-  width,
-  setWidth,
-  height,
-  setHeight,
-  fSet,
+  id,
+  setIsOptitionButtonDisabled,
+  restrictions: { minWith, minHeight, maxHeight, maxWidth },
 }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
+
+  const [width, setWidth] = useState<number | undefined>(
+    undefined
+  );
+  const [height, setHeight] = useState<number | undefined>(
+    undefined
+  );
 
   const widthInputRef = useRef<HTMLInputElement>(null);
   const heihtInputRef = useRef<HTMLInputElement>(null);
 
-  const onChangeWidthInput = (value: number | null) => {};
+  const [frontStatusWidthInput, setFrontStatusWidthInput] =
+    useState<undefined | 'error'>(undefined);
+  const [
+    frontStatusHeightInput,
+    setFrontStatusHeightInput,
+  ] = useState<undefined | 'error'>(undefined);
+
+  const [fSet, setFSet] = useState(
+    getSetById(id, fSetsArray)
+  );
+
+  useEffect(() => {
+    if (fSet) {
+      setFSetsArray(prev =>
+        prev.map(currentFSet => {
+          if (fSet.id === currentFSet.id)
+            return { ...currentFSet, width, height };
+          return currentFSet;
+        })
+      );
+    }
+  }, [width, height]);
+
+  useEffect(() => {
+    setFSet(getSetById(id, fSetsArray));
+  }, [fSetsArray]);
+
+  useEffect(() => {
+    setFSet(getSetById(id, fSetsArray));
+  }, [fSetsArray]);
+
+  useEffect(() => {
+    if (
+      fSet?.isWidthValid === 'valid' &&
+      fSet.isHeightValid === 'valid'
+    ) {
+      setIsOptitionButtonDisabled(false);
+    } else setIsOptitionButtonDisabled(true);
+  }, [fSet?.isWidthValid, fSet?.isHeightValid]);
+
+  const onChangeWidthInput = (value: number | null) => {
+    if (value) {
+      setWidth(value);
+    }
+  };
+  const onChangeHeightInput = (value: number | null) => {
+    if (value) {
+      setHeight(value);
+    }
+  };
 
   const onPressEnterWidth = (e: any) => {
     widthInputRef?.current?.blur();
     heihtInputRef?.current?.focus();
   };
+  const onPressEnterHeight = (e: any) => {
+    heihtInputRef?.current?.blur();
+  };
+
+  const onBlurWidthInput = () => {
+    if (fSet)
+      setFrontStatusWidthInput(
+        getValidateStatus(fSet, 'width', {
+          minWith,
+          minHeight,
+          maxHeight,
+          maxWidth,
+        })
+      );
+  };
+  const onBlurHeightInput = () => {
+    if (fSet)
+      setFrontStatusHeightInput(
+        getValidateStatus(fSet, 'height', {
+          minWith,
+          minHeight,
+          maxHeight,
+          maxWidth,
+        })
+      );
+  };
 
   return (
     <Box>
-      <p>Ширина</p>
-      <InputNumber
-        ref={widthInputRef}
-        min={1}
-        max={2250}
-        style={{
-          width: '110px',
-          height: '50px',
-          fontSize: '30px',
-          paddingTop: '10px',
-        }}
-        onChange={onChangeWidthInput}
-        onPressEnter={onPressEnterWidth}
-        // value={counter}
-      />
-      {/* <StyledInput
+      <Box>
+        <p>Ширина</p>
+        <InputNumber
           ref={widthInputRef}
-          type="number"
+          min={minWith}
+          max={maxWidth}
+          style={{
+            width: '110px',
+            height: '50px',
+            fontSize: '30px',
+            paddingTop: '10px',
+          }}
+          onChange={onChangeWidthInput}
+          onPressEnter={onPressEnterWidth}
+          onBlur={onBlurWidthInput}
           value={width}
-          name="width"
-          borderStyle={fSet.isWidthValid}
-          onInput={e => onInputInInput(e, 4, setWidth)}
-          onBlur={e => onBlurInput(e, fSet, setFSetsArray)}
-          onKeyDown={e => {
-            onKeyDownOnInput(
-              e,
-              widthInputRef,
-              heihtInputRef,
-              'width'
-            );
-          }}
-        /> */}
-      <StyledLabel>
-        Висота
-        <StyledInput
-          ref={heihtInputRef}
-          type="number"
-          value={height}
-          name="height"
-          borderStyle={fSet.isHeightValid}
-          onInput={e => onInputInInput(e, 4, setHeight)}
-          onBlur={e => onBlurInput(e, fSet, setFSetsArray)}
-          onKeyDown={e => {
-            onKeyDownOnInput(
-              e,
-              widthInputRef,
-              heihtInputRef,
-              'height'
-            );
-          }}
+          status={frontStatusWidthInput}
         />
-      </StyledLabel>
+      </Box>
+      <Box mt={10}>
+        <p>Висота</p>
+        <InputNumber
+          ref={heihtInputRef}
+          min={minHeight}
+          max={maxHeight}
+          style={{
+            width: '110px',
+            height: '50px',
+            fontSize: '30px',
+            paddingTop: '10px',
+          }}
+          onChange={onChangeHeightInput}
+          onPressEnter={onPressEnterHeight}
+          onBlur={onBlurHeightInput}
+          value={height}
+          status={frontStatusHeightInput}
+        />
+      </Box>
     </Box>
   );
 };

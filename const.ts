@@ -43,4 +43,31 @@ export const typeOfOpeningSelectOpions = [
   { value: 'type-5', label: 'Штульп пасивна' },
 ];
 
+export type TRestrictions = {
+  minWith: number;
+  maxWidth: number;
+  minHeight: number;
+  maxHeight: number;
+};
+
+export const type3Restrictions = {
+  minWith: 300,
+  maxWidth: 2400,
+  minHeight: 350,
+  maxHeight: 800,
+};
+
+export const macoRestrictions = {
+  minWith: 300,
+  maxWidth: 1300,
+  minHeight: 470,
+  maxHeight: 2500,
+};
+
+export const vorneRestrictions = {
+  minWith: 300,
+  maxWidth: 1300,
+  minHeight: 470,
+  maxHeight: 2200,
+};
 export default { maco };

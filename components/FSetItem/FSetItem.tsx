@@ -7,6 +7,8 @@ import { ImportantSetsOptions } from '../ImportantSetsOptions/ImportantSetsOptio
 import { QuantityOfSets } from '../QuantityOfSets/QuantityOfSets';
 import { WidthAndHeightInput } from '../WidthAndHeightInput/WidthAndHeightInput';
 import { useFSetsContext } from '@/context/state';
+import { getSetRestrictions } from '@/utils/rate/getSetRestrictions';
+import { TRestrictions } from '@/const';
 
 interface IProp {
   fSet: IFSet;
@@ -35,26 +37,22 @@ export const FSetItem = ({
   const [counter, setCounter] = useState<number>(
     fSet.quantitySet
   );
-  const [width, setWidth] = useState<string>(fSet.width);
-  const [height, setHeight] = useState<string>(fSet.height);
+
+  const [restrictions, setRestrictions] =
+    useState<TRestrictions>(getSetRestrictions(fSet));
 
   useEffect(() => {
-    if (
-      fSet.isWidthValid === 'valid' &&
-      fSet.isHeightValid === 'valid'
-    ) {
-      setIsOptitionButtonDisabled(false);
-    } else setIsOptitionButtonDisabled(true);
-  }, [fSet.isWidthValid, fSet.isHeightValid]);
+    if (fSet) setRestrictions(getSetRestrictions(fSet));
+  }, [fSet]);
 
   return (
     <StyledFSetItem>
       <WidthAndHeightInput
-        width={width}
-        height={height}
-        setWidth={setWidth}
-        setHeight={setHeight}
-        fSet={fSet}
+        setIsOptitionButtonDisabled={
+          setIsOptitionButtonDisabled
+        }
+        id={fSet.id}
+        restrictions={restrictions}
       />
       <Box
         display="flex"
