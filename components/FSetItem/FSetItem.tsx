@@ -32,7 +32,7 @@ export const FSetItem = ({
     isOptitionButtonDisabled,
     setIsOptitionButtonDisabled,
   ] = useState(true);
-  const [counter, setCounter] = useState<string>(
+  const [counter, setCounter] = useState<number>(
     fSet.quantitySet
   );
   const [width, setWidth] = useState<string>(fSet.width);

@@ -1,18 +1,14 @@
-import { onInputInInput } from '@/utils/handlers/onInputInInput';
+import { Button, ConfigProvider, InputNumber } from 'antd';
 import React from 'react';
 import {
   AiOutlineMinus,
   AiOutlinePlus,
 } from 'react-icons/ai';
 import { Box } from '../Box/Box';
-import {
-  StyledButton,
-  StyledSetsCounter,
-} from './QuantityOfSets.styled';
 
 type TProps = {
-  counter: string;
-  setCounter: React.Dispatch<React.SetStateAction<string>>;
+  counter: number;
+  setCounter: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const QuantityOfSets = ({
@@ -20,9 +16,13 @@ export const QuantityOfSets = ({
   setCounter,
 }: TProps) => {
   const onChangeCounterByClick = (num: number): void => {
-    if (+counter <= 0 && num < 0) return;
+    if (+counter <= 1 && num < 0) return;
     if (+counter >= 99 && num > 0) return;
-    setCounter(prev => String(+prev + num));
+    setCounter(prev => prev + num);
+  };
+
+  const onChangeInput = (value: number | null) => {
+    if (value) setCounter(value);
   };
 
   return (
@@ -30,7 +30,7 @@ export const QuantityOfSets = ({
       display="flex"
       flexDirection="column"
       alignItems="center"
-      width={160}
+      width={180}
     >
       <p>Кількість</p>
       <Box
@@ -39,29 +39,49 @@ export const QuantityOfSets = ({
         justifyContent="space-between"
         width="100%"
       >
-        <StyledButton
-          type="button"
+        <Button
+          type="default"
+          style={{ width: '50px', height: '50px' }}
+          icon={
+            <AiOutlineMinus
+              size={40}
+              color="var(--accent-color)"
+            />
+          }
           onClick={() => onChangeCounterByClick(-1)}
+        ></Button>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorText: 'rgb(33, 150, 243)',
+            },
+          }}
         >
-          <AiOutlineMinus
-            size={40}
-            color="var(--accent-color)"
+          <InputNumber
+            min={1}
+            max={99}
+            controls={false}
+            style={{
+              width: '60px',
+              height: '50px',
+              fontSize: '30px',
+              paddingTop: '10px',
+            }}
+            onChange={onChangeInput}
+            value={counter}
           />
-        </StyledButton>
-        <StyledSetsCounter
-          type="number"
-          value={counter}
-          onChange={e => onInputInInput(e, 2, setCounter)}
-        />
-        <StyledButton
-          type="button"
+        </ConfigProvider>
+        <Button
+          type="default"
+          style={{ width: '50px', height: '50px' }}
+          icon={
+            <AiOutlinePlus
+              size={40}
+              color="var(--accent-color)"
+            />
+          }
           onClick={() => onChangeCounterByClick(1)}
-        >
-          <AiOutlinePlus
-            size={40}
-            color="var(--accent-color)"
-          />
-        </StyledButton>
+        ></Button>
       </Box>
     </Box>
   );

@@ -9,6 +9,7 @@ import {
 import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
 import { onKeyDownOnInput } from '@/utils/handlers/onKeyDownOnInput';
+import { Form, InputNumber } from 'antd';
 
 type TProps = {
   width: string;
@@ -30,11 +31,31 @@ export const WidthAndHeightInput = ({
   const widthInputRef = useRef<HTMLInputElement>(null);
   const heihtInputRef = useRef<HTMLInputElement>(null);
 
+  const onChangeWidthInput = (value: number | null) => {};
+
+  const onPressEnterWidth = (e: any) => {
+    widthInputRef?.current?.blur();
+    heihtInputRef?.current?.focus();
+  };
+
   return (
     <Box>
-      <StyledLabel>
-        Ширина
-        <StyledInput
+      <p>Ширина</p>
+      <InputNumber
+        ref={widthInputRef}
+        min={1}
+        max={2250}
+        style={{
+          width: '110px',
+          height: '50px',
+          fontSize: '30px',
+          paddingTop: '10px',
+        }}
+        onChange={onChangeWidthInput}
+        onPressEnter={onPressEnterWidth}
+        // value={counter}
+      />
+      {/* <StyledInput
           ref={widthInputRef}
           type="number"
           value={width}
@@ -50,9 +71,7 @@ export const WidthAndHeightInput = ({
               'width'
             );
           }}
-        />
-      </StyledLabel>
-
+        /> */}
       <StyledLabel>
         Висота
         <StyledInput

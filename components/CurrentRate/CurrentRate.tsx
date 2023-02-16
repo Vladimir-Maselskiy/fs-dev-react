@@ -6,11 +6,15 @@ import { BiEuro } from 'react-icons/bi';
 import { useState, useEffect } from 'react';
 import { setStartRate } from '@/utils/rate/setStartRate';
 import { getCurrentRate } from '@/utils/rate/getCurrentRate';
-import { Oval } from 'react-loader-spinner';
+import { Spin } from 'antd';
+import { Box } from '../Box/Box';
+import { style } from 'styled-system';
 
 export const CurrentRate = () => {
   const [rate, setRate] = useState(setStartRate());
   const [isLoading, setIsLoading] = useState(false);
+  const [isRateRefreshed, setIsRateRefreshed] =
+    useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -20,6 +24,7 @@ export const CurrentRate = () => {
         localStorage.setItem('rate', rate);
         setRate(rate);
         setIsLoading(false);
+        setIsRateRefreshed(true);
       }
     });
   }, []);
@@ -31,22 +36,16 @@ export const CurrentRate = () => {
 
   return (
     <StyledCurrentRate>
-      <BiEuro size={24} />
-      <StyledSpanRate>{rate}</StyledSpanRate>
-      {isLoading && (
-        <Oval
-          height={24}
-          width={24}
-          color="#4fa94d"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={true}
-          ariaLabel="oval-loading"
-          secondaryColor="#4fa94d"
-          strokeWidth={2}
-          strokeWidthSecondary={2}
-        />
-      )}
+      <BiEuro
+        size={24}
+        color={isLoading ? 'var(--grey-color)' : '#000000'}
+      />
+      <StyledSpanRate isRateRefreshed={isRateRefreshed}>
+        {rate}
+      </StyledSpanRate>
+      <Box ml="5px" pt="3px">
+        <Spin spinning={isLoading} />
+      </Box>
     </StyledCurrentRate>
   );
 };

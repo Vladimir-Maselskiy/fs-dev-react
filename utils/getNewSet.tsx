@@ -9,7 +9,7 @@ export const getNewSet = (id = '0'): IFSet => {
     height: '',
     isWidthValid: 'initial',
     isHeightValid: 'initial',
-    quantitySet: '1',
+    quantitySet: 1,
     sideOfHinge: 'right',
     systemOfPVC: '13',
     typeOfOpening: 'type-1',

@@ -28,7 +28,7 @@ export interface IFSet {
   height: string;
   isWidthValid: 'initial' | 'valid' | 'invalid';
   isHeightValid: 'initial' | 'valid' | 'invalid';
-  quantitySet: string;
+  quantitySet: number;
   sideOfHinge: 'left' | 'right';
   systemOfPVC: '13' | '9' | 'Rehau' | 'Veka' | 'Salamander';
   typeOfOpening: TTypeOfOpenimg;
