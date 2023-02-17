@@ -46,7 +46,6 @@ export const ModalSetBrand = ({ id, form }: TProps) => {
   return (
     <Form.Item name="brand">
       <Radio.Group
-        defaultValue="a"
         onChange={onChangeBrand}
         style={{
           display: 'flex',

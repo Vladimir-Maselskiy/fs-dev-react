@@ -19,6 +19,7 @@ import {
 } from '@/interfaces/interfaces';
 import { typeOfHingeSidePressConst } from '@/const';
 import { isStringInUnionTypeOfHingeSidePress } from '@/utils/ts-utils/isStringInUnion';
+import { getCurrentIsGorizontalLock } from '@/utils/getCurrentIsGorizontalLock';
 
 type TProps = {
   id: string;
@@ -27,23 +28,32 @@ type TProps = {
 
 export const ModalSetOption = ({ id, form }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState<IFSet | null>(null);
+
+  const [fSet, setFSet] = useState(
+    getSetById(id, fSetsArray)
+  );
+
   const [hanleDistance, setHanleDistance] = useState<
     string | undefined
   >(undefined);
+
   const [isTurnTiltGetriebe, setIsTurnTiltGetriebe] =
     useState(false);
+
   const [
     hanleDistanceRestrictions,
     setHanleDistanceRestrictions,
   ] = useState({ min: '', max: '' });
+
   const [shtulpGetriebe, setShtulpGetriebe] = useState<
     'shtulpGetriebe' | 'latch'
   >('latch');
+
   const [typeOfHingeSidePress, setTypeOfHingeSidePress] =
     useState<TTypeOfHingeSidePress>(
       'hingeSidePress-type-2'
     );
+
   const [microVentilation, setMicroVentilation] =
     useState(true);
 
@@ -65,15 +75,21 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       setFSet(fSet);
       setHanleDistanceRestrictions({
         min: '235',
-        max: String(Number(fSet.height) - 235),
+        max: String(Number(originalfSet.height) - 235),
       });
-      setHanleDistance(fSet.hanleDistance);
-      setShtulpGetriebe(fSet.shtulpGetriebe);
-      setIsTurnTiltGetriebe(fSet.isTurnTiltGetriebe);
-      setTypeOfHingeSidePress(fSet.typeOfHingeSidePress);
-      setMicroVentilation(fSet.microVentilation);
-      setIsGorizontalLock(fSet.isGorizontalLock);
-      setIsWithoutBottomHinge(fSet.isWithoutBottomHinge);
+      setHanleDistance(originalfSet.hanleDistance);
+      setShtulpGetriebe(originalfSet.shtulpGetriebe);
+      setIsTurnTiltGetriebe(
+        originalfSet.isTurnTiltGetriebe
+      );
+      setTypeOfHingeSidePress(
+        originalfSet.typeOfHingeSidePress
+      );
+      setMicroVentilation(originalfSet.microVentilation);
+      setIsGorizontalLock(originalfSet.isGorizontalLock);
+      setIsWithoutBottomHinge(
+        originalfSet.isWithoutBottomHinge
+      );
     }
   }, [id]);
 
@@ -125,6 +141,11 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       setIsGorizontalLockDisabled(true);
     } else setIsGorizontalLockDisabled(false);
   }, [fSet]);
+
+  useEffect(() => {
+    if (fSet)
+      setIsGorizontalLock(getCurrentIsGorizontalLock(fSet));
+  }, [fSet?.brand, fSet?.width, fSet?.typeOfOpening]);
 
   const onChangeHanleDistance = (value: number | null) => {
     if (value) setHanleDistance(String(value));

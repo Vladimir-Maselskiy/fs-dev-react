@@ -8,6 +8,7 @@ import { setIsInputValid } from '@/utils/setIsInputValid';
 import { StyledP } from './WidthAndHeightInput.styled';
 import { getSetRestrictions } from '@/utils/getSetRestrictions';
 import { TRestrictions } from '@/const';
+import { getCurrentIsGorizontalLock } from '@/utils/getCurrentIsGorizontalLock';
 
 type TProps = {
   id: string;
@@ -24,13 +25,6 @@ export const WidthAndHeightInput = ({
 }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
 
-  const [width, setWidth] = useState<number | undefined>(
-    undefined
-  );
-  const [height, setHeight] = useState<number | undefined>(
-    undefined
-  );
-
   const widthInputRef = useRef<HTMLInputElement>(null);
   const heihtInputRef = useRef<HTMLInputElement>(null);
 
@@ -46,24 +40,29 @@ export const WidthAndHeightInput = ({
   );
 
   useEffect(() => {
+    setFSet(getSetById(id, fSetsArray));
+  }, fSetsArray);
+
+  useEffect(() => {
+    console.log('rerender1');
+
     if (fSet) {
+      const isGorizontalLock =
+        getCurrentIsGorizontalLock(fSet);
       setFSetsArray(prev =>
         prev.map(currentFSet => {
           if (fSet.id === currentFSet.id)
-            return { ...currentFSet, width, height };
+            return {
+              ...currentFSet,
+              width: fSet.width,
+              height: fSet.height,
+              isGorizontalLock,
+            };
           return currentFSet;
         })
       );
     }
-  }, [width, height]);
-
-  useEffect(() => {
-    setFSet(getSetById(id, fSetsArray));
-  }, [fSetsArray]);
-
-  useEffect(() => {
-    setFSet(getSetById(id, fSetsArray));
-  }, [fSetsArray]);
+  }, [fSet?.width, fSet?.height]);
 
   useEffect(() => {
     if (
@@ -75,7 +74,14 @@ export const WidthAndHeightInput = ({
   }, [fSet?.isWidthValid, fSet?.isHeightValid]);
 
   useEffect(() => {
+    console.log('useEffectFront');
     if (fSet?.width && fSet.height) {
+      console.log('fSet', fSet);
+      console.log(
+        'getSetRestrictions(fSet)',
+        getSetRestrictions(fSet)
+      );
+
       const widthStatus = getValidateStatus(
         fSet,
         'width',
@@ -87,18 +93,24 @@ export const WidthAndHeightInput = ({
         'height',
         getSetRestrictions(fSet)
       );
+      console.log('heightStatus', heightStatus);
       setFrontStatusHeightInput(heightStatus);
     }
-  }, [fSet?.typeOfOpening, fSet?.brand]);
+  }, [
+    fSet?.typeOfOpening,
+    fSet?.brand,
+    fSet?.typeOfOpening,
+    fSet?.brand,
+  ]);
 
   const onChangeWidthInput = (value: number | null) => {
-    if (value) {
-      setWidth(value);
+    if (value && fSet) {
+      setFSet({ ...fSet, width: value });
     }
   };
   const onChangeHeightInput = (value: number | null) => {
-    if (value) {
-      setHeight(value);
+    if (value && fSet) {
+      setFSet({ ...fSet, height: value });
     }
   };
 
@@ -165,7 +177,7 @@ export const WidthAndHeightInput = ({
           onChange={onChangeWidthInput}
           onPressEnter={onPressEnterWidth}
           onBlur={onBlurWidthInput}
-          value={width}
+          value={fSet?.width}
           status={frontStatusWidthInput}
         />
       </Box>
@@ -187,7 +199,7 @@ export const WidthAndHeightInput = ({
           onChange={onChangeHeightInput}
           onPressEnter={onPressEnterHeight}
           onBlur={onBlurHeightInput}
-          value={height}
+          value={fSet?.height}
           status={frontStatusHeightInput}
         />
       </Box>

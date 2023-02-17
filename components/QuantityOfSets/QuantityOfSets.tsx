@@ -52,9 +52,9 @@ export const QuantityOfSets = ({
         ></Button>
 
         <InputNumber
-        type="number"
-        inputMode="numeric"
-        pattern="\d"
+          type="number"
+          inputMode="numeric"
+          pattern="\d"
           min={1}
           max={99}
           controls={false}

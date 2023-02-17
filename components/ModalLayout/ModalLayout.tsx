@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyledModal } from './ModalLayout.styled';
 import { Form, ConfigProvider, Button } from 'antd';
-import { getSetById } from '@/utils/getSetById';
 import { useFSetsContext } from '@/context/state';
-import { IFSet } from '@/interfaces/interfaces';
-import { setIsInputValid } from '@/utils/setIsInputValid';
 
 type TProps = {
   setIsModalOpen: React.Dispatch<
@@ -29,25 +26,15 @@ export const ModalLayout = ({
   };
 
   const [form] = Form.useForm();
-  const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState<IFSet | null>(null);
-
-  useEffect(() => {
-    if (fSet) {
-      setFSetsArray(prev =>
-        prev.map(set => {
-          if (set.id === fSet.id) return fSet;
-          return set;
-        })
-      );
-    }
-  }, [fSet]);
+  const { setFSetsArray } = useFSetsContext();
 
   const onFinishHandleSubmit = (values: any) => {
-    const currentSet = getSetById(id, fSetsArray);
-
-    if (currentSet) setFSet({ ...currentSet, ...values });
-    form.resetFields();
+    setFSetsArray(prev =>
+      prev.map(set => {
+        if (set.id === id) return { ...set, ...values };
+        return set;
+      })
+    );
     setIsModalOpen(false);
   };
   const onValuesChange = (values: any) => {};

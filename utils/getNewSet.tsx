@@ -18,7 +18,7 @@ export const getNewSet = (id = '0'): IFSet => {
     isTurnTiltGetriebe: false,
     typeOfHingeSidePress: 'hingeSidePress-type-2',
     microVentilation: true,
-    isGorizontalLock: true,
+    isGorizontalLock: false,
     isWithoutBottomHinge: false,
   };
 };

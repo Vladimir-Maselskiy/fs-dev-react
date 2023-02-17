@@ -63,6 +63,7 @@ export const macoRestrictions = {
   minHeight: 470,
   maxHeight: 2500,
 };
+
 export const winkhausRestrictions = {
   minWith: 300,
   maxWidth: 1300,
@@ -74,6 +75,13 @@ export const vorneRestrictions = {
   minWith: 300,
   maxWidth: 1300,
   minHeight: 470,
-  maxHeight: 2500,
+  maxHeight: 2200,
 };
+
+export const minGorizontalLockWidthRestrictions = {
+  maco: 400,
+  vorne: 400,
+  winkhaus: 400,
+};
+
 export default { maco };
