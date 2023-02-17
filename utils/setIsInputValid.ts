@@ -20,15 +20,13 @@ export const setIsInputValid = (
       field,
       getSetRestrictions(fSet)
     );
-    setFSetsArray(prev => {
-      const index = prev.indexOf(fSet);
-      if (
-        fieldName === 'isWidthValid' ||
-        fieldName === 'isHeightValid'
-      )
-        prev[index][fieldName] =
-          isValid === undefined ? 'valid' : 'invalid';
-      return [...prev];
-    });
+    setFSetsArray(prev =>
+      prev.map(set => {
+        isValid === undefined ? 'valid' : 'invalid';
+        if (set.id === id)
+          return { ...set, [fieldName]: isValid };
+        return set;
+      })
+    );
   }
 };

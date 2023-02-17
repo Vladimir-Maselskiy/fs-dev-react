@@ -29,8 +29,7 @@ export const ImportantSetsOptions = ({ id }: TProps) => {
   );
 
   useEffect(() => {
-    const currentSet = getSetById(id, fSetsArray);
-    setFSet(currentSet);
+    setFSet(getSetById(id, fSetsArray));
   }, [fSetsArray]);
 
   useEffect(() => {
@@ -55,10 +54,20 @@ export const ImportantSetsOptions = ({ id }: TProps) => {
         getPVСSystemSelectOpions(fSet)?.[0];
       setSelectValue(currentSelectValue);
       if (currentSelectValue?.value && fSet)
-        setFSet({
-          ...fSet,
-          systemOfPVC: currentSelectValue.value,
-        });
+        setFSetsArray(prev =>
+          prev.map(set => {
+            if (set.id === id)
+              return {
+                ...set,
+                systemOfPVC: currentSelectValue?.value,
+              };
+            return set;
+          })
+        );
+      // setFSet({
+      //   ...fSet,
+      //   systemOfPVC: currentSelectValue.value,
+      // });
     }
   }, [fSet?.brand]);
 
