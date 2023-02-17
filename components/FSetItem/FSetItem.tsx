@@ -9,6 +9,7 @@ import { WidthAndHeightInput } from '../WidthAndHeightInput/WidthAndHeightInput'
 import { useFSetsContext } from '@/context/state';
 import { getSetRestrictions } from '@/utils/getSetRestrictions';
 import { TRestrictions } from '@/const';
+import { Tag } from 'antd';
 
 interface IProp {
   fSet: IFSet;
@@ -29,7 +30,7 @@ export const FSetItem = ({
   setCurrentSetId,
   setCurrentModalNumber,
 }: IProp) => {
-  const { setFSetsArray } = useFSetsContext();
+  const { fSetsArray } = useFSetsContext();
   const [
     isOptitionButtonDisabled,
     setIsOptitionButtonDisabled,
@@ -47,6 +48,9 @@ export const FSetItem = ({
 
   return (
     <StyledFSetItem>
+      <Tag style={{ alignSelf: 'start' }}>
+        {fSetsArray.indexOf(fSet) + 1}
+      </Tag>
       <WidthAndHeightInput
         setIsOptitionButtonDisabled={
           setIsOptitionButtonDisabled

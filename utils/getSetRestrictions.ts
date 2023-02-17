@@ -3,6 +3,7 @@ import {
   TRestrictions,
   type3Restrictions,
   vorneRestrictions,
+  winkhausRestrictions,
 } from '@/const';
 import { IFSet } from '@/interfaces/interfaces';
 
@@ -19,6 +20,6 @@ export const getSetRestrictions = (
     case 'vorne':
       return vorneRestrictions;
     case 'winkhaus':
-      return macoRestrictions;
+      return winkhausRestrictions;
   }
 };

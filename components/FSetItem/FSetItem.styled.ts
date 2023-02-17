@@ -7,6 +7,7 @@ export const StyledFSetItem = styled.li`
   align-items: center;
   justify-content: space-between;
   padding: 15px;
+  margin-top: 10px;
   border: solid #2196f3 2px;
   border-radius: 10px;
   width: 100%;

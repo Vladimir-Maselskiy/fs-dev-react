@@ -58,6 +58,12 @@ export const ControlButtons = ({
     }
   }, [fSet?.brand, fSet?.typeOfOpening]);
 
+  const onClickRemoveButton = (id: string) => {
+    setFSetsArray(prev =>
+      prev.filter(set => set.id !== id)
+    );
+  };
+
   return (
     <Box display="flex" flexDirection="column">
       <StyledControlButton
@@ -101,7 +107,10 @@ export const ControlButtons = ({
       >
         <IconTypeOfWindow />
       </StyledControlButton>
-      <StyledControlButton type="button">
+      <StyledControlButton
+        type="button"
+        onClick={() => onClickRemoveButton(id)}
+      >
         <RiDeleteBin2Line size={32} />
       </StyledControlButton>
     </Box>

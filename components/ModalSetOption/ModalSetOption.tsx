@@ -183,6 +183,14 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     setIsWithoutBottomHinge(boolean);
   };
 
+  const onClickInputNumber = (
+    e: React.KeyboardEvent<HTMLInputElement> | undefined
+  ) => {
+    if (e?.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
+
   return (
     <Box mt={10}>
       <p>Додаткові опції комплекта:</p>
@@ -199,6 +207,9 @@ export const ModalSetOption = ({ id, form }: TProps) => {
           name="hanleDistance"
         >
           <InputNumber
+            type="number"
+            inputMode="numeric"
+            pattern="\d"
             min={Number(hanleDistanceRestrictions.min)}
             max={Number(hanleDistanceRestrictions.max)}
             style={{
@@ -207,6 +218,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
             placeholder={String(Number(fSet?.height) / 2)}
             onChange={onChangeHanleDistance}
             stringMode={true}
+            onKeyDown={onClickInputNumber}
           />
         </Form.Item>
       )}
