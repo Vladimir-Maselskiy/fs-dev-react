@@ -7,6 +7,7 @@ import {
   AiOutlinePlus,
 } from 'react-icons/ai';
 import { Box } from '../Box/Box';
+import { StyledP } from './QuantityOfSets.styled';
 
 type TProps = {
   id: string;
@@ -53,7 +54,7 @@ export const QuantityOfSets = ({ id }: TProps) => {
       alignItems="center"
       width={180}
     >
-      <p>Кількість</p>
+      <StyledP>Кількість</StyledP>
       <Box
         display="flex"
         alignItems="center"

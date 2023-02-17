@@ -41,11 +41,9 @@ export const WidthAndHeightInput = ({
 
   useEffect(() => {
     setFSet(getSetById(id, fSetsArray));
-  }, fSetsArray);
+  }, [fSetsArray]);
 
   useEffect(() => {
-    console.log('rerender1');
-
     if (fSet) {
       const isGorizontalLock =
         getCurrentIsGorizontalLock(fSet);
@@ -74,14 +72,7 @@ export const WidthAndHeightInput = ({
   }, [fSet?.isWidthValid, fSet?.isHeightValid]);
 
   useEffect(() => {
-    console.log('useEffectFront');
     if (fSet?.width && fSet.height) {
-      console.log('fSet', fSet);
-      console.log(
-        'getSetRestrictions(fSet)',
-        getSetRestrictions(fSet)
-      );
-
       const widthStatus = getValidateStatus(
         fSet,
         'width',
@@ -93,7 +84,6 @@ export const WidthAndHeightInput = ({
         'height',
         getSetRestrictions(fSet)
       );
-      console.log('heightStatus', heightStatus);
       setFrontStatusHeightInput(heightStatus);
     }
   }, [

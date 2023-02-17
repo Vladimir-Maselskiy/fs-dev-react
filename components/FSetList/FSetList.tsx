@@ -1,5 +1,4 @@
 import { IFSet } from '@/interfaces/interfaces';
-import { marginTop } from 'styled-system';
 
 import { Box } from '../Box/Box';
 import { FSetItem } from '../FSetItem/FSetItem';

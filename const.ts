@@ -43,6 +43,20 @@ export const typeOfOpeningSelectOpions = [
   { value: 'type-5', label: 'Штульп пасивна' },
 ];
 
+export const systemSalamanerSelectOpions = [
+  { value: '13', label: '13-та серія' },
+  { value: 'Salamander', label: 'Salamander' },
+];
+export const system9MMSelectOpions = [
+  { value: '9', label: '9-та серія' },
+];
+export const systemRehauSelectOpions = [
+  { value: 'Rehau', label: 'Rehau' },
+];
+export const systemVekaSelectOpions = [
+  { value: 'Veka', label: 'Veka/Decco' },
+];
+
 export type TRestrictions = {
   minWith: number;
   maxWidth: number;

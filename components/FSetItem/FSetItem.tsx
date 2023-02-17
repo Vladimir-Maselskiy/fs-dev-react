@@ -60,8 +60,8 @@ export const FSetItem = ({
         flexDirection="column"
         alignItems="center"
       >
-        <QuantityOfSets id={fSet.id}/>
-        <ImportantSetsOptions fSet={fSet} />
+        <QuantityOfSets id={fSet.id} />
+        <ImportantSetsOptions id={fSet.id} />
       </Box>
       <ControlButtons
         isOptitionButtonDisabled={isOptitionButtonDisabled}

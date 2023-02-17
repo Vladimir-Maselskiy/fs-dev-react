@@ -55,7 +55,6 @@ export const ModalSetBrand = ({ id, form }: TProps) => {
           paddingTop: '40px',
           paddingBottom: '10px',
         }}
-        // buttonStyle="solid"
         optionType="button"
       >
         <Radio.Button
