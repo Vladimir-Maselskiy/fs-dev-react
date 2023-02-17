@@ -15,6 +15,16 @@ export const ALLTypeOfOpeningConst = [
   'type-5',
 ] as const;
 
+export const ALLSystemOfPVC = [
+  '13',
+  '9',
+  'Rehau',
+  'Veka',
+  'Salamander',
+];
+
+export type TSystemOfPVC = typeof ALLSystemOfPVC[number];
+
 export type TTypeOfHingeSidePress =
   typeof ALLTypeOfHingeSidePressConst[number];
 
@@ -30,7 +40,7 @@ export interface IFSet {
   isHeightValid: 'initial' | 'valid' | 'invalid';
   quantitySet: number;
   sideOfHinge: 'left' | 'right';
-  systemOfPVC: '13' | '9' | 'Rehau' | 'Veka' | 'Salamander';
+  systemOfPVC: TSystemOfPVC;
   typeOfOpening: TTypeOfOpenimg;
   hanleDistance: string | undefined;
   shtulpGetriebe: 'shtulpGetriebe' | 'latch';

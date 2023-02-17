@@ -6,6 +6,10 @@ import { getPVСSystemSelectOpions } from '@/utils/getPVСSystemSelectOpions';
 import { getSetById } from '@/utils/getSetById';
 import { Box } from '../Box/Box';
 import { StyledP } from './ImportantSetsOptions.styled';
+import { getPVCSystemSelectValue } from '@/utils/getPVCSystemSelectValue';
+import { willSelectValueChange } from '@/utils/willSelectValueChange';
+import { isStringInUnionSystemOfPVC } from '@/utils/ts-utils/isStringInUnion';
+import { ALLSystemOfPVC } from '@/interfaces/interfaces';
 
 type TProps = {
   id: string;
@@ -16,6 +20,18 @@ export const ImportantSetsOptions = ({ id }: TProps) => {
   const [fSet, setFSet] = useState(
     getSetById(id, fSetsArray)
   );
+
+  const [selectOptions, setSelectOptions] = useState(
+    getPVСSystemSelectOpions(fSet)
+  );
+  const [selectValue, setSelectValue] = useState(
+    getPVCSystemSelectValue(fSet)
+  );
+
+  useEffect(() => {
+    const currentSet = getSetById(id, fSetsArray);
+    setFSet(currentSet);
+  }, [fSetsArray]);
 
   useEffect(() => {
     if (fSet) {
@@ -32,11 +48,65 @@ export const ImportantSetsOptions = ({ id }: TProps) => {
     }
   }, [fSet?.sideOfHinge]);
 
+  useEffect(() => {
+    setSelectOptions(getPVСSystemSelectOpions(fSet));
+    if (willSelectValueChange(fSet, selectValue)) {
+      const currentSelectValue =
+        getPVСSystemSelectOpions(fSet)?.[0];
+      setSelectValue(currentSelectValue);
+      if (currentSelectValue?.value && fSet)
+        setFSet({
+          ...fSet,
+          systemOfPVC: currentSelectValue.value,
+        });
+    }
+  }, [fSet?.brand]);
+
+  useEffect(() => {
+    if (fSet)
+      setFSetsArray(prev =>
+        prev.map(set => {
+          if (set.id === id)
+            return {
+              ...set,
+              systemOfPVC: fSet?.systemOfPVC,
+            };
+          return set;
+        })
+      );
+  }, [fSet?.systemOfPVC]);
+
   const onChangeRadio = (e: RadioChangeEvent) => {
     if (fSet)
       setFSet({ ...fSet, sideOfHinge: e.target.value });
   };
-  const handleChangeSelect = () => {};
+  const handleChangeSelect = (
+    value: {
+      value: string;
+      label: string;
+    },
+    option:
+      | {
+          value: string;
+          label: string;
+        }
+      | {
+          value: string;
+          label: string;
+        }[]
+  ) => {
+    if (!Array.isArray(option)) {
+      setSelectValue(option);
+      if (
+        isStringInUnionSystemOfPVC(
+          option.value,
+          ALLSystemOfPVC
+        ) &&
+        fSet
+      )
+        setFSet({ ...fSet, systemOfPVC: option.value });
+    }
+  };
 
   return (
     <Box
@@ -71,10 +141,10 @@ export const ImportantSetsOptions = ({ id }: TProps) => {
       >
         <Select
           onChange={handleChangeSelect}
-          options={getPVСSystemSelectOpions(fSet)}
+          options={selectOptions}
           listHeight={170}
           style={{ width: '260px' }}
-          // value =
+          value={selectValue}
         />
       </Box>
     </Box>
