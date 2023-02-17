@@ -35,9 +35,6 @@ export const FSetItem = ({
     isOptitionButtonDisabled,
     setIsOptitionButtonDisabled,
   ] = useState(true);
-  const [counter, setCounter] = useState<number>(
-    fSet.quantitySet
-  );
 
   const [restrictions, setRestrictions] =
     useState<TRestrictions>(getSetRestrictions(fSet));
@@ -63,10 +60,7 @@ export const FSetItem = ({
         flexDirection="column"
         alignItems="center"
       >
-        <QuantityOfSets
-          counter={counter}
-          setCounter={setCounter}
-        />
+        <QuantityOfSets id={fSet.id}/>
         <ImportantSetsOptions fSet={fSet} />
       </Box>
       <ControlButtons

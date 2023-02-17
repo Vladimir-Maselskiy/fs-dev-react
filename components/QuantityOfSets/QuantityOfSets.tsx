@@ -1,5 +1,7 @@
-import { Button, ConfigProvider, InputNumber } from 'antd';
-import React from 'react';
+import { useFSetsContext } from '@/context/state';
+import { getSetById } from '@/utils/getSetById';
+import { Button, InputNumber } from 'antd';
+import React, { useState, useEffect } from 'react';
 import {
   AiOutlineMinus,
   AiOutlinePlus,
@@ -7,22 +9,41 @@ import {
 import { Box } from '../Box/Box';
 
 type TProps = {
-  counter: number;
-  setCounter: React.Dispatch<React.SetStateAction<number>>;
+  id: string;
 };
 
-export const QuantityOfSets = ({
-  counter,
-  setCounter,
-}: TProps) => {
+export const QuantityOfSets = ({ id }: TProps) => {
+  const { fSetsArray, setFSetsArray } = useFSetsContext();
+
+  const [fSet, setFSet] = useState(
+    getSetById(id, fSetsArray)
+  );
+
+  useEffect(() => {
+    if (fSet)
+      setFSetsArray(prev => {
+        return prev.map(set => {
+          if (set.id === id)
+            return {
+              ...set,
+              quantitySet: fSet?.quantitySet,
+            };
+          return set;
+        });
+      });
+  }, [fSet?.quantitySet]);
+
   const onChangeCounterByClick = (num: number): void => {
-    if (+counter <= 1 && num < 0) return;
-    if (+counter >= 99 && num > 0) return;
-    setCounter(prev => prev + num);
+    if (fSet) {
+      if (fSet.quantitySet <= 1 && num < 0) return;
+      if (fSet.quantitySet >= 99 && num > 0) return;
+      setFSet({ ...fSet, quantitySet: ++fSet.quantitySet });
+    }
   };
 
   const onChangeInput = (value: number | null) => {
-    if (value) setCounter(value);
+    if (value && fSet)
+      setFSet({ ...fSet, quantitySet: value });
   };
 
   return (
@@ -65,7 +86,7 @@ export const QuantityOfSets = ({
             paddingTop: '10px',
           }}
           onChange={onChangeInput}
-          value={counter}
+          value={fSet?.quantitySet}
         />
         <Button
           type="default"
