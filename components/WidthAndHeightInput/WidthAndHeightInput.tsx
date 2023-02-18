@@ -4,7 +4,7 @@ import { useFSetsContext } from '@/context/state';
 import { InputNumber } from 'antd';
 import { getSetById } from '@/utils/getSetById';
 import { getValidateStatus } from '@/utils/getValidateStatus';
-import { setIsInputValid } from '@/utils/setIsInputValid';
+import { getValidateStatusOfWidthOrHeight } from '@/utils/getValidateStatusOfWidthOrHeight';
 import { StyledP } from './WidthAndHeightInput.styled';
 import { getSetRestrictions } from '@/utils/getSetRestrictions';
 import { TRestrictions } from '@/const';
@@ -21,7 +21,7 @@ type TProps = {
 export const WidthAndHeightInput = ({
   id,
   setIsOptitionButtonDisabled,
-  restrictions: { minWith, minHeight, maxHeight, maxWidth },
+  restrictions,
 }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
 
@@ -45,22 +45,73 @@ export const WidthAndHeightInput = ({
 
   useEffect(() => {
     if (fSet) {
+      if (fSet.width) {
+        const status = getValidateStatus(
+          fSet,
+          'width',
+          restrictions
+        );
+        setFrontStatusWidthInput(status);
+      }
+      const isWidthValid =
+        getValidateStatusOfWidthOrHeight(
+          fSet.id,
+          fSetsArray,
+          'width'
+        ) === undefined
+          ? 'valid'
+          : 'invalid';
       const isGorizontalLock =
         getCurrentIsGorizontalLock(fSet);
       setFSetsArray(prev =>
-        prev.map(currentFSet => {
-          if (fSet.id === currentFSet.id)
+        prev.map(set => {
+          if (id === set.id)
             return {
-              ...currentFSet,
+              ...set,
               width: fSet.width,
-              height: fSet.height,
               isGorizontalLock,
+              isWidthValid,
             };
-          return currentFSet;
+          return set;
         })
       );
     }
-  }, [fSet?.width, fSet?.height]);
+  }, [fSet?.width]);
+
+  useEffect(() => {
+    if (fSet) {
+      if (fSet.height) {
+        const status = getValidateStatus(
+          fSet,
+          'height',
+          restrictions
+        );
+        setFrontStatusHeightInput(status);
+      }
+      const isHeightValid =
+        getValidateStatusOfWidthOrHeight(
+          fSet.id,
+          fSetsArray,
+          'height'
+        ) === undefined
+          ? 'valid'
+          : 'invalid';
+      const isGorizontalLock =
+        getCurrentIsGorizontalLock(fSet);
+      setFSetsArray(prev =>
+        prev.map(set => {
+          if (id === set.id)
+            return {
+              ...set,
+              height: fSet.height,
+              isGorizontalLock,
+              isHeightValid,
+            };
+          return set;
+        })
+      );
+    }
+  }, [fSet?.height]);
 
   useEffect(() => {
     if (
@@ -86,21 +137,28 @@ export const WidthAndHeightInput = ({
       );
       setFrontStatusHeightInput(heightStatus);
     }
-  }, [
-    fSet?.typeOfOpening,
-    fSet?.brand,
-    fSet?.typeOfOpening,
-    fSet?.brand,
-  ]);
+  }, [fSet?.typeOfOpening, fSet?.brand]);
 
   const onChangeWidthInput = (value: number | null) => {
     if (value && fSet) {
-      setFSet({ ...fSet, width: value });
+      setFSetsArray(prev =>
+        prev.map(set => {
+          if (set.id === id)
+            return { ...set, width: value };
+          return set;
+        })
+      );
     }
   };
   const onChangeHeightInput = (value: number | null) => {
     if (value && fSet) {
-      setFSet({ ...fSet, height: value });
+      setFSetsArray(prev =>
+        prev.map(set => {
+          if (set.id === id)
+            return { ...set, height: value };
+          return set;
+        })
+      );
     }
   };
 
@@ -114,36 +172,22 @@ export const WidthAndHeightInput = ({
 
   const onBlurWidthInput = () => {
     if (fSet) {
-      const status = getValidateStatus(fSet, 'width', {
-        minWith,
-        minHeight,
-        maxHeight,
-        maxWidth,
-      });
-      setFrontStatusWidthInput(status);
-      setIsInputValid(
-        fSetsArray,
-        setFSetsArray,
-        fSet.id,
-        'isWidthValid'
+      const status = getValidateStatus(
+        fSet,
+        'width',
+        restrictions
       );
+      setFrontStatusWidthInput(status);
     }
   };
   const onBlurHeightInput = () => {
     if (fSet) {
-      const status = getValidateStatus(fSet, 'height', {
-        minWith,
-        minHeight,
-        maxHeight,
-        maxWidth,
-      });
-      setFrontStatusHeightInput(status);
-      setIsInputValid(
-        fSetsArray,
-        setFSetsArray,
-        fSet.id,
-        'isHeightValid'
+      const status = getValidateStatus(
+        fSet,
+        'height',
+        restrictions
       );
+      setFrontStatusHeightInput(status);
     }
   };
 
@@ -156,8 +200,8 @@ export const WidthAndHeightInput = ({
           inputMode="numeric"
           pattern="\d"
           ref={widthInputRef}
-          min={minWith}
-          max={maxWidth}
+          min={restrictions.minWith}
+          max={restrictions.maxWidth}
           style={{
             width: '110px',
             height: '50px',
@@ -178,8 +222,8 @@ export const WidthAndHeightInput = ({
           inputMode="numeric"
           pattern="\d"
           ref={heihtInputRef}
-          min={minHeight}
-          max={maxHeight}
+          min={restrictions.minHeight}
+          max={restrictions.maxHeight}
           style={{
             width: '110px',
             height: '50px',

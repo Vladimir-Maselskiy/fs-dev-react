@@ -10,7 +10,7 @@ import { Box } from '../Box/Box';
 import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/getSetById';
 import { IFSet } from '@/interfaces/interfaces';
-import { setIsInputValid } from '@/utils/setIsInputValid';
+import { getValidateStatusOfWidthOrHeight } from '@/utils/getValidateStatusOfWidthOrHeight';
 
 type TProps = {
   isOptitionButtonDisabled: boolean;
@@ -43,17 +43,15 @@ export const ControlButtons = ({
 
   useEffect(() => {
     if (fSet) {
-      setIsInputValid(
-        fSetsArray,
-        setFSetsArray,
+      getValidateStatusOfWidthOrHeight(
         fSet.id,
-        'isWidthValid'
+        fSetsArray,
+        'width'
       );
-      setIsInputValid(
-        fSetsArray,
-        setFSetsArray,
+      getValidateStatusOfWidthOrHeight(
         fSet.id,
-        'isHeightValid'
+        fSetsArray,
+        'height'
       );
     }
   }, [fSet?.brand, fSet?.typeOfOpening]);
