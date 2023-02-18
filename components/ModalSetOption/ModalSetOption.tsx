@@ -20,6 +20,8 @@ import {
 import { typeOfHingeSidePressConst } from '@/const';
 import { isStringInUnionTypeOfHingeSidePress } from '@/utils/ts-utils/isStringInUnion';
 import { getCurrentIsGorizontalLock } from '@/utils/getCurrentIsGorizontalLock';
+import { getOneOptionTypeOfHingeSidePress } from '@/utils/getOneOptionTypeOfHingeSidePress';
+import { DefaultOptionType } from 'antd/es/select';
 
 type TProps = {
   id: string;
@@ -33,35 +35,10 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     getSetById(id, fSetsArray)
   );
 
-  const [hanleDistance, setHanleDistance] = useState<
-    string | undefined
-  >(undefined);
-
-  const [isTurnTiltGetriebe, setIsTurnTiltGetriebe] =
-    useState(false);
-
   const [
     hanleDistanceRestrictions,
     setHanleDistanceRestrictions,
   ] = useState({ min: '', max: '' });
-
-  const [shtulpGetriebe, setShtulpGetriebe] = useState<
-    'shtulpGetriebe' | 'latch'
-  >('latch');
-
-  const [typeOfHingeSidePress, setTypeOfHingeSidePress] =
-    useState<TTypeOfHingeSidePress>(
-      'hingeSidePress-type-2'
-    );
-
-  const [microVentilation, setMicroVentilation] =
-    useState(true);
-
-  const [isGorizontalLock, setIsGorizontalLock] =
-    useState(true);
-
-  const [isWithoutBottomHinge, setIsWithoutBottomHinge] =
-    useState(false);
 
   const [
     isGorizontalLockDisabled,
@@ -69,64 +46,42 @@ export const ModalSetOption = ({ id, form }: TProps) => {
   ] = useState(false);
 
   useEffect(() => {
-    const originalfSet = getSetById(id, fSetsArray);
-    if (originalfSet) {
-      const fSet = { ...originalfSet };
-      setFSet(fSet);
+    setFSet(getSetById(id, fSetsArray));
+    if (fSet) {
       setHanleDistanceRestrictions({
         min: '235',
-        max: String(Number(originalfSet.height) - 235),
+        max: String(Number(fSet.height) - 235),
       });
-      setHanleDistance(originalfSet.hanleDistance);
-      setShtulpGetriebe(originalfSet.shtulpGetriebe);
-      setIsTurnTiltGetriebe(
-        originalfSet.isTurnTiltGetriebe
-      );
-      setTypeOfHingeSidePress(
-        originalfSet.typeOfHingeSidePress
-      );
-      setMicroVentilation(originalfSet.microVentilation);
-      setIsGorizontalLock(originalfSet.isGorizontalLock);
-      setIsWithoutBottomHinge(
-        originalfSet.isWithoutBottomHinge
-      );
     }
-  }, [id]);
+  }, [id, fSetsArray]);
 
   useEffect(() => {
-    form.setFieldsValue({ hanleDistance });
-    if (fSet) setFSet({ ...fSet, hanleDistance });
-  }, [hanleDistance]);
+    form.setFieldsValue(fSet?.hanleDistance);
+  }, [fSet?.hanleDistance]);
 
   useEffect(() => {
-    form.setFieldsValue({ shtulpGetriebe });
-    if (fSet) setFSet({ ...fSet, shtulpGetriebe });
-  }, [shtulpGetriebe]);
+    form.setFieldsValue(fSet?.shtulpGetriebe);
+  }, [fSet?.shtulpGetriebe]);
 
   useEffect(() => {
-    form.setFieldsValue({ isTurnTiltGetriebe });
-    if (fSet) setFSet({ ...fSet, isTurnTiltGetriebe });
-  }, [isTurnTiltGetriebe]);
+    form.setFieldsValue(fSet?.isTurnTiltGetriebe);
+  }, [fSet?.isTurnTiltGetriebe]);
 
   useEffect(() => {
-    form.setFieldsValue({ typeOfHingeSidePress });
-    if (fSet) setFSet({ ...fSet, typeOfHingeSidePress });
-  }, [typeOfHingeSidePress]);
+    form.setFieldsValue(fSet?.typeOfHingeSidePress);
+  }, [fSet?.typeOfHingeSidePress]);
 
   useEffect(() => {
-    form.setFieldsValue({ microVentilation });
-    if (fSet) setFSet({ ...fSet, microVentilation });
-  }, [microVentilation]);
+    form.setFieldsValue(fSet?.microVentilation);
+  }, [fSet?.microVentilation]);
 
   useEffect(() => {
-    form.setFieldsValue({ isGorizontalLock });
-    if (fSet) setFSet({ ...fSet, isGorizontalLock });
-  }, [isGorizontalLock]);
+    form.setFieldsValue(fSet?.isGorizontalLock);
+  }, [fSet?.isGorizontalLock]);
 
   useEffect(() => {
-    form.setFieldsValue({ isWithoutBottomHinge });
-    if (fSet) setFSet({ ...fSet, isWithoutBottomHinge });
-  }, [isWithoutBottomHinge]);
+    form.setFieldsValue(fSet?.isWithoutBottomHinge);
+  }, [fSet?.isWithoutBottomHinge]);
 
   useEffect(() => {
     if (
@@ -142,27 +97,48 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     } else setIsGorizontalLockDisabled(false);
   }, [fSet]);
 
-  useEffect(() => {
-    if (fSet)
-      setIsGorizontalLock(getCurrentIsGorizontalLock(fSet));
-  }, [fSet?.brand, fSet?.width, fSet?.typeOfOpening]);
+  // useEffect(() => {
+  //   if (fSet)
+  //     setIsGorizontalLock(getCurrentIsGorizontalLock(fSet));
+  // }, [fSet?.brand, fSet?.width, fSet?.typeOfOpening]);
 
   const onChangeHanleDistance = (value: number | null) => {
-    if (value) setHanleDistance(String(value));
+    if (fSet && value != null) {
+      const newSet = {
+        ...fSet,
+        hanleDistance: value,
+      };
+      setFSet(newSet);
+    }
   };
+
   const onChangeShtulpGetriebe = (e: RadioChangeEvent) => {
-    setShtulpGetriebe(e.target.value);
+    if (fSet) {
+      const newSet = {
+        ...fSet,
+        shtulpGetriebe: e.target.value,
+      };
+      setFSet(newSet);
+    }
   };
 
   const onChangeTurnTiltGetriebe = (
     e: CheckboxChangeEvent
   ) => {
-    const boolean = e.target.checked;
-    setIsTurnTiltGetriebe(boolean);
+    if (fSet) {
+      const newSet = {
+        ...fSet,
+        isTurnTiltGetriebe: e.target.checked,
+      };
+      setFSet(newSet);
+    }
   };
 
   const handleChangeTypeOfHingeSidePress = (
-    e: CheckboxChangeEvent,
+    value: {
+      value: string;
+      label: string;
+    },
     option:
       | {
           value: string;
@@ -180,28 +156,50 @@ export const ModalSetOption = ({ id, form }: TProps) => {
         ALLTypeOfHingeSidePressConst
       )
     )
-      setTypeOfHingeSidePress(option.value);
+      if (fSet) {
+        const newSet = {
+          ...fSet,
+          typeOfHingeSidePress: option.value,
+        };
+        setFSet(newSet);
+      }
   };
 
   const onChangeMicroVentilation = (
     e: CheckboxChangeEvent
   ) => {
-    const boolean = e.target.checked;
-    setMicroVentilation(boolean);
+    if (fSet) {
+      const newSet = {
+        ...fSet,
+        microVentilation: e.target.checked,
+      };
+      setFSet(newSet);
+    }
   };
 
   const onChangeIsGorizontalLock = (
     e: CheckboxChangeEvent
   ) => {
-    const boolean = e.target.checked;
-    setIsGorizontalLock(boolean);
+    if (fSet) {
+      const newSet = {
+        ...fSet,
+        isGorizontalLock: e.target.checked,
+      };
+      setFSet(newSet);
+    }
   };
 
   const onChangeIsWithoutBottomHinge = (
     e: CheckboxChangeEvent
   ) => {
-    const boolean = e.target.checked;
-    setIsWithoutBottomHinge(boolean);
+    if (fSet) {
+      const boolean = e.target.checked;
+      const newSet = {
+        ...fSet,
+        isWithoutBottomHinge: boolean,
+      };
+      setFSet(newSet);
+    }
   };
 
   const onClickInputNumber = (
@@ -226,6 +224,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
         <Form.Item
           label="Висота від низу до ручки"
           name="hanleDistance"
+          initialValue={fSet?.hanleDistance}
         >
           <InputNumber
             type="number"
@@ -249,17 +248,21 @@ export const ModalSetOption = ({ id, form }: TProps) => {
           label="П/в привід, покращений прижим"
           name="isTurnTiltGetriebe"
           valuePropName="checked"
+          initialValue={fSet?.isTurnTiltGetriebe}
         >
           <Checkbox
-            checked={isTurnTiltGetriebe}
+            checked={fSet?.isTurnTiltGetriebe}
             onChange={onChangeTurnTiltGetriebe}
-            // value={isTurnTiltGetriebe}
           />
         </Form.Item>
       )}
 
       {fSet?.typeOfOpening === 'type-5' && (
-        <Form.Item label="Штульп" name="shtulpGetriebe">
+        <Form.Item
+          label="Штульп"
+          name="shtulpGetriebe"
+          initialValue={fSet.shtulpGetriebe}
+        >
           <Radio.Group onChange={onChangeShtulpGetriebe}>
             <Radio value="shtulpGetriebe">
               Штульп-привід
@@ -276,10 +279,14 @@ export const ModalSetOption = ({ id, form }: TProps) => {
           <Form.Item
             label="Прижим зі сторони петель"
             name="typeOfHingeSidePress"
+            initialValue={getOneOptionTypeOfHingeSidePress(
+              fSet
+            )}
           >
             <Select
               onChange={handleChangeTypeOfHingeSidePress}
               options={typeOfHingeSidePressConst}
+              value={getOneOptionTypeOfHingeSidePress(fSet)}
               listHeight={150}
             />
           </Form.Item>
@@ -292,9 +299,10 @@ export const ModalSetOption = ({ id, form }: TProps) => {
             label="Зимове провітрювання"
             name="microVentilation"
             valuePropName="checked"
+            initialValue={fSet?.microVentilation}
           >
             <Checkbox
-              checked={microVentilation}
+              checked={fSet?.microVentilation}
               onChange={onChangeMicroVentilation}
             />
           </Form.Item>
@@ -305,9 +313,10 @@ export const ModalSetOption = ({ id, form }: TProps) => {
           label="Нижній горизонтальний прижим"
           name="isGorizontalLock"
           valuePropName="checked"
+          initialValue={fSet?.isGorizontalLock}
         >
           <Checkbox
-            checked={isGorizontalLock}
+            checked={fSet?.isGorizontalLock}
             onChange={onChangeIsGorizontalLock}
             disabled={isGorizontalLockDisabled}
           />
@@ -319,9 +328,10 @@ export const ModalSetOption = ({ id, form }: TProps) => {
           label="Без нижньої петлі"
           name="isWithoutBottomHinge"
           valuePropName="checked"
+          initialValue={fSet?.isWithoutBottomHinge}
         >
           <Checkbox
-            checked={isWithoutBottomHinge}
+            checked={fSet?.isWithoutBottomHinge}
             onChange={onChangeIsWithoutBottomHinge}
           />
         </Form.Item>

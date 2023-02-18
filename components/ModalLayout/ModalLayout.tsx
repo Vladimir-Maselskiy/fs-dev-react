@@ -29,6 +29,7 @@ export const ModalLayout = ({
   const { setFSetsArray } = useFSetsContext();
 
   const onFinishHandleSubmit = (values: any) => {
+    console.log('onFinishHandleSubmit', values);
     setFSetsArray(prev =>
       prev.map(set => {
         if (set.id === id) return { ...set, ...values };

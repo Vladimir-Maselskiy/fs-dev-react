@@ -42,7 +42,7 @@ export interface IFSet {
   sideOfHinge: 'left' | 'right';
   systemOfPVC: TSystemOfPVC;
   typeOfOpening: TTypeOfOpenimg;
-  hanleDistance: string | undefined;
+  hanleDistance: number | undefined;
   shtulpGetriebe: 'shtulpGetriebe' | 'latch';
   isTurnTiltGetriebe: boolean;
   typeOfHingeSidePress: TTypeOfHingeSidePress;
