@@ -12,16 +12,10 @@ import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/getSetById';
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
-import {
-  ALLTypeOfHingeSidePressConst,
-  IFSet,
-  TTypeOfHingeSidePress,
-} from '@/interfaces/interfaces';
+import { ALLTypeOfHingeSidePressConst } from '@/interfaces/interfaces';
 import { typeOfHingeSidePressConst } from '@/const';
 import { isStringInUnionTypeOfHingeSidePress } from '@/utils/ts-utils/isStringInUnion';
-import { getCurrentIsGorizontalLock } from '@/utils/getCurrentIsGorizontalLock';
 import { getOneOptionTypeOfHingeSidePress } from '@/utils/getOneOptionTypeOfHingeSidePress';
-import { DefaultOptionType } from 'antd/es/select';
 
 type TProps = {
   id: string;
@@ -44,6 +38,16 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     isGorizontalLockDisabled,
     setIsGorizontalLockDisabled,
   ] = useState(false);
+
+  const [
+    isMicroVentilationDisabled,
+    setIsMicroVentilationDisabled,
+  ] = useState(false);
+
+  const [
+    isAntiBreakingOpenSelectDisable,
+    setIsAntiBreakingOpenSelectDisable,
+  ] = useState(true);
 
   useEffect(() => {
     setFSet(getSetById(id, fSetsArray));
@@ -84,6 +88,15 @@ export const ModalSetOption = ({ id, form }: TProps) => {
   }, [fSet?.isWithoutBottomHinge]);
 
   useEffect(() => {
+    form.setFieldsValue({
+      antiBreakingOpenRadio: fSet?.antiBreakingOpen,
+    });
+    form.setFieldsValue({
+      antiBreakingOpen: fSet?.antiBreakingOpen,
+    });
+  }, [fSet?.antiBreakingOpen]);
+
+  useEffect(() => {
     if (
       fSet?.typeOfOpening === 'type-2' &&
       fSet.isTurnTiltGetriebe === false
@@ -94,13 +107,26 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       fSet.shtulpGetriebe === 'latch'
     ) {
       setIsGorizontalLockDisabled(true);
+    } else if (fSet?.width && fSet?.width < 400) {
+      setIsGorizontalLockDisabled(true);
     } else setIsGorizontalLockDisabled(false);
-  }, [fSet]);
+  }, [fSet?.typeOfOpening, fSet?.shtulpGetriebe]);
 
-  // useEffect(() => {
-  //   if (fSet)
-  //     setIsGorizontalLock(getCurrentIsGorizontalLock(fSet));
-  // }, [fSet?.brand, fSet?.width, fSet?.typeOfOpening]);
+  useEffect(() => {
+    if (fSet?.width && fSet?.width < 320) {
+      setIsMicroVentilationDisabled(true);
+    } else setIsMicroVentilationDisabled(false);
+  }, []);
+
+  useEffect(() => {
+    if (
+      fSet?.antiBreakingOpen &&
+      (fSet.antiBreakingOpen === 'base' ||
+        fSet.antiBreakingOpen === 'rc1')
+    ) {
+      setIsAntiBreakingOpenSelectDisable(false);
+    } else setIsAntiBreakingOpenSelectDisable(true);
+  }, [fSet?.antiBreakingOpen]);
 
   const onChangeHanleDistance = (value: number | null) => {
     if (fSet && value != null) {
@@ -197,6 +223,34 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       const newSet = {
         ...fSet,
         isWithoutBottomHinge: boolean,
+      };
+      setFSet(newSet);
+    }
+  };
+
+  const onChangeAntiBreakingOpen = (
+    e: CheckboxChangeEvent
+  ) => {
+    if (fSet) {
+      setIsAntiBreakingOpenSelectDisable(!e.target.checked);
+      const value = e.target.checked ? 'base' : false;
+
+      if (
+        value === false ||
+        value === 'base' ||
+        value === 'rc1'
+      )
+        setFSet({ ...fSet, antiBreakingOpen: value });
+    }
+  };
+
+  const onChangeAntiBreakingOpenRadio = (
+    e: RadioChangeEvent
+  ) => {
+    if (fSet) {
+      const newSet = {
+        ...fSet,
+        antiBreakingOpen: e.target.value,
       };
       setFSet(newSet);
     }
@@ -304,6 +358,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
             <Checkbox
               checked={fSet?.microVentilation}
               onChange={onChangeMicroVentilation}
+              disabled={isMicroVentilationDisabled}
             />
           </Form.Item>
         )}
@@ -335,6 +390,48 @@ export const ModalSetOption = ({ id, form }: TProps) => {
             onChange={onChangeIsWithoutBottomHinge}
           />
         </Form.Item>
+      )}
+
+      {fSet?.typeOfOpening !== 'type-3' && (
+        <>
+          <Form.Item
+            label="Протизламна ф-ра:"
+            name="antiBreakingOpen"
+          >
+            <Form.Item
+              valuePropName="value"
+              name="antiBreakingOpen"
+              initialValue={fSet?.antiBreakingOpen}
+            >
+              <Checkbox
+                checked={
+                  fSet?.antiBreakingOpen ? true : false
+                }
+                onChange={onChangeAntiBreakingOpen}
+                // value={fSet?.antiBreakingOpen}
+                value={2}
+              />
+            </Form.Item>
+
+            {!isAntiBreakingOpenSelectDisable && (
+              // <Form.Item
+              // label="Ступінь"
+              // name="antiBreakingOpenRadio"
+              // valuePropName="value"
+              // initialValue={fSet?.antiBreakingOpen}
+              // >
+              <Radio.Group
+                onChange={onChangeAntiBreakingOpenRadio}
+                name="antiBreakingOpenRadio"
+                value={fSet?.antiBreakingOpen}
+              >
+                <Radio value="base">Базовий</Radio>
+                <Radio value="rc1">RC1</Radio>
+              </Radio.Group>
+              // </Form.Item>
+            )}
+          </Form.Item>
+        </>
       )}
       <Divider />
     </Box>

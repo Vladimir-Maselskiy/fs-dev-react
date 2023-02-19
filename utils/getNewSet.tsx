@@ -20,5 +20,6 @@ export const getNewSet = (id = '0'): IFSet => {
     microVentilation: true,
     isGorizontalLock: false,
     isWithoutBottomHinge: false,
+    antiBreakingOpen: false,
   };
 };

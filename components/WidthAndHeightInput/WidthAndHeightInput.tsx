@@ -63,6 +63,9 @@ export const WidthAndHeightInput = ({
           : 'invalid';
       const isGorizontalLock =
         getCurrentIsGorizontalLock(fSet);
+      let microVentilation = true;
+      if (fSet?.width && fSet?.width < 320)
+        microVentilation = false;
       setFSetsArray(prev =>
         prev.map(set => {
           if (id === set.id)
@@ -71,6 +74,7 @@ export const WidthAndHeightInput = ({
               width: fSet.width,
               isGorizontalLock,
               isWidthValid,
+              microVentilation,
             };
           return set;
         })
@@ -96,15 +100,13 @@ export const WidthAndHeightInput = ({
         ) === undefined
           ? 'valid'
           : 'invalid';
-      const isGorizontalLock =
-        getCurrentIsGorizontalLock(fSet);
+
       setFSetsArray(prev =>
         prev.map(set => {
           if (id === set.id)
             return {
               ...set,
               height: fSet.height,
-              isGorizontalLock,
               isHeightValid,
             };
           return set;

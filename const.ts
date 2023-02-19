@@ -72,21 +72,21 @@ export const type3Restrictions = {
 };
 
 export const macoRestrictions = {
-  minWith: 300,
+  minWith: 220,
   maxWidth: 1300,
   minHeight: 470,
   maxHeight: 2500,
 };
 
 export const winkhausRestrictions = {
-  minWith: 300,
+  minWith: 400,
   maxWidth: 1300,
   minHeight: 470,
   maxHeight: 2500,
 };
 
 export const vorneRestrictions = {
-  minWith: 300,
+  minWith: 400,
   maxWidth: 1300,
   minHeight: 470,
   maxHeight: 2200,

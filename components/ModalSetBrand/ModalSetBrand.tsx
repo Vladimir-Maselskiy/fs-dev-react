@@ -11,7 +11,6 @@ import type { RadioChangeEvent } from 'antd';
 import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
 import { getSetById } from '@/utils/getSetById';
-import { setIsInputValid } from '@/utils/getValidateStatusOfWidthOrHeight';
 
 type TProps = {
   id: string;
