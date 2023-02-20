@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { IFSet } from '@/interfaces/interfaces';
 import { Box } from '../Box/Box';
 import { StyledFSetItem } from './FSetItem.styled';
@@ -30,6 +30,10 @@ export const FSetItem = ({
   setCurrentSetId,
   setCurrentModalNumber,
 }: IProp) => {
+  const widthInputRef = useRef<
+    Array<HTMLDivElement | null>
+  >([]);
+
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [
     isOptitionButtonDisabled,

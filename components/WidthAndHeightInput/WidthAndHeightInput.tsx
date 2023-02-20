@@ -25,6 +25,10 @@ export const WidthAndHeightInput = ({
 }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
 
+  useEffect(() => {
+    widthInputRef.current?.focus();
+  }, [fSetsArray.length]);
+
   const widthInputRef = useRef<HTMLInputElement>(null);
   const heihtInputRef = useRef<HTMLInputElement>(null);
 
