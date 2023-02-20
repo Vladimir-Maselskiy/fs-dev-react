@@ -3,14 +3,11 @@ import { Select, Form } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 import { typeOfOpeningSelectOpions } from '@/const';
-import {
-  ALLTypeOfOpeningConst,
-  IFSet,
-  TTypeOfOpenimg,
-} from '@/interfaces/interfaces';
+import { ALLTypeOfOpeningConst } from '@/interfaces/interfaces';
 import { isStringInUnionTypeOfOpening } from '@/utils/ts-utils/isStringInUnion';
 import { getSetById } from '@/utils/getSetById';
 import { useFSetsContext } from '@/context/state';
+import { getOneOptionTypeOfOpening } from '@/utils/getOneOptionTypeOfOpening';
 
 type TProps = {
   id: string;
@@ -22,23 +19,17 @@ export const ModalTypeOfOpening = ({
   form,
 }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState<IFSet | null>(null);
-  const [typeOfOpening, setTypeOfOpening] =
-    useState<TTypeOfOpenimg>('type-1');
+  const [fSet, setFSet] = useState(
+    getSetById(id, fSetsArray)
+  );
 
   useEffect(() => {
-    const originalfSet = getSetById(id, fSetsArray);
-    if (originalfSet) {
-      const fSet = { ...originalfSet };
-      setFSet(fSet);
-      setTypeOfOpening(fSet.typeOfOpening);
-    }
+    setFSet(getSetById(id, fSetsArray));
   }, [id]);
 
   useEffect(() => {
-    form.setFieldsValue({ typeOfOpening });
-    if (fSet) setFSet({ ...fSet, typeOfOpening });
-  }, [typeOfOpening]);
+    form.setFieldsValue(fSet?.typeOfOpening);
+  }, [fSet?.typeOfOpening]);
 
   const handleChange = (
     e: CheckboxChangeEvent,
@@ -57,15 +48,18 @@ export const ModalTypeOfOpening = ({
       isStringInUnionTypeOfOpening(
         option.value,
         ALLTypeOfOpeningConst
-      )
-    )
-      setTypeOfOpening(option.value);
+      ) &&
+      fSet
+    ) {
+      setFSet({ ...fSet, typeOfOpening: option.value });
+    }
   };
   return (
     <Form.Item
       label="Тип відкривання"
       name="typeOfOpening"
       style={{ paddingRight: 40 }}
+      initialValue={fSet?.typeOfOpening}
     >
       <Select
         onChange={handleChange}

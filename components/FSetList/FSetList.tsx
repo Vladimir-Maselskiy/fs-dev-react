@@ -1,5 +1,4 @@
 import { IFSet } from '@/interfaces/interfaces';
-
 import { Box } from '../Box/Box';
 import { FSetItem } from '../FSetItem/FSetItem';
 import { StyledFSetList } from './FSetList.styled';

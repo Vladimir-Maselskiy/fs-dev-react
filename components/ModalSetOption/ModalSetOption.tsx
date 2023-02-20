@@ -340,7 +340,6 @@ export const ModalSetOption = ({ id, form }: TProps) => {
             <Select
               onChange={handleChangeTypeOfHingeSidePress}
               options={typeOfHingeSidePressConst}
-              value={getOneOptionTypeOfHingeSidePress(fSet)}
               listHeight={150}
             />
           </Form.Item>
@@ -392,12 +391,12 @@ export const ModalSetOption = ({ id, form }: TProps) => {
         </Form.Item>
       )}
 
-      {fSet?.typeOfOpening !== 'type-3' && (
+      {!(
+        fSet?.shtulpGetriebe === 'latch' &&
+        fSet?.typeOfOpening === 'type-5'
+      ) && (
         <>
-          <Form.Item
-            label="Протизламна ф-ра:"
-            name="antiBreakingOpen"
-          >
+          <Form.Item label="Протизламна ф-ра:">
             <Form.Item
               valuePropName="value"
               name="antiBreakingOpen"
@@ -408,8 +407,6 @@ export const ModalSetOption = ({ id, form }: TProps) => {
                   fSet?.antiBreakingOpen ? true : false
                 }
                 onChange={onChangeAntiBreakingOpen}
-                // value={fSet?.antiBreakingOpen}
-                value={2}
               />
             </Form.Item>
 
@@ -425,7 +422,9 @@ export const ModalSetOption = ({ id, form }: TProps) => {
                 name="antiBreakingOpenRadio"
                 value={fSet?.antiBreakingOpen}
               >
-                <Radio value="base">Базовий</Radio>
+                {fSet?.shtulpGetriebe === 'latch' && (
+                  <Radio value="base">Базовий</Radio>
+                )}
                 <Radio value="rc1">RC1</Radio>
               </Radio.Group>
               // </Form.Item>

@@ -30,7 +30,7 @@ export const FSetItem = ({
   setCurrentSetId,
   setCurrentModalNumber,
 }: IProp) => {
-  const { fSetsArray } = useFSetsContext();
+  const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [
     isOptitionButtonDisabled,
     setIsOptitionButtonDisabled,
@@ -41,7 +41,24 @@ export const FSetItem = ({
 
   useEffect(() => {
     if (fSet) setRestrictions(getSetRestrictions(fSet));
-  }, [fSet]);
+  }, [fSet.brand, fSet.typeOfOpening]);
+
+  useEffect(() => {
+    const shtulpGetriebe =
+      fSet.brand === 'winkhaus'
+        ? 'shtulpGetriebe'
+        : 'latch';
+    setFSetsArray(prev =>
+      prev.map(set => {
+        if (set.id === fSet.id)
+          return {
+            ...set,
+            shtulpGetriebe,
+          };
+        return set;
+      })
+    );
+  }, [fSet.brand]);
 
   return (
     <StyledFSetItem>

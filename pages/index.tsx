@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from 'antd';
 // import Head from 'next/head';
 // import Image from 'next/image';
@@ -22,11 +22,20 @@ export default function Home() {
   const [currentModalNumber, setCurrentModalNumber] =
     useState(0);
 
+  const fSetEndRef = useRef<null | HTMLElement>(null);
+
+  const scrollToBottom = () => {
+    fSetEndRef.current?.scrollIntoView({
+      behavior: 'smooth',
+    });
+  };
+
   const addNewFSet = (): void => {
     const newSet = getNewSet(
       fSetsArray[fSetsArray.length - 1]?.id
     );
     setFSetsArray(prev => [...prev, newSet]);
+    setTimeout(scrollToBottom, 100);
   };
 
   useEffect(() => {
@@ -61,7 +70,11 @@ export default function Home() {
           display="flex"
           justifyContent="space-between"
         >
-          <Button type="primary" onClick={addNewFSet}>
+          <Button
+            type="primary"
+            ref={fSetEndRef}
+            onClick={addNewFSet}
+          >
             Додати
           </Button>
           <Button
