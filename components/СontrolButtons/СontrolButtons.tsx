@@ -11,6 +11,7 @@ import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/getSetById';
 import { IFSet } from '@/interfaces/interfaces';
 import { getValidateStatusOfWidthOrHeight } from '@/utils/getValidateStatusOfWidthOrHeight';
+import { Button } from 'antd';
 
 type TProps = {
   isOptitionButtonDisabled: boolean;
@@ -65,52 +66,46 @@ export const ControlButtons = ({
   return (
     <Box display="flex" flexDirection="column">
       <StyledControlButton
-        type="button"
+        size="large"
         onClick={e => {
           setIsModalOpen(true);
           setCurrentSetId(id);
           setCurrentModalNumber(1);
         }}
-      >
-        <>
-          {fSet?.brand === 'maco' && (
+        icon={
+          fSet?.brand === 'maco' ? (
             <IconMacoLogo width={32} height={32} />
-          )}
-          {fSet?.brand === 'vorne' && (
+          ) : fSet?.brand === 'vorne' ? (
             <IconVorneLogo width={32} />
-          )}
-          {fSet?.brand === 'winkhaus' && (
+          ) : fSet?.brand === 'winkhaus' ? (
             <IconWinkhausLogo width={32} />
-          )}
-        </>
-      </StyledControlButton>
+          ) : null
+        }
+      />
+
       <StyledControlButton
-        type="button"
         disabled={isOptitionButtonDisabled}
         onClick={e => {
           setIsModalOpen(true);
           setCurrentSetId(id);
           setCurrentModalNumber(2);
         }}
-      >
-        <IconOptions />
-      </StyledControlButton>
+        icon={<IconOptions />}
+      />
+
       <StyledControlButton
-        type="button"
         onClick={e => {
           setIsModalOpen(true);
           setCurrentSetId(id);
           setCurrentModalNumber(3);
         }}
-      >
-        <IconTypeOfWindow />
-      </StyledControlButton>
+        icon={<IconTypeOfWindow />}
+      />
+
       <StyledControlButton
-        type="button"
         onClick={() => onClickRemoveButton(id)}
-      >
-        <RiDeleteBin2Line size={32} />
-      </StyledControlButton>
+        icon={<RiDeleteBin2Line size={32} />}
+      />
     </Box>
   );
 };

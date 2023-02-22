@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import { Button } from 'antd';
 
-export const StyledControlButton = styled.button`
+export const StyledControlButton = styled(Button)`
   min-height: 50px;
+  min-width: 40px;
   width: 40px;
   fill: ${p =>
     p.disabled
