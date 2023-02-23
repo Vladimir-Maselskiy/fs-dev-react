@@ -20,27 +20,26 @@ type TProps = {
 export const ModalSetBrand = ({ id, form }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [fSet, setFSet] = useState<IFSet | null>(null);
-  const [brand, setBrand] = useState<
-    'maco' | 'vorne' | 'winkhaus'
-  >('maco');
+  // const [brand, setBrand] = useState<
+  //   'maco' | 'vorne' | 'winkhaus'
+  // >('maco');
 
   const onChangeBrand = (e: RadioChangeEvent) => {
-    setBrand(e.target.value);
+    if (fSet) setFSet({ ...fSet, brand: e.target.value });
   };
 
   useEffect(() => {
     const originalfSet = getSetById(id, fSetsArray);
     if (originalfSet) {
-      const fSet = { ...originalfSet };
-      setFSet(fSet);
-      setBrand(fSet.brand);
+      setFSet({ ...originalfSet });
     }
-  }, [id]);
+  }, [id, fSetsArray]);
 
   useEffect(() => {
-    form.setFieldsValue({ brand });
-    if (fSet) setFSet({ ...fSet, brand });
-  }, [brand]);
+    if (fSet?.brand) {
+      form.setFieldsValue(fSet.brand);
+    }
+  }, [fSet?.brand, form]);
 
   return (
     <Form.Item name="brand">
@@ -65,7 +64,7 @@ export const ModalSetBrand = ({ id, form }: TProps) => {
             alignItems: 'center',
           }}
         >
-          {brand === 'maco' ? (
+          {fSet?.brand === 'maco' ? (
             <IconMacoLogo width={80} height={80} />
           ) : (
             <IconMacoLogoGray width={80} height={80} />
@@ -80,7 +79,7 @@ export const ModalSetBrand = ({ id, form }: TProps) => {
             alignItems: 'center',
           }}
         >
-          {brand === 'vorne' ? (
+          {fSet?.brand === 'vorne' ? (
             <IconVorneLogo width={80} />
           ) : (
             <IconVorneLogoGray width={80} />
@@ -95,7 +94,7 @@ export const ModalSetBrand = ({ id, form }: TProps) => {
             alignItems: 'center',
           }}
         >
-          {brand === 'winkhaus' ? (
+          {fSet?.brand === 'winkhaus' ? (
             <IconWinkhausLogo width={80} />
           ) : (
             <IconWinkhauseLogoGray width={80} />

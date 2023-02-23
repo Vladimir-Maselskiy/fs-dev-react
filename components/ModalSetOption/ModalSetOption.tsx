@@ -1,11 +1,4 @@
-import {
-  Form,
-  InputNumber,
-  Checkbox,
-  Radio,
-  Select,
-  Divider,
-} from 'antd';
+import { Form, InputNumber, Checkbox, Radio, Select, Divider } from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useFSetsContext } from '@/context/state';
@@ -23,69 +16,61 @@ type TProps = {
 };
 
 export const ModalSetOption = ({ id, form }: TProps) => {
-  const { fSetsArray, setFSetsArray } = useFSetsContext();
+  const { fSetsArray } = useFSetsContext();
 
-  const [fSet, setFSet] = useState(
-    getSetById(id, fSetsArray)
-  );
+  const [fSet, setFSet] = useState(getSetById(id, fSetsArray));
 
-  const [
-    hanleDistanceRestrictions,
-    setHanleDistanceRestrictions,
-  ] = useState({ min: '', max: '' });
+  const [hanleDistanceRestrictions, setHanleDistanceRestrictions] = useState({
+    min: '',
+    max: '',
+  });
 
-  const [
-    isGorizontalLockDisabled,
-    setIsGorizontalLockDisabled,
-  ] = useState(false);
+  const [isGorizontalLockDisabled, setIsGorizontalLockDisabled] =
+    useState(false);
 
-  const [
-    isMicroVentilationDisabled,
-    setIsMicroVentilationDisabled,
-  ] = useState(false);
+  const [isMicroVentilationDisabled, setIsMicroVentilationDisabled] =
+    useState(false);
 
-  const [
-    isAntiBreakingOpenSelectDisable,
-    setIsAntiBreakingOpenSelectDisable,
-  ] = useState(true);
+  const [isAntiBreakingOpenSelectDisable, setIsAntiBreakingOpenSelectDisable] =
+    useState(true);
 
   useEffect(() => {
     setFSet(getSetById(id, fSetsArray));
-    if (fSet) {
+    if (fSet?.height) {
       setHanleDistanceRestrictions({
         min: '235',
         max: String(Number(fSet.height) - 235),
       });
     }
-  }, [id, fSetsArray]);
+  }, [id, fSetsArray, fSet?.height]);
 
   useEffect(() => {
     form.setFieldsValue(fSet?.hanleDistance);
-  }, [fSet?.hanleDistance]);
+  }, [fSet?.hanleDistance, form]);
 
   useEffect(() => {
     form.setFieldsValue(fSet?.shtulpGetriebe);
-  }, [fSet?.shtulpGetriebe]);
+  }, [fSet?.shtulpGetriebe, form]);
 
   useEffect(() => {
     form.setFieldsValue(fSet?.isTurnTiltGetriebe);
-  }, [fSet?.isTurnTiltGetriebe]);
+  }, [fSet?.isTurnTiltGetriebe, form]);
 
   useEffect(() => {
     form.setFieldsValue(fSet?.typeOfHingeSidePress);
-  }, [fSet?.typeOfHingeSidePress]);
+  }, [fSet?.typeOfHingeSidePress, form]);
 
   useEffect(() => {
     form.setFieldsValue(fSet?.microVentilation);
-  }, [fSet?.microVentilation]);
+  }, [fSet?.microVentilation, form]);
 
   useEffect(() => {
     form.setFieldsValue(fSet?.isGorizontalLock);
-  }, [fSet?.isGorizontalLock]);
+  }, [fSet?.isGorizontalLock, form]);
 
   useEffect(() => {
     form.setFieldsValue(fSet?.isWithoutBottomHinge);
-  }, [fSet?.isWithoutBottomHinge]);
+  }, [fSet?.isWithoutBottomHinge, form]);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -94,13 +79,10 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     form.setFieldsValue({
       antiBreakingOpen: fSet?.antiBreakingOpen,
     });
-  }, [fSet?.antiBreakingOpen]);
+  }, [fSet?.antiBreakingOpen, form]);
 
   useEffect(() => {
-    if (
-      fSet?.typeOfOpening === 'type-2' &&
-      fSet.isTurnTiltGetriebe === false
-    ) {
+    if (fSet?.typeOfOpening === 'type-2' && fSet.isTurnTiltGetriebe === false) {
       setIsGorizontalLockDisabled(true);
     } else if (
       fSet?.typeOfOpening === 'type-5' &&
@@ -110,19 +92,23 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     } else if (fSet?.width && fSet?.width < 400) {
       setIsGorizontalLockDisabled(true);
     } else setIsGorizontalLockDisabled(false);
-  }, [fSet?.typeOfOpening, fSet?.shtulpGetriebe]);
+  }, [
+    fSet?.typeOfOpening,
+    fSet?.shtulpGetriebe,
+    fSet?.isTurnTiltGetriebe,
+    fSet?.width,
+  ]);
 
   useEffect(() => {
     if (fSet?.width && fSet?.width < 320) {
       setIsMicroVentilationDisabled(true);
     } else setIsMicroVentilationDisabled(false);
-  }, []);
+  }, [fSet?.width]);
 
   useEffect(() => {
     if (
       fSet?.antiBreakingOpen &&
-      (fSet.antiBreakingOpen === 'base' ||
-        fSet.antiBreakingOpen === 'rc1')
+      (fSet.antiBreakingOpen === 'base' || fSet.antiBreakingOpen === 'rc1')
     ) {
       setIsAntiBreakingOpenSelectDisable(false);
     } else setIsAntiBreakingOpenSelectDisable(true);
@@ -148,9 +134,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     }
   };
 
-  const onChangeTurnTiltGetriebe = (
-    e: CheckboxChangeEvent
-  ) => {
+  const onChangeTurnTiltGetriebe = (e: CheckboxChangeEvent) => {
     if (fSet) {
       const newSet = {
         ...fSet,
@@ -191,9 +175,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       }
   };
 
-  const onChangeMicroVentilation = (
-    e: CheckboxChangeEvent
-  ) => {
+  const onChangeMicroVentilation = (e: CheckboxChangeEvent) => {
     if (fSet) {
       const newSet = {
         ...fSet,
@@ -203,9 +185,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     }
   };
 
-  const onChangeIsGorizontalLock = (
-    e: CheckboxChangeEvent
-  ) => {
+  const onChangeIsGorizontalLock = (e: CheckboxChangeEvent) => {
     if (fSet) {
       const newSet = {
         ...fSet,
@@ -215,9 +195,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     }
   };
 
-  const onChangeIsWithoutBottomHinge = (
-    e: CheckboxChangeEvent
-  ) => {
+  const onChangeIsWithoutBottomHinge = (e: CheckboxChangeEvent) => {
     if (fSet) {
       const boolean = e.target.checked;
       const newSet = {
@@ -228,25 +206,17 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     }
   };
 
-  const onChangeAntiBreakingOpen = (
-    e: CheckboxChangeEvent
-  ) => {
+  const onChangeAntiBreakingOpen = (e: CheckboxChangeEvent) => {
     if (fSet) {
       setIsAntiBreakingOpenSelectDisable(!e.target.checked);
       const value = e.target.checked ? 'base' : false;
 
-      if (
-        value === false ||
-        value === 'base' ||
-        value === 'rc1'
-      )
+      if (value === false || value === 'base' || value === 'rc1')
         setFSet({ ...fSet, antiBreakingOpen: value });
     }
   };
 
-  const onChangeAntiBreakingOpenRadio = (
-    e: RadioChangeEvent
-  ) => {
+  const onChangeAntiBreakingOpenRadio = (e: RadioChangeEvent) => {
     if (fSet) {
       const newSet = {
         ...fSet,
@@ -269,8 +239,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       <p>Додаткові опції комплекта:</p>
       <Box pt={20}>
         <p>
-          Ширина: {fSet?.width} &nbsp; Висота:{' '}
-          {fSet?.height}
+          Ширина: {fSet?.width} &nbsp; Висота: {fSet?.height}
         </p>
       </Box>
       <Divider />
@@ -318,24 +287,18 @@ export const ModalSetOption = ({ id, form }: TProps) => {
           initialValue={fSet.shtulpGetriebe}
         >
           <Radio.Group onChange={onChangeShtulpGetriebe}>
-            <Radio value="shtulpGetriebe">
-              Штульп-привід
-            </Radio>
+            <Radio value="shtulpGetriebe">Штульп-привід</Radio>
             <Radio value="latch">Шпінгалети</Radio>
           </Radio.Group>
         </Form.Item>
       )}
 
       {typeof fSet?.typeOfOpening === 'string' &&
-        ['type-2', 'type-3', 'type-5'].includes(
-          fSet?.typeOfOpening
-        ) && (
+        ['type-2', 'type-3', 'type-5'].includes(fSet?.typeOfOpening) && (
           <Form.Item
             label="Прижим зі сторони петель"
             name="typeOfHingeSidePress"
-            initialValue={getOneOptionTypeOfHingeSidePress(
-              fSet
-            )}
+            initialValue={getOneOptionTypeOfHingeSidePress(fSet)}
           >
             <Select
               onChange={handleChangeTypeOfHingeSidePress}
@@ -345,9 +308,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
           </Form.Item>
         )}
       {typeof fSet?.typeOfOpening === 'string' &&
-        ['type-1', 'type-4'].includes(
-          fSet?.typeOfOpening
-        ) && (
+        ['type-1', 'type-4'].includes(fSet?.typeOfOpening) && (
           <Form.Item
             label="Зимове провітрювання"
             name="microVentilation"
@@ -392,8 +353,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       )}
 
       {!(
-        fSet?.shtulpGetriebe === 'latch' &&
-        fSet?.typeOfOpening === 'type-5'
+        fSet?.shtulpGetriebe === 'latch' && fSet?.typeOfOpening === 'type-5'
       ) && (
         <>
           <Form.Item label="Протизламна ф-ра:">
@@ -403,9 +363,7 @@ export const ModalSetOption = ({ id, form }: TProps) => {
               initialValue={fSet?.antiBreakingOpen}
             >
               <Checkbox
-                checked={
-                  fSet?.antiBreakingOpen ? true : false
-                }
+                checked={fSet?.antiBreakingOpen ? true : false}
                 onChange={onChangeAntiBreakingOpen}
               />
             </Form.Item>
