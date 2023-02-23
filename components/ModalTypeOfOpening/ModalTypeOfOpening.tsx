@@ -7,29 +7,23 @@ import { ALLTypeOfOpeningConst } from '@/interfaces/interfaces';
 import { isStringInUnionTypeOfOpening } from '@/utils/ts-utils/isStringInUnion';
 import { getSetById } from '@/utils/getSetById';
 import { useFSetsContext } from '@/context/state';
-import { getOneOptionTypeOfOpening } from '@/utils/getOneOptionTypeOfOpening';
 
 type TProps = {
   id: string;
   form: any;
 };
 
-export const ModalTypeOfOpening = ({
-  id,
-  form,
-}: TProps) => {
-  const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState(
-    getSetById(id, fSetsArray)
-  );
+export const ModalTypeOfOpening = ({ id, form }: TProps) => {
+  const { fSetsArray } = useFSetsContext();
+  const [fSet, setFSet] = useState(getSetById(id, fSetsArray));
 
   useEffect(() => {
     setFSet(getSetById(id, fSetsArray));
-  }, [id]);
+  }, [id, fSetsArray]);
 
   useEffect(() => {
     form.setFieldsValue(fSet?.typeOfOpening);
-  }, [fSet?.typeOfOpening]);
+  }, [fSet?.typeOfOpening, form]);
 
   const handleChange = (
     e: CheckboxChangeEvent,
@@ -45,10 +39,7 @@ export const ModalTypeOfOpening = ({
   ) => {
     if (
       !Array.isArray(option) &&
-      isStringInUnionTypeOfOpening(
-        option.value,
-        ALLTypeOfOpeningConst
-      ) &&
+      isStringInUnionTypeOfOpening(option.value, ALLTypeOfOpeningConst) &&
       fSet
     ) {
       setFSet({ ...fSet, typeOfOpening: option.value });
