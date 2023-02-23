@@ -13,15 +13,9 @@ import { Tag } from 'antd';
 
 interface IProp {
   fSet: IFSet;
-  setIsModalOpen: React.Dispatch<
-    React.SetStateAction<boolean>
-  >;
-  setCurrentSetId: React.Dispatch<
-    React.SetStateAction<string>
-  >;
-  setCurrentModalNumber: React.Dispatch<
-    React.SetStateAction<number>
-  >;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentSetId: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentModalNumber: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const FSetItem = ({
@@ -30,28 +24,23 @@ export const FSetItem = ({
   setCurrentSetId,
   setCurrentModalNumber,
 }: IProp) => {
-  const widthInputRef = useRef<
-    Array<HTMLDivElement | null>
-  >([]);
+  const widthInputRef = useRef<Array<HTMLDivElement | null>>([]);
 
   const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const [
-    isOptitionButtonDisabled,
-    setIsOptitionButtonDisabled,
-  ] = useState(true);
+  const [isOptitionButtonDisabled, setIsOptitionButtonDisabled] =
+    useState(true);
 
-  const [restrictions, setRestrictions] =
-    useState<TRestrictions>(getSetRestrictions(fSet));
+  const [restrictions, setRestrictions] = useState<TRestrictions>(
+    getSetRestrictions(fSet)
+  );
 
   useEffect(() => {
-    if (fSet) setRestrictions(getSetRestrictions(fSet));
+    setRestrictions(getSetRestrictions(fSet));
   }, [fSet.brand, fSet.typeOfOpening]);
 
   useEffect(() => {
     const shtulpGetriebe =
-      fSet.brand === 'winkhaus'
-        ? 'shtulpGetriebe'
-        : 'latch';
+      fSet.brand === 'winkhaus' ? 'shtulpGetriebe' : 'latch';
     setFSetsArray(prev =>
       prev.map(set => {
         if (set.id === fSet.id)
@@ -62,25 +51,17 @@ export const FSetItem = ({
         return set;
       })
     );
-  }, [fSet.brand]);
+  }, [fSet.brand, fSet.id, setFSetsArray]);
 
   return (
     <StyledFSetItem>
-      <Tag style={{ alignSelf: 'start' }}>
-        {fSetsArray.indexOf(fSet) + 1}
-      </Tag>
+      <Tag style={{ alignSelf: 'start' }}>{fSetsArray.indexOf(fSet) + 1}</Tag>
       <WidthAndHeightInput
-        setIsOptitionButtonDisabled={
-          setIsOptitionButtonDisabled
-        }
+        setIsOptitionButtonDisabled={setIsOptitionButtonDisabled}
         id={fSet.id}
         restrictions={restrictions}
       />
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-      >
+      <Box display="flex" flexDirection="column" alignItems="center">
         <QuantityOfSets id={fSet.id} />
         <ImportantSetsOptions id={fSet.id} />
       </Box>

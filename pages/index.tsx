@@ -41,7 +41,7 @@ export default function Home() {
   useEffect(() => {
     if (fSetsArray.length === 0)
       setFSetsArray([getNewSet()]);
-  }, []);
+  }, [setFSetsArray, fSetsArray.length]);
 
   return (
     <MainContainer>
