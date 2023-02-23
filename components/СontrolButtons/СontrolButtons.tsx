@@ -11,6 +11,7 @@ import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/getSetById';
 import { IFSet } from '@/interfaces/interfaces';
 import { getValidateStatusOfWidthOrHeight } from '@/utils/getValidateStatusOfWidthOrHeight';
+import { height } from 'styled-system';
 
 type TProps = {
   isOptitionButtonDisabled: boolean;
@@ -33,24 +34,24 @@ export const ControlButtons = ({
   useEffect(() => {
     const currentSet = getSetById(id, fSetsArray);
     if (currentSet) setFSet(currentSet);
-  }, [fSetsArray]);
+  }, [id, fSetsArray]);
 
   useEffect(() => {
-    if (fSet) {
+    if (fSet?.width)
       getValidateStatusOfWidthOrHeight(
         fSet.brand,
         fSet.typeOfOpening,
         fSet.width,
         'width'
       );
+    if (fSet?.height)
       getValidateStatusOfWidthOrHeight(
         fSet.brand,
         fSet.typeOfOpening,
-        fSet.width,
+        fSet.height,
         'height'
       );
-    }
-  }, [fSet?.brand, fSet?.typeOfOpening]);
+  }, [fSet?.brand, fSet?.typeOfOpening, fSet?.width, fSet?.height]);
 
   const onClickRemoveButton = (id: string) => {
     setFSetsArray(prev => prev.filter(set => set.id !== id));
