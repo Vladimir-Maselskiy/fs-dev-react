@@ -6,9 +6,13 @@ import { getSetById } from '@/utils/getSetById';
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
 import { ALLTypeOfHingeSidePressConst } from '@/interfaces/interfaces';
-import { typeOfHingeSidePressConst } from '@/const';
-import { isStringInUnionTypeOfHingeSidePress } from '@/utils/ts-utils/isStringInUnion';
+import { decor, typeOfHingeSidePressConst } from '@/const';
+import {
+  isStringInUnionDecor,
+  isStringInUnionTypeOfHingeSidePress,
+} from '@/utils/ts-utils/isStringInUnion';
 import { getOneOptionTypeOfHingeSidePress } from '@/utils/getOneOptionTypeOfHingeSidePress';
+import { getOneOptionDecor } from '@/utils/getOneOptionDecor';
 
 type TProps = {
   id: string;
@@ -175,6 +179,34 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       }
   };
 
+  const handleChangeDecor = (
+    value: {
+      value: string;
+      label: string;
+    },
+    option:
+      | {
+          value: string;
+          label: string;
+        }
+      | {
+          value: string;
+          label: string;
+        }[]
+  ) => {
+    if (
+      !Array.isArray(option) &&
+      isStringInUnionDecor(option.value, ALLTypeOfHingeSidePressConst)
+    )
+      if (fSet) {
+        const newSet = {
+          ...fSet,
+          decor: option.value,
+        };
+        setFSet(newSet);
+      }
+  };
+
   const onChangeMicroVentilation = (e: CheckboxChangeEvent) => {
     if (fSet) {
       const newSet = {
@@ -243,6 +275,20 @@ export const ModalSetOption = ({ id, form }: TProps) => {
         </p>
       </Box>
       <Divider />
+
+      <Form.Item
+        label="Декор"
+        name="decor"
+        initialValue={getOneOptionDecor(fSet)}
+      >
+        <Select
+          onChange={handleChangeDecor}
+          options={decor}
+          listHeight={150}
+          style={{ width: '140px' }}
+        />
+      </Form.Item>
+
       {fSet?.typeOfOpening !== 'type-3' && (
         <Form.Item
           label="Висота від низу до ручки"

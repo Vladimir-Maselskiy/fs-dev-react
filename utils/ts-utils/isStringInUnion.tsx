@@ -1,4 +1,5 @@
 import {
+  TDecor,
   TSystemOfPVC,
   TTypeOfHingeSidePress,
   TTypeOfOpenimg,
@@ -20,5 +21,11 @@ export const isStringInUnionSystemOfPVC = (
   str: string,
   array: readonly string[]
 ): str is TSystemOfPVC => {
+  return array.includes(str);
+};
+export const isStringInUnionDecor = (
+  str: string,
+  array: readonly string[]
+): str is TDecor => {
   return array.includes(str);
 };

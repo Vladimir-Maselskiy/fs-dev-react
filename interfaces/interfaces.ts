@@ -22,6 +22,16 @@ export const ALLSystemOfPVC = [
   'Veka',
   'Salamander',
 ] as const;
+
+export const ALLDecor = [
+  'white',
+  'brown',
+  'anthracite',
+  'titan',
+  'black',
+  'bronze',
+] as const;
+
 export const ALLBrands = ['maco', 'vorne', 'winkhaus'] as const;
 
 export type TSystemOfPVC = typeof ALLSystemOfPVC[number];
@@ -31,6 +41,8 @@ export type TTypeOfHingeSidePress = typeof ALLTypeOfHingeSidePressConst[number];
 export type TTypeOfOpenimg = typeof ALLTypeOfOpeningConst[number];
 
 export type TBrands = typeof ALLBrands[number];
+
+export type TDecor = typeof ALLDecor[number];
 
 export interface IFSet {
   id: string;
@@ -44,6 +56,7 @@ export interface IFSet {
   systemOfPVC: TSystemOfPVC;
   typeOfOpening: TTypeOfOpenimg;
   hanleDistance: number | undefined;
+  decor: TDecor;
   shtulpGetriebe: 'shtulpGetriebe' | 'latch';
   isTurnTiltGetriebe: boolean;
   typeOfHingeSidePress: TTypeOfHingeSidePress;

@@ -126,6 +126,21 @@ export const WidthAndHeightInput = ({
     if (fSet?.isWidthValid === 'valid' && fSet.isHeightValid === 'valid') {
       setIsOptitionButtonDisabled(false);
     } else setIsOptitionButtonDisabled(true);
+    if (fSet?.isWidthValid)
+      setFSetsArray(prev =>
+        prev.map(set => {
+          if (set.id === id) return { ...set, isWidthValid: fSet.isWidthValid };
+          return set;
+        })
+      );
+    if (fSet?.isHeightValid)
+      setFSetsArray(prev =>
+        prev.map(set => {
+          if (set.id === id)
+            return { ...set, isHeightValid: fSet.isHeightValid };
+          return set;
+        })
+      );
   }, [fSet?.isWidthValid, fSet?.isHeightValid, setIsOptitionButtonDisabled]);
 
   useEffect(() => {

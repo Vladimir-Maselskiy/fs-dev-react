@@ -21,5 +21,6 @@ export const getNewSet = (id = '0'): IFSet => {
     isGorizontalLock: false,
     isWithoutBottomHinge: false,
     antiBreakingOpen: false,
+    decor: 'white',
   };
 };

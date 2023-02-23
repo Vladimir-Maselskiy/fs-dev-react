@@ -24,8 +24,6 @@ export const FSetItem = ({
   setCurrentSetId,
   setCurrentModalNumber,
 }: IProp) => {
-  const widthInputRef = useRef<Array<HTMLDivElement | null>>([]);
-
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [isOptitionButtonDisabled, setIsOptitionButtonDisabled] =
     useState(true);

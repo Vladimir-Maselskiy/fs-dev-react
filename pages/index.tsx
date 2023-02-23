@@ -12,6 +12,7 @@ import { useFSetsContext } from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/CurrentModal/CurrentModal';
 import { TestComonent } from '@/components/TestComonent/TestComonent';
+import { getIsGetOrderButtonDisabled } from '@/utils/getIsGetOrderButtonDisabled';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -19,8 +20,10 @@ export default function Home() {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentSetId, setCurrentSetId] = useState('');
-  const [currentModalNumber, setCurrentModalNumber] =
-    useState(0);
+  const [currentModalNumber, setCurrentModalNumber] = useState(0);
+
+  const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
+    useState(true);
 
   const fSetEndRef = useRef<null | HTMLElement>(null);
 
@@ -31,29 +34,27 @@ export default function Home() {
   };
 
   const addNewFSet = (): void => {
-    const newSet = getNewSet(
-      fSetsArray[fSetsArray.length - 1]?.id
-    );
+    const newSet = getNewSet(fSetsArray[fSetsArray.length - 1]?.id);
     setFSetsArray(prev => [...prev, newSet]);
     setTimeout(scrollToBottom, 100);
   };
 
   useEffect(() => {
-    if (fSetsArray.length === 0)
-      setFSetsArray([getNewSet()]);
+    if (fSetsArray.length === 0) setFSetsArray([getNewSet()]);
   }, [setFSetsArray, fSetsArray.length]);
+
+  useEffect(() => {
+    setIsGetOrderButtonDisabled(getIsGetOrderButtonDisabled(fSetsArray));
+  }, [fSetsArray]);
 
   return (
     <MainContainer>
       <>
-        <Box
-          width="100%"
-          display="flex"
-          justifyContent="space-between"
-        >
+        <Box width="100%" display="flex" justifyContent="space-between">
           <CurrentRate />
           <Button
             type="primary"
+            disabled={isGetOrderButtonDisabled}
             style={{ marginLeft: 'auto' }}
           >
             Розрахувати
@@ -65,20 +66,13 @@ export default function Home() {
           setCurrentSetId={setCurrentSetId}
           setCurrentModalNumber={setCurrentModalNumber}
         />
-        <Box
-          mt={10}
-          display="flex"
-          justifyContent="space-between"
-        >
-          <Button
-            type="primary"
-            ref={fSetEndRef}
-            onClick={addNewFSet}
-          >
+        <Box mt={10} display="flex" justifyContent="space-between">
+          <Button type="primary" ref={fSetEndRef} onClick={addNewFSet}>
             Додати
           </Button>
           <Button
             type="primary"
+            disabled={isGetOrderButtonDisabled}
             style={{ marginLeft: 'auto' }}
           >
             Розрахувати

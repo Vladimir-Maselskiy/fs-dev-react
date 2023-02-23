@@ -42,6 +42,14 @@ export const typeOfOpeningSelectOpions = [
   { value: 'type-4', label: 'Штульп активна' },
   { value: 'type-5', label: 'Штульп пасивна' },
 ];
+export const decor = [
+  { value: 'white', label: 'Білий' },
+  { value: 'brown', label: 'Коричневий' },
+  { value: 'anthracite', label: 'Антрацит' },
+  { value: 'titan', label: 'Титан' },
+  { value: 'black', label: 'Чорний' },
+  { value: 'bronze', label: 'Бронза' },
+];
 
 export const systemSalamanerSelectOpions = [
   { value: '13' as const, label: '13-та серія' },
