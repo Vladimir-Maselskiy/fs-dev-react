@@ -2,10 +2,7 @@ import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/getSetById';
 import { Button, InputNumber } from 'antd';
 import React, { useState, useEffect } from 'react';
-import {
-  AiOutlineMinus,
-  AiOutlinePlus,
-} from 'react-icons/ai';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { Box } from '../Box/Box';
 import { StyledP } from './QuantityOfSets.styled';
 
@@ -16,12 +13,10 @@ type TProps = {
 export const QuantityOfSets = ({ id }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
 
-  const [fSet, setFSet] = useState(
-    getSetById(id, fSetsArray)
-  );
+  const [fSet, setFSet] = useState(getSetById(id, fSetsArray));
 
   useEffect(() => {
-    if (fSet)
+    if (fSet?.quantitySet)
       setFSetsArray(prev => {
         return prev.map(set => {
           if (set.id === id)
@@ -32,7 +27,7 @@ export const QuantityOfSets = ({ id }: TProps) => {
           return set;
         });
       });
-  }, [fSet?.quantitySet]);
+  }, [fSet?.quantitySet, id, setFSetsArray]);
 
   const onChangeCounterByClick = (num: number): void => {
     if (fSet) {
@@ -43,17 +38,11 @@ export const QuantityOfSets = ({ id }: TProps) => {
   };
 
   const onChangeInput = (value: number | null) => {
-    if (value && fSet)
-      setFSet({ ...fSet, quantitySet: value });
+    if (value && fSet) setFSet({ ...fSet, quantitySet: value });
   };
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      width={180}
-    >
+    <Box display="flex" flexDirection="column" alignItems="center" width={180}>
       <StyledP>Кількість</StyledP>
       <Box
         display="flex"
@@ -64,12 +53,7 @@ export const QuantityOfSets = ({ id }: TProps) => {
         <Button
           type="default"
           style={{ width: '50px', height: '50px' }}
-          icon={
-            <AiOutlineMinus
-              size={40}
-              color="var(--accent-color)"
-            />
-          }
+          icon={<AiOutlineMinus size={40} color="var(--accent-color)" />}
           onClick={() => onChangeCounterByClick(-1)}
         ></Button>
 
@@ -92,12 +76,7 @@ export const QuantityOfSets = ({ id }: TProps) => {
         <Button
           type="default"
           style={{ width: '50px', height: '50px' }}
-          icon={
-            <AiOutlinePlus
-              size={40}
-              color="var(--accent-color)"
-            />
-          }
+          icon={<AiOutlinePlus size={40} color="var(--accent-color)" />}
           onClick={() => onChangeCounterByClick(1)}
         ></Button>
       </Box>

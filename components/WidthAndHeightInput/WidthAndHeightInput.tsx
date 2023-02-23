@@ -41,20 +41,26 @@ export const WidthAndHeightInput = ({
 
   useEffect(() => {
     setFSet(getSetById(id, fSetsArray));
-  }, [fSetsArray]);
+  }, [id, fSetsArray]);
 
   useEffect(() => {
-    if (fSet) {
-      if (fSet.width) {
-        const status = getValidateStatus(fSet, 'width', restrictions);
-        setFrontStatusWidthInput(status);
-      }
+    if (fSet?.width) {
+      const status = getValidateStatus(fSet.width, 'width', restrictions);
+      setFrontStatusWidthInput(status);
       const isWidthValid =
-        getValidateStatusOfWidthOrHeight(fSet.id, fSetsArray, 'width') ===
-        undefined
+        getValidateStatusOfWidthOrHeight(
+          fSet.brand,
+          fSet.typeOfOpening,
+          fSet.width,
+          'width'
+        ) === undefined
           ? 'valid'
           : 'invalid';
-      const isGorizontalLock = getCurrentIsGorizontalLock(fSet);
+      const isGorizontalLock = getCurrentIsGorizontalLock(
+        fSet?.width,
+        fSet?.typeOfOpening,
+        fSet?.brand
+      );
       let microVentilation = true;
       if (fSet?.width && fSet?.width < 320) microVentilation = false;
       setFSetsArray(prev =>
@@ -62,7 +68,7 @@ export const WidthAndHeightInput = ({
           if (id === set.id)
             return {
               ...set,
-              width: fSet.width,
+              width: fSet?.width,
               isGorizontalLock,
               isWidthValid,
               microVentilation,
@@ -71,17 +77,27 @@ export const WidthAndHeightInput = ({
         })
       );
     }
-  }, [fSet?.width]);
+  }, [
+    fSet?.width,
+    id,
+    setFSetsArray,
+    restrictions,
+    fSet?.brand,
+    fSet?.typeOfOpening,
+  ]);
 
   useEffect(() => {
-    if (fSet) {
-      if (fSet.height) {
-        const status = getValidateStatus(fSet, 'height', restrictions);
-        setFrontStatusHeightInput(status);
-      }
+    if (fSet?.height) {
+      const status = getValidateStatus(fSet.height, 'height', restrictions);
+      setFrontStatusHeightInput(status);
+
       const isHeightValid =
-        getValidateStatusOfWidthOrHeight(fSet.id, fSetsArray, 'height') ===
-        undefined
+        getValidateStatusOfWidthOrHeight(
+          fSet.brand,
+          fSet.typeOfOpening,
+          fSet.height,
+          'height'
+        ) === undefined
           ? 'valid'
           : 'invalid';
 
@@ -97,30 +113,37 @@ export const WidthAndHeightInput = ({
         })
       );
     }
-  }, [fSet?.height]);
+  }, [
+    fSet?.height,
+    id,
+    restrictions,
+    setFSetsArray,
+    fSet?.brand,
+    fSet?.typeOfOpening,
+  ]);
 
   useEffect(() => {
     if (fSet?.isWidthValid === 'valid' && fSet.isHeightValid === 'valid') {
       setIsOptitionButtonDisabled(false);
     } else setIsOptitionButtonDisabled(true);
-  }, [fSet?.isWidthValid, fSet?.isHeightValid]);
+  }, [fSet?.isWidthValid, fSet?.isHeightValid, setIsOptitionButtonDisabled]);
 
   useEffect(() => {
     if (fSet?.width && fSet.height) {
       const widthStatus = getValidateStatus(
-        fSet,
+        fSet.width,
         'width',
         getSetRestrictions(fSet.typeOfOpening, fSet.brand)
       );
       setFrontStatusWidthInput(widthStatus);
       const heightStatus = getValidateStatus(
-        fSet,
+        fSet.height,
         'height',
         getSetRestrictions(fSet.typeOfOpening, fSet.brand)
       );
       setFrontStatusHeightInput(heightStatus);
     }
-  }, [fSet?.typeOfOpening, fSet?.brand]);
+  }, [fSet?.typeOfOpening, fSet?.brand, fSet?.height, fSet?.width]);
 
   const onChangeWidthInput = (value: number | null) => {
     if (value && fSet) {
@@ -153,13 +176,13 @@ export const WidthAndHeightInput = ({
 
   const onBlurWidthInput = () => {
     if (fSet) {
-      const status = getValidateStatus(fSet, 'width', restrictions);
+      const status = getValidateStatus(fSet.width, 'width', restrictions);
       setFrontStatusWidthInput(status);
     }
   };
   const onBlurHeightInput = () => {
     if (fSet) {
-      const status = getValidateStatus(fSet, 'height', restrictions);
+      const status = getValidateStatus(fSet.height, 'height', restrictions);
       setFrontStatusHeightInput(status);
     }
   };

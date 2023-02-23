@@ -11,20 +11,13 @@ import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/getSetById';
 import { IFSet } from '@/interfaces/interfaces';
 import { getValidateStatusOfWidthOrHeight } from '@/utils/getValidateStatusOfWidthOrHeight';
-import { Button } from 'antd';
 
 type TProps = {
   isOptitionButtonDisabled: boolean;
-  setIsModalOpen: React.Dispatch<
-    React.SetStateAction<boolean>
-  >;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   id: string;
-  setCurrentSetId: React.Dispatch<
-    React.SetStateAction<string>
-  >;
-  setCurrentModalNumber: React.Dispatch<
-    React.SetStateAction<number>
-  >;
+  setCurrentSetId: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentModalNumber: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const ControlButtons = ({
@@ -45,22 +38,22 @@ export const ControlButtons = ({
   useEffect(() => {
     if (fSet) {
       getValidateStatusOfWidthOrHeight(
-        fSet.id,
-        fSetsArray,
+        fSet.brand,
+        fSet.typeOfOpening,
+        fSet.width,
         'width'
       );
       getValidateStatusOfWidthOrHeight(
-        fSet.id,
-        fSetsArray,
+        fSet.brand,
+        fSet.typeOfOpening,
+        fSet.width,
         'height'
       );
     }
   }, [fSet?.brand, fSet?.typeOfOpening]);
 
   const onClickRemoveButton = (id: string) => {
-    setFSetsArray(prev =>
-      prev.filter(set => set.id !== id)
-    );
+    setFSetsArray(prev => prev.filter(set => set.id !== id));
   };
 
   return (

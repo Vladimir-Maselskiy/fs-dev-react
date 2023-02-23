@@ -1,19 +1,17 @@
-import { IFSet } from '@/interfaces/interfaces';
+import { IFSet, TBrands, TTypeOfOpenimg } from '@/interfaces/interfaces';
 import { getSetById } from './getSetById';
 import { getSetRestrictions } from './getSetRestrictions';
 import { getValidateStatus } from './getValidateStatus';
 
 export const getValidateStatusOfWidthOrHeight = (
-  id: string,
-  fSetsArray: IFSet[],
+  brand: TBrands,
+  typeOfOpening: TTypeOfOpenimg,
+  value: number,
   fieldName: 'width' | 'height'
 ) => {
-  const fSet = getSetById(id, fSetsArray);
-  if (fSet) {
-    return getValidateStatus(
-      fSet,
-      fieldName,
-      getSetRestrictions(fSet.typeOfOpening, fSet.brand)
-    );
-  }
+  return getValidateStatus(
+    value,
+    fieldName,
+    getSetRestrictions(typeOfOpening, brand)
+  );
 };
