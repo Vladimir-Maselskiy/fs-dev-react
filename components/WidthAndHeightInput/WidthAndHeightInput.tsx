@@ -12,9 +12,7 @@ import { getCurrentIsGorizontalLock } from '@/utils/getCurrentIsGorizontalLock';
 
 type TProps = {
   id: string;
-  setIsOptitionButtonDisabled: React.Dispatch<
-    React.SetStateAction<boolean>
-  >;
+  setIsOptitionButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   restrictions: TRestrictions;
 };
 
@@ -32,16 +30,14 @@ export const WidthAndHeightInput = ({
   const widthInputRef = useRef<HTMLInputElement>(null);
   const heihtInputRef = useRef<HTMLInputElement>(null);
 
-  const [frontStatusWidthInput, setFrontStatusWidthInput] =
-    useState<undefined | 'error'>(undefined);
-  const [
-    frontStatusHeightInput,
-    setFrontStatusHeightInput,
-  ] = useState<undefined | 'error'>(undefined);
+  const [frontStatusWidthInput, setFrontStatusWidthInput] = useState<
+    undefined | 'error'
+  >(undefined);
+  const [frontStatusHeightInput, setFrontStatusHeightInput] = useState<
+    undefined | 'error'
+  >(undefined);
 
-  const [fSet, setFSet] = useState(
-    getSetById(id, fSetsArray)
-  );
+  const [fSet, setFSet] = useState(getSetById(id, fSetsArray));
 
   useEffect(() => {
     setFSet(getSetById(id, fSetsArray));
@@ -50,26 +46,17 @@ export const WidthAndHeightInput = ({
   useEffect(() => {
     if (fSet) {
       if (fSet.width) {
-        const status = getValidateStatus(
-          fSet,
-          'width',
-          restrictions
-        );
+        const status = getValidateStatus(fSet, 'width', restrictions);
         setFrontStatusWidthInput(status);
       }
       const isWidthValid =
-        getValidateStatusOfWidthOrHeight(
-          fSet.id,
-          fSetsArray,
-          'width'
-        ) === undefined
+        getValidateStatusOfWidthOrHeight(fSet.id, fSetsArray, 'width') ===
+        undefined
           ? 'valid'
           : 'invalid';
-      const isGorizontalLock =
-        getCurrentIsGorizontalLock(fSet);
+      const isGorizontalLock = getCurrentIsGorizontalLock(fSet);
       let microVentilation = true;
-      if (fSet?.width && fSet?.width < 320)
-        microVentilation = false;
+      if (fSet?.width && fSet?.width < 320) microVentilation = false;
       setFSetsArray(prev =>
         prev.map(set => {
           if (id === set.id)
@@ -89,19 +76,12 @@ export const WidthAndHeightInput = ({
   useEffect(() => {
     if (fSet) {
       if (fSet.height) {
-        const status = getValidateStatus(
-          fSet,
-          'height',
-          restrictions
-        );
+        const status = getValidateStatus(fSet, 'height', restrictions);
         setFrontStatusHeightInput(status);
       }
       const isHeightValid =
-        getValidateStatusOfWidthOrHeight(
-          fSet.id,
-          fSetsArray,
-          'height'
-        ) === undefined
+        getValidateStatusOfWidthOrHeight(fSet.id, fSetsArray, 'height') ===
+        undefined
           ? 'valid'
           : 'invalid';
 
@@ -120,10 +100,7 @@ export const WidthAndHeightInput = ({
   }, [fSet?.height]);
 
   useEffect(() => {
-    if (
-      fSet?.isWidthValid === 'valid' &&
-      fSet.isHeightValid === 'valid'
-    ) {
+    if (fSet?.isWidthValid === 'valid' && fSet.isHeightValid === 'valid') {
       setIsOptitionButtonDisabled(false);
     } else setIsOptitionButtonDisabled(true);
   }, [fSet?.isWidthValid, fSet?.isHeightValid]);
@@ -133,13 +110,13 @@ export const WidthAndHeightInput = ({
       const widthStatus = getValidateStatus(
         fSet,
         'width',
-        getSetRestrictions(fSet)
+        getSetRestrictions(fSet.typeOfOpening, fSet.brand)
       );
       setFrontStatusWidthInput(widthStatus);
       const heightStatus = getValidateStatus(
         fSet,
         'height',
-        getSetRestrictions(fSet)
+        getSetRestrictions(fSet.typeOfOpening, fSet.brand)
       );
       setFrontStatusHeightInput(heightStatus);
     }
@@ -149,8 +126,7 @@ export const WidthAndHeightInput = ({
     if (value && fSet) {
       setFSetsArray(prev =>
         prev.map(set => {
-          if (set.id === id)
-            return { ...set, width: value };
+          if (set.id === id) return { ...set, width: value };
           return set;
         })
       );
@@ -160,8 +136,7 @@ export const WidthAndHeightInput = ({
     if (value && fSet) {
       setFSetsArray(prev =>
         prev.map(set => {
-          if (set.id === id)
-            return { ...set, height: value };
+          if (set.id === id) return { ...set, height: value };
           return set;
         })
       );
@@ -178,21 +153,13 @@ export const WidthAndHeightInput = ({
 
   const onBlurWidthInput = () => {
     if (fSet) {
-      const status = getValidateStatus(
-        fSet,
-        'width',
-        restrictions
-      );
+      const status = getValidateStatus(fSet, 'width', restrictions);
       setFrontStatusWidthInput(status);
     }
   };
   const onBlurHeightInput = () => {
     if (fSet) {
-      const status = getValidateStatus(
-        fSet,
-        'height',
-        restrictions
-      );
+      const status = getValidateStatus(fSet, 'height', restrictions);
       setFrontStatusHeightInput(status);
     }
   };

@@ -17,23 +17,19 @@ type TProps = {
 
 export const ImportantSetsOptions = ({ id }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState(
-    getSetById(id, fSetsArray)
-  );
+  const [fSet, setFSet] = useState(getSetById(id, fSetsArray));
 
   const [selectOptions, setSelectOptions] = useState(
-    getPVСSystemSelectOpions(fSet)
+    getPVСSystemSelectOpions(fSet?.brand)
   );
-  const [selectValue, setSelectValue] = useState(
-    getPVCSystemSelectValue(fSet)
-  );
+  const [selectValue, setSelectValue] = useState(getPVCSystemSelectValue(fSet));
 
   useEffect(() => {
     setFSet(getSetById(id, fSetsArray));
-  }, [fSetsArray]);
+  }, [fSetsArray, id]);
 
   useEffect(() => {
-    if (fSet) {
+    if (fSet?.sideOfHinge) {
       setFSetsArray(prev =>
         prev.map(set => {
           if (set.id === id)
@@ -45,15 +41,14 @@ export const ImportantSetsOptions = ({ id }: TProps) => {
         })
       );
     }
-  }, [fSet?.sideOfHinge]);
+  }, [fSet?.sideOfHinge, setFSetsArray, id]);
 
   useEffect(() => {
-    setSelectOptions(getPVСSystemSelectOpions(fSet));
-    if (willSelectValueChange(fSet, selectValue)) {
-      const currentSelectValue =
-        getPVСSystemSelectOpions(fSet)?.[0];
+    setSelectOptions(getPVСSystemSelectOpions(fSet?.brand));
+    if (willSelectValueChange(fSet?.brand, selectValue)) {
+      const currentSelectValue = getPVСSystemSelectOpions(fSet?.brand)?.[0];
       setSelectValue(currentSelectValue);
-      if (currentSelectValue?.value && fSet)
+      if (currentSelectValue?.value)
         setFSetsArray(prev =>
           prev.map(set => {
             if (set.id === id)
@@ -64,15 +59,11 @@ export const ImportantSetsOptions = ({ id }: TProps) => {
             return set;
           })
         );
-      // setFSet({
-      //   ...fSet,
-      //   systemOfPVC: currentSelectValue.value,
-      // });
     }
-  }, [fSet?.brand]);
+  }, [fSet?.brand, id, setFSetsArray, selectValue]);
 
   useEffect(() => {
-    if (fSet)
+    if (fSet?.systemOfPVC)
       setFSetsArray(prev =>
         prev.map(set => {
           if (set.id === id)
@@ -83,11 +74,10 @@ export const ImportantSetsOptions = ({ id }: TProps) => {
           return set;
         })
       );
-  }, [fSet?.systemOfPVC]);
+  }, [fSet?.systemOfPVC, id, setFSetsArray]);
 
   const onChangeRadio = (e: RadioChangeEvent) => {
-    if (fSet)
-      setFSet({ ...fSet, sideOfHinge: e.target.value });
+    if (fSet) setFSet({ ...fSet, sideOfHinge: e.target.value });
   };
   const handleChangeSelect = (
     value: {
@@ -106,48 +96,25 @@ export const ImportantSetsOptions = ({ id }: TProps) => {
   ) => {
     if (!Array.isArray(option)) {
       setSelectValue(option);
-      if (
-        isStringInUnionSystemOfPVC(
-          option.value,
-          ALLSystemOfPVC
-        ) &&
-        fSet
-      )
+      if (isStringInUnionSystemOfPVC(option.value, ALLSystemOfPVC) && fSet)
         setFSet({ ...fSet, systemOfPVC: option.value });
     }
   };
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-    >
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        mt={10}
-      >
+    <Box display="flex" flexDirection="column" alignItems="center">
+      <Box display="flex" flexDirection="column" alignItems="center" mt={10}>
         {fSet?.typeOfOpening !== 'type-3' && (
           <>
             <StyledP>Сторона петель</StyledP>
-            <Radio.Group
-              onChange={onChangeRadio}
-              value={fSet?.sideOfHinge}
-            >
+            <Radio.Group onChange={onChangeRadio} value={fSet?.sideOfHinge}>
               <Radio value="left">Ліворуч</Radio>
               <Radio value="right">Праворуч</Radio>
             </Radio.Group>
           </>
         )}
       </Box>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        width={260}
-        mt={10}
-      >
+      <Box display="flex" justifyContent="space-between" width={260} mt={10}>
         <Select
           onChange={handleChangeSelect}
           options={selectOptions}

@@ -4,29 +4,24 @@ import {
   systemSalamanerSelectOpions,
   systemVekaSelectOpions,
 } from '@/const';
-import { IFSet } from '@/interfaces/interfaces';
+import { TSystemOfPVC } from '@/interfaces/interfaces';
 
 export const getPVСSystemSelectOpions = (
-  fSet: IFSet | undefined
-): { value: string; label: string }[] | undefined => {
-  if (fSet) {
-    if (fSet.brand === 'maco')
-      return [
-        ...systemSalamanerSelectOpions,
-        ...systemVekaSelectOpions,
-        ...systemRehauSelectOpions,
-        ...system9MMSelectOpions,
-      ];
-    if (fSet.brand === 'vorne')
-      return [
-        ...systemSalamanerSelectOpions,
-        ...system9MMSelectOpions,
-      ];
-    if (fSet.brand === 'winkhaus')
-      return [
-        ...systemSalamanerSelectOpions,
-        ...systemVekaSelectOpions,
-        ...systemRehauSelectOpions,
-      ];
-  }
+  brand: 'maco' | 'vorne' | 'winkhaus' | undefined
+): { value: TSystemOfPVC; label: string }[] | undefined => {
+  if (brand === 'maco')
+    return [
+      ...systemSalamanerSelectOpions,
+      ...systemVekaSelectOpions,
+      ...systemRehauSelectOpions,
+      ...system9MMSelectOpions,
+    ];
+  if (brand === 'vorne')
+    return [...systemSalamanerSelectOpions, ...system9MMSelectOpions];
+  if (brand === 'winkhaus')
+    return [
+      ...systemSalamanerSelectOpions,
+      ...systemVekaSelectOpions,
+      ...systemRehauSelectOpions,
+    ];
 };

@@ -21,19 +21,20 @@ export const ALLSystemOfPVC = [
   'Rehau',
   'Veka',
   'Salamander',
-];
+] as const;
+export const ALLBrands = ['maco', 'vorne', 'winkhaus'] as const;
 
 export type TSystemOfPVC = typeof ALLSystemOfPVC[number];
 
-export type TTypeOfHingeSidePress =
-  typeof ALLTypeOfHingeSidePressConst[number];
+export type TTypeOfHingeSidePress = typeof ALLTypeOfHingeSidePressConst[number];
 
-export type TTypeOfOpenimg =
-  typeof ALLTypeOfOpeningConst[number];
+export type TTypeOfOpenimg = typeof ALLTypeOfOpeningConst[number];
+
+export type TBrands = typeof ALLBrands[number];
 
 export interface IFSet {
   id: string;
-  brand: 'maco' | 'vorne' | 'winkhaus';
+  brand: TBrands;
   width: number | undefined;
   height: number | undefined;
   isWidthValid: 'initial' | 'valid' | 'invalid';

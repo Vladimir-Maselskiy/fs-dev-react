@@ -13,7 +13,7 @@ export const getValidateStatusOfWidthOrHeight = (
     return getValidateStatus(
       fSet,
       fieldName,
-      getSetRestrictions(fSet)
+      getSetRestrictions(fSet.typeOfOpening, fSet.brand)
     );
   }
 };

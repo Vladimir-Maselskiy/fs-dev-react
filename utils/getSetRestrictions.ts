@@ -5,16 +5,17 @@ import {
   vorneRestrictions,
   winkhausRestrictions,
 } from '@/const';
-import { IFSet } from '@/interfaces/interfaces';
+import { IFSet, TTypeOfOpenimg } from '@/interfaces/interfaces';
 
 export const getSetRestrictions = (
-  fSet: IFSet
+  typeOfOpening: TTypeOfOpenimg,
+  brand: 'maco' | 'vorne' | 'winkhaus'
 ): TRestrictions => {
-  if (fSet.typeOfOpening === 'type-3') {
+  if (typeOfOpening === 'type-3') {
     return type3Restrictions;
   }
 
-  switch (fSet.brand) {
+  switch (brand) {
     case 'maco':
       return macoRestrictions;
     case 'vorne':

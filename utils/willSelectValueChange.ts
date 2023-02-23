@@ -1,11 +1,11 @@
-import { IFSet } from '@/interfaces/interfaces';
+import { IFSet, TBrands } from '@/interfaces/interfaces';
 import { getPVСSystemSelectOpions } from './getPVСSystemSelectOpions';
 
 export const willSelectValueChange = (
-  fSet: IFSet | undefined,
+  brand: TBrands | undefined,
   value: { value: string; label: string } | undefined
 ): boolean => {
-  const posibleOptions = getPVСSystemSelectOpions(fSet);
+  const posibleOptions = getPVСSystemSelectOpions(brand);
   if (posibleOptions) {
     const result = posibleOptions.some(option => {
       return option.value === value?.value;

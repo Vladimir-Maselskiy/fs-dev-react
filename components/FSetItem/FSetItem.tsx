@@ -31,11 +31,11 @@ export const FSetItem = ({
     useState(true);
 
   const [restrictions, setRestrictions] = useState<TRestrictions>(
-    getSetRestrictions(fSet)
+    getSetRestrictions(fSet.typeOfOpening, fSet.brand)
   );
 
   useEffect(() => {
-    setRestrictions(getSetRestrictions(fSet));
+    setRestrictions(getSetRestrictions(fSet.typeOfOpening, fSet.brand));
   }, [fSet.brand, fSet.typeOfOpening]);
 
   useEffect(() => {

@@ -44,17 +44,17 @@ export const typeOfOpeningSelectOpions = [
 ];
 
 export const systemSalamanerSelectOpions = [
-  { value: '13', label: '13-та серія' },
-  { value: 'Salamander', label: 'Salamander' },
+  { value: '13' as const, label: '13-та серія' },
+  { value: 'Salamander' as const, label: 'Salamander' },
 ];
 export const system9MMSelectOpions = [
-  { value: '9', label: '9-та серія' },
+  { value: '9' as const, label: '9-та серія' },
 ];
 export const systemRehauSelectOpions = [
-  { value: 'Rehau', label: 'Rehau' },
+  { value: 'Rehau' as const, label: 'Rehau' },
 ];
 export const systemVekaSelectOpions = [
-  { value: 'Veka', label: 'Veka/Decco' },
+  { value: 'Veka' as const, label: 'Veka/Decco' },
 ];
 
 export type TRestrictions = {
