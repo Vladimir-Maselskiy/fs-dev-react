@@ -11,9 +11,6 @@ import type { RadioChangeEvent } from 'antd';
 import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
 import { getSetById } from '@/utils/getSetById';
-import { willDecorSelecteValueChange } from '@/utils/willDecorSelecteValueChange';
-import { getOneOptionDecor } from '@/utils/getOneOptionDecor';
-import { decor } from '@/const';
 
 type TProps = {
   id: string;
@@ -21,11 +18,8 @@ type TProps = {
 };
 
 export const ModalSetBrand = ({ id, form }: TProps) => {
-  const { fSetsArray, setFSetsArray } = useFSetsContext();
+  const { fSetsArray } = useFSetsContext();
   const [fSet, setFSet] = useState<IFSet | null>(null);
-  // const [brand, setBrand] = useState<
-  //   'maco' | 'vorne' | 'winkhaus'
-  // >('maco');
 
   const onChangeBrand = (e: RadioChangeEvent) => {
     if (fSet) setFSet({ ...fSet, brand: e.target.value });

@@ -9,7 +9,7 @@ import {
   ALLDecor,
   ALLTypeOfHingeSidePressConst,
 } from '@/interfaces/interfaces';
-import { decor, typeOfHingeSidePressConst } from '@/const';
+import { typeOfHingeSidePressConst } from '@/const';
 import {
   isStringInUnionDecor,
   isStringInUnionTypeOfHingeSidePress,
@@ -17,7 +17,6 @@ import {
 import { getOneOptionTypeOfHingeSidePress } from '@/utils/getOneOptionTypeOfHingeSidePress';
 import { getOneOptionDecor } from '@/utils/getOneOptionDecor';
 import { getDecorSelectOptions } from '@/utils/getDecorSelectOptions';
-import { willDecorSelecteValueChange } from '@/utils/willDecorSelecteValueChange';
 
 type TProps = {
   id: string;

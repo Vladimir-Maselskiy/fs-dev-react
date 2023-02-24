@@ -5,7 +5,7 @@ import {
   vorneRestrictions,
   winkhausRestrictions,
 } from '@/const';
-import { IFSet, TTypeOfOpenimg } from '@/interfaces/interfaces';
+import { TTypeOfOpenimg } from '@/interfaces/interfaces';
 
 export const getSetRestrictions = (
   typeOfOpening: TTypeOfOpenimg,

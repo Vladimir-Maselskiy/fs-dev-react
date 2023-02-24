@@ -71,7 +71,7 @@ export const FSetItem = ({
         })
       );
     }
-  }, [fSet?.brand, fSet?.decor]);
+  }, [fSet?.brand, fSet?.decor, fSet.id, setFSetsArray]);
 
   return (
     <StyledFSetItem>

@@ -141,7 +141,13 @@ export const WidthAndHeightInput = ({
           return set;
         })
       );
-  }, [fSet?.isWidthValid, fSet?.isHeightValid, setIsOptitionButtonDisabled]);
+  }, [
+    fSet?.isWidthValid,
+    fSet?.isHeightValid,
+    setIsOptitionButtonDisabled,
+    id,
+    setFSetsArray,
+  ]);
 
   useEffect(() => {
     if (fSet?.width && fSet.height) {
