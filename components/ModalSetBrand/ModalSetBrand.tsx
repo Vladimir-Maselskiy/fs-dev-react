@@ -34,18 +34,17 @@ export const ModalSetBrand = ({ id, form }: TProps) => {
 
   useEffect(() => {
     if (fSet?.brand) {
-      form.setFieldsValue(fSet.brand);
+      form.setFieldsValue({ brand: fSet.brand });
     }
   }, [fSet?.brand, form]);
 
   return (
-    <Form.Item name="brand">
+    <Form.Item name="brand" initialValue={fSet?.brand}>
       <Radio.Group
         onChange={onChangeBrand}
         style={{
           display: 'flex',
           justifyContent: 'center',
-
           gap: '10px',
           paddingTop: '40px',
           paddingBottom: '10px',
