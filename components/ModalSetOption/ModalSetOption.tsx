@@ -5,7 +5,10 @@ import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/getSetById';
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
-import { ALLTypeOfHingeSidePressConst } from '@/interfaces/interfaces';
+import {
+  ALLDecor,
+  ALLTypeOfHingeSidePressConst,
+} from '@/interfaces/interfaces';
 import { decor, typeOfHingeSidePressConst } from '@/const';
 import {
   isStringInUnionDecor,
@@ -13,6 +16,8 @@ import {
 } from '@/utils/ts-utils/isStringInUnion';
 import { getOneOptionTypeOfHingeSidePress } from '@/utils/getOneOptionTypeOfHingeSidePress';
 import { getOneOptionDecor } from '@/utils/getOneOptionDecor';
+import { getDecorSelectOptions } from '@/utils/getDecorSelectOptions';
+import { willDecorSelecteValueChange } from '@/utils/willDecorSelecteValueChange';
 
 type TProps = {
   id: string;
@@ -23,6 +28,10 @@ export const ModalSetOption = ({ id, form }: TProps) => {
   const { fSetsArray } = useFSetsContext();
 
   const [fSet, setFSet] = useState(getSetById(id, fSetsArray));
+
+  const [decorOptions, setDecorOptions] = useState(
+    getDecorSelectOptions(fSet?.brand)
+  );
 
   const [hanleDistanceRestrictions, setHanleDistanceRestrictions] = useState({
     min: '',
@@ -118,6 +127,10 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     } else setIsAntiBreakingOpenSelectDisable(true);
   }, [fSet?.antiBreakingOpen]);
 
+  useEffect(() => {
+    form.setFieldsValue({ decor: getOneOptionDecor(fSet?.decor) });
+  }, [fSet?.decor, form]);
+
   const onChangeHanleDistance = (value: number | null) => {
     if (fSet && value != null) {
       const newSet = {
@@ -170,13 +183,17 @@ export const ModalSetOption = ({ id, form }: TProps) => {
         ALLTypeOfHingeSidePressConst
       )
     )
-      if (fSet) {
-        const newSet = {
-          ...fSet,
-          typeOfHingeSidePress: option.value,
-        };
-        setFSet(newSet);
-      }
+      setFSet(prev => {
+        if (
+          !prev ||
+          !isStringInUnionTypeOfHingeSidePress(
+            option.value,
+            ALLTypeOfHingeSidePressConst
+          )
+        )
+          return prev;
+        return { ...prev, typeOfHingeSidePress: option.value };
+      });
   };
 
   const handleChangeDecor = (
@@ -194,16 +211,9 @@ export const ModalSetOption = ({ id, form }: TProps) => {
           label: string;
         }[]
   ) => {
-    if (
-      !Array.isArray(option) &&
-      isStringInUnionDecor(option.value, ALLTypeOfHingeSidePressConst)
-    )
+    if (!Array.isArray(option) && isStringInUnionDecor(option.value, ALLDecor))
       if (fSet) {
-        const newSet = {
-          ...fSet,
-          decor: option.value,
-        };
-        setFSet(newSet);
+        setFSet({ ...fSet, decor: option.value });
       }
   };
 
@@ -279,11 +289,11 @@ export const ModalSetOption = ({ id, form }: TProps) => {
       <Form.Item
         label="Декор"
         name="decor"
-        initialValue={getOneOptionDecor(fSet)}
+        initialValue={getOneOptionDecor(fSet?.decor)?.value}
       >
         <Select
           onChange={handleChangeDecor}
-          options={decor}
+          options={decorOptions}
           listHeight={150}
           style={{ width: '140px' }}
         />

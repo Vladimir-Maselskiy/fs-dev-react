@@ -1,9 +1,8 @@
-import { IFSet } from '@/interfaces/interfaces';
+import { IFSet, TDecor } from '@/interfaces/interfaces';
 import { decor } from '../const';
 
 export const getOneOptionDecor = (
-  fSet: IFSet | undefined
-): { value: string; label: string } | undefined => {
-  const res = decor.find(el => el.value === fSet?.decor);
-  return res;
+  currentDecor: TDecor | undefined
+): { value: TDecor; label: string } | undefined => {
+  return decor.find(el => el.value === currentDecor);
 };

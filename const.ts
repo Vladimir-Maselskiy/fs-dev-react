@@ -42,13 +42,24 @@ export const typeOfOpeningSelectOpions = [
   { value: 'type-4', label: 'Штульп активна' },
   { value: 'type-5', label: 'Штульп пасивна' },
 ];
+export const decorBase = [
+  { value: 'white' as const, label: 'Білий' },
+  { value: 'brown' as const, label: 'Коричневий' },
+];
+export const decorAnthracite = [
+  { value: 'anthracite' as const, label: 'Антрацит' },
+];
+export const decorSilver = [{ value: 'silver' as const, label: 'Срібло' }];
+export const decorTitan = [{ value: 'titan' as const, label: 'Титан' }];
+export const decorBlack = [{ value: 'black' as const, label: 'Чорний' }];
+export const decorBronze = [{ value: 'bronze' as const, label: 'Бронза' }];
 export const decor = [
-  { value: 'white', label: 'Білий' },
-  { value: 'brown', label: 'Коричневий' },
-  { value: 'anthracite', label: 'Антрацит' },
-  { value: 'titan', label: 'Титан' },
-  { value: 'black', label: 'Чорний' },
-  { value: 'bronze', label: 'Бронза' },
+  ...decorBase,
+  ...decorSilver,
+  ...decorAnthracite,
+  ...decorTitan,
+  ...decorBlack,
+  ...decorBronze,
 ];
 
 export const systemSalamanerSelectOpions = [

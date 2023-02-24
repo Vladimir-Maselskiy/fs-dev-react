@@ -4,9 +4,7 @@ import { Form, ConfigProvider, Button } from 'antd';
 import { useFSetsContext } from '@/context/state';
 
 type TProps = {
-  setIsModalOpen: React.Dispatch<
-    React.SetStateAction<boolean>
-  >;
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isModalOpen: boolean;
   currentModal: React.ElementType;
   id: string;
@@ -29,6 +27,9 @@ export const ModalLayout = ({
   const { setFSetsArray } = useFSetsContext();
 
   const onFinishHandleSubmit = (values: any) => {
+    for (let obj in values) {
+      if (values[obj]?.value) values[obj] = values[obj].value;
+    }
     console.log('onFinishHandleSubmit', values);
     setFSetsArray(prev =>
       prev.map(set => {
@@ -68,11 +69,7 @@ export const ModalLayout = ({
           onValuesChange={onValuesChange}
           labelAlign="left"
         >
-          <CurrentModal
-            id={id}
-            modalNumber={modalNumber}
-            form={form}
-          />
+          <CurrentModal id={id} modalNumber={modalNumber} form={form} />
         </Form>
       </ConfigProvider>
     </StyledModal>

@@ -8,8 +8,9 @@ import { QuantityOfSets } from '../QuantityOfSets/QuantityOfSets';
 import { WidthAndHeightInput } from '../WidthAndHeightInput/WidthAndHeightInput';
 import { useFSetsContext } from '@/context/state';
 import { getSetRestrictions } from '@/utils/getSetRestrictions';
-import { TRestrictions } from '@/const';
+import { decor, TRestrictions } from '@/const';
 import { Tag } from 'antd';
+import { willDecorSelecteValueChange } from '@/utils/willDecorSelecteValueChange';
 
 interface IProp {
   fSet: IFSet;
@@ -50,6 +51,27 @@ export const FSetItem = ({
       })
     );
   }, [fSet.brand, fSet.id, setFSetsArray]);
+
+  useEffect(() => {
+    if (
+      fSet?.brand &&
+      fSet?.decor &&
+      willDecorSelecteValueChange(fSet.brand, fSet.decor)
+    ) {
+      const currentDecorOneOption = decor[0].value;
+      setFSetsArray(prev =>
+        prev.map(set => {
+          if (set.id === fSet.id) {
+            if (currentDecorOneOption)
+              return { ...set, decor: currentDecorOneOption };
+            return set;
+          }
+
+          return set;
+        })
+      );
+    }
+  }, [fSet?.brand, fSet?.decor]);
 
   return (
     <StyledFSetItem>

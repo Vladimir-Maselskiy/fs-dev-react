@@ -26,8 +26,9 @@ export const ALLSystemOfPVC = [
 export const ALLDecor = [
   'white',
   'brown',
-  'anthracite',
+  'silver',
   'titan',
+  'anthracite',
   'black',
   'bronze',
 ] as const;
