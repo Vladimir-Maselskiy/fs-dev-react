@@ -13,6 +13,7 @@ import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/CurrentModal/CurrentModal';
 import { TestComonent } from '@/components/TestComonent/TestComonent';
 import { getIsGetOrderButtonDisabled } from '@/utils/getIsGetOrderButtonDisabled';
+import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -78,6 +79,7 @@ export default function Home() {
             Розрахувати
           </Button>
         </Box>
+        <FSetsOrderTable />
 
         <ModalLayout
           setIsModalOpen={setIsModalOpen}

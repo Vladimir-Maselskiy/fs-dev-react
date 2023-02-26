@@ -11,7 +11,6 @@ export const getSetRestrictions = (
   typeOfOpening: TTypeOfOpenimg,
   brand: 'maco' | 'vorne' | 'winkhaus'
 ): TRestrictions => {
-  // console.log('typeOfOpening', typeOfOpening, 'brand', brand, new Date());
   if (typeOfOpening === 'type-3') {
     return type3Restrictions;
   }

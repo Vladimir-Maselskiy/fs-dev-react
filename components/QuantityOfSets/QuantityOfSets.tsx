@@ -33,7 +33,7 @@ export const QuantityOfSets = ({ id }: TProps) => {
     if (fSet) {
       if (fSet.quantitySet <= 1 && num < 0) return;
       if (fSet.quantitySet >= 99 && num > 0) return;
-      setFSet({ ...fSet, quantitySet: ++fSet.quantitySet });
+      setFSet({ ...fSet, quantitySet: fSet.quantitySet + num });
     }
   };
 
