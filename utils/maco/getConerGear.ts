@@ -3,7 +3,7 @@ import { findElementsByArticle } from '../findElementsByArticle';
 import { getMicroVentilationPlate } from './additionalArticle/getMicroVentilationPlate';
 
 export function getConerGear(fSet: IFSet) {
-  const { microVentilation, typeOfOpening } = fSet;
+  const { microVentilation, typeOfOpening, width } = fSet;
   const articleItems: IArticleItem[] = [];
 
   if (
@@ -22,6 +22,25 @@ export function getConerGear(fSet: IFSet) {
     if (currentArticleItems) articleItems.push(...currentArticleItems);
     const microVentilationPlate = getMicroVentilationPlate(fSet);
     if (microVentilationPlate) articleItems.push(...microVentilationPlate);
+    return articleItems;
   }
+
+  if (width && width >= 220 && width < 320) {
+    const params = {
+      arr: ['211975'],
+      sortSignificance: '2',
+    };
+    const currentArticleItems = findElementsByArticle(params);
+    if (currentArticleItems) articleItems.push(...currentArticleItems);
+    return articleItems;
+  }
+
+  const params = {
+    arr: ['211974'],
+    sortSignificance: '2',
+  };
+  const currentArticleItems = findElementsByArticle(params);
+  if (currentArticleItems) articleItems.push(...currentArticleItems);
+
   return articleItems;
 }
