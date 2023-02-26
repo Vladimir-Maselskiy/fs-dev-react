@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { InputNumber, InputRef } from 'antd';
+import { InputRef } from 'antd';
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import type { FormInstance } from 'antd/es/form';
+import { IArticleItem } from '@/interfaces/interfaces';
+import { getDataSource } from '@/utils/getDataSource';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -29,7 +31,7 @@ interface EditableCellProps {
 
 type EditableTableProps = Parameters<typeof Table>[0];
 
-interface DataType {
+export interface DataType {
   key: React.Key;
   rowNumber: string;
   article: string;
@@ -119,27 +121,19 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const FSetsOrderTable = () => {
-  const [dataSource, setDataSource] = useState<DataType[]>([
-    {
-      key: '0',
-      rowNumber: '1',
-      article: '211695',
-      name: 'Ножницы петлевые 600 MM FFB=401-600/290-490',
-      quantity: 2,
-      price: '156.16',
-      sum: '352.32',
-    },
-    {
-      key: '1',
-      rowNumber: '2',
-      article: '228430',
-      name: 'Угловая передача с микропроветриванием MM FFB=360-2450',
-      quantity: 2,
-      price: '64.14',
-      sum: '128.29',
-    },
-  ]);
+type TTableProps = {
+  tableSets: IArticleItem[];
+};
+export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
+  console.log('tableSets', tableSets);
+
+  useEffect(() => {
+    setDataSource(getDataSource(tableSets));
+  }, [tableSets]);
+
+  const [dataSource, setDataSource] = useState<DataType[]>(
+    getDataSource(tableSets)
+  );
 
   const handleDelete = (key: React.Key) => {
     const newData = dataSource.filter(item => item.key !== key);

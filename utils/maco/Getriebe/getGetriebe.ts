@@ -12,7 +12,6 @@ export function getGetriebe(fSet: IFSet) {
   if (height) {
     if (typeOfOpening === 'type-5') {
       const getriebeForSchtulpPassive = getGetriebeForSchtulpPassive(fSet);
-      console.log('getriebeForSchtulpPassive', getriebeForSchtulpPassive);
       if (getriebeForSchtulpPassive) {
         articleItems.push(...getriebeForSchtulpPassive);
         return articleItems;

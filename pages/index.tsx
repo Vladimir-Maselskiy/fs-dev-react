@@ -15,6 +15,7 @@ import { TestComonent } from '@/components/TestComonent/TestComonent';
 import { getIsGetOrderButtonDisabled } from '@/utils/getIsGetOrderButtonDisabled';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
 import { getFSets } from '@/utils/getFSets';
+import { IArticleItem } from '@/interfaces/interfaces';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -23,6 +24,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentSetId, setCurrentSetId] = useState('');
   const [currentModalNumber, setCurrentModalNumber] = useState(0);
+  const [tableSets, setTableSets] = useState<IArticleItem[]>([]);
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
@@ -49,6 +51,11 @@ export default function Home() {
     setIsGetOrderButtonDisabled(getIsGetOrderButtonDisabled(fSetsArray));
   }, [fSetsArray]);
 
+  const onClickCountSets = () => {
+    const sets = getFSets(fSetsArray);
+    setTableSets(sets);
+  };
+
   return (
     <MainContainer>
       <>
@@ -57,7 +64,7 @@ export default function Home() {
           <Button
             type="primary"
             disabled={isGetOrderButtonDisabled}
-            onClick={() => getFSets(fSetsArray)}
+            onClick={onClickCountSets}
             style={{ marginLeft: 'auto' }}
           >
             Розрахувати
@@ -76,13 +83,13 @@ export default function Home() {
           <Button
             type="primary"
             disabled={isGetOrderButtonDisabled}
-            onClick={() => getFSets(fSetsArray)}
+            onClick={onClickCountSets}
             style={{ marginLeft: 'auto' }}
           >
             Розрахувати
           </Button>
         </Box>
-        <FSetsOrderTable />
+        <FSetsOrderTable tableSets={tableSets} />
 
         <ModalLayout
           setIsModalOpen={setIsModalOpen}
