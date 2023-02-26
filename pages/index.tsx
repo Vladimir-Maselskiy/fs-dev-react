@@ -14,6 +14,7 @@ import { CurrentModal } from '@/CurrentModal/CurrentModal';
 import { TestComonent } from '@/components/TestComonent/TestComonent';
 import { getIsGetOrderButtonDisabled } from '@/utils/getIsGetOrderButtonDisabled';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
+import { getFSets } from '@/utils/getFSets';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -56,6 +57,7 @@ export default function Home() {
           <Button
             type="primary"
             disabled={isGetOrderButtonDisabled}
+            onClick={() => getFSets(fSetsArray)}
             style={{ marginLeft: 'auto' }}
           >
             Розрахувати
@@ -74,6 +76,7 @@ export default function Home() {
           <Button
             type="primary"
             disabled={isGetOrderButtonDisabled}
+            onClick={() => getFSets(fSetsArray)}
             style={{ marginLeft: 'auto' }}
           >
             Розрахувати

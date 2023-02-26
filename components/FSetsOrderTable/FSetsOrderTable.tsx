@@ -41,7 +41,7 @@ interface DataType {
 
 type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>;
 
-const EditableRow: React.FC<EditableRowProps> = ({ index, ...props }) => {
+const EditableRow = ({ index, ...props }: EditableRowProps) => {
   const [form] = Form.useForm();
   return (
     <Form form={form} component={false}>
@@ -110,11 +110,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
         />
       </Form.Item>
     ) : (
-      <div
-        className="editable-cell-value-wrap"
-        style={{ paddingRight: 24 }}
-        onClick={toggleEdit}
-      >
+      <div className="editable-cell-value-wrap" onClick={toggleEdit}>
         {children}
       </div>
     );
@@ -162,6 +158,7 @@ export const FSetsOrderTable = () => {
     {
       title: 'Артикул',
       dataIndex: 'article',
+      align: 'center',
     },
     {
       title: 'Назва',
@@ -173,14 +170,17 @@ export const FSetsOrderTable = () => {
       dataIndex: 'quantity',
       editable: true,
       width: '7%',
+      align: 'center',
     },
     {
       title: 'Ціна',
       dataIndex: 'price',
+      align: 'center',
     },
     {
       title: 'Сума',
       dataIndex: 'sum',
+      align: 'center',
     },
     {
       title: 'operation',
@@ -256,6 +256,8 @@ export const FSetsOrderTable = () => {
         bordered
         dataSource={dataSource}
         columns={columns as ColumnTypes}
+        pagination={false}
+        style={{ marginTop: 30 }}
       />
       {/* <Button onClick={handleAdd} type="primary">
         Додати артикул

@@ -70,3 +70,10 @@ export interface IFSet {
 export interface IFSetsArray {
   fSetsArray: IFSet[];
 }
+
+export interface IArticleItem {
+  article: string;
+  name: string;
+  quantity: number;
+  price: string;
+}
