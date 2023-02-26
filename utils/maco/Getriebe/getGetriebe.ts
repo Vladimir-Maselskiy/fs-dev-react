@@ -11,17 +11,26 @@ export function getGetriebe(fSet: IFSet) {
   const articleItems: IArticleItem[] = [];
   if (height) {
     if (typeOfOpening === 'type-5') {
-      const getriebeForSchtulpPassive =  getGetriebeForSchtulpPassive(fSet);
+      const getriebeForSchtulpPassive = getGetriebeForSchtulpPassive(fSet);
+      console.log('getriebeForSchtulpPassive', getriebeForSchtulpPassive);
+      if (getriebeForSchtulpPassive) {
+        articleItems.push(...getriebeForSchtulpPassive);
+        return articleItems;
+      }
     }
-    // if (typeOfOpening === 'type-3') {
-    //   return getTiltGetriebe(fSet);
-    // }
-    // if (typeOfOpening === 'type-2' && !isTurnTiltGetriebe) {
-    //   return getTurningGetgriebe(fSet);
-    // }
-    // if (hanleDistance) {
-    //   return getConstGetriebe(height, hanleDistance);
-    // }
+    if (typeOfOpening === 'type-3') {
+      const titleGetriebe = getTiltGetriebe(fSet);
+      if (titleGetriebe) {
+        articleItems.push(...titleGetriebe);
+        return articleItems;
+      }
+    }
+    if (typeOfOpening === 'type-2' && !isTurnTiltGetriebe) {
+      return getTurningGetgriebe(fSet);
+    }
+    if (hanleDistance) {
+      return getConstGetriebe(fSet);
+    }
     let cutGetriebeLength = null;
 
     if (height >= 470 && height < 800) {

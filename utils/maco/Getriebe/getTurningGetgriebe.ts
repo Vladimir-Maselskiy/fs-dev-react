@@ -1,76 +1,59 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '@/utils/findElementsByArticle';
-import { getLatch } from '../additionalArticle/getLatch';
-import { getStrikePlatesForShtulp } from '../additionalArticle/getStrikePlatesForShtulp';
 
-export function getGetriebeForSchtulpPassive(fSet: IFSet) {
-  const { height, shtulpGetriebe } = fSet;
+export function getTurningGetgriebe(fSet: IFSet) {
+  const { height } = fSet;
   const articleItems: IArticleItem[] = [];
 
-  if (shtulpGetriebe === 'latch') {
-    const latch = getLatch(fSet);
-    if (latch) articleItems.push(...latch);
-  }
-  if (shtulpGetriebe === 'shtulpGetriebe' && height) {
-    const params = {
-      arr: ['211745'],
-      sortSignificance: '3',
-    };
-    const currentArticleItems = findElementsByArticle(params);
-    if (currentArticleItems) articleItems.push(...currentArticleItems);
-
-    if (height >= 930 && height <= 1250) {
+  if (height) {
+    if (height >= 300 && height <= 500) {
       const params = {
-        arr: ['211791'],
+        arr: ['211989'],
         sortSignificance: '3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-
-    if (height > 1250 && height <= 1750) {
+    if (height > 500 && height <= 700) {
       const params = {
-        arr: ['209670'],
+        arr: ['211990'],
         sortSignificance: '3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-
-    if (height > 1750 && height <= 2250) {
+    if (height > 700 && height <= 1000) {
       const params = {
-        arr: ['209671'],
+        arr: ['211991'],
         sortSignificance: '3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-    if (height >= 930 && height <= 1250) {
+    if (height > 1000 && height <= 1400) {
       const params = {
-        arr: ['209671'],
+        arr: ['211992'],
         sortSignificance: '3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-    if (height > 1250) {
+    if (height > 1400 && height <= 1800) {
       const params = {
-        arr: ['209637'],
-        sortSignificance: '3.5',
+        arr: ['211993'],
+        sortSignificance: '3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-    if (height > 2250) {
+    if (height > 1800) {
       const params = {
-        arr: ['206630, 206630'],
-        sortSignificance: '7',
+        arr: ['211994'],
+        sortSignificance: '3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
   }
-  const stikePlates = getStrikePlatesForShtulp(fSet);
-  if (stikePlates) articleItems.push(...stikePlates);
   return articleItems;
 }
