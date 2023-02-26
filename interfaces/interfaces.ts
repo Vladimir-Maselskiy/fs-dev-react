@@ -71,9 +71,19 @@ export interface IFSetsArray {
   fSetsArray: IFSet[];
 }
 
+export interface IMacoJSON {
+  article: string;
+  id: string;
+  name: string;
+  price: string;
+  VZ?: string;
+}
+
 export interface IArticleItem {
   article: string;
   name: string;
-  quantity: number;
+  quantity: string;
   price: string;
+  sortSignificance: string;
+  VZ?: string;
 }
