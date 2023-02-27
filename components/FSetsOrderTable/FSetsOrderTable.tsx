@@ -146,20 +146,13 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
   };
 
   const rowSelection = {
-    // columnTitle: (
-    //   <>
-    //     <Button />
-    //     <Checkbox />
-    //   </>
-    // ),
-    hideSelectAll: false,
     selectedRowKeys,
     onChange: onSelectChange,
   };
-  const hasSelected = selectedRowKeys.length > 0;
 
   const handleDelete = (keys: React.Key[]) => {
     const newData = dataSource.filter(item => !keys.includes(item.key));
+    setSelectedRowKeys([]);
     setDataSource(newData);
   };
 
@@ -207,19 +200,19 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
     Table.SELECTION_COLUMN,
   ];
 
-  //   const handleAdd = () => {
-  //     const newData: DataType = {
-  //       key: `${count}`,
-  //       rowNumber: `${count}`,
-  //       article: '211695',
-  //       name: 'Ножницы петлевые 600 MM FFB=401-600/290-490',
-  //       quantity: 1,
-  //       price: '156.16',
-  //       sum: '310.31',
-  //     };
-  //     setDataSource([...dataSource, newData]);
-  //     setCount(count + 1);
-  //   };
+  const handleAdd = () => {
+    // const newData: DataType = {
+    //   key: `${count}`,
+    //   rowNumber: `${count}`,
+    //   article: '211695',
+    //   name: 'Ножницы петлевые 600 MM FFB=401-600/290-490',
+    //   quantity: 1,
+    //   price: '156.16',
+    //   sum: '310.31',
+    // };
+    // setDataSource([...dataSource, newData]);
+    // setCount(count + 1);
+  };
 
   const handleSave = (row: DataType) => {
     const newData = [...dataSource];
@@ -295,12 +288,11 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
               <Table.Summary.Row
                 style={{ fontWeight: 'bold', fontSize: '16px' }}
               >
-                <Table.Summary.Cell index={0}></Table.Summary.Cell>
-                <Table.Summary.Cell index={1}></Table.Summary.Cell>
-                <Table.Summary.Cell index={2}></Table.Summary.Cell>
-                {/* <Table.Summary.Cell index={3}></Table.Summary.Cell> */}
-                <Table.Summary.Cell index={4}>Всього</Table.Summary.Cell>
-                <Table.Summary.Cell index={5} colSpan={2}>
+                <Table.Summary.Cell index={0} colSpan={3}></Table.Summary.Cell>
+                <Table.Summary.Cell index={1} colSpan={2}>
+                  Всього
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={2} colSpan={2}>
                   <p>{`${lotalPrice.toFixed(2)} грн`}</p>
                 </Table.Summary.Cell>
               </Table.Summary.Row>
@@ -308,9 +300,9 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
           );
         }}
       />
-      {/* <Button onClick={handleAdd} type="primary">
+      <Button disabled={true} onClick={handleAdd} type="primary">
         Додати артикул
-      </Button> */}
+      </Button>
     </Box>
   );
 };
