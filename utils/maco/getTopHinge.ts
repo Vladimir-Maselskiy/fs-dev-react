@@ -1,0 +1,39 @@
+import { IArticleItem, IFSet } from '@/interfaces/interfaces';
+import { findElementsByArticle } from '../findElementsByArticle';
+
+export function getTopHinge(fSet: IFSet) {
+  const { systemOfPVC } = fSet;
+  const articleItems: IArticleItem[] = [];
+
+  const params = {
+    arr: ['52480', '94491'],
+    sortSignificance: '11',
+  };
+  const currentArticleItems = findElementsByArticle(params);
+  if (currentArticleItems) articleItems.push(...currentArticleItems);
+
+  if (
+    systemOfPVC === '13' ||
+    systemOfPVC === 'Salamander' ||
+    systemOfPVC === 'Rehau' ||
+    systemOfPVC === 'Veka'
+  ) {
+    const params = {
+      arr: ['52486'],
+      sortSignificance: '11',
+    };
+    const currentArticleItems = findElementsByArticle(params);
+    if (currentArticleItems) articleItems.push(...currentArticleItems);
+    return articleItems;
+  }
+
+  if (systemOfPVC === '9') {
+    const params = {
+      arr: ['52487'],
+      sortSignificance: '11',
+    };
+    const currentArticleItems = findElementsByArticle(params);
+    if (currentArticleItems) articleItems.push(...currentArticleItems);
+  }
+  return articleItems;
+}
