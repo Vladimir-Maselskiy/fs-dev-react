@@ -125,8 +125,6 @@ type TTableProps = {
   tableSets: IArticleItem[];
 };
 export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
-  console.log('tableSets', tableSets);
-
   useEffect(() => {
     setDataSource(getDataSource(tableSets));
   }, [tableSets]);
@@ -146,8 +144,9 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
   })[] = [
     {
       title: '№',
-      dataIndex: 'posNumber',
-      width: '7%',
+      dataIndex: 'rowNumber',
+      align: 'center',
+      width: '3%',
     },
     {
       title: 'Артикул',

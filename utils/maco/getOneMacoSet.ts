@@ -48,6 +48,10 @@ export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
     const strikePlates = getStrikeplates(currentSet, fSet);
     currentSet.push(...strikePlates);
   }
+  const finalSet = currentSet.map(set => ({
+    ...set,
+    quantity: (+set.quantity * fSet.quantitySet).toString(),
+  }));
 
-  return currentSet;
+  return finalSet;
 };
