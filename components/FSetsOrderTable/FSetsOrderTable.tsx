@@ -5,7 +5,7 @@ import { DeleteRowOutlined } from '@ant-design/icons';
 
 import type { FormInstance } from 'antd/es/form';
 import { IArticleItem } from '@/interfaces/interfaces';
-import { getDataSource } from '@/utils/getDataSource';
+import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { Box } from '../Box/Box';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);

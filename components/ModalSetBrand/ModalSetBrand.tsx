@@ -10,7 +10,7 @@ import IconWinkhauseLogoGray from '../../img/winkhaus-logo-gray.svg';
 import type { RadioChangeEvent } from 'antd';
 import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
-import { getSetById } from '@/utils/getSetById';
+import { getSetById } from '@/utils/ui-utills/getSetById';
 
 type TProps = {
   id: string;

@@ -5,7 +5,7 @@ import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { typeOfOpeningSelectOpions } from '@/const';
 import { ALLTypeOfOpeningConst } from '@/interfaces/interfaces';
 import { isStringInUnionTypeOfOpening } from '@/utils/ts-utils/isStringInUnion';
-import { getSetById } from '@/utils/getSetById';
+import { getSetById } from '@/utils/ui-utills/getSetById';
 import { useFSetsContext } from '@/context/state';
 
 type TProps = {

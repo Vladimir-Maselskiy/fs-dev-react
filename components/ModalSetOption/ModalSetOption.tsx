@@ -2,7 +2,7 @@ import { Form, InputNumber, Checkbox, Radio, Select, Divider } from 'antd';
 import type { RadioChangeEvent } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useFSetsContext } from '@/context/state';
-import { getSetById } from '@/utils/getSetById';
+import { getSetById } from '@/utils/ui-utills/getSetById';
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
 import {
@@ -14,9 +14,9 @@ import {
   isStringInUnionDecor,
   isStringInUnionTypeOfHingeSidePress,
 } from '@/utils/ts-utils/isStringInUnion';
-import { getOneOptionTypeOfHingeSidePress } from '@/utils/getOneOptionTypeOfHingeSidePress';
-import { getOneOptionDecor } from '@/utils/getOneOptionDecor';
-import { getDecorSelectOptions } from '@/utils/getDecorSelectOptions';
+import { getOneOptionTypeOfHingeSidePress } from '@/utils/ui-utills/getOneOptionTypeOfHingeSidePress';
+import { getOneOptionDecor } from '@/utils/ui-utills/getOneOptionDecor';
+import { getDecorSelectOptions } from '@/utils/ui-utills/getDecorSelectOptions';
 
 type TProps = {
   id: string;

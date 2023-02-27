@@ -1,5 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
-import { findElementsByArticle } from '../findElementsByArticle';
+import { findElementsByArticle } from '../data-utils/findElementsByArticle';
 import { getTopDecor } from './getTopDecor';
 import { getTopHinge } from './getTopHinge';
 

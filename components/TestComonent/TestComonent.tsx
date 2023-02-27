@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  InputNumber,
-} from 'antd';
+import { Button, Checkbox, Form, Input, InputNumber } from 'antd';
 import { Box } from '../Box/Box';
 import { useFSetsContext } from '@/context/state';
-import { getSetById } from '@/utils/getSetById';
+import { getSetById } from '@/utils/ui-utills/getSetById';
 import { height } from 'styled-system';
 
 export const TestComonent = () => {
   const { fSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState(
-    getSetById('1', fSetsArray)
-  );
+  const [fSet, setFSet] = useState(getSetById('1', fSetsArray));
   useEffect(() => {
     setFSet(getSetById('1', fSetsArray));
   }, [fSetsArray]);

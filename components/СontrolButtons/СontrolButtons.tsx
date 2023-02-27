@@ -8,9 +8,9 @@ import IconWinkhausLogo from '../../img/winkhaus-logo.svg';
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import { Box } from '../Box/Box';
 import { useFSetsContext } from '@/context/state';
-import { getSetById } from '@/utils/getSetById';
+import { getSetById } from '@/utils/ui-utills/getSetById';
 import { IFSet } from '@/interfaces/interfaces';
-import { getValidateStatusOfWidthOrHeight } from '@/utils/getValidateStatusOfWidthOrHeight';
+import { getValidateStatusOfWidthOrHeight } from '@/utils/ui-utills/getValidateStatusOfWidthOrHeight';
 import { height } from 'styled-system';
 
 type TProps = {

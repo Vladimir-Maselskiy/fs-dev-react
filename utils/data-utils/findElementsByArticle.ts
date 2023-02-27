@@ -1,5 +1,5 @@
 import { IArticleItem, IMacoJSON } from '@/interfaces/interfaces';
-import { maco } from '../data/maco.json';
+import { maco } from '../../data/maco.json';
 
 type TParams = {
   arr: string[];

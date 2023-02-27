@@ -6,15 +6,15 @@ import { Button, Divider } from 'antd';
 import { MainContainer } from '@/components/MainContainer/MainContainer';
 import { CurrentRate } from '@/components/CurrentRate/CurrentRate';
 import FSetList from '@/components/FSetList/FSetList';
-import { getNewSet } from '@/utils/getNewSet';
+import { getNewSet } from '@/utils/ui-utills/getNewSet';
 import { Box } from '@/components/Box/Box';
 import { useFSetsContext } from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/CurrentModal/CurrentModal';
 import { TestComonent } from '@/components/TestComonent/TestComonent';
-import { getIsGetOrderButtonDisabled } from '@/utils/getIsGetOrderButtonDisabled';
+import { getIsGetOrderButtonDisabled } from '@/utils/ui-utills/getIsGetOrderButtonDisabled';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
-import { getFSets } from '@/utils/getFSets';
+import { getFSets } from '@/utils/data-utils/getFSets';
 import { IArticleItem } from '@/interfaces/interfaces';
 
 // const inter = Inter({ subsets: ['latin'] });

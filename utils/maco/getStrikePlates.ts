@@ -1,6 +1,6 @@
 import { IArticleItem, IFSet, TTypeOfOpenimg } from '@/interfaces/interfaces';
 
-import { findElementsByArticle } from '../findElementsByArticle';
+import { findElementsByArticle } from '../data-utils/findElementsByArticle';
 
 export function getStrikeplates(currentSet: IArticleItem[], fSet: IFSet) {
   const { systemOfPVC } = fSet;

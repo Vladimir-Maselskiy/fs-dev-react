@@ -1,5 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
-import { findElementsByArticle } from '../findElementsByArticle';
+import { findElementsByArticle } from '../data-utils/findElementsByArticle';
 import { getMicroVentilationPlate } from './additionalArticle/getMicroVentilationPlate';
 
 export function getConerGear(fSet: IFSet) {

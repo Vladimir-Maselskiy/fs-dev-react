@@ -1,5 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
-import { findElementsByArticle } from '../findElementsByArticle';
+import { findElementsByArticle } from '../data-utils/findElementsByArticle';
 
 export function getShear(fSet: IFSet) {
   const { width, typeOfOpening = 'type-1' } = fSet;

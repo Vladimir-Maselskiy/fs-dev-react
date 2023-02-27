@@ -1,5 +1,5 @@
 import { useFSetsContext } from '@/context/state';
-import { getSetById } from '@/utils/getSetById';
+import { getSetById } from '@/utils/ui-utills/getSetById';
 import { Button, InputNumber } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';

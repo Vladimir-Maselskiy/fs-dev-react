@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '../Box/Box';
 import { useFSetsContext } from '@/context/state';
 import { InputNumber } from 'antd';
-import { getSetById } from '@/utils/getSetById';
-import { getValidateStatus } from '@/utils/getValidateStatus';
-import { getValidateStatusOfWidthOrHeight } from '@/utils/getValidateStatusOfWidthOrHeight';
+import { getSetById } from '@/utils/ui-utills/getSetById';
+import { getValidateStatus } from '@/utils/ui-utills/getValidateStatus';
+import { getValidateStatusOfWidthOrHeight } from '@/utils/ui-utills/getValidateStatusOfWidthOrHeight';
 import { StyledP } from './WidthAndHeightInput.styled';
-import { getSetRestrictions } from '@/utils/getSetRestrictions';
+import { getSetRestrictions } from '@/utils/ui-utills/getSetRestrictions';
 import { TRestrictions } from '@/const';
-import { getCurrentIsGorizontalLock } from '@/utils/getCurrentIsGorizontalLock';
+import { getCurrentIsGorizontalLock } from '@/utils/ui-utills/getCurrentIsGorizontalLock';
 
 type TProps = {
   id: string;

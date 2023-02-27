@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Radio, RadioChangeEvent, Select } from 'antd';
 import { useFSetsContext } from '@/context/state';
 
-import { getPVСSystemSelectOpions } from '@/utils/getPVСSystemSelectOpions';
-import { getSetById } from '@/utils/getSetById';
+import { getPVСSystemSelectOpions } from '@/utils/ui-utills/getPVСSystemSelectOpions';
+import { getSetById } from '@/utils/ui-utills/getSetById';
 import { Box } from '../Box/Box';
 import { StyledP } from './ImportantSetsOptions.styled';
-import { getPVCSystemSelectValue } from '@/utils/getPVCSystemSelectValue';
-import { willSelectValueChange } from '@/utils/willSelectValueChange';
+import { getPVCSystemSelectValue } from '@/utils/ui-utills/getPVCSystemSelectValue';
+import { willSelectValueChange } from '@/utils/ui-utills/willSelectValueChange';
 import { isStringInUnionSystemOfPVC } from '@/utils/ts-utils/isStringInUnion';
 import { ALLSystemOfPVC } from '@/interfaces/interfaces';
 

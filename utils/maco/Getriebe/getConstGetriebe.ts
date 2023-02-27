@@ -1,5 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
-import { findElementsByArticle } from '@/utils/findElementsByArticle';
+import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
 import { getExtension } from '../additionalArticle/getExtension';
 
 export function getConstGetriebe(fSet: IFSet) {

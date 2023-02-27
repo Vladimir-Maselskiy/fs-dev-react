@@ -1,5 +1,5 @@
 import { IFSet, TDecor } from '@/interfaces/interfaces';
-import { decor } from '../const';
+import { decor } from '../../const';
 
 export const getOneOptionDecor = (
   currentDecor: TDecor | undefined

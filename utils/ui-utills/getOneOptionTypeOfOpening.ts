@@ -1,5 +1,5 @@
 import { IFSet } from '@/interfaces/interfaces';
-import { typeOfOpeningSelectOpions } from '../const';
+import { typeOfOpeningSelectOpions } from '../../const';
 
 export const getOneOptionTypeOfOpening = (
   fSet: IFSet | undefined

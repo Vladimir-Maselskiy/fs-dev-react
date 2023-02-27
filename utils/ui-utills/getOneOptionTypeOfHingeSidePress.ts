@@ -1,5 +1,5 @@
 import { IFSet } from '@/interfaces/interfaces';
-import { typeOfHingeSidePressConst } from '../const';
+import { typeOfHingeSidePressConst } from '../../const';
 
 export const getOneOptionTypeOfHingeSidePress = (
   fSet: IFSet | undefined

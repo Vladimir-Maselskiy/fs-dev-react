@@ -1,5 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
-import { findElementsByArticle } from '@/utils/findElementsByArticle';
+import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
 
 export function getTurningGetgriebe(fSet: IFSet) {
   const { height } = fSet;

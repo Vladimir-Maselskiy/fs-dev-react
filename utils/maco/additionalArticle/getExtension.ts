@@ -1,5 +1,5 @@
 import { IArticleItem } from '@/interfaces/interfaces';
-import { findElementsByArticle } from '@/utils/findElementsByArticle';
+import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
 
 export function getExtension(length: number) {
   let customLenght = length;
@@ -36,5 +36,5 @@ export function getExtension(length: number) {
       customLenght -= 140;
     }
   }
-  return articleItems
+  return articleItems;
 }

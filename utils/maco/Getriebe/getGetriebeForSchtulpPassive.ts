@@ -1,5 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
-import { findElementsByArticle } from '@/utils/findElementsByArticle';
+import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
 import { getLatch } from '../additionalArticle/getLatch';
 import { getStrikePlatesForShtulp } from '../additionalArticle/getStrikePlatesForShtulp';
 

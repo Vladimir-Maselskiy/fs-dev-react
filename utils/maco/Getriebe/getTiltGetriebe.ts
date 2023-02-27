@@ -1,5 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
-import { findElementsByArticle } from '@/utils/findElementsByArticle';
+import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
 
 export function getTiltGetriebe(fSet: IFSet) {
   const { height, width, typeOfHingeSidePress } = fSet;
