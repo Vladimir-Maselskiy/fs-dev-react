@@ -1,4 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
+import { getBottomDecor } from './getBottomDecor';
 import { getBottomEndingForGetriebe } from './getBottomEndingForGetriebe';
 import { getBottomHinge } from './getBottomHinge';
 import { getCenterLocks } from './getCenterLocks';
@@ -7,6 +8,7 @@ import { getHingeSidePress } from './getHingeSidePress';
 import { getMicroliftPlate } from './getMiсroliftPlate';
 import { getGetriebe } from './Getriebe/getGetriebe';
 import { getShear } from './getShear';
+import { getStrikeplates } from './getStrikePlates';
 import { getTopDecor } from './getTopDecor';
 import { getTopHinge } from './getTopHinge';
 import { getTurningSlantedPlate } from './getTurningSlantedPlate';
@@ -28,6 +30,7 @@ export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
     const topHinge = getTopHinge(fSet);
     if (typeOfOpening === 'type-3') topHinge.push(...topHinge);
     const bottomHinge = getBottomHinge(fSet);
+    const bottomDecor = getBottomDecor(fSet);
     currentSet.push(
       ...getribe,
       ...conerGear,
@@ -39,8 +42,11 @@ export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
       ...hingeSidePress,
       ...topDecor,
       ...topHinge,
-      ...bottomHinge
+      ...bottomHinge,
+      ...bottomDecor
     );
+    const strikePlates = getStrikeplates(currentSet, fSet);
+    currentSet.push(...strikePlates);
   }
 
   return currentSet;
