@@ -6,9 +6,9 @@ export const getDataSource = (sets: IArticleItem[]): DataType[] => {
     article: set.article,
     key: set.article,
     name: set.name,
-    price: set.price,
+    price: (+set.price).toFixed(2),
     quantity: +set.quantity,
     rowNumber: (index + 1).toString(),
-    sum: (+set.price * +set.quantity).toString(),
+    sum: (+set.price * +set.quantity).toFixed(2),
   }));
 };

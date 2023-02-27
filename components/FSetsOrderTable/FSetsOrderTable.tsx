@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { InputRef } from 'antd';
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
+import { DeleteRowOutlined } from '@ant-design/icons';
+
 import type { FormInstance } from 'antd/es/form';
 import { IArticleItem } from '@/interfaces/interfaces';
 import { getDataSource } from '@/utils/getDataSource';
@@ -43,6 +45,10 @@ export interface DataType {
 
 type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>;
 
+type TTableProps = {
+  tableSets: IArticleItem[];
+};
+
 const EditableRow = ({ index, ...props }: EditableRowProps) => {
   const [form] = Form.useForm();
   return (
@@ -84,6 +90,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
 
       toggleEdit();
       handleSave({ ...record, ...values });
+      console.log('record', record);
+      console.log('values', values);
     } catch (errInfo) {
       console.log('Save failed:', errInfo);
     }
@@ -121,10 +129,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-type TTableProps = {
-  tableSets: IArticleItem[];
-};
 export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   useEffect(() => {
     setDataSource(getDataSource(tableSets));
   }, [tableSets]);
@@ -133,15 +139,29 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
     getDataSource(tableSets)
   );
 
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+  const hasSelected = selectedRowKeys.length > 0;
+
   const handleDelete = (key: React.Key) => {
     const newData = dataSource.filter(item => item.key !== key);
     setDataSource(newData);
   };
 
-  const defaultColumns: (ColumnTypes[number] & {
-    editable?: boolean;
-    dataIndex: string;
-  })[] = [
+  const defaultColumns: (
+    | {}
+    | (ColumnTypes[number] & {
+        editable?: boolean;
+        dataIndex: string;
+      })
+  )[] = [
     {
       title: '№',
       dataIndex: 'rowNumber',
@@ -156,13 +176,14 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
     {
       title: 'Назва',
       dataIndex: 'name',
-      width: '40%',
+      width: '50%',
+      responsive: ['md'],
     },
     {
       title: 'Кількість',
       dataIndex: 'quantity',
       editable: true,
-      width: '7%',
+      width: '3%',
       align: 'center',
     },
     {
@@ -175,22 +196,30 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
       dataIndex: 'sum',
       align: 'center',
     },
-    {
-      title: 'operation',
-      dataIndex: 'operation',
-      render: (_, record) =>
-        dataSource.length >= 1 ? (
-          <Popconfirm
-            title="Sure to delete?"
-            onConfirm={() => {
-              const rec = record as Item;
-              return handleDelete(rec.key);
-            }}
-          >
-            <a>Delete</a>
-          </Popconfirm>
-        ) : null,
-    },
+    Table.SELECTION_COLUMN,
+    // {
+    //   title: '',
+    //   dataIndex: 'operation',
+    //   align: 'center',
+    //   width: '5%',
+    //   render: (_, record) =>
+    //     dataSource.length >= 1 ? (
+    //       <DeleteRowOutlined
+    //         style={{ fontSize: '25px', color: 'grey' }}
+    //         onClick={() => {
+    //           const rec = record as Item;
+    //           handleDelete(rec.key);
+    //         }}
+    //       />
+    //     ) : // <Popconfirm
+    //     //   title="Sure to delete?"
+    //     //   icon={<DeleteRowOutlined />}
+    //     //   onConfirm={() => {
+    //     //     return handleDelete(rec.key);
+    //     //   }}
+    //     // ></Popconfirm>
+    //     null,
+    // },
   ];
 
   //   const handleAdd = () => {
@@ -211,6 +240,7 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
     const newData = [...dataSource];
     const index = newData.findIndex(item => row.key === item.key);
     const item = newData[index];
+    row.sum = (row.quantity * +row.price).toFixed(2);
     newData.splice(index, 1, {
       ...item,
       ...row,
@@ -226,16 +256,20 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
   };
 
   const columns = defaultColumns.map(col => {
-    if (!col.editable) {
+    const newCol = col as ColumnTypes[number] & {
+      editable: boolean;
+      dataIndex: string;
+    };
+    if (!newCol.editable) {
       return col;
     }
     return {
       ...col,
       onCell: (record: DataType) => ({
         record,
-        editable: col.editable,
-        dataIndex: col.dataIndex,
-        title: col.title,
+        editable: newCol.editable,
+        dataIndex: newCol.dataIndex,
+        title: newCol.title,
         handleSave,
       }),
     };
@@ -251,6 +285,30 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
         columns={columns as ColumnTypes}
         pagination={false}
         style={{ marginTop: 30 }}
+        size="small"
+        rowSelection={rowSelection}
+        summary={dataSource => {
+          let lotalPrice = dataSource.reduce((acc, item) => {
+            const currentItem = item as DataType;
+            return acc + +currentItem.sum;
+          }, 0);
+          return (
+            <>
+              <Table.Summary.Row
+                style={{ fontWeight: 'bold', fontSize: '16px' }}
+              >
+                <Table.Summary.Cell index={0}></Table.Summary.Cell>
+                <Table.Summary.Cell index={1}></Table.Summary.Cell>
+                <Table.Summary.Cell index={2}></Table.Summary.Cell>
+                {/* <Table.Summary.Cell index={3}></Table.Summary.Cell> */}
+                <Table.Summary.Cell index={4}>Всього</Table.Summary.Cell>
+                <Table.Summary.Cell index={5} colSpan={2}>
+                  <p>{`${lotalPrice.toFixed(2)} грн`}</p>
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+            </>
+          );
+        }}
       />
       {/* <Button onClick={handleAdd} type="primary">
         Додати артикул
