@@ -68,5 +68,6 @@ export function getTopDecor(fSet: IFSet) {
     if (currentArticleItems) articleItems.push(...currentArticleItems);
     return articleItems;
   }
+
   return articleItems;
 }

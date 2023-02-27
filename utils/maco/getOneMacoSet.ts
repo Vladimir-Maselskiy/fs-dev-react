@@ -1,16 +1,20 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { getBottomEndingForGetriebe } from './getBottomEndingForGetriebe';
+import { getBottomHinge } from './getBottomHinge';
 import { getCenterLocks } from './getCenterLocks';
 import { getConerGear } from './getConerGear';
 import { getHingeSidePress } from './getHingeSidePress';
 import { getMicroliftPlate } from './getMiсroliftPlate';
 import { getGetriebe } from './Getriebe/getGetriebe';
 import { getShear } from './getShear';
+import { getTopDecor } from './getTopDecor';
+import { getTopHinge } from './getTopHinge';
 import { getTurningSlantedPlate } from './getTurningSlantedPlate';
 
 export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
+  const { width, height, typeOfOpening } = fSet;
   const currentSet: IArticleItem[] = [];
-  if (fSet.height && fSet.width) {
+  if (height && width) {
     const getribe = getGetriebe(fSet);
     const conerGear = getConerGear(fSet);
     const shear = getShear(fSet);
@@ -19,6 +23,11 @@ export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
     const microliftPlate = getMicroliftPlate(fSet);
     const turningSlantedPlate = getTurningSlantedPlate(fSet);
     const hingeSidePress = getHingeSidePress(fSet);
+    const topDecor = getTopDecor(fSet);
+    if (typeOfOpening === 'type-3') topDecor.push(...topDecor);
+    const topHinge = getTopHinge(fSet);
+    if (typeOfOpening === 'type-3') topHinge.push(...topHinge);
+    const bottomHinge = getBottomHinge(fSet);
     currentSet.push(
       ...getribe,
       ...conerGear,
@@ -27,7 +36,10 @@ export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
       ...centerLocks,
       ...microliftPlate,
       ...turningSlantedPlate,
-      ...hingeSidePress
+      ...hingeSidePress,
+      ...topDecor,
+      ...topHinge,
+      ...bottomHinge
     );
   }
 

@@ -2,7 +2,7 @@ import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '../findElementsByArticle';
 
 export function getTopHinge(fSet: IFSet) {
-  const { systemOfPVC } = fSet;
+  const { systemOfPVC, typeOfOpening } = fSet;
   const articleItems: IArticleItem[] = [];
 
   const params = {
@@ -24,7 +24,6 @@ export function getTopHinge(fSet: IFSet) {
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
-    return articleItems;
   }
 
   if (systemOfPVC === '9') {
