@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { InputRef } from 'antd';
+import { Checkbox, InputRef } from 'antd';
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import { DeleteRowOutlined } from '@ant-design/icons';
 
 import type { FormInstance } from 'antd/es/form';
 import { IArticleItem } from '@/interfaces/interfaces';
 import { getDataSource } from '@/utils/getDataSource';
+import { Box } from '../Box/Box';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -145,13 +146,20 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
   };
 
   const rowSelection = {
+    // columnTitle: (
+    //   <>
+    //     <Button />
+    //     <Checkbox />
+    //   </>
+    // ),
+    hideSelectAll: false,
     selectedRowKeys,
     onChange: onSelectChange,
   };
   const hasSelected = selectedRowKeys.length > 0;
 
-  const handleDelete = (key: React.Key) => {
-    const newData = dataSource.filter(item => item.key !== key);
+  const handleDelete = (keys: React.Key[]) => {
+    const newData = dataSource.filter(item => !keys.includes(item.key));
     setDataSource(newData);
   };
 
@@ -197,29 +205,6 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
       align: 'center',
     },
     Table.SELECTION_COLUMN,
-    // {
-    //   title: '',
-    //   dataIndex: 'operation',
-    //   align: 'center',
-    //   width: '5%',
-    //   render: (_, record) =>
-    //     dataSource.length >= 1 ? (
-    //       <DeleteRowOutlined
-    //         style={{ fontSize: '25px', color: 'grey' }}
-    //         onClick={() => {
-    //           const rec = record as Item;
-    //           handleDelete(rec.key);
-    //         }}
-    //       />
-    //     ) : // <Popconfirm
-    //     //   title="Sure to delete?"
-    //     //   icon={<DeleteRowOutlined />}
-    //     //   onConfirm={() => {
-    //     //     return handleDelete(rec.key);
-    //     //   }}
-    //     // ></Popconfirm>
-    //     null,
-    // },
   ];
 
   //   const handleAdd = () => {
@@ -276,7 +261,20 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
   });
 
   return (
-    <div>
+    <Box display="flex" flexDirection="column">
+      <Button
+        type="primary"
+        style={{ width: '80px', height: '40px', marginLeft: 'auto' }}
+        disabled={!(selectedRowKeys.length > 0)}
+        icon={
+          <DeleteRowOutlined
+            style={{ fontSize: '25px', color: 'white' }}
+            onClick={() => {
+              handleDelete(selectedRowKeys);
+            }}
+          />
+        }
+      ></Button>
       <Table
         components={components}
         rowClassName={() => 'editable-row'}
@@ -313,6 +311,6 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
       {/* <Button onClick={handleAdd} type="primary">
         Додати артикул
       </Button> */}
-    </div>
+    </Box>
   );
 };

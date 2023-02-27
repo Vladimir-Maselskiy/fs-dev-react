@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button } from 'antd';
+import { Button, Divider } from 'antd';
 // import Head from 'next/head';
 // import Image from 'next/image';
 // import { Inter } from '@next/font/google';
@@ -89,6 +89,7 @@ export default function Home() {
             Розрахувати
           </Button>
         </Box>
+        <Divider />
         <FSetsOrderTable tableSets={tableSets} />
 
         <ModalLayout
