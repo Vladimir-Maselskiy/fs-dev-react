@@ -6,7 +6,8 @@ export const StyledContlolButtonBox = styled.div`
   bottom: 0;
   transform: translateY(50%);
   padding: 1px;
-  background-color: white;
+  background-color: var(--first-background-color);
+
   &::before {
     content: '';
     position: absolute;

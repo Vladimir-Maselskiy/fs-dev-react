@@ -1,4 +1,3 @@
-import { Box } from '../Box/Box';
 import { ConfigProvider, Layout } from 'antd';
 import { StyledMainContainer } from './MainContainer.styled';
 
@@ -14,6 +13,7 @@ export const MainContainer = ({ children }: Props) => {
       theme={{
         token: {
           colorPrimary: 'rgb(33, 150, 243)',
+          colorBgBase: 'aliceblue',
         },
         components: {
           InputNumber: {

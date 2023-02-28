@@ -8,9 +8,9 @@ export const FormLayoutStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 15px;
-  padding-bottom: 50px;
+  padding-bottom: 80px;
   margin-top: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 80px;
   border: solid #2196f3 2px;
   border-radius: 10px;
   width: 100%;
