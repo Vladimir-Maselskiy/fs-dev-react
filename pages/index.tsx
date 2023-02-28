@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, Divider } from 'antd';
+import { Button, Divider, Form } from 'antd';
 // import Head from 'next/head';
 // import Image from 'next/image';
 // import { Inter } from '@next/font/google';
@@ -10,17 +10,19 @@ import { getNewSet } from '@/utils/ui-utills/getNewSet';
 import { Box } from '@/components/Box/Box';
 import { useFSetsContext } from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
-import { CurrentModal } from '@/CurrentModal/CurrentModal';
+import { CurrentModal } from '@/components/CurrentModal/CurrentModal';
 import { TestComonent } from '@/components/TestComonent/TestComonent';
 import { getIsGetOrderButtonDisabled } from '@/utils/ui-utills/getIsGetOrderButtonDisabled';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
 import { getFSets } from '@/utils/data-utils/getFSets';
 import { IArticleItem } from '@/interfaces/interfaces';
+import { FormLayout } from '@/components/FormLayout/FormLayout';
 
 // const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
+  const [fSet, setFSet] = useState(getNewSet('0'));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentSetId, setCurrentSetId] = useState('');
   const [currentModalNumber, setCurrentModalNumber] = useState(0);
@@ -70,12 +72,14 @@ export default function Home() {
             Розрахувати
           </Button>
         </Box>
-        <FSetList
+        <FormLayout fSet={fSet}></FormLayout>
+
+        {/* <FSetList
           fSetsArray={fSetsArray}
           setIsModalOpen={setIsModalOpen}
           setCurrentSetId={setCurrentSetId}
           setCurrentModalNumber={setCurrentModalNumber}
-        />
+        /> */}
         <Box mt={10} display="flex" justifyContent="space-between">
           <Button type="primary" ref={fSetEndRef} onClick={addNewFSet}>
             Додати
