@@ -9,11 +9,7 @@ type TProps = {
   form: any;
 };
 
-export const CurrentModal = ({
-  id,
-  modalNumber = 2,
-  form,
-}: TProps) => {
+export const CurrentModal = ({ id, modalNumber = 2, form }: TProps) => {
   const [Modal, setModal] = useState<JSX.Element>(
     <ModalSetOption id={id} form={form} />
   );
@@ -26,12 +22,10 @@ export const CurrentModal = ({
         setModal(<ModalSetOption id={id} form={form} />);
         break;
       case 3:
-        setModal(
-          <ModalTypeOfOpening id={id} form={form} />
-        );
+        setModal(<ModalTypeOfOpening id={id} form={form} />);
         break;
     }
-  }, [modalNumber]);
+  }, [modalNumber, form, id]);
 
   return Modal;
 };

@@ -14,6 +14,7 @@ import { decor, TRestrictions } from '@/const';
 import { Tag } from 'antd';
 import { willDecorSelecteValueChange } from '@/utils/ui-utills/willDecorSelecteValueChange';
 import { FormLayoutStyled } from './FormLayout.styled';
+import { BrandButton } from '../BrandButton/BrandButton';
 
 interface TProps {
   fSet: IFSet;
@@ -99,6 +100,12 @@ export const FormLayout = ({
         /> */}
         <ControlButtons
           isOptitionButtonDisabled={isOptitionButtonDisabled}
+          setIsModalOpen={setIsModalOpen}
+          id={fSet.id}
+          setCurrentSetId={setCurrentSetId}
+          setCurrentModalNumber={setCurrentModalNumber}
+        />
+        <BrandButton
           setIsModalOpen={setIsModalOpen}
           id={fSet.id}
           setCurrentSetId={setCurrentSetId}

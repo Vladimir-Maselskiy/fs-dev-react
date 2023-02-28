@@ -61,16 +61,8 @@ export default function Home() {
   return (
     <MainContainer>
       <Box p="10px">
-        <Box display="flex" justifyContent="space-between">
+        <Box>
           <CurrentRate />
-          <Button
-            type="primary"
-            disabled={isGetOrderButtonDisabled}
-            onClick={onClickCountSets}
-            style={{ marginLeft: 'auto' }}
-          >
-            Розрахувати
-          </Button>
         </Box>
         <FormLayout
           fSet={fSet}
@@ -107,7 +99,6 @@ export default function Home() {
           modalNumber={currentModalNumber}
         />
         {/* <TestComonent /> */}
-        /*{' '}
       </Box>
     </MainContainer>
   );

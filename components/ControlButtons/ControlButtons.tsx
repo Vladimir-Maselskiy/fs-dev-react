@@ -5,9 +5,7 @@ import {
 } from './ControlButtons.styled';
 import IconOptions from '../../img/options.svg';
 import IconTypeOfWindow from '../../img/type-of-window.svg';
-import IconMacoLogo from '../../img/maco-logo.svg';
-import IconVorneLogo from '../../img/vorne-logo.svg';
-import IconWinkhausLogo from '../../img/winkhaus-logo.svg';
+
 import { RiDeleteBin2Line } from 'react-icons/ri';
 import { Box } from '../Box/Box';
 import { useFSetsContext } from '@/context/state';
@@ -62,40 +60,22 @@ export const ControlButtons = ({
 
   return (
     <StyledContlolButtonBox>
-      {/* <StyledControlButton
-        size="large"
+      <StyledControlButton
+        disabled={isOptitionButtonDisabled}
         onClick={e => {
           setIsModalOpen(true);
           setCurrentSetId(id);
-          setCurrentModalNumber(1);
+          setCurrentModalNumber(2);
         }}
-        icon={
-          fSet?.brand === 'maco' ? (
-            <IconMacoLogo width={32} height={32} />
-          ) : fSet?.brand === 'vorne' ? (
-            <IconVorneLogo width={32} />
-          ) : fSet?.brand === 'winkhaus' ? (
-            <IconWinkhausLogo width={32} />
-          ) : null
-        }
-      /> */}
-
-      <StyledControlButton
-        disabled={isOptitionButtonDisabled}
-        // onClick={e => {
-        //   setIsModalOpen(true);
-        //   setCurrentSetId(id);
-        //   setCurrentModalNumber(2);
-        // }}
         icon={<IconOptions />}
       />
 
       <StyledControlButton
-        // onClick={e => {
-        //   setIsModalOpen(true);
-        //   setCurrentSetId(id);
-        //   setCurrentModalNumber(3);
-        // }}
+        onClick={e => {
+          setIsModalOpen(true);
+          setCurrentSetId(id);
+          setCurrentModalNumber(3);
+        }}
         icon={<IconTypeOfWindow />}
       />
 
