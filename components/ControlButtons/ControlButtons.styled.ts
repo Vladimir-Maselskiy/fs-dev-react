@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { Button } from 'antd';
 
 export const StyledContlolButtonBox = styled.div`
-  /* display: flex; */
-  /* border: 2px solid var(--accent-color); */
   position: absolute;
   bottom: 0;
   transform: translateY(50%);
@@ -24,9 +22,9 @@ export const StyledContlolButtonBox = styled.div`
 `;
 
 export const StyledControlButton = styled(Button)`
-  min-height: 50px;
-  min-width: 70px;
-  width: 70px;
+  min-height: 75px;
+  min-width: 100px;
+  width: 100px;
   fill: ${p => (p.disabled ? 'var(--grey-color)' : 'var(--accent-color)')};
   cursor: ${p => (p.disabled ? 'auto' : 'pointer')};
   color: var(--accent-color);

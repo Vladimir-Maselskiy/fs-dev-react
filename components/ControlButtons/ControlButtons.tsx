@@ -5,14 +5,10 @@ import {
 } from './ControlButtons.styled';
 import IconOptions from '../../img/options.svg';
 import IconTypeOfWindow from '../../img/type-of-window.svg';
-
-import { RiDeleteBin2Line } from 'react-icons/ri';
-import { Box } from '../Box/Box';
 import { useFSetsContext } from '@/context/state';
 import { getSetById } from '@/utils/ui-utills/getSetById';
 import { IFSet } from '@/interfaces/interfaces';
 import { getValidateStatusOfWidthOrHeight } from '@/utils/ui-utills/getValidateStatusOfWidthOrHeight';
-import { height } from 'styled-system';
 
 type TProps = {
   isOptitionButtonDisabled: boolean;
@@ -53,10 +49,6 @@ export const ControlButtons = ({
         'height'
       );
   }, [fSet?.brand, fSet?.typeOfOpening, fSet?.width, fSet?.height]);
-
-  const onClickRemoveButton = (id: string) => {
-    setFSetsArray(prev => prev.filter(set => set.id !== id));
-  };
 
   return (
     <StyledContlolButtonBox>
