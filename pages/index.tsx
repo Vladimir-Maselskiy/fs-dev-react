@@ -72,7 +72,12 @@ export default function Home() {
             Розрахувати
           </Button>
         </Box>
-        <FormLayout fSet={fSet}></FormLayout>
+        <FormLayout
+          fSet={fSet}
+          setIsModalOpen={setIsModalOpen}
+          setCurrentSetId={setCurrentSetId}
+          setCurrentModalNumber={setCurrentModalNumber}
+        ></FormLayout>
         {/* <FSetList
           fSetsArray={fSetsArray}
           setIsModalOpen={setIsModalOpen}

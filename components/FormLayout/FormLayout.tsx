@@ -15,11 +15,19 @@ import { Tag } from 'antd';
 import { willDecorSelecteValueChange } from '@/utils/ui-utills/willDecorSelecteValueChange';
 import { FormLayoutStyled } from './FormLayout.styled';
 
-type TProps = {
+interface TProps {
   fSet: IFSet;
-};
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentSetId: React.Dispatch<React.SetStateAction<string>>;
+  setCurrentModalNumber: React.Dispatch<React.SetStateAction<number>>;
+}
 
-export const FormLayout = ({ fSet }: TProps) => {
+export const FormLayout = ({
+  fSet,
+  setIsModalOpen,
+  setCurrentSetId,
+  setCurrentModalNumber,
+}: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [isOptitionButtonDisabled, setIsOptitionButtonDisabled] =
     useState(true);
@@ -82,12 +90,19 @@ export const FormLayout = ({ fSet }: TProps) => {
           <QuantityOfSets id={fSet.id} />
           <ImportantSetsOptions id={fSet.id} />
         </Box>
-        <ControlButtons
+        {/* <ControlButtons
           isOptitionButtonDisabled={isOptitionButtonDisabled}
           //   setIsModalOpen={setIsModalOpen}
           id={fSet.id}
           //   setCurrentSetId={setCurrentSetId}
           //   setCurrentModalNumber={setCurrentModalNumber}
+        /> */}
+        <ControlButtons
+          isOptitionButtonDisabled={isOptitionButtonDisabled}
+          setIsModalOpen={setIsModalOpen}
+          id={fSet.id}
+          setCurrentSetId={setCurrentSetId}
+          setCurrentModalNumber={setCurrentModalNumber}
         />
       </FormLayoutStyled>
     </Form>
