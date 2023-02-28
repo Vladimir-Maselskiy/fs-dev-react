@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { StyledControlButton } from './СontrolButtons.styled';
+import {
+  StyledContlolButtonBox,
+  StyledControlButton,
+} from './ControlButtons.styled';
 import IconOptions from '../../img/options.svg';
 import IconTypeOfWindow from '../../img/type-of-window.svg';
 import IconMacoLogo from '../../img/maco-logo.svg';
@@ -58,8 +61,8 @@ export const ControlButtons = ({
   };
 
   return (
-    <Box display="flex" flexDirection="column">
-      <StyledControlButton
+    <StyledContlolButtonBox>
+      {/* <StyledControlButton
         size="large"
         onClick={e => {
           setIsModalOpen(true);
@@ -75,31 +78,31 @@ export const ControlButtons = ({
             <IconWinkhausLogo width={32} />
           ) : null
         }
-      />
+      /> */}
 
       <StyledControlButton
         disabled={isOptitionButtonDisabled}
-        onClick={e => {
-          setIsModalOpen(true);
-          setCurrentSetId(id);
-          setCurrentModalNumber(2);
-        }}
+        // onClick={e => {
+        //   setIsModalOpen(true);
+        //   setCurrentSetId(id);
+        //   setCurrentModalNumber(2);
+        // }}
         icon={<IconOptions />}
       />
 
       <StyledControlButton
-        onClick={e => {
-          setIsModalOpen(true);
-          setCurrentSetId(id);
-          setCurrentModalNumber(3);
-        }}
+        // onClick={e => {
+        //   setIsModalOpen(true);
+        //   setCurrentSetId(id);
+        //   setCurrentModalNumber(3);
+        // }}
         icon={<IconTypeOfWindow />}
       />
 
-      <StyledControlButton
+      {/* <StyledControlButton
         onClick={() => onClickRemoveButton(id)}
         icon={<RiDeleteBin2Line size={32} />}
-      />
-    </Box>
+      /> */}
+    </StyledContlolButtonBox>
   );
 };

@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { IFSet } from '@/interfaces/interfaces';
 import { Box } from '../Box/Box';
 // import { StyledFSetItem } from './FSetItem.styled';
-import { ControlButtons } from '../СontrolButtons/СontrolButtons';
+import { ControlButtons } from '../ControlButtons/ControlButtons';
 import { ImportantSetsOptions } from '../ImportantSetsOptions/ImportantSetsOptions';
 import { QuantityOfSets } from '../QuantityOfSets/QuantityOfSets';
 import { WidthAndHeightInput } from '../WidthAndHeightInput/WidthAndHeightInput';
@@ -82,13 +82,13 @@ export const FormLayout = ({ fSet }: TProps) => {
           <QuantityOfSets id={fSet.id} />
           <ImportantSetsOptions id={fSet.id} />
         </Box>
-        {/* <ControlButtons
+        <ControlButtons
           isOptitionButtonDisabled={isOptitionButtonDisabled}
           //   setIsModalOpen={setIsModalOpen}
           id={fSet.id}
           //   setCurrentSetId={setCurrentSetId}
           //   setCurrentModalNumber={setCurrentModalNumber}
-        /> */}
+        />
       </FormLayoutStyled>
     </Form>
   );

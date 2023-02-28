@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Checkbox, InputRef } from 'antd';
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import { DeleteRowOutlined } from '@ant-design/icons';
-
+import { useMedia } from 'react-use';
 import type { FormInstance } from 'antd/es/form';
 import { IArticleItem } from '@/interfaces/interfaces';
 import { getDataSource } from '@/utils/data-utils/getDataSource';
@@ -140,6 +140,12 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
     getDataSource(tableSets)
   );
 
+  const [isWide, setIsWide] = useState(false);
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 370px)');
+    setIsWide(media.matches);
+  }, []);
+
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     console.log('selectedRowKeys changed: ', newSelectedRowKeys);
     setSelectedRowKeys(newSelectedRowKeys);
@@ -181,7 +187,7 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
       responsive: ['md'],
     },
     {
-      title: 'Кількість',
+      title: isWide ? 'Кількість' : 'К-ть',
       dataIndex: 'quantity',
       editable: true,
       width: '3%',
@@ -252,9 +258,10 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
       }),
     };
   });
+  console.log('isWide', isWide);
 
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display="flex" width="100%" flexDirection="column">
       <Button
         type="primary"
         style={{ width: '80px', height: '40px', marginLeft: 'auto' }}
@@ -275,8 +282,9 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
         dataSource={dataSource}
         columns={columns as ColumnTypes}
         pagination={false}
-        style={{ marginTop: 30 }}
+        style={{ marginTop: 30, width: '100%', minWidth: '290px' }}
         size="small"
+        scroll={{ x: 336 }}
         rowSelection={rowSelection}
         summary={dataSource => {
           let lotalPrice = dataSource.reduce((acc, item) => {

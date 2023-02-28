@@ -60,8 +60,8 @@ export default function Home() {
 
   return (
     <MainContainer>
-      <>
-        <Box width="100%" display="flex" justifyContent="space-between">
+      <Box p="10px">
+        <Box display="flex" justifyContent="space-between">
           <CurrentRate />
           <Button
             type="primary"
@@ -73,7 +73,6 @@ export default function Home() {
           </Button>
         </Box>
         <FormLayout fSet={fSet}></FormLayout>
-
         {/* <FSetList
           fSetsArray={fSetsArray}
           setIsModalOpen={setIsModalOpen}
@@ -95,7 +94,6 @@ export default function Home() {
         </Box>
         <Divider />
         <FSetsOrderTable tableSets={tableSets} />
-
         <ModalLayout
           setIsModalOpen={setIsModalOpen}
           isModalOpen={isModalOpen}
@@ -103,9 +101,9 @@ export default function Home() {
           id={currentSetId}
           modalNumber={currentModalNumber}
         />
-
         {/* <TestComonent /> */}
-      </>
+        /*{' '}
+      </Box>
     </MainContainer>
   );
 }
