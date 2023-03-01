@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { IFSet } from '@/interfaces/interfaces';
 import { Box } from '../Box/Box';
 import { StyledFSetItem } from './FSetItem.styled';
@@ -74,24 +74,25 @@ export const FSetItem = ({
   }, [fSet?.brand, fSet?.decor, fSet.id, setFSetsArray]);
 
   return (
-    <StyledFSetItem>
-      <Tag style={{ alignSelf: 'start' }}>{fSetsArray.indexOf(fSet) + 1}</Tag>
-      <WidthAndHeightInput
-        setIsOptitionButtonDisabled={setIsOptitionButtonDisabled}
-        id={fSet.id}
-        restrictions={restrictions}
-      />
-      <Box display="flex" flexDirection="column" alignItems="center">
-        <QuantityOfSets id={fSet.id} />
-        <ImportantSetsOptions id={fSet.id} />
-      </Box>
-      <ControlButtons
-        isOptitionButtonDisabled={isOptitionButtonDisabled}
-        setIsModalOpen={setIsModalOpen}
-        id={fSet.id}
-        setCurrentSetId={setCurrentSetId}
-        setCurrentModalNumber={setCurrentModalNumber}
-      />
-    </StyledFSetItem>
+    <></>
+    // <StyledFSetItem>
+    //   <Tag style={{ alignSelf: 'start' }}>{fSetsArray.indexOf(fSet) + 1}</Tag>
+    //   <WidthAndHeightInput
+    //     setIsOptitionButtonDisabled={setIsOptitionButtonDisabled}
+    //     id={fSet.id}
+    //     restrictions={restrictions}
+    //   />
+    //   <Box display="flex" flexDirection="column" alignItems="center">
+    //     <QuantityOfSets id={fSet.id} />
+    //     <ImportantSetsOptions id={fSet.id} />
+    //   </Box>
+    //   <ControlButtons
+    //     isOptitionButtonDisabled={isOptitionButtonDisabled}
+    //     setIsModalOpen={setIsModalOpen}
+    //     id={fSet.id}
+    //     setCurrentSetId={setCurrentSetId}
+    //     setCurrentModalNumber={setCurrentModalNumber}
+    //   />
+    // </StyledFSetItem>
   );
 };

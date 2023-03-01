@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Select, Form } from 'antd';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-
 import { typeOfOpeningSelectOpions } from '@/const';
-import { ALLTypeOfOpeningConst, IFSet } from '@/interfaces/interfaces';
-import { isStringInUnionTypeOfOpening } from '@/utils/ts-utils/isStringInUnion';
-import { getSetById } from '@/utils/ui-utills/getSetById';
-import { useFSetsContext } from '@/context/state';
+import { IFSet } from '@/interfaces/interfaces';
 
 type TProps = {
   fSet: IFSet;

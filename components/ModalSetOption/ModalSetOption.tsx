@@ -1,5 +1,5 @@
 import { Form, InputNumber, Checkbox, Radio, Select, Divider } from 'antd';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box } from '../Box/Box';
 import { IFSet } from '@/interfaces/interfaces';
 import { typeOfHingeSidePressConst } from '@/const';

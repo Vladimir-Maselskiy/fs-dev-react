@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useFSetsContext } from '@/context/state';
-import { getSetById } from '@/utils/ui-utills/getSetById';
+import React from 'react';
 import IconMacoLogo from '../../img/maco-logo.svg';
 import IconVorneLogo from '../../img/vorne-logo.svg';
 import IconWinkhausLogo from '../../img/winkhaus-logo.svg';

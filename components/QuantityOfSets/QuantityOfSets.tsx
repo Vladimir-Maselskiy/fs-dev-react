@@ -1,49 +1,31 @@
-import { useFSetsContext } from '@/context/state';
-import { getSetById } from '@/utils/ui-utills/getSetById';
-import { Button, InputNumber } from 'antd';
+import { IFSet } from '@/interfaces/interfaces';
+import { Button, Form, FormInstance, InputNumber } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { Box } from '../Box/Box';
-import { StyledP } from './QuantityOfSets.styled';
 
 type TProps = {
-  id: string;
+  fSet: IFSet;
+  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
+  form: FormInstance<any>;
 };
 
-export const QuantityOfSets = ({ id }: TProps) => {
-  const { fSetsArray, setFSetsArray } = useFSetsContext();
-
-  const [fSet, setFSet] = useState(getSetById(id, fSetsArray));
-
-  useEffect(() => {
-    if (fSet?.quantitySet)
-      setFSetsArray(prev => {
-        return prev.map(set => {
-          if (set.id === id)
-            return {
-              ...set,
-              quantitySet: fSet?.quantitySet,
-            };
-          return set;
-        });
-      });
-  }, [fSet?.quantitySet, id, setFSetsArray]);
+export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
+  const [value, setValue] = useState(fSet.quantitySet);
 
   const onChangeCounterByClick = (num: number): void => {
-    if (fSet) {
-      if (fSet.quantitySet <= 1 && num < 0) return;
-      if (fSet.quantitySet >= 99 && num > 0) return;
-      setFSet({ ...fSet, quantitySet: fSet.quantitySet + num });
-    }
+    if (fSet.quantitySet <= 1 && num < 0) return;
+    if (fSet.quantitySet >= 99 && num > 0) return;
+    setValue(prev => prev + num);
   };
 
-  const onChangeInput = (value: number | null) => {
-    if (value && fSet) setFSet({ ...fSet, quantitySet: value });
-  };
+  useEffect(() => {
+    setFSet(prev => ({ ...prev, quantitySet: value }));
+    form.setFieldValue('quantitySet', value);
+  }, [value]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" width={180}>
-      <StyledP>Кількість</StyledP>
       <Box
         display="flex"
         alignItems="center"
@@ -56,23 +38,22 @@ export const QuantityOfSets = ({ id }: TProps) => {
           icon={<AiOutlineMinus size={40} color="var(--accent-color)" />}
           onClick={() => onChangeCounterByClick(-1)}
         ></Button>
-
-        <InputNumber
-          type="number"
-          inputMode="numeric"
-          pattern="\d"
-          min={1}
-          max={99}
-          controls={false}
-          style={{
-            width: '60px',
-            height: '50px',
-            fontSize: '30px',
-            paddingTop: '10px',
-          }}
-          onChange={onChangeInput}
-          value={fSet?.quantitySet}
-        />
+        <Form.Item label="Кількість" name="quantitySet" initialValue={value}>
+          <InputNumber
+            type="number"
+            inputMode="numeric"
+            pattern="\d"
+            min={1}
+            max={99}
+            controls={false}
+            style={{
+              width: '60px',
+              height: '50px',
+              fontSize: '30px',
+              paddingTop: '10px',
+            }}
+          />
+        </Form.Item>
         <Button
           type="default"
           style={{ width: '50px', height: '50px' }}

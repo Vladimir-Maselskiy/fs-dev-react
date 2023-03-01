@@ -1,9 +1,8 @@
 import { Button, ConfigProvider, Form } from 'antd';
 import React from 'react';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { IFSet } from '@/interfaces/interfaces';
 import { Box } from '../Box/Box';
-// import { StyledFSetItem } from './FSetItem.styled';
 import { ControlButtons } from '../ControlButtons/ControlButtons';
 import { ImportantSetsOptions } from '../ImportantSetsOptions/ImportantSetsOptions';
 import { QuantityOfSets } from '../QuantityOfSets/QuantityOfSets';
@@ -15,8 +14,6 @@ import { Tag } from 'antd';
 import { willDecorSelecteValueChange } from '@/utils/ui-utills/willDecorSelecteValueChange';
 import { FormLayoutStyled } from './FormLayout.styled';
 import { BrandButton } from '../BrandButton/BrandButton';
-import { getSetById } from '@/utils/ui-utills/getSetById';
-import { getNewSet } from '@/utils/ui-utills/getNewSet';
 
 interface TProps {
   fSet: IFSet;
@@ -117,8 +114,8 @@ export const FormLayout = ({
             restrictions={restrictions}
           />
           <Box display="flex" flexDirection="column" alignItems="center">
-            <QuantityOfSets id={fSet.id} />
-            <ImportantSetsOptions id={fSet.id} />
+            <QuantityOfSets fSet={fSet} setFSet={setFSet} form={form} />
+            <ImportantSetsOptions fSet={fSet} setFSet={setFSet} />
           </Box>
           {/* <ControlButtons
           isOptitionButtonDisabled={isOptitionButtonDisabled}
