@@ -22,7 +22,7 @@ export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
   useEffect(() => {
     setFSet(prev => ({ ...prev, quantitySet: value }));
     form.setFieldValue('quantitySet', value);
-  }, [value]);
+  }, [value, form, setFSet]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">

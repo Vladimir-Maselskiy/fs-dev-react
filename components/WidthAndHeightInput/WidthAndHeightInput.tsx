@@ -59,7 +59,7 @@ export const WidthAndHeightInput = ({
         microVentilation,
       }));
     }
-  }, [fSet?.width, restrictions, fSet?.brand, fSet?.typeOfOpening]);
+  }, [fSet?.width, restrictions, fSet?.brand, fSet?.typeOfOpening, setFSet]);
 
   useEffect(() => {
     if (fSet?.height) {
@@ -81,7 +81,7 @@ export const WidthAndHeightInput = ({
         isHeightValid,
       }));
     }
-  }, [fSet?.height, restrictions, fSet?.brand, fSet?.typeOfOpening]);
+  }, [fSet?.height, restrictions, fSet?.brand, fSet?.typeOfOpening, setFSet]);
 
   useEffect(() => {
     if (fSet?.isWidthValid === 'valid' && fSet.isHeightValid === 'valid') {

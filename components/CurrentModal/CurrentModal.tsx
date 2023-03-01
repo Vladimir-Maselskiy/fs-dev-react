@@ -26,7 +26,7 @@ export const CurrentModal = ({ fSet, modalNumber = 2, form }: TProps) => {
         setModal(<ModalTypeOfOpening fSet={fSet} form={form} />);
         break;
     }
-  }, [modalNumber, form]);
+  }, [modalNumber, form, fSet]);
 
   return Modal;
 };
