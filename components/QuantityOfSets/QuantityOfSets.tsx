@@ -1,5 +1,5 @@
 import { IFSet } from '@/interfaces/interfaces';
-import { Button, Form, FormInstance, InputNumber } from 'antd';
+import { Button, Form, FormInstance, InputNumber, Space } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { Box } from '../Box/Box';
@@ -25,7 +25,7 @@ export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
   }, [value]);
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" width={180}>
+    <Box display="flex" flexDirection="column" alignItems="center">
       <Box
         display="flex"
         alignItems="center"
@@ -34,7 +34,7 @@ export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
       >
         <Button
           type="default"
-          style={{ width: '50px', height: '50px' }}
+          style={{ minWidth: '70px', height: '50px' }}
           icon={<AiOutlineMinus size={40} color="var(--accent-color)" />}
           onClick={() => onChangeCounterByClick(-1)}
         ></Button>
@@ -47,6 +47,9 @@ export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
             max={99}
             controls={false}
             style={{
+              position: 'relative',
+              top: '-8px',
+              left: '17px',
               width: '60px',
               height: '50px',
               fontSize: '30px',
@@ -56,7 +59,7 @@ export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
         </Form.Item>
         <Button
           type="default"
-          style={{ width: '50px', height: '50px' }}
+          style={{ minWidth: '70px', height: '50px' }}
           icon={<AiOutlinePlus size={40} color="var(--accent-color)" />}
           onClick={() => onChangeCounterByClick(1)}
         ></Button>

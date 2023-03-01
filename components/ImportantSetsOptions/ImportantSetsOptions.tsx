@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Radio, Select } from 'antd';
+import { ConfigProvider, Form, Radio, Select } from 'antd';
 import { getPVСSystemSelectOpions } from '@/utils/ui-utills/getPVСSystemSelectOpions';
 import { Box } from '../Box/Box';
 import { getPVCSystemSelectValue } from '@/utils/ui-utills/getPVCSystemSelectValue';
@@ -43,13 +43,34 @@ export const ImportantSetsOptions = ({ fSet, setFSet }: TProps) => {
         )}
       </Box>
       <Box display="flex" justifyContent="space-between" width={260} mt={10}>
-        <Form.Item label="" name="systemOfPVC" initialValue={selectValue}>
-          <Select
-            options={selectOptions}
-            listHeight={170}
-            style={{ width: '260px' }}
-          />
-        </Form.Item>
+        <ConfigProvider
+          theme={{
+            token: {
+              fontSize: 20,
+              lineHeight: 3,
+            },
+          }}
+        >
+          <Form.Item label="" name="systemOfPVC" initialValue={selectValue}>
+            <Select
+              options={selectOptions}
+              listHeight={360}
+              size="large"
+              placement="topLeft"
+              dropdownStyle={
+                {
+                  // display: 'flex',
+                  // justifyContent: 'space-between',
+                  // flexDirection: 'column',
+                  // height: '250px',
+                }
+              }
+              style={{
+                width: '260px',
+              }}
+            />
+          </Form.Item>
+        </ConfigProvider>
       </Box>
     </Box>
   );
