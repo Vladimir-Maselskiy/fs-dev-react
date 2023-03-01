@@ -93,7 +93,7 @@ export const FormLayout = ({
     <ConfigProvider
       theme={{
         token: {
-          fontSize: 24,
+          fontSize: 22,
         },
       }}
     >
