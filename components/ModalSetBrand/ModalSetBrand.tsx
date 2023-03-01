@@ -9,7 +9,7 @@ import IconWinkhauseLogoGray from '../../img/winkhaus-logo-gray.svg';
 
 import type { RadioChangeEvent } from 'antd';
 import { useFSetsContext } from '@/context/state';
-import { IFSet } from '@/interfaces/interfaces';
+import { IFSet, TBrands } from '@/interfaces/interfaces';
 import { getSetById } from '@/utils/ui-utills/getSetById';
 
 type TProps = {
@@ -18,9 +18,11 @@ type TProps = {
 };
 
 export const ModalSetBrand = ({ fSet, form }: TProps) => {
-  // const onChangeBrand = (e: RadioChangeEvent) => {
-  //   if (fSet) setFSet({ ...fSet, brand: e.target.value });
-  // };
+  const [brand, setBrand] = useState(fSet.brand);
+  const onChangeBrand = (e: RadioChangeEvent) => {
+    const value = e.target.value as TBrands;
+    setBrand(value);
+  };
 
   useEffect(() => {
     if (fSet?.brand) {
@@ -31,7 +33,7 @@ export const ModalSetBrand = ({ fSet, form }: TProps) => {
   return (
     <Form.Item name="brand" initialValue={fSet?.brand}>
       <Radio.Group
-        // onChange={onChangeBrand}
+        onChange={onChangeBrand}
         style={{
           display: 'flex',
           justifyContent: 'center',
@@ -50,7 +52,7 @@ export const ModalSetBrand = ({ fSet, form }: TProps) => {
             alignItems: 'center',
           }}
         >
-          {fSet?.brand === 'maco' ? (
+          {brand === 'maco' ? (
             <IconMacoLogo width={80} height={80} />
           ) : (
             <IconMacoLogoGray width={80} height={80} />
@@ -65,7 +67,7 @@ export const ModalSetBrand = ({ fSet, form }: TProps) => {
             alignItems: 'center',
           }}
         >
-          {fSet?.brand === 'vorne' ? (
+          {brand === 'vorne' ? (
             <IconVorneLogo width={80} />
           ) : (
             <IconVorneLogoGray width={80} />
@@ -80,7 +82,7 @@ export const ModalSetBrand = ({ fSet, form }: TProps) => {
             alignItems: 'center',
           }}
         >
-          {fSet?.brand === 'winkhaus' ? (
+          {brand === 'winkhaus' ? (
             <IconWinkhausLogo width={80} />
           ) : (
             <IconWinkhauseLogoGray width={80} />

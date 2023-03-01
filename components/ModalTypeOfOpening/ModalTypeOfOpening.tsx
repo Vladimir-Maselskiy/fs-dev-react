@@ -14,32 +14,10 @@ type TProps = {
 };
 
 export const ModalTypeOfOpening = ({ fSet, form }: TProps) => {
-  const { fSetsArray } = useFSetsContext();
-
   useEffect(() => {
     form.setFieldsValue(fSet?.typeOfOpening);
   }, [fSet?.typeOfOpening, form]);
 
-  // const handleChange = (
-  //   e: CheckboxChangeEvent,
-  //   option:
-  //     | {
-  //         value: string;
-  //         label: string;
-  //       }
-  //     | {
-  //         value: string;
-  //         label: string;
-  //       }[]
-  // ) => {
-  //   if (
-  //     !Array.isArray(option) &&
-  //     isStringInUnionTypeOfOpening(option.value, ALLTypeOfOpeningConst) &&
-  //     fSet
-  //   ) {
-  //     setFSet({ ...fSet, typeOfOpening: option.value });
-  //   }
-  // };
   return (
     <Form.Item
       label="Тип відкривання"
@@ -47,11 +25,7 @@ export const ModalTypeOfOpening = ({ fSet, form }: TProps) => {
       style={{ paddingRight: 40 }}
       initialValue={fSet?.typeOfOpening}
     >
-      <Select
-        // onChange={handleChange}
-        options={typeOfOpeningSelectOpions}
-        listHeight={170}
-      />
+      <Select options={typeOfOpeningSelectOpions} listHeight={170} />
     </Form.Item>
   );
 };

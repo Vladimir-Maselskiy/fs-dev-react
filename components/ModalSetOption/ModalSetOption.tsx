@@ -1,20 +1,8 @@
 import { Form, InputNumber, Checkbox, Radio, Select, Divider } from 'antd';
-import type { RadioChangeEvent } from 'antd';
-import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useFSetsContext } from '@/context/state';
-import { getSetById } from '@/utils/ui-utills/getSetById';
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
-import {
-  ALLDecor,
-  ALLTypeOfHingeSidePressConst,
-  IFSet,
-} from '@/interfaces/interfaces';
+import { IFSet } from '@/interfaces/interfaces';
 import { typeOfHingeSidePressConst } from '@/const';
-import {
-  isStringInUnionDecor,
-  isStringInUnionTypeOfHingeSidePress,
-} from '@/utils/ts-utils/isStringInUnion';
 import { getOneOptionTypeOfHingeSidePress } from '@/utils/ui-utills/getOneOptionTypeOfHingeSidePress';
 import { getOneOptionDecor } from '@/utils/ui-utills/getOneOptionDecor';
 import { getDecorSelectOptions } from '@/utils/ui-utills/getDecorSelectOptions';
@@ -24,7 +12,7 @@ type TProps = {
   form: any;
 };
 
-export const ModalSetOption = ({ fSet, form }: TProps) => {
+export const ModalSetOption = ({ fSet }: TProps) => {
   const [decorOptions, setDecorOptions] = useState(
     getDecorSelectOptions(fSet?.brand)
   );
@@ -45,42 +33,14 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
   const [isAntiBreakingOpenSelectDisable, setIsAntiBreakingOpenSelectDisable] =
     useState(fSet.antiBreakingOpen);
 
-  useEffect(() => {
-    form.setFieldsValue(fSet?.hanleDistance);
-  }, [fSet?.hanleDistance, form]);
-
-  useEffect(() => {
-    form.setFieldsValue(fSet?.shtulpGetriebe);
-  }, [fSet?.shtulpGetriebe, form]);
-
-  useEffect(() => {
-    form.setFieldsValue(fSet?.isTurnTiltGetriebe);
-  }, [fSet?.isTurnTiltGetriebe, form]);
-
-  useEffect(() => {
-    form.setFieldsValue(fSet?.typeOfHingeSidePress);
-  }, [fSet?.typeOfHingeSidePress, form]);
-
-  useEffect(() => {
-    form.setFieldsValue(fSet?.microVentilation);
-  }, [fSet?.microVentilation, form]);
-
-  useEffect(() => {
-    form.setFieldsValue(fSet?.isGorizontalLock);
-  }, [fSet?.isGorizontalLock, form]);
-
-  useEffect(() => {
-    form.setFieldsValue(fSet?.isWithoutBottomHinge);
-  }, [fSet?.isWithoutBottomHinge, form]);
-
-  useEffect(() => {
-    form.setFieldsValue({
-      antiBreakingOpenRadio: fSet?.antiBreakingOpen,
-    });
-    form.setFieldsValue({
-      antiBreakingOpen: fSet?.antiBreakingOpen,
-    });
-  }, [fSet?.antiBreakingOpen, form]);
+  // useEffect(() => {
+  //   form.setFieldsValue({
+  //     antiBreakingOpenRadio: fSet?.antiBreakingOpen,
+  //   });
+  //   form.setFieldsValue({
+  //     antiBreakingOpen: fSet?.antiBreakingOpen,
+  //   });
+  // }, [fSet?.antiBreakingOpen, form]);
 
   // useEffect(() => {
   //   if (fSet?.typeOfOpening === 'type-2' && fSet.isTurnTiltGetriebe === false) {
@@ -115,9 +75,9 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
   //   } else setIsAntiBreakingOpenSelectDisable(true);
   // }, [fSet?.antiBreakingOpen]);
 
-  useEffect(() => {
-    form.setFieldsValue({ decor: getOneOptionDecor(fSet?.decor) });
-  }, [fSet?.decor, form]);
+  // useEffect(() => {
+  //   form.setFieldsValue({ decor: getOneOptionDecor(fSet?.decor) });
+  // }, [fSet?.decor, form]);
 
   // const onChangeHanleDistance = (value: number | null) => {
   //   if (fSet && value != null) {
@@ -256,13 +216,13 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
   //   }
   // };
 
-  // const onClickInputNumber = (
-  //   e: React.KeyboardEvent<HTMLInputElement> | undefined
-  // ) => {
-  //   if (e?.key === 'Enter') {
-  //     e.preventDefault();
-  //   }
-  // };
+  const onClickInputNumber = (
+    e: React.KeyboardEvent<HTMLInputElement> | undefined
+  ) => {
+    if (e?.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
 
   return (
     <Box mt={10}>
@@ -280,14 +240,13 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
         initialValue={getOneOptionDecor(fSet?.decor)?.value}
       >
         <Select
-          // onChange={handleChangeDecor}
           options={decorOptions}
           listHeight={150}
           style={{ width: '140px' }}
         />
       </Form.Item>
 
-      {/* {fSet?.typeOfOpening !== 'type-3' && (
+      {fSet?.typeOfOpening !== 'type-3' && (
         <Form.Item
           label="Висота від низу до ручки"
           name="hanleDistance"
@@ -303,7 +262,6 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
               width: '70px',
             }}
             placeholder={String(Number(fSet?.height) / 2)}
-            onChange={onChangeHanleDistance}
             stringMode={true}
             onKeyDown={onClickInputNumber}
           />
@@ -317,10 +275,7 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
           valuePropName="checked"
           initialValue={fSet?.isTurnTiltGetriebe}
         >
-          <Checkbox
-            checked={fSet?.isTurnTiltGetriebe}
-            onChange={onChangeTurnTiltGetriebe}
-          />
+          <Checkbox checked={fSet?.isTurnTiltGetriebe} />
         </Form.Item>
       )}
 
@@ -330,7 +285,7 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
           name="shtulpGetriebe"
           initialValue={fSet.shtulpGetriebe}
         >
-          <Radio.Group onChange={onChangeShtulpGetriebe}>
+          <Radio.Group>
             <Radio value="shtulpGetriebe">Штульп-привід</Radio>
             <Radio value="latch">Шпінгалети</Radio>
           </Radio.Group>
@@ -344,11 +299,7 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
             name="typeOfHingeSidePress"
             initialValue={getOneOptionTypeOfHingeSidePress(fSet)}
           >
-            <Select
-              onChange={handleChangeTypeOfHingeSidePress}
-              options={typeOfHingeSidePressConst}
-              listHeight={150}
-            />
+            <Select options={typeOfHingeSidePressConst} listHeight={150} />
           </Form.Item>
         )}
       {typeof fSet?.typeOfOpening === 'string' &&
@@ -361,7 +312,6 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
           >
             <Checkbox
               checked={fSet?.microVentilation}
-              onChange={onChangeMicroVentilation}
               disabled={isMicroVentilationDisabled}
             />
           </Form.Item>
@@ -376,7 +326,6 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
         >
           <Checkbox
             checked={fSet?.isGorizontalLock}
-            onChange={onChangeIsGorizontalLock}
             disabled={isGorizontalLockDisabled}
           />
         </Form.Item>
@@ -389,10 +338,7 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
           valuePropName="checked"
           initialValue={fSet?.isWithoutBottomHinge}
         >
-          <Checkbox
-            checked={fSet?.isWithoutBottomHinge}
-            onChange={onChangeIsWithoutBottomHinge}
-          />
+          <Checkbox checked={fSet?.isWithoutBottomHinge} />
         </Form.Item>
       )}
 
@@ -406,34 +352,30 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
               name="antiBreakingOpen"
               initialValue={fSet?.antiBreakingOpen}
             >
-              <Checkbox
-                checked={fSet?.antiBreakingOpen ? true : false}
-                onChange={onChangeAntiBreakingOpen}
-              />
+              <Checkbox checked={fSet?.antiBreakingOpen ? true : false} />
             </Form.Item>
 
             {!isAntiBreakingOpenSelectDisable && (
-              // <Form.Item
-              // label="Ступінь"
-              // name="antiBreakingOpenRadio"
-              // valuePropName="value"
-              // initialValue={fSet?.antiBreakingOpen}
-              // >
-              <Radio.Group
-                onChange={onChangeAntiBreakingOpenRadio}
+              <Form.Item
+                label="Ступінь"
                 name="antiBreakingOpenRadio"
-                value={fSet?.antiBreakingOpen}
+                valuePropName="value"
+                initialValue={fSet?.antiBreakingOpen}
               >
-                {fSet?.shtulpGetriebe === 'latch' && (
-                  <Radio value="base">Базовий</Radio>
-                )}
-                <Radio value="rc1">RC1</Radio>
-              </Radio.Group>
-              // </Form.Item>
+                <Radio.Group
+                  name="antiBreakingOpenRadio"
+                  value={fSet?.antiBreakingOpen}
+                >
+                  {fSet?.shtulpGetriebe === 'latch' && (
+                    <Radio value="base">Базовий</Radio>
+                  )}
+                  <Radio value="rc1">RC1</Radio>
+                </Radio.Group>
+              </Form.Item>
             )}
-          </Form.Item> */}
-      {/* </> */}
-      {/* )} */}
+          </Form.Item>
+        </>
+      )}
       <Divider />
     </Box>
   );
