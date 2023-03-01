@@ -258,7 +258,6 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
       }),
     };
   });
-  console.log('isWide', isWide);
 
   return (
     <Box display="flex" width="100%" flexDirection="column">

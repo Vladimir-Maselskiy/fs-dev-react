@@ -1,5 +1,4 @@
 import { TRestrictions } from '@/const';
-import { IFSet } from '@/interfaces/interfaces';
 
 export const getValidateStatus = (
   value: number | undefined,

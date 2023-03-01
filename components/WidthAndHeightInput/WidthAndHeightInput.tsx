@@ -1,32 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '../Box/Box';
-import { useFSetsContext } from '@/context/state';
-import { InputNumber } from 'antd';
-import { getSetById } from '@/utils/ui-utills/getSetById';
+import { Form, InputNumber } from 'antd';
 import { getValidateStatus } from '@/utils/ui-utills/getValidateStatus';
 import { getValidateStatusOfWidthOrHeight } from '@/utils/ui-utills/getValidateStatusOfWidthOrHeight';
-import { StyledP } from './WidthAndHeightInput.styled';
 import { getSetRestrictions } from '@/utils/ui-utills/getSetRestrictions';
 import { TRestrictions } from '@/const';
 import { getCurrentIsGorizontalLock } from '@/utils/ui-utills/getCurrentIsGorizontalLock';
+import { IFSet } from '@/interfaces/interfaces';
 
 type TProps = {
-  id: string;
+  fSet: IFSet;
+  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   setIsOptitionButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   restrictions: TRestrictions;
 };
 
 export const WidthAndHeightInput = ({
-  id,
+  fSet,
+  setFSet,
   setIsOptitionButtonDisabled,
   restrictions,
 }: TProps) => {
-  const { fSetsArray, setFSetsArray } = useFSetsContext();
-
-  useEffect(() => {
-    widthInputRef.current?.focus();
-  }, [fSetsArray.length]);
-
   const widthInputRef = useRef<HTMLInputElement>(null);
   const heihtInputRef = useRef<HTMLInputElement>(null);
 
@@ -37,15 +31,10 @@ export const WidthAndHeightInput = ({
     undefined | 'error'
   >(undefined);
 
-  const [fSet, setFSet] = useState(getSetById(id, fSetsArray));
-
-  useEffect(() => {
-    setFSet(getSetById(id, fSetsArray));
-  }, [id, fSetsArray]);
-
   useEffect(() => {
     if (fSet?.width) {
       const status = getValidateStatus(fSet.width, 'width', restrictions);
+      console.log('status', status);
       setFrontStatusWidthInput(status);
       const isWidthValid =
         getValidateStatusOfWidthOrHeight(
@@ -63,28 +52,14 @@ export const WidthAndHeightInput = ({
       );
       let microVentilation = true;
       if (fSet?.width && fSet?.width < 320) microVentilation = false;
-      setFSetsArray(prev =>
-        prev.map(set => {
-          if (id === set.id)
-            return {
-              ...set,
-              width: fSet?.width,
-              isGorizontalLock,
-              isWidthValid,
-              microVentilation,
-            };
-          return set;
-        })
-      );
+      setFSet(prev => ({
+        ...prev,
+        isGorizontalLock,
+        isWidthValid,
+        microVentilation,
+      }));
     }
-  }, [
-    fSet?.width,
-    id,
-    setFSetsArray,
-    restrictions,
-    fSet?.brand,
-    fSet?.typeOfOpening,
-  ]);
+  }, [fSet?.width, restrictions, fSet?.brand, fSet?.typeOfOpening]);
 
   useEffect(() => {
     if (fSet?.height) {
@@ -101,53 +76,18 @@ export const WidthAndHeightInput = ({
           ? 'valid'
           : 'invalid';
 
-      setFSetsArray(prev =>
-        prev.map(set => {
-          if (id === set.id)
-            return {
-              ...set,
-              height: fSet.height,
-              isHeightValid,
-            };
-          return set;
-        })
-      );
+      setFSet(prev => ({
+        ...prev,
+        isHeightValid,
+      }));
     }
-  }, [
-    fSet?.height,
-    id,
-    restrictions,
-    setFSetsArray,
-    fSet?.brand,
-    fSet?.typeOfOpening,
-  ]);
+  }, [fSet?.height, restrictions, fSet?.brand, fSet?.typeOfOpening]);
 
   useEffect(() => {
     if (fSet?.isWidthValid === 'valid' && fSet.isHeightValid === 'valid') {
       setIsOptitionButtonDisabled(false);
     } else setIsOptitionButtonDisabled(true);
-    if (fSet?.isWidthValid)
-      setFSetsArray(prev =>
-        prev.map(set => {
-          if (set.id === id) return { ...set, isWidthValid: fSet.isWidthValid };
-          return set;
-        })
-      );
-    if (fSet?.isHeightValid)
-      setFSetsArray(prev =>
-        prev.map(set => {
-          if (set.id === id)
-            return { ...set, isHeightValid: fSet.isHeightValid };
-          return set;
-        })
-      );
-  }, [
-    fSet?.isWidthValid,
-    fSet?.isHeightValid,
-    setIsOptitionButtonDisabled,
-    id,
-    setFSetsArray,
-  ]);
+  }, [fSet?.isWidthValid, fSet?.isHeightValid, setIsOptitionButtonDisabled]);
 
   useEffect(() => {
     if (fSet?.width && fSet.height) {
@@ -165,27 +105,6 @@ export const WidthAndHeightInput = ({
       setFrontStatusHeightInput(heightStatus);
     }
   }, [fSet?.typeOfOpening, fSet?.brand, fSet?.height, fSet?.width]);
-
-  const onChangeWidthInput = (value: number | null) => {
-    if (value && fSet) {
-      setFSetsArray(prev =>
-        prev.map(set => {
-          if (set.id === id) return { ...set, width: value };
-          return set;
-        })
-      );
-    }
-  };
-  const onChangeHeightInput = (value: number | null) => {
-    if (value && fSet) {
-      setFSetsArray(prev =>
-        prev.map(set => {
-          if (set.id === id) return { ...set, height: value };
-          return set;
-        })
-      );
-    }
-  };
 
   const onPressEnterWidth = (e: any) => {
     widthInputRef?.current?.blur();
@@ -211,48 +130,50 @@ export const WidthAndHeightInput = ({
   return (
     <Box>
       <Box>
-        <StyledP>Ширина</StyledP>
-        <InputNumber
-          type="number"
-          inputMode="numeric"
-          pattern="\d"
-          ref={widthInputRef}
-          min={restrictions.minWith}
-          max={restrictions.maxWidth}
-          style={{
-            width: '110px',
-            height: '50px',
-            fontSize: '30px',
-            paddingTop: '10px',
-          }}
-          onChange={onChangeWidthInput}
-          onPressEnter={onPressEnterWidth}
-          onBlur={onBlurWidthInput}
-          value={fSet?.width}
-          status={frontStatusWidthInput}
-        />
+        <Form.Item label="Ширина" name="width" initialValue={fSet?.width}>
+          <InputNumber
+            type="number"
+            inputMode="numeric"
+            pattern="\d"
+            ref={widthInputRef}
+            min={restrictions.minWith}
+            max={restrictions.maxWidth}
+            style={{
+              width: '110px',
+              height: '50px',
+              fontSize: '30px',
+              paddingTop: '10px',
+            }}
+            // onChange={onChangeWidthInput}
+            onPressEnter={onPressEnterWidth}
+            onBlur={onBlurWidthInput}
+            value={fSet?.width}
+            status={frontStatusWidthInput}
+          />
+        </Form.Item>
       </Box>
       <Box mt={10}>
-        <StyledP>Висота</StyledP>
-        <InputNumber
-          type="number"
-          inputMode="numeric"
-          pattern="\d"
-          ref={heihtInputRef}
-          min={restrictions.minHeight}
-          max={restrictions.maxHeight}
-          style={{
-            width: '110px',
-            height: '50px',
-            fontSize: '30px',
-            paddingTop: '10px',
-          }}
-          onChange={onChangeHeightInput}
-          onPressEnter={onPressEnterHeight}
-          onBlur={onBlurHeightInput}
-          value={fSet?.height}
-          status={frontStatusHeightInput}
-        />
+        <Form.Item label="Висота" name="height" initialValue={fSet?.height}>
+          <InputNumber
+            type="number"
+            inputMode="numeric"
+            pattern="\d"
+            ref={heihtInputRef}
+            min={restrictions.minHeight}
+            max={restrictions.maxHeight}
+            style={{
+              width: '110px',
+              height: '50px',
+              fontSize: '30px',
+              paddingTop: '10px',
+            }}
+            // onChange={onChangeHeightInput}
+            onPressEnter={onPressEnterHeight}
+            onBlur={onBlurHeightInput}
+            value={fSet?.height}
+            status={frontStatusHeightInput}
+          />
+        </Form.Item>
       </Box>
     </Box>
   );

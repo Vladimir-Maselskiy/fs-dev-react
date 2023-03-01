@@ -3,48 +3,43 @@ import { Select, Form } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 
 import { typeOfOpeningSelectOpions } from '@/const';
-import { ALLTypeOfOpeningConst } from '@/interfaces/interfaces';
+import { ALLTypeOfOpeningConst, IFSet } from '@/interfaces/interfaces';
 import { isStringInUnionTypeOfOpening } from '@/utils/ts-utils/isStringInUnion';
 import { getSetById } from '@/utils/ui-utills/getSetById';
 import { useFSetsContext } from '@/context/state';
 
 type TProps = {
-  id: string;
+  fSet: IFSet;
   form: any;
 };
 
-export const ModalTypeOfOpening = ({ id, form }: TProps) => {
+export const ModalTypeOfOpening = ({ fSet, form }: TProps) => {
   const { fSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState(getSetById(id, fSetsArray));
-
-  useEffect(() => {
-    setFSet(getSetById(id, fSetsArray));
-  }, [id, fSetsArray]);
 
   useEffect(() => {
     form.setFieldsValue(fSet?.typeOfOpening);
   }, [fSet?.typeOfOpening, form]);
 
-  const handleChange = (
-    e: CheckboxChangeEvent,
-    option:
-      | {
-          value: string;
-          label: string;
-        }
-      | {
-          value: string;
-          label: string;
-        }[]
-  ) => {
-    if (
-      !Array.isArray(option) &&
-      isStringInUnionTypeOfOpening(option.value, ALLTypeOfOpeningConst) &&
-      fSet
-    ) {
-      setFSet({ ...fSet, typeOfOpening: option.value });
-    }
-  };
+  // const handleChange = (
+  //   e: CheckboxChangeEvent,
+  //   option:
+  //     | {
+  //         value: string;
+  //         label: string;
+  //       }
+  //     | {
+  //         value: string;
+  //         label: string;
+  //       }[]
+  // ) => {
+  //   if (
+  //     !Array.isArray(option) &&
+  //     isStringInUnionTypeOfOpening(option.value, ALLTypeOfOpeningConst) &&
+  //     fSet
+  //   ) {
+  //     setFSet({ ...fSet, typeOfOpening: option.value });
+  //   }
+  // };
   return (
     <Form.Item
       label="Тип відкривання"
@@ -53,7 +48,7 @@ export const ModalTypeOfOpening = ({ id, form }: TProps) => {
       initialValue={fSet?.typeOfOpening}
     >
       <Select
-        onChange={handleChange}
+        // onChange={handleChange}
         options={typeOfOpeningSelectOpions}
         listHeight={170}
       />

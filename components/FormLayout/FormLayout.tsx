@@ -1,4 +1,4 @@
-import { Form } from 'antd';
+import { Button, ConfigProvider, Form } from 'antd';
 import React from 'react';
 import { useEffect, useState, useRef } from 'react';
 import { IFSet } from '@/interfaces/interfaces';
@@ -15,28 +15,32 @@ import { Tag } from 'antd';
 import { willDecorSelecteValueChange } from '@/utils/ui-utills/willDecorSelecteValueChange';
 import { FormLayoutStyled } from './FormLayout.styled';
 import { BrandButton } from '../BrandButton/BrandButton';
+import { getSetById } from '@/utils/ui-utills/getSetById';
+import { getNewSet } from '@/utils/ui-utills/getNewSet';
 
 interface TProps {
   fSet: IFSet;
+  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setCurrentSetId: React.Dispatch<React.SetStateAction<string>>;
   setCurrentModalNumber: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const FormLayout = ({
   fSet,
+  setFSet,
   setIsModalOpen,
-  setCurrentSetId,
   setCurrentModalNumber,
 }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [isOptitionButtonDisabled, setIsOptitionButtonDisabled] =
     useState(true);
+  console.log('fSet', fSet);
 
   const [restrictions, setRestrictions] = useState<TRestrictions>(
     getSetRestrictions(fSet.typeOfOpening, fSet.brand)
   );
-  console.log('restrictions', restrictions);
+
+  const [form] = Form.useForm();
 
   useEffect(() => {
     setRestrictions(getSetRestrictions(fSet.typeOfOpening, fSet.brand));
@@ -78,40 +82,72 @@ export const FormLayout = ({
     }
   }, [fSet?.brand, fSet?.decor, fSet.id, setFSetsArray]);
 
+  const onFinishHandleSubmit = (value: any) => {
+    console.log('value', value);
+  };
+  const onValuesChange = (value: any) => {
+    console.log('onValuesChange', value);
+    if (value && fSet) {
+      setFSet(prev => ({ ...prev, ...value }));
+    }
+  };
+
   return (
-    <Form>
-      <FormLayoutStyled>
-        <Tag style={{ alignSelf: 'start' }}>{fSetsArray.indexOf(fSet) + 1}</Tag>
-        <WidthAndHeightInput
-          setIsOptitionButtonDisabled={setIsOptitionButtonDisabled}
-          id={fSet.id}
-          restrictions={restrictions}
-        />
-        <Box display="flex" flexDirection="column" alignItems="center">
-          <QuantityOfSets id={fSet.id} />
-          <ImportantSetsOptions id={fSet.id} />
-        </Box>
-        {/* <ControlButtons
+    <ConfigProvider
+      theme={{
+        token: {
+          fontSize: 24,
+        },
+      }}
+    >
+      <Form
+        form={form}
+        onFinish={onFinishHandleSubmit}
+        onValuesChange={onValuesChange}
+        layout="vertical"
+      >
+        <FormLayoutStyled>
+          <Tag style={{ alignSelf: 'start' }}>
+            {fSetsArray.indexOf(fSet) + 1}
+          </Tag>
+          <WidthAndHeightInput
+            setIsOptitionButtonDisabled={setIsOptitionButtonDisabled}
+            fSet={fSet}
+            setFSet={setFSet}
+            restrictions={restrictions}
+          />
+          <Box display="flex" flexDirection="column" alignItems="center">
+            <QuantityOfSets id={fSet.id} />
+            <ImportantSetsOptions id={fSet.id} />
+          </Box>
+          {/* <ControlButtons
           isOptitionButtonDisabled={isOptitionButtonDisabled}
           //   setIsModalOpen={setIsModalOpen}
           id={fSet.id}
           //   setCurrentSetId={setCurrentSetId}
           //   setCurrentModalNumber={setCurrentModalNumber}
         /> */}
-        <ControlButtons
-          isOptitionButtonDisabled={isOptitionButtonDisabled}
-          setIsModalOpen={setIsModalOpen}
-          id={fSet.id}
-          setCurrentSetId={setCurrentSetId}
-          setCurrentModalNumber={setCurrentModalNumber}
-        />
-        <BrandButton
-          setIsModalOpen={setIsModalOpen}
-          id={fSet.id}
-          setCurrentSetId={setCurrentSetId}
-          setCurrentModalNumber={setCurrentModalNumber}
-        />
-      </FormLayoutStyled>
-    </Form>
+          <ControlButtons
+            isOptitionButtonDisabled={isOptitionButtonDisabled}
+            setIsModalOpen={setIsModalOpen}
+            fSet={fSet}
+            setFSet={setFSet}
+            setCurrentModalNumber={setCurrentModalNumber}
+          />
+          <BrandButton
+            setIsModalOpen={setIsModalOpen}
+            fSet={fSet}
+            setFSet={setFSet}
+            setCurrentModalNumber={setCurrentModalNumber}
+          />
+        </FormLayoutStyled>
+      </Form>
+      <Button
+        type="primary"
+        //   onClick={addNewFSet}
+      >
+        Додати
+      </Button>
+    </ConfigProvider>
   );
 };

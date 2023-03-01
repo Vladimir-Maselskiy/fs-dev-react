@@ -2,12 +2,14 @@ import React from 'react';
 import { StyledModal } from './ModalLayout.styled';
 import { Form, ConfigProvider, Button } from 'antd';
 import { useFSetsContext } from '@/context/state';
+import { IFSet } from '@/interfaces/interfaces';
 
 type TProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isModalOpen: boolean;
   currentModal: React.ElementType;
-  id: string;
+  fSet: IFSet;
+  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   modalNumber: number;
 };
 
@@ -15,7 +17,8 @@ export const ModalLayout = ({
   setIsModalOpen,
   isModalOpen,
   currentModal: CurrentModal,
-  id,
+  fSet,
+  setFSet,
   modalNumber,
 }: TProps) => {
   const handleCancel = () => {
@@ -31,15 +34,10 @@ export const ModalLayout = ({
       if (values[obj]?.value) values[obj] = values[obj].value;
     }
     console.log('onFinishHandleSubmit', values);
-    setFSetsArray(prev =>
-      prev.map(set => {
-        if (set.id === id) return { ...set, ...values };
-        return set;
-      })
-    );
+    setFSet(prev => ({ ...prev, ...values }));
+
     setIsModalOpen(false);
   };
-  const onValuesChange = (values: any) => {};
 
   return (
     <StyledModal
@@ -66,10 +64,9 @@ export const ModalLayout = ({
           layout="horizontal"
           form={form}
           onFinish={onFinishHandleSubmit}
-          onValuesChange={onValuesChange}
           labelAlign="left"
         >
-          <CurrentModal id={id} modalNumber={modalNumber} form={form} />
+          <CurrentModal fSet={fSet} modalNumber={modalNumber} form={form} />
         </Form>
       </ConfigProvider>
     </StyledModal>

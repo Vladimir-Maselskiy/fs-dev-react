@@ -8,6 +8,7 @@ import { Box } from '../Box/Box';
 import {
   ALLDecor,
   ALLTypeOfHingeSidePressConst,
+  IFSet,
 } from '@/interfaces/interfaces';
 import { typeOfHingeSidePressConst } from '@/const';
 import {
@@ -19,42 +20,30 @@ import { getOneOptionDecor } from '@/utils/ui-utills/getOneOptionDecor';
 import { getDecorSelectOptions } from '@/utils/ui-utills/getDecorSelectOptions';
 
 type TProps = {
-  id: string;
+  fSet: IFSet;
   form: any;
 };
 
-export const ModalSetOption = ({ id, form }: TProps) => {
-  const { fSetsArray } = useFSetsContext();
-
-  const [fSet, setFSet] = useState(getSetById(id, fSetsArray));
-
+export const ModalSetOption = ({ fSet, form }: TProps) => {
   const [decorOptions, setDecorOptions] = useState(
     getDecorSelectOptions(fSet?.brand)
   );
 
   const [hanleDistanceRestrictions, setHanleDistanceRestrictions] = useState({
-    min: '',
-    max: '',
+    min: '235',
+    max: String(Number(fSet.height) - 235),
   });
 
-  const [isGorizontalLockDisabled, setIsGorizontalLockDisabled] =
-    useState(false);
+  const [isGorizontalLockDisabled, setIsGorizontalLockDisabled] = useState(
+    fSet.isGorizontalLock
+  );
 
-  const [isMicroVentilationDisabled, setIsMicroVentilationDisabled] =
-    useState(false);
+  const [isMicroVentilationDisabled, setIsMicroVentilationDisabled] = useState(
+    fSet.microVentilation
+  );
 
   const [isAntiBreakingOpenSelectDisable, setIsAntiBreakingOpenSelectDisable] =
-    useState(true);
-
-  useEffect(() => {
-    setFSet(getSetById(id, fSetsArray));
-    if (fSet?.height) {
-      setHanleDistanceRestrictions({
-        min: '235',
-        max: String(Number(fSet.height) - 235),
-      });
-    }
-  }, [id, fSetsArray, fSet?.height]);
+    useState(fSet.antiBreakingOpen);
 
   useEffect(() => {
     form.setFieldsValue(fSet?.hanleDistance);
@@ -93,187 +82,187 @@ export const ModalSetOption = ({ id, form }: TProps) => {
     });
   }, [fSet?.antiBreakingOpen, form]);
 
-  useEffect(() => {
-    if (fSet?.typeOfOpening === 'type-2' && fSet.isTurnTiltGetriebe === false) {
-      setIsGorizontalLockDisabled(true);
-    } else if (
-      fSet?.typeOfOpening === 'type-5' &&
-      fSet.shtulpGetriebe === 'latch'
-    ) {
-      setIsGorizontalLockDisabled(true);
-    } else if (fSet?.width && fSet?.width < 400) {
-      setIsGorizontalLockDisabled(true);
-    } else setIsGorizontalLockDisabled(false);
-  }, [
-    fSet?.typeOfOpening,
-    fSet?.shtulpGetriebe,
-    fSet?.isTurnTiltGetriebe,
-    fSet?.width,
-  ]);
+  // useEffect(() => {
+  //   if (fSet?.typeOfOpening === 'type-2' && fSet.isTurnTiltGetriebe === false) {
+  //     setIsGorizontalLockDisabled(true);
+  //   } else if (
+  //     fSet?.typeOfOpening === 'type-5' &&
+  //     fSet.shtulpGetriebe === 'latch'
+  //   ) {
+  //     setIsGorizontalLockDisabled(true);
+  //   } else if (fSet?.width && fSet?.width < 400) {
+  //     setIsGorizontalLockDisabled(true);
+  //   } else setIsGorizontalLockDisabled(false);
+  // }, [
+  //   fSet?.typeOfOpening,
+  //   fSet?.shtulpGetriebe,
+  //   fSet?.isTurnTiltGetriebe,
+  //   fSet?.width,
+  // ]);
 
-  useEffect(() => {
-    if (fSet?.width && fSet?.width < 320) {
-      setIsMicroVentilationDisabled(true);
-    } else setIsMicroVentilationDisabled(false);
-  }, [fSet?.width]);
+  // useEffect(() => {
+  //   if (fSet?.width && fSet?.width < 320) {
+  //     setIsMicroVentilationDisabled(true);
+  //   } else setIsMicroVentilationDisabled(false);
+  // }, [fSet?.width]);
 
-  useEffect(() => {
-    if (
-      fSet?.antiBreakingOpen &&
-      (fSet.antiBreakingOpen === 'base' || fSet.antiBreakingOpen === 'rc1')
-    ) {
-      setIsAntiBreakingOpenSelectDisable(false);
-    } else setIsAntiBreakingOpenSelectDisable(true);
-  }, [fSet?.antiBreakingOpen]);
+  // useEffect(() => {
+  //   if (
+  //     fSet?.antiBreakingOpen &&
+  //     (fSet.antiBreakingOpen === 'base' || fSet.antiBreakingOpen === 'rc1')
+  //   ) {
+  //     setIsAntiBreakingOpenSelectDisable(false);
+  //   } else setIsAntiBreakingOpenSelectDisable(true);
+  // }, [fSet?.antiBreakingOpen]);
 
   useEffect(() => {
     form.setFieldsValue({ decor: getOneOptionDecor(fSet?.decor) });
   }, [fSet?.decor, form]);
 
-  const onChangeHanleDistance = (value: number | null) => {
-    if (fSet && value != null) {
-      const newSet = {
-        ...fSet,
-        hanleDistance: value,
-      };
-      setFSet(newSet);
-    }
-  };
+  // const onChangeHanleDistance = (value: number | null) => {
+  //   if (fSet && value != null) {
+  //     const newSet = {
+  //       ...fSet,
+  //       hanleDistance: value,
+  //     };
+  //     setFSet(newSet);
+  //   }
+  // };
 
-  const onChangeShtulpGetriebe = (e: RadioChangeEvent) => {
-    if (fSet) {
-      const newSet = {
-        ...fSet,
-        shtulpGetriebe: e.target.value,
-      };
-      setFSet(newSet);
-    }
-  };
+  // const onChangeShtulpGetriebe = (e: RadioChangeEvent) => {
+  //   if (fSet) {
+  //     const newSet = {
+  //       ...fSet,
+  //       shtulpGetriebe: e.target.value,
+  //     };
+  //     setFSet(newSet);
+  //   }
+  // };
 
-  const onChangeTurnTiltGetriebe = (e: CheckboxChangeEvent) => {
-    if (fSet) {
-      const newSet = {
-        ...fSet,
-        isTurnTiltGetriebe: e.target.checked,
-      };
-      setFSet(newSet);
-    }
-  };
+  // const onChangeTurnTiltGetriebe = (e: CheckboxChangeEvent) => {
+  //   if (fSet) {
+  //     const newSet = {
+  //       ...fSet,
+  //       isTurnTiltGetriebe: e.target.checked,
+  //     };
+  //     setFSet(newSet);
+  //   }
+  // };
 
-  const handleChangeTypeOfHingeSidePress = (
-    value: {
-      value: string;
-      label: string;
-    },
-    option:
-      | {
-          value: string;
-          label: string;
-        }
-      | {
-          value: string;
-          label: string;
-        }[]
-  ) => {
-    if (
-      !Array.isArray(option) &&
-      isStringInUnionTypeOfHingeSidePress(
-        option.value,
-        ALLTypeOfHingeSidePressConst
-      )
-    )
-      setFSet(prev => {
-        if (
-          !prev ||
-          !isStringInUnionTypeOfHingeSidePress(
-            option.value,
-            ALLTypeOfHingeSidePressConst
-          )
-        )
-          return prev;
-        return { ...prev, typeOfHingeSidePress: option.value };
-      });
-  };
+  // const handleChangeTypeOfHingeSidePress = (
+  //   value: {
+  //     value: string;
+  //     label: string;
+  //   },
+  //   option:
+  //     | {
+  //         value: string;
+  //         label: string;
+  //       }
+  //     | {
+  //         value: string;
+  //         label: string;
+  //       }[]
+  // ) => {
+  //   if (
+  //     !Array.isArray(option) &&
+  //     isStringInUnionTypeOfHingeSidePress(
+  //       option.value,
+  //       ALLTypeOfHingeSidePressConst
+  //     )
+  //   )
+  //     setFSet(prev => {
+  //       if (
+  //         !prev ||
+  //         !isStringInUnionTypeOfHingeSidePress(
+  //           option.value,
+  //           ALLTypeOfHingeSidePressConst
+  //         )
+  //       )
+  //         return prev;
+  //       return { ...prev, typeOfHingeSidePress: option.value };
+  //     });
+  // };
 
-  const handleChangeDecor = (
-    value: {
-      value: string;
-      label: string;
-    },
-    option:
-      | {
-          value: string;
-          label: string;
-        }
-      | {
-          value: string;
-          label: string;
-        }[]
-  ) => {
-    if (!Array.isArray(option) && isStringInUnionDecor(option.value, ALLDecor))
-      if (fSet) {
-        setFSet({ ...fSet, decor: option.value });
-      }
-  };
+  // const handleChangeDecor = (
+  //   value: {
+  //     value: string;
+  //     label: string;
+  //   },
+  //   option:
+  //     | {
+  //         value: string;
+  //         label: string;
+  //       }
+  //     | {
+  //         value: string;
+  //         label: string;
+  //       }[]
+  // ) => {
+  //   if (!Array.isArray(option) && isStringInUnionDecor(option.value, ALLDecor))
+  //     if (fSet) {
+  //       setFSet({ ...fSet, decor: option.value });
+  //     }
+  // };
 
-  const onChangeMicroVentilation = (e: CheckboxChangeEvent) => {
-    if (fSet) {
-      const newSet = {
-        ...fSet,
-        microVentilation: e.target.checked,
-      };
-      setFSet(newSet);
-    }
-  };
+  // const onChangeMicroVentilation = (e: CheckboxChangeEvent) => {
+  //   if (fSet) {
+  //     const newSet = {
+  //       ...fSet,
+  //       microVentilation: e.target.checked,
+  //     };
+  //     setFSet(newSet);
+  //   }
+  // };
 
-  const onChangeIsGorizontalLock = (e: CheckboxChangeEvent) => {
-    if (fSet) {
-      const newSet = {
-        ...fSet,
-        isGorizontalLock: e.target.checked,
-      };
-      setFSet(newSet);
-    }
-  };
+  // const onChangeIsGorizontalLock = (e: CheckboxChangeEvent) => {
+  //   if (fSet) {
+  //     const newSet = {
+  //       ...fSet,
+  //       isGorizontalLock: e.target.checked,
+  //     };
+  //     setFSet(newSet);
+  //   }
+  // };
 
-  const onChangeIsWithoutBottomHinge = (e: CheckboxChangeEvent) => {
-    if (fSet) {
-      const boolean = e.target.checked;
-      const newSet = {
-        ...fSet,
-        isWithoutBottomHinge: boolean,
-      };
-      setFSet(newSet);
-    }
-  };
+  // const onChangeIsWithoutBottomHinge = (e: CheckboxChangeEvent) => {
+  //   if (fSet) {
+  //     const boolean = e.target.checked;
+  //     const newSet = {
+  //       ...fSet,
+  //       isWithoutBottomHinge: boolean,
+  //     };
+  //     setFSet(newSet);
+  //   }
+  // };
 
-  const onChangeAntiBreakingOpen = (e: CheckboxChangeEvent) => {
-    if (fSet) {
-      setIsAntiBreakingOpenSelectDisable(!e.target.checked);
-      const value = e.target.checked ? 'base' : false;
+  // const onChangeAntiBreakingOpen = (e: CheckboxChangeEvent) => {
+  //   if (fSet) {
+  //     setIsAntiBreakingOpenSelectDisable(!e.target.checked);
+  //     const value = e.target.checked ? 'base' : false;
 
-      if (value === false || value === 'base' || value === 'rc1')
-        setFSet({ ...fSet, antiBreakingOpen: value });
-    }
-  };
+  //     if (value === false || value === 'base' || value === 'rc1')
+  //       setFSet({ ...fSet, antiBreakingOpen: value });
+  //   }
+  // };
 
-  const onChangeAntiBreakingOpenRadio = (e: RadioChangeEvent) => {
-    if (fSet) {
-      const newSet = {
-        ...fSet,
-        antiBreakingOpen: e.target.value,
-      };
-      setFSet(newSet);
-    }
-  };
+  // const onChangeAntiBreakingOpenRadio = (e: RadioChangeEvent) => {
+  //   if (fSet) {
+  //     const newSet = {
+  //       ...fSet,
+  //       antiBreakingOpen: e.target.value,
+  //     };
+  //     setFSet(newSet);
+  //   }
+  // };
 
-  const onClickInputNumber = (
-    e: React.KeyboardEvent<HTMLInputElement> | undefined
-  ) => {
-    if (e?.key === 'Enter') {
-      e.preventDefault();
-    }
-  };
+  // const onClickInputNumber = (
+  //   e: React.KeyboardEvent<HTMLInputElement> | undefined
+  // ) => {
+  //   if (e?.key === 'Enter') {
+  //     e.preventDefault();
+  //   }
+  // };
 
   return (
     <Box mt={10}>
@@ -291,14 +280,14 @@ export const ModalSetOption = ({ id, form }: TProps) => {
         initialValue={getOneOptionDecor(fSet?.decor)?.value}
       >
         <Select
-          onChange={handleChangeDecor}
+          // onChange={handleChangeDecor}
           options={decorOptions}
           listHeight={150}
           style={{ width: '140px' }}
         />
       </Form.Item>
 
-      {fSet?.typeOfOpening !== 'type-3' && (
+      {/* {fSet?.typeOfOpening !== 'type-3' && (
         <Form.Item
           label="Висота від низу до ручки"
           name="hanleDistance"
@@ -442,9 +431,9 @@ export const ModalSetOption = ({ id, form }: TProps) => {
               </Radio.Group>
               // </Form.Item>
             )}
-          </Form.Item>
-        </>
-      )}
+          </Form.Item> */}
+      {/* </> */}
+      {/* )} */}
       <Divider />
     </Box>
   );

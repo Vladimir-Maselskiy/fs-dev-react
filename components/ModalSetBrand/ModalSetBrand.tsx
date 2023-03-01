@@ -13,24 +13,14 @@ import { IFSet } from '@/interfaces/interfaces';
 import { getSetById } from '@/utils/ui-utills/getSetById';
 
 type TProps = {
-  id: string;
+  fSet: IFSet;
   form: any;
 };
 
-export const ModalSetBrand = ({ id, form }: TProps) => {
-  const { fSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState<IFSet | null>(null);
-
-  const onChangeBrand = (e: RadioChangeEvent) => {
-    if (fSet) setFSet({ ...fSet, brand: e.target.value });
-  };
-
-  useEffect(() => {
-    const originalfSet = getSetById(id, fSetsArray);
-    if (originalfSet) {
-      setFSet({ ...originalfSet });
-    }
-  }, [id, fSetsArray]);
+export const ModalSetBrand = ({ fSet, form }: TProps) => {
+  // const onChangeBrand = (e: RadioChangeEvent) => {
+  //   if (fSet) setFSet({ ...fSet, brand: e.target.value });
+  // };
 
   useEffect(() => {
     if (fSet?.brand) {
@@ -41,7 +31,7 @@ export const ModalSetBrand = ({ id, form }: TProps) => {
   return (
     <Form.Item name="brand" initialValue={fSet?.brand}>
       <Radio.Group
-        onChange={onChangeBrand}
+        // onChange={onChangeBrand}
         style={{
           display: 'flex',
           justifyContent: 'center',

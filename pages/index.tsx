@@ -22,11 +22,10 @@ import { FormLayout } from '@/components/FormLayout/FormLayout';
 
 export default function Home() {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState(getNewSet('0'));
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentSetId, setCurrentSetId] = useState('');
   const [currentModalNumber, setCurrentModalNumber] = useState(0);
   const [tableSets, setTableSets] = useState<IArticleItem[]>([]);
+  const [fSet, setFSet] = useState(getNewSet());
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
@@ -37,12 +36,6 @@ export default function Home() {
     fSetEndRef.current?.scrollIntoView({
       behavior: 'smooth',
     });
-  };
-
-  const addNewFSet = (): void => {
-    const newSet = getNewSet(fSetsArray[fSetsArray.length - 1]?.id);
-    setFSetsArray(prev => [...prev, newSet]);
-    setTimeout(scrollToBottom, 100);
   };
 
   useEffect(() => {
@@ -66,8 +59,8 @@ export default function Home() {
         </Box>
         <FormLayout
           fSet={fSet}
+          setFSet={setFSet}
           setIsModalOpen={setIsModalOpen}
-          setCurrentSetId={setCurrentSetId}
           setCurrentModalNumber={setCurrentModalNumber}
         ></FormLayout>
         {/* <FSetList
@@ -77,9 +70,6 @@ export default function Home() {
           setCurrentModalNumber={setCurrentModalNumber}
         /> */}
         <Box mt={10} display="flex" justifyContent="space-between">
-          <Button type="primary" ref={fSetEndRef} onClick={addNewFSet}>
-            Додати
-          </Button>
           <Button
             type="primary"
             disabled={isGetOrderButtonDisabled}
@@ -92,11 +82,12 @@ export default function Home() {
         <Divider />
         <FSetsOrderTable tableSets={tableSets} />
         <ModalLayout
-          setIsModalOpen={setIsModalOpen}
           isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
           currentModal={CurrentModal}
-          id={currentSetId}
           modalNumber={currentModalNumber}
+          fSet={fSet}
+          setFSet={setFSet}
         />
         {/* <TestComonent /> */}
       </Box>

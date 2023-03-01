@@ -9,31 +9,24 @@ import { IFSet } from '@/interfaces/interfaces';
 
 type TProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  id: string;
-  setCurrentSetId: React.Dispatch<React.SetStateAction<string>>;
+  fSet: IFSet;
+  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   setCurrentModalNumber: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const BrandButton = ({
   setIsModalOpen,
-  id,
-  setCurrentSetId,
+  fSet,
+  setFSet,
   setCurrentModalNumber,
 }: TProps) => {
-  const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState<IFSet | null>(null);
-
-  useEffect(() => {
-    const currentSet = getSetById(id, fSetsArray);
-    if (currentSet) setFSet(currentSet);
-  }, [id, fSetsArray]);
   return (
     <div>
       <StyledControlButton
         size="large"
         onClick={e => {
           setIsModalOpen(true);
-          setCurrentSetId(id);
+          setFSet(fSet);
           setCurrentModalNumber(1);
         }}
         icon={

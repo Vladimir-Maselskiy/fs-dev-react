@@ -1,38 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   StyledContlolButtonBox,
   StyledControlButton,
 } from './ControlButtons.styled';
 import IconOptions from '../../img/options.svg';
 import IconTypeOfWindow from '../../img/type-of-window.svg';
-import { useFSetsContext } from '@/context/state';
-import { getSetById } from '@/utils/ui-utills/getSetById';
 import { IFSet } from '@/interfaces/interfaces';
 import { getValidateStatusOfWidthOrHeight } from '@/utils/ui-utills/getValidateStatusOfWidthOrHeight';
 
 type TProps = {
   isOptitionButtonDisabled: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  id: string;
-  setCurrentSetId: React.Dispatch<React.SetStateAction<string>>;
+  fSet: IFSet;
+  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   setCurrentModalNumber: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const ControlButtons = ({
   isOptitionButtonDisabled,
   setIsModalOpen,
-  id,
-  setCurrentSetId,
   setCurrentModalNumber,
+  fSet,
+  setFSet,
 }: TProps) => {
-  const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const [fSet, setFSet] = useState<IFSet | null>(null);
-
-  useEffect(() => {
-    const currentSet = getSetById(id, fSetsArray);
-    if (currentSet) setFSet(currentSet);
-  }, [id, fSetsArray]);
-
   useEffect(() => {
     if (fSet?.width)
       getValidateStatusOfWidthOrHeight(
@@ -56,7 +46,7 @@ export const ControlButtons = ({
         disabled={isOptitionButtonDisabled}
         onClick={e => {
           setIsModalOpen(true);
-          setCurrentSetId(id);
+          setFSet(fSet);
           setCurrentModalNumber(2);
         }}
         icon={<IconOptions />}
@@ -65,7 +55,7 @@ export const ControlButtons = ({
       <StyledControlButton
         onClick={e => {
           setIsModalOpen(true);
-          setCurrentSetId(id);
+          setFSet(fSet);
           setCurrentModalNumber(3);
         }}
         icon={<IconTypeOfWindow />}
