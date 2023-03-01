@@ -1,4 +1,4 @@
-import { IFSet, TBrands } from '@/interfaces/interfaces';
+import { TBrands } from '@/interfaces/interfaces';
 import { getPVСSystemSelectOpions } from './getPVСSystemSelectOpions';
 
 export const willSelectValueChange = (

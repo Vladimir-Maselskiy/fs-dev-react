@@ -1,4 +1,3 @@
-import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
 
 export const getSetById = (

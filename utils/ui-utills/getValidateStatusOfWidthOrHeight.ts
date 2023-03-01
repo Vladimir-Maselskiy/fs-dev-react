@@ -1,5 +1,4 @@
-import { IFSet, TBrands, TTypeOfOpenimg } from '@/interfaces/interfaces';
-import { getSetById } from './getSetById';
+import { TBrands, TTypeOfOpenimg } from '@/interfaces/interfaces';
 import { getSetRestrictions } from './getSetRestrictions';
 import { getValidateStatus } from './getValidateStatus';
 

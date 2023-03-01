@@ -1,7 +1,4 @@
-import {
-  IFSet,
-  TSystemOfPVC,
-} from '@/interfaces/interfaces';
+import { IFSet } from '@/interfaces/interfaces';
 
 export const getPVCSystemSelectValue = (
   fset: IFSet | undefined

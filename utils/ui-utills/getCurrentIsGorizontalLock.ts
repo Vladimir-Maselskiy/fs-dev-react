@@ -1,5 +1,5 @@
 import { minGorizontalLockWidthRestrictions } from '@/const';
-import { IFSet, TBrands, TTypeOfOpenimg } from '@/interfaces/interfaces';
+import { TBrands, TTypeOfOpenimg } from '@/interfaces/interfaces';
 
 export const getCurrentIsGorizontalLock = (
   width: number,
