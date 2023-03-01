@@ -128,7 +128,12 @@ export const WidthAndHeightInput = ({
   };
 
   return (
-    <Box>
+    <Box
+      width="100%"
+      display="flex"
+      justifyContent="space-around"
+      marginTop="30px"
+    >
       <Box>
         <Form.Item label="Ширина" name="width" initialValue={fSet?.width}>
           <InputNumber
@@ -152,7 +157,7 @@ export const WidthAndHeightInput = ({
           />
         </Form.Item>
       </Box>
-      <Box mt={10}>
+      <Box>
         <Form.Item label="Висота" name="height" initialValue={fSet?.height}>
           <InputNumber
             type="number"
