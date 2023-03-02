@@ -8,6 +8,9 @@ import IconWinkhausLogo from '../../img/winkhaus-logo.svg';
 import IconWinkhauseLogoGray from '../../img/winkhaus-logo-gray.svg';
 import type { RadioChangeEvent } from 'antd';
 import { IFSet, TBrands } from '@/interfaces/interfaces';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+import { Box } from '../Box/Box';
 
 type TProps = {
   fSet: IFSet;
@@ -28,64 +31,115 @@ export const ModalSetBrand = ({ fSet, form }: TProps) => {
   }, [fSet?.brand, form]);
 
   return (
-    <Form.Item name="brand" initialValue={fSet?.brand}>
-      <Radio.Group
-        onChange={onChangeBrand}
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '10px',
-          paddingTop: '40px',
-          paddingBottom: '10px',
-        }}
-        optionType="button"
+    <Box paddingTop={40}>
+      <Carousel
+        // centerMode={true}
+        centerSlidePercentage={60}
+        emulateTouch={true}
+        infiniteLoop={true}
+        showArrows={false}
+        showStatus={false}
+        showIndicators={false}
+        preventMovementUntilSwipeScrollTolerance={false}
+        thumbWidth={20}
+        // width="50%"
       >
-        <Radio.Button
-          value="maco"
-          style={{
-            height: 100,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height={80}
         >
           {brand === 'maco' ? (
             <IconMacoLogo width={80} height={80} />
           ) : (
             <IconMacoLogoGray width={80} height={80} />
           )}
-        </Radio.Button>
-        <Radio.Button
-          value="vorne"
-          style={{
-            height: 100,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+        </Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height={80}
         >
           {brand === 'vorne' ? (
             <IconVorneLogo width={80} />
           ) : (
             <IconVorneLogoGray width={80} />
           )}
-        </Radio.Button>
-        <Radio.Button
-          value="winkhaus"
-          style={{
-            height: 100,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
+        </Box>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height={80}
         >
           {brand === 'winkhaus' ? (
             <IconWinkhausLogo width={80} />
           ) : (
             <IconWinkhauseLogoGray width={80} />
           )}
-        </Radio.Button>
-      </Radio.Group>
-    </Form.Item>
+        </Box>
+      </Carousel>
+    </Box>
+    // <Form.Item name="brand" initialValue={fSet?.brand}>
+    //   <Radio.Group
+    //     onChange={onChangeBrand}
+    //     style={{
+    //       display: 'flex',
+    //       justifyContent: 'center',
+    //       gap: '10px',
+    //       paddingTop: '40px',
+    //       paddingBottom: '10px',
+    //     }}
+    //     optionType="button"
+    //   >
+    //     <Radio.Button
+    //       value="maco"
+    //       style={{
+    //         height: 100,
+    //         display: 'flex',
+    //         justifyContent: 'center',
+    //         alignItems: 'center',
+    //       }}
+    //     >
+    //       {brand === 'maco' ? (
+    //         <IconMacoLogo width={80} height={80} />
+    //       ) : (
+    //         <IconMacoLogoGray width={80} height={80} />
+    //       )}
+    //     </Radio.Button>
+    //     <Radio.Button
+    //       value="vorne"
+    //       style={{
+    //         height: 100,
+    //         display: 'flex',
+    //         justifyContent: 'center',
+    //         alignItems: 'center',
+    //       }}
+    //     >
+    //       {brand === 'vorne' ? (
+    //         <IconVorneLogo width={80} />
+    //       ) : (
+    //         <IconVorneLogoGray width={80} />
+    //       )}
+    //     </Radio.Button>
+    //     <Radio.Button
+    //       value="winkhaus"
+    //       style={{
+    //         height: 100,
+    //         display: 'flex',
+    //         justifyContent: 'center',
+    //         alignItems: 'center',
+    //       }}
+    //     >
+    //       {brand === 'winkhaus' ? (
+    //         <IconWinkhausLogo width={80} />
+    //       ) : (
+    //         <IconWinkhauseLogoGray width={80} />
+    //       )}
+    //     </Radio.Button>
+    //   </Radio.Group>
+    // </Form.Item>
   );
 };

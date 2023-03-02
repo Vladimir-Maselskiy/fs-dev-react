@@ -130,6 +130,7 @@ export const WidthAndHeightInput = ({
   return (
     <Box
       width="100%"
+      maxWidth="400px"
       display="flex"
       justifyContent="space-around"
       marginTop="30px"
