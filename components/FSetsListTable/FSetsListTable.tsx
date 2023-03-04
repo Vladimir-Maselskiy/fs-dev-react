@@ -8,6 +8,7 @@ import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { Box } from '../Box/Box';
 import { getSetsListDataSource } from '@/utils/data-utils/getSetsListDataSource';
+import { useMediaQuery } from '@/hooks';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -130,6 +131,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
 };
 
 export const FSetsListTable = ({ tableSets }: TTableProps) => {
+  const isWide = useMediaQuery(400);
+
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   useEffect(() => {
     setDataSource(getSetsListDataSource(tableSets));
@@ -138,12 +141,6 @@ export const FSetsListTable = ({ tableSets }: TTableProps) => {
   const [dataSource, setDataSource] = useState<SetsListItem[]>(
     getSetsListDataSource(tableSets)
   );
-
-  const [isWide, setIsWide] = useState(false);
-  //   useEffect(() => {
-  //     const media = window.matchMedia('(min-width: 370px)');
-  //     setIsWide(media.matches);
-  //   }, []);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);

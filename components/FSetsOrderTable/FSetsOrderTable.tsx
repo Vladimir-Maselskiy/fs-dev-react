@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Checkbox, InputRef } from 'antd';
+import { InputRef } from 'antd';
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import { DeleteRowOutlined } from '@ant-design/icons';
-import { useMedia } from 'react-use';
 import type { FormInstance } from 'antd/es/form';
 import { IArticleItem } from '@/interfaces/interfaces';
 import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { Box } from '../Box/Box';
+import { useMediaQuery } from '@/hooks';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -129,6 +129,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
 };
 
 export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
+  const isWide = useMediaQuery(400);
+
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   useEffect(() => {
     setDataSource(getDataSource(tableSets));
@@ -138,11 +140,12 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
     getDataSource(tableSets)
   );
 
-  const [isWide, setIsWide] = useState(false);
-  useEffect(() => {
-    const media = window.matchMedia('(min-width: 370px)');
-    setIsWide(media.matches);
-  }, []);
+  // const isWide = useMediaScreen();
+  // console.log('isWide', isWide);
+  // useEffect(() => {
+  //   const media = window.matchMedia('(min-width: 370px)');
+  //   setIsWide(media.matches);
+  // }, []);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -202,8 +205,6 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
     },
     Table.SELECTION_COLUMN,
   ];
-
- 
 
   const handleSave = (row: DataType) => {
     const newData = [...dataSource];
