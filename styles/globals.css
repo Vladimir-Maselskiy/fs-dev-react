@@ -38,6 +38,12 @@ a {
   text-decoration: none;
 }
 
+input,
+button,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @media (prefers-color-scheme: dark) {
 }
 input.ant-input-number-input {
