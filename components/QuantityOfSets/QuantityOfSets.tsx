@@ -11,19 +11,19 @@ type TProps = {
 };
 
 export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
-  const [value, setValue] = useState(fSet.quantitySet);
+  // const [value, setValue] = useState(fSet.quantitySet);
 
   const onChangeCounterByClick = (num: number): void => {
     if (fSet.quantitySet <= 1 && num < 0) return;
     if (fSet.quantitySet >= 99 && num > 0) return;
-    setValue(prev => prev + num);
+    setFSet(prev => ({ ...prev, quantitySet: prev.quantitySet + num }));
   };
 
   useEffect(() => {
-    setFSet(prev => ({ ...prev, quantitySet: value }));
-    form.setFieldValue('quantitySet', value);
-  }, [value, form, setFSet]);
+    form.setFieldValue('quantitySet', fSet.quantitySet);
+  }, [fSet.quantitySet, form, setFSet]);
 
+  console.log('quantitySet', fSet.quantitySet);
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
       <Box
@@ -38,7 +38,11 @@ export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
           icon={<AiOutlineMinus size={40} color="var(--accent-color)" />}
           onClick={() => onChangeCounterByClick(-1)}
         ></Button>
-        <Form.Item label="Кількість" name="quantitySet" initialValue={value}>
+        <Form.Item
+          label="Кількість"
+          name="quantitySet"
+          initialValue={fSet.quantitySet}
+        >
           <InputNumber
             type="number"
             inputMode="numeric"

@@ -33,7 +33,6 @@ export const ModalLayout = ({
     for (let obj in values) {
       if (values[obj]?.value) values[obj] = values[obj].value;
     }
-    console.log('onFinishHandleSubmit', values);
     setFSet(prev => ({ ...prev, ...values }));
 
     setIsModalOpen(false);

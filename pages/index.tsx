@@ -1,22 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, Divider, Form } from 'antd';
+import { Button, Divider } from 'antd';
 // import Head from 'next/head';
 // import Image from 'next/image';
 // import { Inter } from '@next/font/google';
 import { MainContainer } from '@/components/MainContainer/MainContainer';
 import { CurrentRate } from '@/components/CurrentRate/CurrentRate';
-import FSetList from '@/components/FSetList/FSetList';
-import { getNewSet } from '@/utils/ui-utills/getNewSet';
+import { getNewSet } from '@/utils/data-utils/getNewSet';
 import { Box } from '@/components/Box/Box';
 import { useFSetsContext } from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/components/CurrentModal/CurrentModal';
-import { TestComonent } from '@/components/TestComonent/TestComonent';
 import { getIsGetOrderButtonDisabled } from '@/utils/ui-utills/getIsGetOrderButtonDisabled';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
 import { getFSets } from '@/utils/data-utils/getFSets';
-import { IArticleItem } from '@/interfaces/interfaces';
+import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
+import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -25,6 +24,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentModalNumber, setCurrentModalNumber] = useState(0);
   const [tableSets, setTableSets] = useState<IArticleItem[]>([]);
+  const [setsList, setSetsList] = useState<IFSet[]>([]);
   const [fSet, setFSet] = useState(getNewSet());
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
@@ -39,10 +39,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (fSetsArray.length === 0) setFSetsArray([getNewSet()]);
-  }, [setFSetsArray, fSetsArray.length]);
-
-  useEffect(() => {
     setIsGetOrderButtonDisabled(getIsGetOrderButtonDisabled(fSetsArray));
   }, [fSetsArray]);
 
@@ -51,8 +47,19 @@ export default function Home() {
     setTableSets(sets);
   };
 
+  const onClickAddSet = () => {
+    setSetsList(prev => [...prev, fSet]);
+    setFSet(getNewSet({ brand: fSet.brand }));
+  };
+
   return (
     <MainContainer>
+      {/* <FSetList
+        fSetsArray={fSetsArray}
+        setIsModalOpen={setIsModalOpen}
+        setCurrentSetId={setCurrentSetId}
+        setCurrentModalNumber={setCurrentModalNumber}
+      /> */}
       <Box p="10px">
         <Box>
           <CurrentRate />
@@ -63,12 +70,12 @@ export default function Home() {
           setIsModalOpen={setIsModalOpen}
           setCurrentModalNumber={setCurrentModalNumber}
         ></FormLayout>
-        {/* <FSetList
-          fSetsArray={fSetsArray}
-          setIsModalOpen={setIsModalOpen}
-          setCurrentSetId={setCurrentSetId}
-          setCurrentModalNumber={setCurrentModalNumber}
-        /> */}
+        <Button onClick={onClickAddSet} type="primary">
+          Додати
+        </Button>
+        <Divider />
+
+        <FSetsListTable tableSets={setsList} />
         <Box mt={10} display="flex" justifyContent="space-between">
           <Button
             type="primary"

@@ -1,10 +1,13 @@
-import { IFSet } from '@/interfaces/interfaces';
+import { IFSet, TBrands } from '@/interfaces/interfaces';
 
-export const getNewSet = (id = '0'): IFSet => {
+export const getNewSet = (
+  params: { id?: string; brand?: TBrands } = {}
+): IFSet => {
+  let { id = '0', brand = 'maco' } = params;
   id = String(+id + 1);
   return {
     id,
-    brand: 'maco',
+    brand,
     width: undefined,
     height: undefined,
     isWidthValid: 'initial',

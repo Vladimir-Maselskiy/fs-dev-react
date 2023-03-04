@@ -1,4 +1,4 @@
-import { Button, ConfigProvider, Form } from 'antd';
+import { ConfigProvider, Form } from 'antd';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { IFSet } from '@/interfaces/interfaces';
@@ -31,7 +31,6 @@ export const FormLayout = ({
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [isOptitionButtonDisabled, setIsOptitionButtonDisabled] =
     useState(true);
-  console.log('fSet', fSet);
 
   const [restrictions, setRestrictions] = useState<TRestrictions>(
     getSetRestrictions(fSet.typeOfOpening, fSet.brand)
@@ -112,10 +111,11 @@ export const FormLayout = ({
             fSet={fSet}
             setFSet={setFSet}
             restrictions={restrictions}
+            form={form}
           />
           <Box display="flex" flexDirection="column" alignItems="center">
             <QuantityOfSets fSet={fSet} setFSet={setFSet} form={form} />
-            <ImportantSetsOptions fSet={fSet} setFSet={setFSet} />
+            <ImportantSetsOptions fSet={fSet} setFSet={setFSet} form={form} />
           </Box>
           {/* <ControlButtons
           isOptitionButtonDisabled={isOptitionButtonDisabled}
@@ -139,12 +139,6 @@ export const FormLayout = ({
           />
         </FormLayoutStyled>
       </Form>
-      <Button
-        type="primary"
-        //   onClick={addNewFSet}
-      >
-        Додати
-      </Button>
     </ConfigProvider>
   );
 };

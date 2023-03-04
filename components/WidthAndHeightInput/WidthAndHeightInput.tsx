@@ -1,18 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '../Box/Box';
-import { Form, InputNumber } from 'antd';
+import { Form, FormInstance, InputNumber } from 'antd';
 import { getValidateStatus } from '@/utils/ui-utills/getValidateStatus';
 import { getValidateStatusOfWidthOrHeight } from '@/utils/ui-utills/getValidateStatusOfWidthOrHeight';
 import { getSetRestrictions } from '@/utils/ui-utills/getSetRestrictions';
 import { TRestrictions } from '@/const';
 import { getCurrentIsGorizontalLock } from '@/utils/ui-utills/getCurrentIsGorizontalLock';
 import { IFSet } from '@/interfaces/interfaces';
+import { width } from 'styled-system';
 
 type TProps = {
   fSet: IFSet;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   setIsOptitionButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   restrictions: TRestrictions;
+  form: FormInstance<any>;
 };
 
 export const WidthAndHeightInput = ({
@@ -20,6 +22,7 @@ export const WidthAndHeightInput = ({
   setFSet,
   setIsOptitionButtonDisabled,
   restrictions,
+  form,
 }: TProps) => {
   const widthInputRef = useRef<HTMLInputElement>(null);
   const heihtInputRef = useRef<HTMLInputElement>(null);
@@ -34,7 +37,6 @@ export const WidthAndHeightInput = ({
   useEffect(() => {
     if (fSet?.width) {
       const status = getValidateStatus(fSet.width, 'width', restrictions);
-      console.log('status', status);
       setFrontStatusWidthInput(status);
       const isWidthValid =
         getValidateStatusOfWidthOrHeight(
@@ -106,6 +108,13 @@ export const WidthAndHeightInput = ({
     }
   }, [fSet?.typeOfOpening, fSet?.brand, fSet?.height, fSet?.width]);
 
+  useEffect(() => {
+    form.setFieldValue('width', fSet.width);
+  }, [fSet.width]);
+  useEffect(() => {
+    form.setFieldValue('height', fSet.height);
+  }, [fSet.height]);
+
   const onPressEnterWidth = (e: any) => {
     widthInputRef?.current?.blur();
     heihtInputRef?.current?.focus();
@@ -136,7 +145,7 @@ export const WidthAndHeightInput = ({
       marginTop="30px"
     >
       <Box>
-        <Form.Item label="Ширина" name="width" initialValue={fSet?.width}>
+        <Form.Item label="Ширина" name="width" initialValue={fSet.width}>
           <InputNumber
             type="number"
             inputMode="numeric"

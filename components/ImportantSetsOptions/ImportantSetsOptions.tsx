@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ConfigProvider, Form, Radio, Select } from 'antd';
+import { ConfigProvider, Form, FormInstance, Radio, Select } from 'antd';
 import { getPVСSystemSelectOpions } from '@/utils/ui-utills/getPVСSystemSelectOpions';
 import { Box } from '../Box/Box';
 import { getPVCSystemSelectValue } from '@/utils/ui-utills/getPVCSystemSelectValue';
@@ -9,9 +9,10 @@ import { IFSet } from '@/interfaces/interfaces';
 type TProps = {
   fSet: IFSet;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
+  form: FormInstance<any>;
 };
 
-export const ImportantSetsOptions = ({ fSet, setFSet }: TProps) => {
+export const ImportantSetsOptions = ({ fSet, form }: TProps) => {
   const [selectOptions, setSelectOptions] = useState(
     getPVСSystemSelectOpions(fSet?.brand)
   );
@@ -25,6 +26,10 @@ export const ImportantSetsOptions = ({ fSet, setFSet }: TProps) => {
       setSelectValue(currentSelectValue);
     }
   }, [fSet?.brand, selectValue]);
+
+  useEffect(() => {
+    form.setFieldValue('sideOfHinge', fSet.sideOfHinge);
+  }, [fSet.sideOfHinge]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">

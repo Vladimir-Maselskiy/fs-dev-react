@@ -4,21 +4,22 @@ import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import { DeleteRowOutlined } from '@ant-design/icons';
 import { useMedia } from 'react-use';
 import type { FormInstance } from 'antd/es/form';
-import { IArticleItem } from '@/interfaces/interfaces';
+import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { Box } from '../Box/Box';
+import { getSetsListDataSource } from '@/utils/data-utils/getSetsListDataSource';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
-interface Item {
-  key: React.Key;
-  rowNumber: string;
-  article: string;
-  name: string;
-  quantity: number;
-  price: string;
-  sum: string;
-}
+// interface Item {
+//   key: React.Key;
+//   rowNumber: string;
+//   article: string;
+//   name: string;
+//   quantity: number;
+//   price: string;
+//   sum: string;
+// }
 
 interface EditableRowProps {
   index: number;
@@ -27,27 +28,27 @@ interface EditableCellProps {
   title: React.ReactNode;
   editable: boolean;
   children: React.ReactNode;
-  dataIndex: keyof Item;
-  record: Item;
-  handleSave: (record: Item) => void;
+  dataIndex: keyof SetsListItem;
+  record: SetsListItem;
+  handleSave: (record: SetsListItem) => void;
 }
 
 type EditableTableProps = Parameters<typeof Table>[0];
 
-export interface DataType {
+export interface SetsListItem {
   key: React.Key;
   rowNumber: string;
-  article: string;
   name: string;
+  type: string;
+  width: number | undefined;
+  height: number | undefined;
   quantity: number;
-  price: string;
-  sum: string;
 }
 
 type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>;
 
 type TTableProps = {
-  tableSets: IArticleItem[];
+  tableSets: IFSet[];
 };
 
 const EditableRow = ({ index, ...props }: EditableRowProps) => {
@@ -128,21 +129,21 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
+export const FSetsListTable = ({ tableSets }: TTableProps) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   useEffect(() => {
-    setDataSource(getDataSource(tableSets));
+    setDataSource(getSetsListDataSource(tableSets));
   }, [tableSets]);
 
-  const [dataSource, setDataSource] = useState<DataType[]>(
-    getDataSource(tableSets)
+  const [dataSource, setDataSource] = useState<SetsListItem[]>(
+    getSetsListDataSource(tableSets)
   );
 
   const [isWide, setIsWide] = useState(false);
-  useEffect(() => {
-    const media = window.matchMedia('(min-width: 370px)');
-    setIsWide(media.matches);
-  }, []);
+  //   useEffect(() => {
+  //     const media = window.matchMedia('(min-width: 370px)');
+  //     setIsWide(media.matches);
+  //   }, []);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -173,49 +174,48 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
       width: '3%',
     },
     {
-      title: 'Артикул',
-      dataIndex: 'article',
-      align: 'center',
-    },
-    {
       title: 'Назва',
       dataIndex: 'name',
-      width: '50%',
-      responsive: ['md'],
+      align: 'left',
     },
     {
-      title: isWide ? 'Кількість' : 'К-ть',
-      dataIndex: 'quantity',
-      editable: true,
+      title: 'Тип',
+      dataIndex: 'type',
+      width: '50%',
+      //   responsive: ['md'],
+    },
+    {
+      title: isWide ? 'Ширина' : 'Шир.',
+      dataIndex: 'width',
       width: '3%',
       align: 'center',
     },
     {
-      title: 'Ціна',
-      dataIndex: 'price',
+      title: isWide ? 'Висота' : 'Вис.',
+      dataIndex: 'height',
+      width: '3%',
       align: 'center',
     },
     {
-      title: 'Сума',
-      dataIndex: 'sum',
+      title: isWide ? 'Кількість' : 'К-ть.',
+      dataIndex: 'quantity',
+      editable: true,
       align: 'center',
     },
     Table.SELECTION_COLUMN,
   ];
 
- 
-
-  const handleSave = (row: DataType) => {
-    const newData = [...dataSource];
-    const index = newData.findIndex(item => row.key === item.key);
-    const item = newData[index];
-    row.sum = (row.quantity * +row.price).toFixed(2);
-    newData.splice(index, 1, {
-      ...item,
-      ...row,
-    });
-    setDataSource(newData);
-  };
+  //   const handleSave = (row: SetsListItem) => {
+  //     const newData = [...dataSource];
+  //     const index = newData.findIndex(item => row.key === item.key);
+  //     const item = newData[index];
+  //     row.sum = (row.quantity * +row.price).toFixed(2);
+  //     newData.splice(index, 1, {
+  //       ...item,
+  //       ...row,
+  //     });
+  //     setDataSource(newData);
+  //   };
 
   const components = {
     body: {
@@ -234,12 +234,12 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
     }
     return {
       ...col,
-      onCell: (record: DataType) => ({
+      onCell: (record: SetsListItem) => ({
         record,
         editable: newCol.editable,
         dataIndex: newCol.dataIndex,
         title: newCol.title,
-        handleSave,
+        // handleSave,
       }),
     };
   });
@@ -270,27 +270,27 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
         size="small"
         scroll={{ x: 336 }}
         rowSelection={rowSelection}
-        summary={dataSource => {
-          let lotalPrice = dataSource.reduce((acc, item) => {
-            const currentItem = item as DataType;
-            return acc + +currentItem.sum;
-          }, 0);
-          return (
-            <>
-              <Table.Summary.Row
-                style={{ fontWeight: 'bold', fontSize: '16px' }}
-              >
-                <Table.Summary.Cell index={0} colSpan={3}></Table.Summary.Cell>
-                <Table.Summary.Cell index={1} colSpan={2}>
-                  Всього
-                </Table.Summary.Cell>
-                <Table.Summary.Cell index={2} colSpan={2}>
-                  <p>{`${lotalPrice.toFixed(2)} грн`}</p>
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-            </>
-          );
-        }}
+        // summary={dataSource => {
+        //   let lotalPrice = dataSource.reduce((acc, item) => {
+        //     const currentItem = item as SetsListItem;
+        //     return acc + +currentItem.sum;
+        //   }, 0);
+        //   return (
+        //     <>
+        //       <Table.Summary.Row
+        //         style={{ fontWeight: 'bold', fontSize: '16px' }}
+        //       >
+        //         <Table.Summary.Cell index={0} colSpan={3}></Table.Summary.Cell>
+        //         <Table.Summary.Cell index={1} colSpan={2}>
+        //           Всього
+        //         </Table.Summary.Cell>
+        //         <Table.Summary.Cell index={2} colSpan={2}>
+        //           <p>{`${lotalPrice.toFixed(2)} грн`}</p>
+        //         </Table.Summary.Cell>
+        //       </Table.Summary.Row>
+        //     </>
+        //   );
+        // }}
       />
     </Box>
   );

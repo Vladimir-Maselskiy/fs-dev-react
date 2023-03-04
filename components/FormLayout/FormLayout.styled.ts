@@ -7,9 +7,9 @@ export const FormLayoutStyled = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 15px 80px 15px;
+  padding: 15px 15px 40px 15px;
   margin-top: 10px;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   border: solid #2196f3 2px;
   border-radius: 10px;
   width: 100%;

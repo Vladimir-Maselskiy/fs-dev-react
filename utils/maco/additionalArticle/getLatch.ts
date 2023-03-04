@@ -11,7 +11,6 @@ export function getLatch(fSet: IFSet) {
       sortSignificance: '3.5',
     };
     const currentArticleItems = findElementsByArticle(params);
-    console.log('currentArticleItems', currentArticleItems);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
     if (height <= 1250) {
       const params = {
