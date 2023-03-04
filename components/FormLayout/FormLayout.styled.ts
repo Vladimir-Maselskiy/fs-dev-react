@@ -44,5 +44,6 @@ export const ButtonStyled = styled(Button)`
     border-bottom-left-radius: 10px;
     border-top: none;
     border-color: ${p => (p.disabled ? '#a3d4ff' : 'var(--accent-color)')};
+    pointer-events: none;
   }
 `;

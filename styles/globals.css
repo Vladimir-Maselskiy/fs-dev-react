@@ -40,7 +40,9 @@ a {
 
 input,
 button,
-select {
+select,
+span,
+div {
   -webkit-tap-highlight-color: transparent;
 }
 
