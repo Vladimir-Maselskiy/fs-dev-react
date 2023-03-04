@@ -16,6 +16,7 @@ import { getFSets } from '@/utils/data-utils/getFSets';
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
+import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -70,9 +71,9 @@ export default function Home() {
           setIsModalOpen={setIsModalOpen}
           setCurrentModalNumber={setCurrentModalNumber}
         ></FormLayout>
-        <Button onClick={onClickAddSet} type="primary">
+        <ButtonStyled onClick={onClickAddSet} type="primary" disabled={false}>
           Додати
-        </Button>
+        </ButtonStyled>
         <Divider />
 
         <FSetsListTable tableSets={setsList} />

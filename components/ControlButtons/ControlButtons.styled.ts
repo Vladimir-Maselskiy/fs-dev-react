@@ -7,6 +7,7 @@ export const StyledContlolButtonBox = styled.div`
   transform: translateY(50%);
   padding: 1px;
   background-color: var(--first-background-color);
+  border-radius: 7px;
 
   &::before {
     content: '';
