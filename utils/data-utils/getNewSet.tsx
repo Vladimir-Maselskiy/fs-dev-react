@@ -4,7 +4,6 @@ export const getNewSet = (
   params: { id?: string; brand?: TBrands } = {}
 ): IFSet => {
   let { id = '0', brand = 'maco' } = params;
-  id = String(+id + 1);
   return {
     id,
     brand,
@@ -23,7 +22,8 @@ export const getNewSet = (
     microVentilation: true,
     isGorizontalLock: false,
     isWithoutBottomHinge: false,
-    antiBreakingOpen: false,
+    isAntiBreakingOpen: false,
+    antiBreakingOpenType: 'base',
     decor: 'white',
   };
 };

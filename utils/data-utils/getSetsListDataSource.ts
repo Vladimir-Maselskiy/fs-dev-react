@@ -2,6 +2,7 @@ import { SetsListItem } from '@/components/FSetsListTable/FSetsListTable';
 import { IFSet, TTypeOfOpenimg } from '@/interfaces/interfaces';
 
 export const getSetsListDataSource = (sets: IFSet[]): SetsListItem[] => {
+  console.log('sets', sets);
   const getType = (type: TTypeOfOpenimg) => {
     switch (type) {
       case 'type-1':
@@ -20,11 +21,19 @@ export const getSetsListDataSource = (sets: IFSet[]): SetsListItem[] => {
     return type === 'right' ? ' Пр.' : ' Лв.';
   };
   return sets.map((set, index) => {
-    const { brand, typeOfOpening, width, height, quantitySet, sideOfHinge } =
-      set;
+    const {
+      id,
+      brand,
+      typeOfOpening,
+      width,
+      height,
+      quantitySet,
+      sideOfHinge,
+    } = set;
 
     return {
-      key: index.toString(),
+      id,
+      key: id,
       height,
       width,
       name: brand.toUpperCase(),

@@ -78,11 +78,8 @@ export const FormLayout = ({
     }
   }, [fSet?.brand, fSet?.decor, fSet.id, setFSetsArray]);
 
-  const onFinishHandleSubmit = (value: any) => {
-    console.log('value', value);
-  };
+  const onFinishHandleSubmit = (value: any) => {};
   const onValuesChange = (value: any) => {
-    console.log('onValuesChange', value);
     if (value && fSet) {
       setFSet(prev => ({ ...prev, ...value }));
     }

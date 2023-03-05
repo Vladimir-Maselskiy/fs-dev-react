@@ -23,10 +23,11 @@ import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
 export default function Home() {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(true);
   const [currentModalNumber, setCurrentModalNumber] = useState(0);
   const [tableSets, setTableSets] = useState<IArticleItem[]>([]);
-  const [setsList, setSetsList] = useState<IFSet[]>([]);
   const [fSet, setFSet] = useState(getNewSet());
+  const [lastID, setLastId] = useState(fSet.id);
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
@@ -39,9 +40,15 @@ export default function Home() {
     });
   };
 
+  // useEffect(() => {
+  //   setIsGetOrderButtonDisabled(getIsGetOrderButtonDisabled(fSetsArray));
+  // }, [fSetsArray]);
+
   useEffect(() => {
-    setIsGetOrderButtonDisabled(getIsGetOrderButtonDisabled(fSetsArray));
-  }, [fSetsArray]);
+    if (fSet?.isWidthValid === 'valid' && fSet.isHeightValid === 'valid') {
+      setIsAddButtonDisabled(false);
+    } else setIsAddButtonDisabled(true);
+  }, [fSet.isWidthValid, fSet.isHeightValid]);
 
   const onClickCountSets = () => {
     const sets = getFSets(fSetsArray);
@@ -49,8 +56,16 @@ export default function Home() {
   };
 
   const onClickAddSet = () => {
-    setSetsList(prev => [...prev, fSet]);
-    setFSet(getNewSet({ brand: fSet.brand }));
+    const index = fSetsArray.indexOf(fSet);
+    if (index === -1) {
+      const currentId = fSet.id;
+      setLastId(currentId);
+      console.log('currentId', currentId);
+      setFSetsArray(prev => [...prev, fSet]);
+      setFSet(
+        getNewSet({ id: (+currentId + 1).toString(), brand: fSet.brand })
+      );
+    }
   };
 
   return (
@@ -71,22 +86,30 @@ export default function Home() {
           setIsModalOpen={setIsModalOpen}
           setCurrentModalNumber={setCurrentModalNumber}
         ></FormLayout>
-        <ButtonStyled onClick={onClickAddSet} type="primary" disabled={false}>
+        <ButtonStyled
+          onClick={onClickAddSet}
+          type="primary"
+          disabled={isAddButtonDisabled}
+        >
           Додати
         </ButtonStyled>
         <Divider />
 
-        <FSetsListTable tableSets={setsList} />
-        <Box mt={10} display="flex" justifyContent="space-between">
-          <Button
-            type="primary"
-            disabled={isGetOrderButtonDisabled}
-            onClick={onClickCountSets}
-            style={{ marginLeft: 'auto' }}
-          >
-            Розрахувати
-          </Button>
-        </Box>
+        {fSetsArray.length > 0 && (
+          <>
+            <FSetsListTable />
+            <Box mt={10} display="flex" justifyContent="space-between">
+              <Button
+                type="primary"
+                disabled={isGetOrderButtonDisabled}
+                onClick={onClickCountSets}
+                style={{ marginLeft: 'auto' }}
+              >
+                Розрахувати
+              </Button>
+            </Box>
+          </>
+        )}
         <Divider />
         <FSetsOrderTable tableSets={tableSets} />
         <ModalLayout

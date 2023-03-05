@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Checkbox, InputRef } from 'antd';
+import { Checkbox, InputNumber, InputRef } from 'antd';
 import { Button, Form, Input, Popconfirm, Table } from 'antd';
 import { DeleteRowOutlined } from '@ant-design/icons';
 import { useMedia } from 'react-use';
@@ -9,18 +9,9 @@ import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { Box } from '../Box/Box';
 import { getSetsListDataSource } from '@/utils/data-utils/getSetsListDataSource';
 import { useMediaQuery } from '@/hooks';
+import { useFSetsContext } from '@/context/state';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
-
-// interface Item {
-//   key: React.Key;
-//   rowNumber: string;
-//   article: string;
-//   name: string;
-//   quantity: number;
-//   price: string;
-//   sum: string;
-// }
 
 interface EditableRowProps {
   index: number;
@@ -37,6 +28,7 @@ interface EditableCellProps {
 type EditableTableProps = Parameters<typeof Table>[0];
 
 export interface SetsListItem {
+  id: string;
   key: React.Key;
   rowNumber: string;
   name: string;
@@ -47,10 +39,6 @@ export interface SetsListItem {
 }
 
 type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>;
-
-type TTableProps = {
-  tableSets: IFSet[];
-};
 
 const EditableRow = ({ index, ...props }: EditableRowProps) => {
   const [form] = Form.useForm();
@@ -73,7 +61,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   ...restProps
 }) => {
   const [editing, setEditing] = useState(false);
-  const inputRef = useRef<InputRef>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const form = useContext(EditableContext)!;
 
   useEffect(() => {
@@ -112,8 +100,9 @@ const EditableCell: React.FC<EditableCellProps> = ({
           },
         ]}
       >
-        <Input
+        <InputNumber
           min={0}
+          max={99}
           ref={inputRef}
           onPressEnter={save}
           onBlur={save}
@@ -130,17 +119,18 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const FSetsListTable = ({ tableSets }: TTableProps) => {
+export const FSetsListTable = () => {
   const isWide = useMediaQuery(400);
+  const { fSetsArray, setFSetsArray } = useFSetsContext();
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  useEffect(() => {
-    setDataSource(getSetsListDataSource(tableSets));
-  }, [tableSets]);
-
   const [dataSource, setDataSource] = useState<SetsListItem[]>(
-    getSetsListDataSource(tableSets)
+    getSetsListDataSource(fSetsArray)
   );
+
+  useEffect(() => {
+    setDataSource(getSetsListDataSource(fSetsArray));
+  }, [fSetsArray]);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -152,9 +142,8 @@ export const FSetsListTable = ({ tableSets }: TTableProps) => {
   };
 
   const handleDelete = (keys: React.Key[]) => {
-    const newData = dataSource.filter(item => !keys.includes(item.key));
+    setFSetsArray(prev => prev.filter(set => !keys.includes(set.id)));
     setSelectedRowKeys([]);
-    setDataSource(newData);
   };
 
   const defaultColumns: (
@@ -202,17 +191,14 @@ export const FSetsListTable = ({ tableSets }: TTableProps) => {
     Table.SELECTION_COLUMN,
   ];
 
-  //   const handleSave = (row: SetsListItem) => {
-  //     const newData = [...dataSource];
-  //     const index = newData.findIndex(item => row.key === item.key);
-  //     const item = newData[index];
-  //     row.sum = (row.quantity * +row.price).toFixed(2);
-  //     newData.splice(index, 1, {
-  //       ...item,
-  //       ...row,
-  //     });
-  //     setDataSource(newData);
-  //   };
+  const handleSave = (row: SetsListItem) => {
+    setFSetsArray(prev =>
+      prev.map(set => {
+        if (set.id === row.id) return { ...set, quantitySet: row.quantity };
+        return set;
+      })
+    );
+  };
 
   const components = {
     body: {
@@ -236,7 +222,7 @@ export const FSetsListTable = ({ tableSets }: TTableProps) => {
         editable: newCol.editable,
         dataIndex: newCol.dataIndex,
         title: newCol.title,
-        // handleSave,
+        handleSave,
       }),
     };
   });

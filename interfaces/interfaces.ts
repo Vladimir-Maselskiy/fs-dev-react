@@ -64,7 +64,8 @@ export interface IFSet {
   microVentilation: boolean;
   isGorizontalLock: boolean;
   isWithoutBottomHinge: boolean;
-  antiBreakingOpen: false | 'base' | 'rc1';
+  isAntiBreakingOpen: boolean;
+  antiBreakingOpenType: 'base' | 'rc1';
 }
 
 export interface IFSetsArray {

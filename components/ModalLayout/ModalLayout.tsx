@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledModal } from './ModalLayout.styled';
-import { Form, ConfigProvider, Button } from 'antd';
+import { Form, ConfigProvider, Button, Divider } from 'antd';
 import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
 
@@ -30,6 +30,7 @@ export const ModalLayout = ({
   const { setFSetsArray } = useFSetsContext();
 
   const onFinishHandleSubmit = (values: any) => {
+    console.log('onFinishHandleSubmit', values);
     for (let obj in values) {
       if (values[obj]?.value) values[obj] = values[obj].value;
     }
