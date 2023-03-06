@@ -1,4 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
+import { getArticlesForType2 } from './additionalArticle/getArticlesForType2';
 import { getBottomDecor } from './getBottomDecor';
 import { getBottomEndingForGetriebe } from './getBottomEndingForGetriebe';
 import { getBottomHinge } from './getBottomHinge';
@@ -31,6 +32,7 @@ export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
     if (typeOfOpening === 'type-3') topHinge.push(...topHinge);
     const bottomHinge = getBottomHinge(fSet);
     const bottomDecor = getBottomDecor(fSet);
+    const type2Articles = getArticlesForType2(fSet);
     currentSet.push(
       ...getribe,
       ...conerGear,
@@ -43,7 +45,8 @@ export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
       ...topDecor,
       ...topHinge,
       ...bottomHinge,
-      ...bottomDecor
+      ...bottomDecor,
+      ...type2Articles
     );
     const strikePlates = getStrikeplates(currentSet, fSet);
     currentSet.push(...strikePlates);
