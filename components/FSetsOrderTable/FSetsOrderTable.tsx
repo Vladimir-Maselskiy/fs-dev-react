@@ -141,7 +141,6 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
   );
 
   // const isWide = useMediaScreen();
-  // console.log('isWide', isWide);
   // useEffect(() => {
   //   const media = window.matchMedia('(min-width: 370px)');
   //   setIsWide(media.matches);
@@ -252,13 +251,11 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
         style={{ width: '80px', height: '40px', marginLeft: 'auto' }}
         disabled={!(selectedRowKeys.length > 0)}
         icon={
-          <DeleteRowOutlined
-            style={{ fontSize: '25px', color: 'white' }}
-            onClick={() => {
-              handleDelete(selectedRowKeys);
-            }}
-          />
+          <DeleteRowOutlined style={{ fontSize: '25px', color: 'white' }} />
         }
+        onClick={() => {
+          handleDelete(selectedRowKeys);
+        }}
       ></Button>
       <Table
         components={components}

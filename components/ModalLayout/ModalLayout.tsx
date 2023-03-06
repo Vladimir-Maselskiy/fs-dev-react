@@ -30,7 +30,6 @@ export const ModalLayout = ({
   const { setFSetsArray } = useFSetsContext();
 
   const onFinishHandleSubmit = (values: any) => {
-    console.log('onFinishHandleSubmit', values);
     for (let obj in values) {
       if (values[obj]?.value) values[obj] = values[obj].value;
     }

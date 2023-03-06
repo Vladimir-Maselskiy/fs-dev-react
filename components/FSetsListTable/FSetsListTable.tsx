@@ -143,13 +143,11 @@ export const FSetsListTable = ({ setFSet, setButtonTitle }: TProps) => {
   }, [fSetsArray]);
 
   useEffect(() => {
-    console.log('selectedRowKeys', selectedRowKeys);
     const index = fSetsArray.findIndex(set => set.id === selectedRowKeys[0]);
     if (selectedRowKeys.length !== 1) {
       setIsArrowUpDisabled(true);
       setIsArrowDownDisabled(true);
     } else {
-      console.log('index', index);
       if (index === 0) {
         setIsArrowUpDisabled(true);
       } else setIsArrowUpDisabled(false);
@@ -175,7 +173,6 @@ export const FSetsListTable = ({ setFSet, setButtonTitle }: TProps) => {
 
   const handleEdit = (keys: React.Key[]) => {
     const fSet = fSetsArray.find(set => set.id === keys[0]);
-    console.log('handleEdit', fSet);
     if (fSet) setFSet(fSet);
     setButtonTitle('Змінити');
     setSelectedRowKeys([]);

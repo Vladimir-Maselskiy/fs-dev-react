@@ -11,7 +11,9 @@ export const getFSets = (fSetsArray: IFSet[]): IArticleItem[] => {
   items.forEach(originalItem => {
     const index = res.findIndex(item => item.article === originalItem.article);
     if (index !== -1) {
-      res[index].quantity = (+res[index].quantity + 1).toString();
+      res[index].quantity = (
+        +res[index].quantity + +originalItem.quantity
+      ).toString();
       return;
     }
     res.push(originalItem);
