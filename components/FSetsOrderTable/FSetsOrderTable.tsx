@@ -48,6 +48,7 @@ type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>;
 
 type TTableProps = {
   tableSets: IArticleItem[];
+  rate: string;
 };
 
 const EditableRow = ({ index, ...props }: EditableRowProps) => {
@@ -128,23 +129,18 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
+export const FSetsOrderTable = ({ tableSets, rate }: TTableProps) => {
   const isWide = useMediaQuery(400);
+  const isWide767 = useMediaQuery(767);
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   useEffect(() => {
-    setDataSource(getDataSource(tableSets));
+    setDataSource(getDataSource(tableSets, rate));
   }, [tableSets]);
 
   const [dataSource, setDataSource] = useState<DataType[]>(
-    getDataSource(tableSets)
+    getDataSource(tableSets, rate)
   );
-
-  // const isWide = useMediaScreen();
-  // useEffect(() => {
-  //   const media = window.matchMedia('(min-width: 370px)');
-  //   setIsWide(media.matches);
-  // }, []);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -279,7 +275,7 @@ export const FSetsOrderTable = ({ tableSets }: TTableProps) => {
                 style={{ fontWeight: 'bold', fontSize: '16px' }}
               >
                 <Table.Summary.Cell index={0} colSpan={3}></Table.Summary.Cell>
-                <Table.Summary.Cell index={1} colSpan={2}>
+                <Table.Summary.Cell index={1} colSpan={isWide767 ? 2 : 1}>
                   Всього
                 </Table.Summary.Cell>
                 <Table.Summary.Cell index={2} colSpan={2}>

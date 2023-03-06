@@ -14,6 +14,7 @@ import { Tag } from 'antd';
 import { willDecorSelecteValueChange } from '@/utils/ui-utills/willDecorSelecteValueChange';
 import { FormLayoutStyled } from './FormLayout.styled';
 import { BrandButton } from '../BrandButton/BrandButton';
+import { getIndexByFSet } from '@/utils/data-utils/getIndexByFSet';
 
 interface TProps {
   fSet: IFSet;
@@ -101,7 +102,7 @@ export const FormLayout = ({
       >
         <FormLayoutStyled>
           <Tag style={{ alignSelf: 'start' }}>
-            {fSetsArray.indexOf(fSet) + 1}
+            {getIndexByFSet(fSetsArray, fSet) + 1}
           </Tag>
           <WidthAndHeightInput
             setIsOptitionButtonDisabled={setIsOptitionButtonDisabled}

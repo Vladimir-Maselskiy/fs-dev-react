@@ -6,8 +6,12 @@ import { getCurrentRate } from '@/utils/rate/getCurrentRate';
 import { Spin } from 'antd';
 import { Box } from '../Box/Box';
 
-export const CurrentRate = () => {
-  const [rate, setRate] = useState(setStartRate());
+type TProps = {
+  rate: string;
+  setRate: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const CurrentRate = ({ rate, setRate }: TProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRateRefreshed, setIsRateRefreshed] = useState(false);
 

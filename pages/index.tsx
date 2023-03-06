@@ -17,12 +17,13 @@ import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
-import { idText } from 'typescript';
+import { setStartRate } from '@/utils/rate/setStartRate';
 
 // const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
+  const [rate, setRate] = useState(setStartRate());
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(true);
@@ -34,14 +35,7 @@ export default function Home() {
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
-
-  const fSetEndRef = useRef<null | HTMLElement>(null);
-
-  const scrollToBottom = () => {
-    fSetEndRef.current?.scrollIntoView({
-      behavior: 'smooth',
-    });
-  };
+  const [isOrderTableVisible, setIsOrderTableVisible] = useState(false);
 
   useEffect(() => {
     setIsGetOrderButtonDisabled(!(fSetsArray.length > 0));
@@ -60,6 +54,7 @@ export default function Home() {
   const onClickCountSets = () => {
     const sets = getFSets(fSetsArray);
     setTableSets(sets);
+    setIsOrderTableVisible(true);
   };
 
   const onClickAddSet = () => {
@@ -87,7 +82,7 @@ export default function Home() {
       {isPageLoaded ? (
         <Box p="10px">
           <Box>
-            <CurrentRate />
+            <CurrentRate rate={rate} setRate={setRate} />
           </Box>
           <FormLayout
             fSet={fSet}
@@ -123,7 +118,9 @@ export default function Home() {
             </>
           )}
           <Divider />
-          <FSetsOrderTable tableSets={tableSets} />
+          {isOrderTableVisible && (
+            <FSetsOrderTable tableSets={tableSets} rate={rate} />
+          )}
           <ModalLayout
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
