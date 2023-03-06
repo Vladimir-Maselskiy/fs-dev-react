@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Checkbox, InputNumber, InputRef } from 'antd';
-import { Button, Form, Input, Popconfirm, Table } from 'antd';
-import { DeleteRowOutlined } from '@ant-design/icons';
-import { useMedia } from 'react-use';
+import { InputNumber } from 'antd';
+import { Button, Form, Table } from 'antd';
+import {
+  ArrowDownOutlined,
+  ArrowUpOutlined,
+  DeleteRowOutlined,
+  EditOutlined,
+} from '@ant-design/icons';
 import type { FormInstance } from 'antd/es/form';
-import { IArticleItem, IFSet } from '@/interfaces/interfaces';
-import { getDataSource } from '@/utils/data-utils/getDataSource';
+import { IFSet } from '@/interfaces/interfaces';
 import { Box } from '../Box/Box';
 import { getSetsListDataSource } from '@/utils/data-utils/getSetsListDataSource';
 import { useMediaQuery } from '@/hooks';
@@ -39,6 +42,11 @@ export interface SetsListItem {
 }
 
 type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>;
+
+type TProps = {
+  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
+  setButtonTitle: React.Dispatch<React.SetStateAction<string>>;
+};
 
 const EditableRow = ({ index, ...props }: EditableRowProps) => {
   const [form] = Form.useForm();
@@ -119,7 +127,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const FSetsListTable = () => {
+export const FSetsListTable = ({ setFSet, setButtonTitle }: TProps) => {
   const isWide = useMediaQuery(400);
   const { fSetsArray, setFSetsArray } = useFSetsContext();
 
@@ -127,10 +135,29 @@ export const FSetsListTable = () => {
   const [dataSource, setDataSource] = useState<SetsListItem[]>(
     getSetsListDataSource(fSetsArray)
   );
+  const [isArrowDownDisabled, setIsArrowDownDisabled] = useState(true);
+  const [isArrowUpDisabled, setIsArrowUpDisabled] = useState(true);
 
   useEffect(() => {
     setDataSource(getSetsListDataSource(fSetsArray));
   }, [fSetsArray]);
+
+  useEffect(() => {
+    console.log('selectedRowKeys', selectedRowKeys);
+    const index = fSetsArray.findIndex(set => set.id === selectedRowKeys[0]);
+    if (selectedRowKeys.length !== 1) {
+      setIsArrowUpDisabled(true);
+      setIsArrowDownDisabled(true);
+    } else {
+      console.log('index', index);
+      if (index === 0) {
+        setIsArrowUpDisabled(true);
+      } else setIsArrowUpDisabled(false);
+      if (index === fSetsArray.length - 1) {
+        setIsArrowDownDisabled(true);
+      } else setIsArrowDownDisabled(false);
+    }
+  }, [selectedRowKeys, fSetsArray]);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -144,6 +171,31 @@ export const FSetsListTable = () => {
   const handleDelete = (keys: React.Key[]) => {
     setFSetsArray(prev => prev.filter(set => !keys.includes(set.id)));
     setSelectedRowKeys([]);
+  };
+
+  const handleEdit = (keys: React.Key[]) => {
+    const fSet = fSetsArray.find(set => set.id === keys[0]);
+    console.log('handleEdit', fSet);
+    if (fSet) setFSet(fSet);
+    setButtonTitle('Змінити');
+    setSelectedRowKeys([]);
+  };
+
+  const handleReplace = (keys: React.Key[], direction: 'top' | 'bottom') => {
+    const index = fSetsArray.findIndex(set => set.id === keys[0]);
+    if (index !== -1) {
+      let move = 0;
+      if (direction === 'top') {
+        move = 1;
+      } else move = -1;
+
+      setFSetsArray(prev => {
+        const temp = prev[index];
+        prev[index] = prev[index - move];
+        prev[index - move] = temp;
+        return [...prev];
+      });
+    }
   };
 
   const defaultColumns: (
@@ -185,7 +237,6 @@ export const FSetsListTable = () => {
     {
       title: isWide ? 'Кількість' : 'К-ть.',
       dataIndex: 'quantity',
-      editable: true,
       align: 'center',
     },
     Table.SELECTION_COLUMN,
@@ -229,19 +280,50 @@ export const FSetsListTable = () => {
 
   return (
     <Box display="flex" width="100%" flexDirection="column">
-      <Button
-        type="primary"
-        style={{ width: '80px', height: '40px', marginLeft: 'auto' }}
-        disabled={!(selectedRowKeys.length > 0)}
-        icon={
-          <DeleteRowOutlined
-            style={{ fontSize: '25px', color: 'white' }}
-            onClick={() => {
-              handleDelete(selectedRowKeys);
-            }}
-          />
-        }
-      ></Button>
+      <Box display="flex" justifyContent="flex-end">
+        <Button
+          type="primary"
+          style={{ width: '80px', height: '40px' }}
+          disabled={!(selectedRowKeys.length > 0)}
+          icon={
+            <DeleteRowOutlined style={{ fontSize: '25px', color: 'white' }} />
+          }
+          onClick={() => {
+            handleDelete(selectedRowKeys);
+          }}
+        ></Button>
+        <Button
+          type="primary"
+          disabled={isArrowUpDisabled}
+          style={{ width: '80px', height: '40px', marginLeft: 10 }}
+          icon={
+            <ArrowUpOutlined style={{ fontSize: '25px', color: 'white' }} />
+          }
+          onClick={() => {
+            handleReplace(selectedRowKeys, 'top');
+          }}
+        ></Button>
+        <Button
+          type="primary"
+          style={{ width: '80px', height: '40px', marginLeft: 10 }}
+          disabled={isArrowDownDisabled}
+          icon={
+            <ArrowDownOutlined style={{ fontSize: '25px', color: 'white' }} />
+          }
+          onClick={() => {
+            handleReplace(selectedRowKeys, 'bottom');
+          }}
+        ></Button>
+        <Button
+          type="primary"
+          style={{ width: '80px', height: '40px', marginLeft: 10 }}
+          disabled={selectedRowKeys.length !== 1}
+          icon={<EditOutlined style={{ fontSize: '25px', color: 'white' }} />}
+          onClick={() => {
+            handleEdit(selectedRowKeys);
+          }}
+        ></Button>
+      </Box>
       <Table
         components={components}
         rowClassName={() => 'editable-row'}
@@ -253,27 +335,27 @@ export const FSetsListTable = () => {
         size="small"
         scroll={{ x: 336 }}
         rowSelection={rowSelection}
-        // summary={dataSource => {
-        //   let lotalPrice = dataSource.reduce((acc, item) => {
-        //     const currentItem = item as SetsListItem;
-        //     return acc + +currentItem.sum;
-        //   }, 0);
-        //   return (
-        //     <>
-        //       <Table.Summary.Row
-        //         style={{ fontWeight: 'bold', fontSize: '16px' }}
-        //       >
-        //         <Table.Summary.Cell index={0} colSpan={3}></Table.Summary.Cell>
-        //         <Table.Summary.Cell index={1} colSpan={2}>
-        //           Всього
-        //         </Table.Summary.Cell>
-        //         <Table.Summary.Cell index={2} colSpan={2}>
-        //           <p>{`${lotalPrice.toFixed(2)} грн`}</p>
-        //         </Table.Summary.Cell>
-        //       </Table.Summary.Row>
-        //     </>
-        //   );
-        // }}
+        summary={dataSource => {
+          let lotalPrice = dataSource.reduce((acc, item) => {
+            const currentItem = item as SetsListItem;
+            return acc + +currentItem.quantity;
+          }, 0);
+          return (
+            <>
+              <Table.Summary.Row
+                style={{ fontWeight: 'normal', fontSize: '16px' }}
+              >
+                <Table.Summary.Cell index={0} colSpan={3}></Table.Summary.Cell>
+                <Table.Summary.Cell index={1} colSpan={2}>
+                  Всього
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={2} colSpan={2}>
+                  <p>{`${lotalPrice} компл.`}</p>
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+            </>
+          );
+        }}
       />
     </Box>
   );

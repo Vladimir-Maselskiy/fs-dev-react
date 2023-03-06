@@ -17,6 +17,7 @@ import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
+import { idText } from 'typescript';
 
 // const inter = Inter({ subsets: ['latin'] });
 
@@ -28,6 +29,7 @@ export default function Home() {
   const [tableSets, setTableSets] = useState<IArticleItem[]>([]);
   const [fSet, setFSet] = useState(getNewSet());
   const [lastID, setLastId] = useState(fSet.id);
+  const [buttonTitle, setButtonTitle] = useState('Додати');
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
@@ -40,9 +42,9 @@ export default function Home() {
     });
   };
 
-  // useEffect(() => {
-  //   setIsGetOrderButtonDisabled(getIsGetOrderButtonDisabled(fSetsArray));
-  // }, [fSetsArray]);
+  useEffect(() => {
+    setIsGetOrderButtonDisabled(!(fSetsArray.length > 0));
+  }, [fSetsArray]);
 
   useEffect(() => {
     if (fSet?.isWidthValid === 'valid' && fSet.isHeightValid === 'valid') {
@@ -56,16 +58,23 @@ export default function Home() {
   };
 
   const onClickAddSet = () => {
-    const index = fSetsArray.indexOf(fSet);
+    setButtonTitle('Додати');
+    const index = fSetsArray.findIndex(set => set.id === fSet.id);
     if (index === -1) {
       const currentId = fSet.id;
       setLastId(currentId);
-      console.log('currentId', currentId);
       setFSetsArray(prev => [...prev, fSet]);
       setFSet(
         getNewSet({ id: (+currentId + 1).toString(), brand: fSet.brand })
       );
+      return;
     }
+
+    setFSetsArray(prev => {
+      prev.splice(index, 1, fSet);
+      return [...prev];
+    });
+    setFSet(getNewSet({ id: (+lastID + 1).toString(), brand: fSet.brand }));
   };
 
   return (
@@ -91,13 +100,13 @@ export default function Home() {
           type="primary"
           disabled={isAddButtonDisabled}
         >
-          Додати
+          {buttonTitle}
         </ButtonStyled>
         <Divider />
 
         {fSetsArray.length > 0 && (
           <>
-            <FSetsListTable />
+            <FSetsListTable setFSet={setFSet} setButtonTitle={setButtonTitle} />
             <Box mt={10} display="flex" justifyContent="space-between">
               <Button
                 type="primary"

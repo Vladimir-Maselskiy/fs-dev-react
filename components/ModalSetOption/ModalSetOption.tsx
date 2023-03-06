@@ -27,7 +27,7 @@ export const ModalSetOption = ({ fSet }: TProps) => {
   const [decorOptions, setDecorOptions] = useState(
     getDecorSelectOptions(fSet?.brand)
   );
-
+  console.log('ModalSetOption', fSet);
   const [hanleDistanceRestrictions, setHanleDistanceRestrictions] = useState({
     min: '235',
     max: String(Number(fSet.height) - 235),

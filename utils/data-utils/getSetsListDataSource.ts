@@ -2,7 +2,6 @@ import { SetsListItem } from '@/components/FSetsListTable/FSetsListTable';
 import { IFSet, TTypeOfOpenimg } from '@/interfaces/interfaces';
 
 export const getSetsListDataSource = (sets: IFSet[]): SetsListItem[] => {
-  console.log('sets', sets);
   const getType = (type: TTypeOfOpenimg) => {
     switch (type) {
       case 'type-1':
