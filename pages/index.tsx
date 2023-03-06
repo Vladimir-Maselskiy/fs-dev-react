@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Button, Divider } from 'antd';
+import { Button, Divider, Spin } from 'antd';
 // import Head from 'next/head';
 // import Image from 'next/image';
 // import { Inter } from '@next/font/google';
@@ -23,6 +23,7 @@ import { idText } from 'typescript';
 
 export default function Home() {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(true);
   const [currentModalNumber, setCurrentModalNumber] = useState(0);
@@ -52,6 +53,10 @@ export default function Home() {
     } else setIsAddButtonDisabled(true);
   }, [fSet.isWidthValid, fSet.isHeightValid]);
 
+  useEffect(() => {
+    setIsPageLoaded(true);
+  }, []);
+
   const onClickCountSets = () => {
     const sets = getFSets(fSetsArray);
     setTableSets(sets);
@@ -79,58 +84,67 @@ export default function Home() {
 
   return (
     <MainContainer>
-      {/* <FSetList
-        fSetsArray={fSetsArray}
-        setIsModalOpen={setIsModalOpen}
-        setCurrentSetId={setCurrentSetId}
-        setCurrentModalNumber={setCurrentModalNumber}
-      /> */}
-      <Box p="10px">
-        <Box>
-          <CurrentRate />
-        </Box>
-        <FormLayout
-          fSet={fSet}
-          setFSet={setFSet}
-          setIsModalOpen={setIsModalOpen}
-          setCurrentModalNumber={setCurrentModalNumber}
-        ></FormLayout>
-        <ButtonStyled
-          onClick={onClickAddSet}
-          type="primary"
-          disabled={isAddButtonDisabled}
-        >
-          {buttonTitle}
-        </ButtonStyled>
-        <Divider />
+      {isPageLoaded ? (
+        <Box p="10px">
+          <Box>
+            <CurrentRate />
+          </Box>
+          <FormLayout
+            fSet={fSet}
+            setFSet={setFSet}
+            setIsModalOpen={setIsModalOpen}
+            setCurrentModalNumber={setCurrentModalNumber}
+          ></FormLayout>
+          <ButtonStyled
+            onClick={onClickAddSet}
+            type="primary"
+            disabled={isAddButtonDisabled}
+          >
+            {buttonTitle}
+          </ButtonStyled>
+          <Divider />
 
-        {fSetsArray.length > 0 && (
-          <>
-            <FSetsListTable setFSet={setFSet} setButtonTitle={setButtonTitle} />
-            <Box mt={10} display="flex" justifyContent="space-between">
-              <Button
-                type="primary"
-                disabled={isGetOrderButtonDisabled}
-                onClick={onClickCountSets}
-                style={{ marginLeft: 'auto' }}
-              >
-                Розрахувати
-              </Button>
-            </Box>
-          </>
-        )}
-        <Divider />
-        <FSetsOrderTable tableSets={tableSets} />
-        <ModalLayout
-          isModalOpen={isModalOpen}
-          setIsModalOpen={setIsModalOpen}
-          currentModal={CurrentModal}
-          modalNumber={currentModalNumber}
-          fSet={fSet}
-          setFSet={setFSet}
-        />
-        {/* <TestComonent /> */}
-      </Box>
+          {fSetsArray.length > 0 && (
+            <>
+              <FSetsListTable
+                setFSet={setFSet}
+                setButtonTitle={setButtonTitle}
+              />
+              <Box mt={10} display="flex" justifyContent="space-between">
+                <Button
+                  type="primary"
+                  disabled={isGetOrderButtonDisabled}
+                  onClick={onClickCountSets}
+                  style={{ marginLeft: 'auto' }}
+                >
+                  Розрахувати
+                </Button>
+              </Box>
+            </>
+          )}
+          <Divider />
+          <FSetsOrderTable tableSets={tableSets} />
+          <ModalLayout
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            currentModal={CurrentModal}
+            modalNumber={currentModalNumber}
+            fSet={fSet}
+            setFSet={setFSet}
+          />
+          {/* <TestComonent /> */}
+        </Box>
+      ) : (
+        <Box
+          width="100vw"
+          height="100vh"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Spin size="large" spinning={!isPageLoaded} />
+        </Box>
+      )}
     </MainContainer>
   );
 }
