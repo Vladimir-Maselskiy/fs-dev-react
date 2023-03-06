@@ -35,6 +35,9 @@ export const ModalSetOption = ({ fSet }: TProps) => {
   const [isGorizontalLockDisabled, setIsGorizontalLockDisabled] = useState(
     fSet.isGorizontalLock
   );
+  const [isTurnTiltGetriebeChecked, setIsTurnTiltGetriebeChecked] = useState(
+    fSet.isTurnTiltGetriebe ? true : false
+  );
 
   const [isMicroVentilationDisabled, setIsMicroVentilationDisabled] = useState(
     fSet.microVentilation
@@ -44,20 +47,23 @@ export const ModalSetOption = ({ fSet }: TProps) => {
     useState(true);
 
   useEffect(() => {
-    if (fSet?.typeOfOpening === 'type-2' && fSet.isTurnTiltGetriebe === false) {
+    if (
+      fSet.typeOfOpening === 'type-2' &&
+      isTurnTiltGetriebeChecked === false
+    ) {
       setIsGorizontalLockDisabled(true);
     } else if (
-      fSet?.typeOfOpening === 'type-5' &&
+      fSet.typeOfOpening === 'type-5' &&
       fSet.shtulpGetriebe === 'latch'
     ) {
       setIsGorizontalLockDisabled(true);
-    } else if (fSet?.width && fSet?.width < 400) {
+    } else if (fSet.width && fSet.width < 400) {
       setIsGorizontalLockDisabled(true);
     } else setIsGorizontalLockDisabled(false);
   }, [
     fSet.typeOfOpening,
     fSet.shtulpGetriebe,
-    fSet.isTurnTiltGetriebe,
+    isTurnTiltGetriebeChecked,
     fSet.width,
   ]);
 
@@ -77,6 +83,9 @@ export const ModalSetOption = ({ fSet }: TProps) => {
     setIsAntiBreakingOpenSelectDisable(!e.target.checked);
   };
 
+  const onChangeTurnTiltGetriebeCheckbox = (e: CheckboxChangeEvent) => {
+    setIsTurnTiltGetriebeChecked(e.target.checked);
+  };
   const onClickInputNumber = (
     e: React.KeyboardEvent<HTMLInputElement> | undefined
   ) => {
@@ -100,9 +109,12 @@ export const ModalSetOption = ({ fSet }: TProps) => {
           label="П/в привід, покращений прижим"
           name="isTurnTiltGetriebe"
           valuePropName="checked"
-          initialValue={fSet?.isTurnTiltGetriebe}
+          initialValue={fSet.isTurnTiltGetriebe}
         >
-          <Checkbox checked={fSet?.isTurnTiltGetriebe} />
+          <Checkbox
+            checked={fSet.isTurnTiltGetriebe}
+            onChange={onChangeTurnTiltGetriebeCheckbox}
+          />
         </Form.Item>
       )}
 
