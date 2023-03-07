@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyledModal } from './ModalLayout.styled';
-import { Form, ConfigProvider, Button, Divider } from 'antd';
+import { Form, ConfigProvider } from 'antd';
 import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
 

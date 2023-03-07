@@ -1,7 +1,7 @@
 import { IFSet } from '@/interfaces/interfaces';
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Form, FormInstance, InputNumber, Space } from 'antd';
 import React, { useState, useEffect } from 'react';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { Box } from '../Box/Box';
 
 type TProps = {
@@ -34,7 +34,7 @@ export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
         <Button
           type="default"
           style={{ minWidth: '70px', height: '50px' }}
-          icon={<AiOutlineMinus size={40} color="var(--accent-color)" />}
+          icon={<MinusOutlined style={{ color: 'var(--accent-color)' }} />}
           onClick={() => onChangeCounterByClick(-1)}
         ></Button>
         <Form.Item
@@ -63,7 +63,7 @@ export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
         <Button
           type="default"
           style={{ minWidth: '70px', height: '50px' }}
-          icon={<AiOutlinePlus size={40} color="var(--accent-color)" />}
+          icon={<PlusOutlined style={{ color: 'var(--accent-color)' }} />}
           onClick={() => onChangeCounterByClick(1)}
         ></Button>
       </Box>
