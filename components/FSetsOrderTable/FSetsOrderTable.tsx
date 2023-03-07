@@ -7,6 +7,7 @@ import { IArticleItem } from '@/interfaces/interfaces';
 import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { Box } from '../Box/Box';
 import { useMediaQuery } from '@/hooks';
+import { getPdfFile } from '@/utils/pdf/getPdfFile';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -144,6 +145,10 @@ export const FSetsOrderTable = ({ tableSets, rate }: TTableProps) => {
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
+  };
+
+  const onGetPdfClick = () => {
+    getPdfFile(dataSource)
   };
 
   const rowSelection = {
@@ -286,6 +291,7 @@ export const FSetsOrderTable = ({ tableSets, rate }: TTableProps) => {
           );
         }}
       />
+      <Button onClick={onGetPdfClick}>Get PDF</Button>
     </Box>
   );
 };
