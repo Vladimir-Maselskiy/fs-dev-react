@@ -6,6 +6,8 @@ import {
   Select,
   Divider,
   Collapse,
+  RadioChangeEvent,
+  FormInstance,
 } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
@@ -20,10 +22,10 @@ const { Panel } = Collapse;
 
 type TProps = {
   fSet: IFSet;
-  form: any;
+  form: FormInstance<any>;
 };
 
-export const ModalSetOption = ({ fSet }: TProps) => {
+export const ModalSetOption = ({ fSet, form }: TProps) => {
   const [decorOptions, setDecorOptions] = useState(
     getDecorSelectOptions(fSet?.brand)
   );
@@ -37,6 +39,9 @@ export const ModalSetOption = ({ fSet }: TProps) => {
   );
   const [isTurnTiltGetriebeChecked, setIsTurnTiltGetriebeChecked] = useState(
     fSet.isTurnTiltGetriebe ? true : false
+  );
+  const [shtulpGetriebeValue, setShtulpGetriebeValue] = useState(
+    fSet.shtulpGetriebe
   );
 
   const [isMicroVentilationDisabled, setIsMicroVentilationDisabled] = useState(
@@ -54,7 +59,7 @@ export const ModalSetOption = ({ fSet }: TProps) => {
       setIsGorizontalLockDisabled(true);
     } else if (
       fSet.typeOfOpening === 'type-5' &&
-      fSet.shtulpGetriebe === 'latch'
+      shtulpGetriebeValue === 'latch'
     ) {
       setIsGorizontalLockDisabled(true);
     } else if (fSet.width && fSet.width < 400) {
@@ -62,7 +67,7 @@ export const ModalSetOption = ({ fSet }: TProps) => {
     } else setIsGorizontalLockDisabled(false);
   }, [
     fSet.typeOfOpening,
-    fSet.shtulpGetriebe,
+    shtulpGetriebeValue,
     isTurnTiltGetriebeChecked,
     fSet.width,
   ]);
@@ -85,6 +90,14 @@ export const ModalSetOption = ({ fSet }: TProps) => {
 
   const onChangeTurnTiltGetriebeCheckbox = (e: CheckboxChangeEvent) => {
     setIsTurnTiltGetriebeChecked(e.target.checked);
+  };
+
+  const onChangeShtulpGetriebe = (e: RadioChangeEvent) => {
+    const value = e.target.value;
+    setShtulpGetriebeValue(value);
+    if (value === 'latch') {
+      form.setFieldValue('isGorizontalLock', false);
+    }
   };
   const onClickInputNumber = (
     e: React.KeyboardEvent<HTMLInputElement> | undefined
@@ -124,7 +137,7 @@ export const ModalSetOption = ({ fSet }: TProps) => {
           name="shtulpGetriebe"
           initialValue={fSet.shtulpGetriebe}
         >
-          <Radio.Group>
+          <Radio.Group onChange={onChangeShtulpGetriebe}>
             <Radio value="shtulpGetriebe">Штульп-привід</Radio>
             <Radio value="latch">Шпінгалети</Radio>
           </Radio.Group>
