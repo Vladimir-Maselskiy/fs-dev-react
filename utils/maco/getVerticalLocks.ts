@@ -1,7 +1,7 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '../data-utils/findElementsByArticle';
 
-export function getCenterLocks(fSet: IFSet) {
+export function getVerticalLocks(fSet: IFSet) {
   const {
     width,
     height,
@@ -11,34 +11,12 @@ export function getCenterLocks(fSet: IFSet) {
     isTurnTiltGetriebe,
   } = fSet;
   const articleItems: IArticleItem[] = [];
-  if (width && height) {
-    if (typeOfOpening === 'type-5' && shtulpGetriebe === 'latch') {
-      return articleItems;
-    }
-    if (
-      typeOfOpening === 'type-5' &&
-      shtulpGetriebe === 'shtulpGetriebe' &&
-      isGorizontalLock
-    ) {
-      let article = '';
-      if (width <= 800) {
-        article = '228398';
-      } else if (width <= 1280) {
-        article = '211924';
-      } else article = '211925';
-      const params = {
-        arr: [article, article],
-        sortSignificance: '6',
-      };
-      const currentArticleItems = findElementsByArticle(params);
-      if (currentArticleItems) articleItems.push(...currentArticleItems);
-      return articleItems;
-    }
-    if (typeOfOpening === 'type-5') {
+  if (height) {
+    if (typeOfOpening === 'type-5' || typeOfOpening === 'type-2') {
       return [];
     }
 
-    if (typeOfOpening === 'type-3' && height >= 800 && width >= 470) {
+    if (typeOfOpening === 'type-3' && height >= 800 && width! >= 470) {
       let article = '';
       if (height <= 1280) {
         article = '211924';
@@ -57,45 +35,6 @@ export function getCenterLocks(fSet: IFSet) {
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-      return articleItems;
-    }
-
-    if (isGorizontalLock && width) {
-      if (width < 800) {
-        const params = {
-          arr: ['228398'],
-          sortSignificance: '6',
-        };
-        const currentArticleItems = findElementsByArticle(params);
-        if (currentArticleItems) articleItems.push(...currentArticleItems);
-        if (typeOfOpening === 'type-2' && isTurnTiltGetriebe) {
-          const params = {
-            arr: ['228398'],
-            sortSignificance: '6',
-          };
-          const currentArticleItems = findElementsByArticle(params);
-          if (currentArticleItems) articleItems.push(...currentArticleItems);
-        }
-      }
-      if (width >= 800) {
-        const params = {
-          arr: ['211924'],
-          sortSignificance: '6',
-        };
-        const currentArticleItems = findElementsByArticle(params);
-        if (currentArticleItems) articleItems.push(...currentArticleItems);
-        if (typeOfOpening === 'type-2' && isTurnTiltGetriebe) {
-          const params = {
-            arr: ['211924'],
-            sortSignificance: '6',
-          };
-          const currentArticleItems = findElementsByArticle(params);
-          if (currentArticleItems) articleItems.push(...currentArticleItems);
-        }
-      }
-    }
-
-    if (typeOfOpening === 'type-2' || typeOfOpening === 'type-3') {
       return articleItems;
     }
 
