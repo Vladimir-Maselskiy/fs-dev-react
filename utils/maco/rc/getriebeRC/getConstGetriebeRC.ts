@@ -1,8 +1,8 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
-import { getExtension } from '../additionalArticle/getExtension';
+import { getExtensionRC } from './additionalArticle/getExtensionRC';
 
-export function getConstGetriebe(fSet: IFSet) {
+export function getConstGetriebeRC(fSet: IFSet) {
   const { height } = fSet;
   let { hanleDistance } = fSet;
   const articleItems: IArticleItem[] = [];
@@ -22,26 +22,17 @@ export function getConstGetriebe(fSet: IFSet) {
 
     if (hanleDistance > 400 && hanleDistance <= 625) {
       const params = {
-        arr: ['212156'],
+        arr: ['201747'],
         sortSignificance: '3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
       cutGetriebeLength = hanleDistance + 625;
     }
-    if (hanleDistance > 625 && hanleDistance <= 675) {
-      const params = {
-        arr: ['225098'],
-        sortSignificance: '3',
-      };
-      const currentArticleItems = findElementsByArticle(params);
-      if (currentArticleItems) articleItems.push(...currentArticleItems);
 
-      cutGetriebeLength = hanleDistance + 675;
-    }
-    if (hanleDistance > 675 && hanleDistance <= 875) {
+    if (hanleDistance > 625 && hanleDistance <= 875) {
       const params = {
-        arr: ['212158'],
+        arr: ['201748'],
         sortSignificance: '3',
       };
       const currentArticleItems = findElementsByArticle(params);
@@ -50,7 +41,7 @@ export function getConstGetriebe(fSet: IFSet) {
     }
     if (hanleDistance > 875) {
       const params = {
-        arr: ['212160'],
+        arr: ['202739'],
         sortSignificance: '3',
       };
       const currentArticleItems = findElementsByArticle(params);
@@ -61,7 +52,7 @@ export function getConstGetriebe(fSet: IFSet) {
     //   блок подовжувачів, при потребі
 
     if (height - cutGetriebeLength > 0) {
-      const extension = getExtension(height - cutGetriebeLength);
+      const extension = getExtensionRC(height - cutGetriebeLength);
       if (extension.length > 0) articleItems.push(...extension);
     }
   }

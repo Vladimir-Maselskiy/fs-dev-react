@@ -1,15 +1,31 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
 import { getExtension } from '../additionalArticle/getExtension';
+import { getGetriebeRC } from '../rc/getriebeRC/getGetriebeRC';
 import { getConstGetriebe } from './getConstGetriebe';
 import { getGetriebeForSchtulpPassive } from './getGetriebeForSchtulpPassive';
 import { getTiltGetriebe } from './getTiltGetriebe';
 import { getTurningGetgriebe } from './getTurningGetgriebe';
 
 export function getGetriebe(fSet: IFSet) {
-  const { height, hanleDistance, typeOfOpening, isTurnTiltGetriebe } = fSet;
+  const {
+    height,
+    hanleDistance,
+    typeOfOpening,
+    isTurnTiltGetriebe,
+    isAntiBreakingOpen,
+    antiBreakingOpenType,
+  } = fSet;
   const articleItems: IArticleItem[] = [];
   if (height) {
+    if (isAntiBreakingOpen && antiBreakingOpenType === 'rc1') {
+      const getriebeRC = getGetriebeRC(fSet);
+      if (getriebeRC) {
+        articleItems.push(...getriebeRC);
+        return articleItems;
+      }
+    }
+
     if (typeOfOpening === 'type-5') {
       const getriebeForSchtulpPassive = getGetriebeForSchtulpPassive(fSet);
       if (getriebeForSchtulpPassive) {
@@ -30,6 +46,7 @@ export function getGetriebe(fSet: IFSet) {
     if (hanleDistance) {
       return getConstGetriebe(fSet);
     }
+
     let cutGetriebeLength = null;
 
     if (height >= 470 && height < 800) {

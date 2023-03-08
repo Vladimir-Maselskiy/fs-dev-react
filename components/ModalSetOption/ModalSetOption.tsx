@@ -84,8 +84,22 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
     } else setIsAntiBreakingOpenSelectDisable(true);
   }, [fSet.isAntiBreakingOpen]);
 
+  useEffect(() => {
+    if (fSet.isAntiBreakingOpen) {
+      setIsGorizontalLockDisabled(true);
+    }
+  }, []);
+
   const onChangeAntiBreakingOpen = (e: CheckboxChangeEvent) => {
-    setIsAntiBreakingOpenSelectDisable(!e.target.checked);
+    const value = e.target.checked;
+    setIsAntiBreakingOpenSelectDisable(!value);
+    if (value) {
+      form.setFieldValue('isGorizontalLock', true);
+      setIsGorizontalLockDisabled(true);
+    }
+    if (!value) {
+      setIsGorizontalLockDisabled(false);
+    }
   };
 
   const onChangeTurnTiltGetriebeCheckbox = (e: CheckboxChangeEvent) => {
