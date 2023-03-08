@@ -1,6 +1,7 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { getArticlesForType2 } from './additionalArticle/getArticlesForType2';
 import { getArticlesForType3 } from './additionalArticle/getArticlesForType3';
+import { getArticlesForType5 } from './additionalArticle/getArticlesForType5';
 import { getBottomDecor } from './getBottomDecor';
 import { getBottomEndingForGetriebe } from './getBottomEndingForGetriebe';
 import { getBottomHinge } from './getBottomHinge';
@@ -33,6 +34,7 @@ export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
     const bottomDecor = getBottomDecor(fSet);
     const type2Articles = getArticlesForType2(fSet);
     const type3Articles = getArticlesForType3(fSet);
+    const type5Articles = getArticlesForType5(fSet);
     currentSet.push(
       ...getribe,
       ...conerGear,
@@ -47,10 +49,11 @@ export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
       ...bottomHinge,
       ...bottomDecor,
       ...type2Articles,
-      ...type3Articles
+      ...type3Articles,
+      ...type5Articles
     );
     const strikePlates = getStrikeplates(currentSet, fSet);
-    currentSet.push(...strikePlates);
+    if (+strikePlates[0].quantity > 0) currentSet.push(...strikePlates);
   }
   const finalSet = currentSet.map(set => ({
     ...set,

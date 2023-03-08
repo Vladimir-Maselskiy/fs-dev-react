@@ -12,7 +12,6 @@ export function getArticlesForType3(fSet: IFSet) {
   articleItems.push(...getTopDecor(fSet));
   articleItems.push(...getTopHinge(fSet));
 
-  // addArticleToOrderList(findElementsByArticle(52321, 52321), 10.5);
   if (width! >= 470 && height! >= 800) {
     const params = {
       arr: ['212686'],

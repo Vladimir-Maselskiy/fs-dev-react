@@ -15,6 +15,28 @@ export function getCenterLocks(fSet: IFSet) {
     if (typeOfOpening === 'type-5' && shtulpGetriebe === 'latch') {
       return articleItems;
     }
+    if (
+      typeOfOpening === 'type-5' &&
+      shtulpGetriebe === 'shtulpGetriebe' &&
+      isGorizontalLock
+    ) {
+      let article = '';
+      if (width <= 800) {
+        article = '228398';
+      } else if (width <= 1280) {
+        article = '211924';
+      } else article = '211925';
+      const params = {
+        arr: [article, article],
+        sortSignificance: '6',
+      };
+      const currentArticleItems = findElementsByArticle(params);
+      if (currentArticleItems) articleItems.push(...currentArticleItems);
+      return articleItems;
+    }
+    if (typeOfOpening === 'type-5') {
+      return [];
+    }
 
     if (typeOfOpening === 'type-3' && height >= 800 && width >= 470) {
       let article = '';
