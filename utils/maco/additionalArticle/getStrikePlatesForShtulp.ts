@@ -8,11 +8,18 @@ export function getStrikePlatesForShtulp(fSet: IFSet) {
   if (
     systemOfPVC === '13' ||
     systemOfPVC === 'Salamander' ||
-    systemOfPVC === 'Rehau' ||
-    systemOfPVC === 'Veka'
+    systemOfPVC === 'Rehau'
   ) {
     const params = {
       arr: ['26376', '26376'],
+      sortSignificance: '10.2',
+    };
+    const currentArticleItems = findElementsByArticle(params);
+    if (currentArticleItems) articleItems.push(...currentArticleItems);
+  }
+  if (systemOfPVC === 'Veka') {
+    const params = {
+      arr: ['26171', '26171'],
       sortSignificance: '10.2',
     };
     const currentArticleItems = findElementsByArticle(params);
