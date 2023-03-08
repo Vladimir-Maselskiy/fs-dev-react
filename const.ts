@@ -80,7 +80,7 @@ export const type3Restrictions = {
   minWith: 300,
   maxWidth: 2400,
   minHeight: 350,
-  maxHeight: 800,
+  maxHeight: 2450,
 };
 
 export const macoRestrictions = {

@@ -17,8 +17,20 @@ export function getCenterLocks(fSet: IFSet) {
     }
 
     if (typeOfOpening === 'type-3' && height >= 800 && width >= 470) {
+      let article = '';
+      if (height <= 1280) {
+        article = '211924';
+      } else if (height <= 1500) {
+        article = '211925';
+      } else if (height <= 2000) {
+        article = '211926';
+      } else if (height <= 2200) {
+        article = '211927';
+      } else {
+        article = '211928';
+      }
       const params = {
-        arr: ['211924', '211924'],
+        arr: [article, article],
         sortSignificance: '6',
       };
       const currentArticleItems = findElementsByArticle(params);
