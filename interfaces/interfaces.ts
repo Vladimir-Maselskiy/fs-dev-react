@@ -72,7 +72,7 @@ export interface IFSetsArray {
   fSetsArray: IFSet[];
 }
 
-export interface IMacoJSON {
+export interface IArticleJSON {
   article: string;
   id: string;
   name: string;

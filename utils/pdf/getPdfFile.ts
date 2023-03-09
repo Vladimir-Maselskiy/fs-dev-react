@@ -57,7 +57,7 @@ export const getPdfFile = async (data: DataType[]) => {
   doc.text(`|  Всього`, x, y);
   x += 15;
   doc.text(
-    `             ${data.reduce((acc, el) => acc + +el.sum, 0)}грн`,
+    `             ${data.reduce((acc, el) => acc + +el.sum, 0).toFixed(2)}грн`,
     x,
     y
   );

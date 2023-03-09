@@ -8,7 +8,6 @@ export function getStrikeplates(currentSet: IArticleItem[], fSet: IFSet) {
 
   const quantityOfPlatesVZ = getQuantityOfPlatesVZ(currentSet);
   const quantityOfPlatesRC = getQuantityOfPlatesRC(currentSet);
-  console.log('quantityOfPlatesRC', quantityOfPlatesRC);
 
   if (systemOfPVC === '13' || systemOfPVC === 'Salamander') {
     const paramsVZ = {

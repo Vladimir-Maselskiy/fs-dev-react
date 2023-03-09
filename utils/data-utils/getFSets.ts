@@ -6,6 +6,7 @@ export const getFSets = (fSetsArray: IFSet[]): IArticleItem[] => {
   const res: IArticleItem[] = [];
   fSetsArray.forEach(fSet => {
     if (fSet.brand === 'maco') items.push(...getOneMacoSet(fSet));
+    if (fSet.brand === 'vorne') items.push(...getOneVorneSet(fSet));
   });
 
   items.forEach(originalItem => {

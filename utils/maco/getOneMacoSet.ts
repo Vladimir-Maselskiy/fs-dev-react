@@ -56,7 +56,6 @@ export const getOneMacoSet = (fSet: IFSet): IArticleItem[] => {
       ...type5Articles
     );
     const strikePlates = getStrikeplates(currentSet, fSet);
-    console.log('strikePlates', strikePlates);
     if (+strikePlates[0].quantity > 0) currentSet.push(strikePlates[0]);
     if (+strikePlates[1].quantity > 0) currentSet.push(strikePlates[1]);
   }

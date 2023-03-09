@@ -1,18 +1,30 @@
-import { IArticleItem, IMacoJSON } from '@/interfaces/interfaces';
-import packageInfo from '../../data/maco.json';
+import { IArticleItem, IArticleJSON } from '@/interfaces/interfaces';
+import macoPackageInfo from '../../data/maco.json';
+import vornePackageInfo from '../../data/vorne.json';
 
 type TParams = {
+  brand?: string;
   arr: string[];
   sortSignificance: string;
   quantity?: number;
 };
 
 export function findElementsByArticle(params: TParams) {
-  const maco = packageInfo.maco as IMacoJSON[];
+  const maco = macoPackageInfo.maco as IArticleJSON[];
+  const vorne = vornePackageInfo.vorne as IArticleJSON[];
+  let data: IArticleJSON[];
+  switch (params.brand) {
+    case undefined:
+      data = maco;
+      break;
+    case 'vorne':
+      data = vorne;
+      break;
+  }
   const { arr, sortSignificance, quantity = 1 } = params;
   const articleArray: IArticleItem[] = [];
   arr.forEach(article => {
-    const item = maco.find(element => String(element.article) === article);
+    const item = data.find(element => String(element.article) === article);
     if (item)
       articleArray.push({
         ...item,
