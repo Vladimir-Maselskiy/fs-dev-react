@@ -29,7 +29,7 @@ export const ImportantSetsOptions = ({ fSet, form }: TProps) => {
 
   useEffect(() => {
     form.setFieldValue('sideOfHinge', fSet.sideOfHinge);
-  }, [fSet.sideOfHinge]);
+  }, [fSet.sideOfHinge, form]);
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">

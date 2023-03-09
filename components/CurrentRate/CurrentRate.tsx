@@ -27,12 +27,12 @@ export const CurrentRate = ({ rate, setRate }: TProps) => {
         setIsRateRefreshed(true);
       }
     });
-  }, []);
+  }, [setRate]);
 
   useEffect(() => {
     const rate = localStorage.getItem('rate');
     if (rate) setRate(rate);
-  }, []);
+  }, [setRate]);
 
   return (
     <StyledCurrentRate>

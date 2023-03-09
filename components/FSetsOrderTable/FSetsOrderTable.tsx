@@ -137,7 +137,7 @@ export const FSetsOrderTable = ({ tableSets, rate }: TTableProps) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   useEffect(() => {
     setDataSource(getDataSource(tableSets, rate));
-  }, [tableSets]);
+  }, [tableSets, rate]);
 
   const [dataSource, setDataSource] = useState<DataType[]>(
     getDataSource(tableSets, rate)
@@ -148,7 +148,7 @@ export const FSetsOrderTable = ({ tableSets, rate }: TTableProps) => {
   };
 
   const onGetPdfClick = () => {
-    getPdfFile(dataSource)
+    getPdfFile(dataSource);
   };
 
   const rowSelection = {

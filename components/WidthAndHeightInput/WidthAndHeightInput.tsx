@@ -110,10 +110,10 @@ export const WidthAndHeightInput = ({
 
   useEffect(() => {
     form.setFieldValue('width', fSet.width);
-  }, [fSet.width]);
+  }, [fSet.width, form]);
   useEffect(() => {
     form.setFieldValue('height', fSet.height);
-  }, [fSet.height]);
+  }, [fSet.height, form]);
 
   const onPressEnterWidth = (e: any) => {
     widthInputRef?.current?.blur();

@@ -88,7 +88,7 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
     if (fSet.isAntiBreakingOpen) {
       setIsGorizontalLockDisabled(true);
     }
-  }, []);
+  }, [fSet.isAntiBreakingOpen]);
 
   const onChangeAntiBreakingOpen = (e: CheckboxChangeEvent) => {
     const value = e.target.checked;
