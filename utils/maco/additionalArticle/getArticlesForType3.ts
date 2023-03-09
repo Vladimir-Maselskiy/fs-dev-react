@@ -6,8 +6,9 @@ import { getTopHinge } from '../getTopHinge';
 export function getArticlesForType3(fSet: IFSet) {
   const articleItems: IArticleItem[] = [];
 
-  const { width, height, systemOfPVC, typeOfOpening } = fSet;
-  if (typeOfOpening !== 'type-3') return [];
+  const { width, height, systemOfPVC, typeOfOpening, isAntiBreakingOpen } =
+    fSet;
+  if (typeOfOpening !== 'type-3' || isAntiBreakingOpen) return [];
 
   articleItems.push(...getTopDecor(fSet));
   articleItems.push(...getTopHinge(fSet));

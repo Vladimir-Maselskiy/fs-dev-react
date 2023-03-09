@@ -78,6 +78,7 @@ export interface IMacoJSON {
   name: string;
   price: string;
   VZ?: string;
+  iS?: string;
 }
 
 export interface IArticleItem {
@@ -87,4 +88,5 @@ export interface IArticleItem {
   price: string;
   sortSignificance: string;
   VZ?: string;
+  iS?: string;
 }

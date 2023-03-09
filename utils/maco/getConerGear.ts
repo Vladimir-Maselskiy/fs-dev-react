@@ -9,7 +9,6 @@ export function getConerGear(fSet: IFSet) {
 
   if (isAntiBreakingOpen) {
     const conerGearRC = getConerGearRC(fSet);
-    console.log('conerGearRC', conerGearRC);
     articleItems.push(...conerGearRC);
     return articleItems;
   }

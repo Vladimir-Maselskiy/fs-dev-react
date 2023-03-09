@@ -3,7 +3,13 @@ import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle'
 
 export function getArticlesForType5(fSet: IFSet) {
   const articleItems: IArticleItem[] = [];
-  const { typeOfOpening, shtulpGetriebe, height } = fSet;
+  const {
+    typeOfOpening,
+    shtulpGetriebe,
+    height,
+    isAntiBreakingOpen,
+    antiBreakingOpenType,
+  } = fSet;
   if (typeOfOpening !== 'type-5' || shtulpGetriebe === 'shtulpGetriebe')
     return [];
 
@@ -19,8 +25,10 @@ export function getArticlesForType5(fSet: IFSet) {
   }
 
   if (quantityOfShtulpPlates === 0) return [];
+  const article =
+    isAntiBreakingOpen && antiBreakingOpenType === 'rc1' ? '96558' : '34610';
   const params = {
-    arr: ['34610'],
+    arr: [article],
     sortSignificance: '10',
   };
   const currentArticleItems = findElementsByArticle(params);

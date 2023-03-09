@@ -1,5 +1,6 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '../data-utils/findElementsByArticle';
+import { getGorizontalLocksRC } from './rc/getGorizontalLocksRC';
 
 export function getGorizontalLocks(fSet: IFSet) {
   const {
@@ -8,9 +9,14 @@ export function getGorizontalLocks(fSet: IFSet) {
     isGorizontalLock,
     typeOfOpening,
     isTurnTiltGetriebe,
+    isAntiBreakingOpen,
   } = fSet;
   const articleItems: IArticleItem[] = [];
 
+  if (isAntiBreakingOpen) {
+    articleItems.push(...getGorizontalLocksRC(fSet));
+    return articleItems;
+  }
   if (
     (typeOfOpening === 'type-5' && shtulpGetriebe === 'latch') ||
     !isGorizontalLock

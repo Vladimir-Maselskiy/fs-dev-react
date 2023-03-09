@@ -56,7 +56,7 @@ export function getShear(fSet: IFSet) {
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-    if (width >= 1050 && width < 1300) {
+    if (width >= 1050 && width <= 1300) {
       const params = {
         arr: ['211699'],
         sortSignificance: '1',

@@ -1,4 +1,4 @@
-import { IArticleItem, IFSet, TTypeOfOpenimg } from '@/interfaces/interfaces';
+import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 
 import { findElementsByArticle } from '../data-utils/findElementsByArticle';
 
@@ -7,42 +7,68 @@ export function getStrikeplates(currentSet: IArticleItem[], fSet: IFSet) {
   const articleItems: IArticleItem[] = [];
 
   const quantityOfPlatesVZ = getQuantityOfPlatesVZ(currentSet);
+  const quantityOfPlatesRC = getQuantityOfPlatesRC(currentSet);
+  console.log('quantityOfPlatesRC', quantityOfPlatesRC);
 
   if (systemOfPVC === '13' || systemOfPVC === 'Salamander') {
-    const params = {
+    const paramsVZ = {
       arr: ['34824'],
       sortSignificance: '10',
       quantity: quantityOfPlatesVZ,
     };
-    const currentArticleItems = findElementsByArticle(params);
-    if (currentArticleItems) articleItems.push(...currentArticleItems);
+    const paramsRC = {
+      arr: ['96140'],
+      sortSignificance: '10',
+      quantity: quantityOfPlatesRC,
+    };
+    const currentArticleItemsVZ = findElementsByArticle(paramsVZ);
+    const currentArticleItemsRC = findElementsByArticle(paramsRC);
+    articleItems.push(...currentArticleItemsVZ!, ...currentArticleItemsRC!);
   }
   if (systemOfPVC === 'Rehau') {
-    const params = {
+    const paramsVZ = {
       arr: ['354970'],
       sortSignificance: '10',
       quantity: quantityOfPlatesVZ,
     };
-    const currentArticleItems = findElementsByArticle(params);
-    if (currentArticleItems) articleItems.push(...currentArticleItems);
+    const paramsRC = {
+      arr: ['96140'],
+      sortSignificance: '10',
+      quantity: quantityOfPlatesRC,
+    };
+    const currentArticleItemsVZ = findElementsByArticle(paramsVZ);
+    const currentArticleItemsRC = findElementsByArticle(paramsRC);
+    articleItems.push(...currentArticleItemsVZ!, ...currentArticleItemsRC!);
   }
   if (systemOfPVC === 'Veka') {
-    const params = {
+    const paramsVZ = {
       arr: ['34283'],
       sortSignificance: '10',
       quantity: quantityOfPlatesVZ,
     };
-    const currentArticleItems = findElementsByArticle(params);
-    if (currentArticleItems) articleItems.push(...currentArticleItems);
+    const paramsRC = {
+      arr: ['96429'],
+      sortSignificance: '10',
+      quantity: quantityOfPlatesRC,
+    };
+    const currentArticleItemsVZ = findElementsByArticle(paramsVZ);
+    const currentArticleItemsRC = findElementsByArticle(paramsRC);
+    articleItems.push(...currentArticleItemsVZ!, ...currentArticleItemsRC!);
   }
   if (systemOfPVC === '9') {
-    const params = {
+    const paramsVZ = {
       arr: ['34850'],
       sortSignificance: '10',
       quantity: quantityOfPlatesVZ,
     };
-    const currentArticleItems = findElementsByArticle(params);
-    if (currentArticleItems) articleItems.push(...currentArticleItems);
+    const paramsRC = {
+      arr: ['96482'],
+      sortSignificance: '10',
+      quantity: quantityOfPlatesRC,
+    };
+    const currentArticleItemsVZ = findElementsByArticle(paramsVZ);
+    const currentArticleItemsRC = findElementsByArticle(paramsRC);
+    articleItems.push(...currentArticleItemsVZ!, ...currentArticleItemsRC!);
   }
   return articleItems;
 }
@@ -53,4 +79,11 @@ function getQuantityOfPlatesVZ(currentSet: IArticleItem[]) {
     if (element.VZ) quantityVZ += +element.VZ;
   });
   return quantityVZ;
+}
+function getQuantityOfPlatesRC(currentSet: IArticleItem[]) {
+  let quantityRC = 0;
+  currentSet.forEach(element => {
+    if (element.iS) quantityRC += +element.iS;
+  });
+  return quantityRC;
 }

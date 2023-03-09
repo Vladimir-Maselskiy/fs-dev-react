@@ -1,5 +1,6 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '../data-utils/findElementsByArticle';
+import { getVerticalLocksRC } from './rc/getVerticalLocksRC';
 
 export function getVerticalLocks(fSet: IFSet) {
   const {
@@ -9,9 +10,15 @@ export function getVerticalLocks(fSet: IFSet) {
     isGorizontalLock,
     typeOfOpening,
     isTurnTiltGetriebe,
+    isAntiBreakingOpen,
+    antiBreakingOpenType,
   } = fSet;
   const articleItems: IArticleItem[] = [];
   if (height) {
+    if (isAntiBreakingOpen && antiBreakingOpenType === 'rc1') {
+      articleItems.push(...getVerticalLocksRC(fSet));
+      return articleItems;
+    }
     if (typeOfOpening === 'type-5' || typeOfOpening === 'type-2') {
       return [];
     }
