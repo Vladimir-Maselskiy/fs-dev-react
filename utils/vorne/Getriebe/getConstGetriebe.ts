@@ -10,52 +10,52 @@ export function getConstGetriebe(fSet: IFSet) {
 
   if (height && hanleDistance) {
     hanleDistance = Math.min(hanleDistance, height - hanleDistance);
-    if (hanleDistance >= 235 && hanleDistance <= 400) {
+    if (hanleDistance >= 225 && hanleDistance <= 350) {
       const params = {
-        arr: ['201746', '213287', '213287'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0202.0102'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-      cutGetriebeLength = hanleDistance + 400;
-    }
+      cutGetriebeLength = hanleDistance + 350;
+    } else if (hanleDistance > 350 && hanleDistance <= 600) {
+      const params = {
+        brand: 'vorne',
+        arr: ['V.0202.0202'],
+        sortSignificance: '13',
+      };
+      const currentArticleItems = findElementsByArticle(params);
+      if (currentArticleItems) articleItems.push(...currentArticleItems);
+      cutGetriebeLength = hanleDistance + 600;
+    } else if (hanleDistance > 600 && hanleDistance <= 700) {
+      const params = {
+        brand: 'vorne',
+        arr: ['V.0202.0302'],
+        sortSignificance: '13',
+      };
+      const currentArticleItems = findElementsByArticle(params);
+      if (currentArticleItems) articleItems.push(...currentArticleItems);
 
-    if (hanleDistance > 400 && hanleDistance <= 625) {
+      cutGetriebeLength = hanleDistance + 700;
+    } else if (hanleDistance > 700 && hanleDistance <= 850) {
       const params = {
-        arr: ['212156'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0202.0402'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-      cutGetriebeLength = hanleDistance + 625;
-    }
-    if (hanleDistance > 625 && hanleDistance <= 675) {
+      cutGetriebeLength = hanleDistance + 850;
+    } else if (hanleDistance > 850) {
       const params = {
-        arr: ['225098'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0202.0502'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-
-      cutGetriebeLength = hanleDistance + 675;
-    }
-    if (hanleDistance > 675 && hanleDistance <= 875) {
-      const params = {
-        arr: ['212158'],
-        sortSignificance: '3',
-      };
-      const currentArticleItems = findElementsByArticle(params);
-      if (currentArticleItems) articleItems.push(...currentArticleItems);
-      cutGetriebeLength = hanleDistance + 875;
-    }
-    if (hanleDistance > 875) {
-      const params = {
-        arr: ['212160'],
-        sortSignificance: '3',
-      };
-      const currentArticleItems = findElementsByArticle(params);
-      if (currentArticleItems) articleItems.push(...currentArticleItems);
-      cutGetriebeLength = hanleDistance + 1125;
+      cutGetriebeLength = hanleDistance + 1100;
     }
 
     //   блок подовжувачів, при потребі

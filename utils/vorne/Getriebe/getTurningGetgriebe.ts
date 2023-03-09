@@ -6,50 +6,85 @@ export function getTurningGetgriebe(fSet: IFSet) {
   const articleItems: IArticleItem[] = [];
 
   if (height) {
-    if (height >= 300 && height <= 500) {
+    if (height >= 300 && height <= 400) {
       const params = {
-        arr: ['211989'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0103.0102M'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-    }
-    if (height > 500 && height <= 700) {
+    } 
+    if (height > 400 && height <= 600) {
       const params = {
-        arr: ['211990'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0103.0202M'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-    }
-    if (height > 700 && height <= 1000) {
+    } 
+    else if (height > 600 && height <= 800) {
       const params = {
-        arr: ['211991'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0103.0302M'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-    }
-    if (height > 1000 && height <= 1400) {
+    } else if (height > 800 && height <= 1000) {
       const params = {
-        arr: ['211992'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0103.0402M'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-    }
-    if (height > 1400 && height <= 1800) {
+    } else if (height > 1000 && height <= 1200) {
       const params = {
-        arr: ['211993'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0103.0502M'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-    }
-    if (height > 1800) {
+    } else if (height > 1200 && height <= 1400) {
       const params = {
-        arr: ['211994'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0103.0602M'],
+        sortSignificance: '13',
+      };
+      const currentArticleItems = findElementsByArticle(params);
+      if (currentArticleItems) articleItems.push(...currentArticleItems);
+    } else if (height > 1400 && height <= 1600) {
+      const params = {
+        brand: 'vorne',
+        arr: ['V.0103.0702M'],
+        sortSignificance: '13',
+      };
+      const currentArticleItems = findElementsByArticle(params);
+      if (currentArticleItems) articleItems.push(...currentArticleItems);
+    } else if (height > 1600 && height <= 1800) {
+      const params = {
+        brand: 'vorne',
+        arr: ['V.0103.0902M'],
+        sortSignificance: '13',
+      };
+      const currentArticleItems = findElementsByArticle(params);
+      if (currentArticleItems) articleItems.push(...currentArticleItems);
+    } else if (height > 1800 && height <= 2000) {
+      const params = {
+        brand: 'vorne',
+        arr: ['V.0103.1102M'],
+        sortSignificance: '13',
+      };
+      const currentArticleItems = findElementsByArticle(params);
+      if (currentArticleItems) articleItems.push(...currentArticleItems);
+    } else if (height > 2000) {
+      const params = {
+        brand: 'vorne',
+        arr: ['V.0103.1202M'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);

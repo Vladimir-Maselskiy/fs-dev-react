@@ -9,41 +9,21 @@ import { getTiltGetriebe } from './getTiltGetriebe';
 import { getTurningGetgriebe } from './getTurningGetgriebe';
 
 export function getGetriebe(fSet: IFSet) {
-  const {
-    height,
-    hanleDistance,
-    typeOfOpening,
-    isTurnTiltGetriebe,
-    isAntiBreakingOpen,
-    antiBreakingOpenType,
-  } = fSet;
+  const { height, hanleDistance, typeOfOpening, isTurnTiltGetriebe } = fSet;
   const articleItems: IArticleItem[] = [];
   if (height) {
-    // if (isAntiBreakingOpen && antiBreakingOpenType === 'rc1') {
-    //   const getriebeRC = getGetriebeRC(fSet);
-    //   if (getriebeRC) {
-    //     articleItems.push(...getriebeRC);
-    //     return articleItems;
-    //   }
-    // }
-
     if (typeOfOpening === 'type-5') {
-      const getriebeForSchtulpPassive = getGetriebeForSchtulpPassive(fSet);
-      if (getriebeForSchtulpPassive) {
-        articleItems.push(...getriebeForSchtulpPassive);
-        return articleItems;
-      }
+      return getGetriebeForSchtulpPassive(fSet);
     }
+
     if (typeOfOpening === 'type-3') {
-      const titleGetriebe = getTiltGetriebe(fSet);
-      if (titleGetriebe) {
-        articleItems.push(...titleGetriebe);
-        return articleItems;
-      }
+      return getTiltGetriebe(fSet);
     }
+
     if (typeOfOpening === 'type-2' && !isTurnTiltGetriebe) {
       return getTurningGetgriebe(fSet);
     }
+
     if (hanleDistance) {
       return getConstGetriebe(fSet);
     }
