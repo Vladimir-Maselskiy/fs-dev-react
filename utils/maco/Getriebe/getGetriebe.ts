@@ -49,7 +49,7 @@ export function getGetriebe(fSet: IFSet) {
 
     let cutGetriebeLength = null;
 
-    if (height >= 470 && height < 800) {
+    if (height >= 470 && height <= 800) {
       const params = {
         arr: ['201746', '213287', '213287'],
         sortSignificance: '3',
@@ -59,7 +59,7 @@ export function getGetriebe(fSet: IFSet) {
       cutGetriebeLength = 1250;
     }
 
-    if (height >= 800 && height < 1250) {
+    if (height > 800 && height <= 1250) {
       const params = {
         arr: ['212156'],
         sortSignificance: '3',
@@ -69,7 +69,7 @@ export function getGetriebe(fSet: IFSet) {
       cutGetriebeLength = 1250;
     }
 
-    if (height >= 1250 && height < 1350) {
+    if (height > 1250 && height <= 1350) {
       const params = {
         arr: ['225098'],
         sortSignificance: '3',
@@ -79,7 +79,7 @@ export function getGetriebe(fSet: IFSet) {
       cutGetriebeLength = 1350;
     }
 
-    if (height >= 1350 && height < 1750) {
+    if (height > 1350 && height <= 1750) {
       const params = {
         arr: ['212158'],
         sortSignificance: '3',
@@ -88,7 +88,7 @@ export function getGetriebe(fSet: IFSet) {
       if (currentArticleItems) articleItems.push(...currentArticleItems);
       cutGetriebeLength = 1750;
     }
-    if (height >= 1750) {
+    if (height > 1750) {
       const params = {
         arr: ['212160'],
         sortSignificance: '3',
@@ -99,9 +99,7 @@ export function getGetriebe(fSet: IFSet) {
     }
     if (cutGetriebeLength && height - cutGetriebeLength > 0) {
       const extentions = getExtension((Number(height) - cutGetriebeLength) / 2);
-      if (extentions) articleItems.push(...extentions);
-      getExtension((Number(height) - cutGetriebeLength) / 2);
-      if (extentions) articleItems.push(...extentions);
+      if (extentions) articleItems.push(...extentions, ...extentions);
     }
   }
   return articleItems;

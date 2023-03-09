@@ -1,5 +1,6 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { getOneMacoSet } from '../maco/getOneMacoSet';
+import { getOneVorneSet } from '../vorne/getOneVorneSet';
 
 export const getFSets = (fSetsArray: IFSet[]): IArticleItem[] => {
   const items: IArticleItem[] = [];

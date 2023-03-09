@@ -1,5 +1,6 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
+import { getExtension } from '../additionalArticle/getExtension';
 // import { getExtension } from '../additionalArticle/getExtension';
 // import { getGetriebeRC } from '../rc/getriebeRC/getGetriebeRC';
 import { getConstGetriebe } from './getConstGetriebe';
@@ -49,60 +50,68 @@ export function getGetriebe(fSet: IFSet) {
 
     let cutGetriebeLength = null;
 
-    if (height >= 470 && height < 800) {
+    if (height >= 290 && height <= 450) {
       const params = {
-        arr: ['201746', '213287', '213287'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0220.0102'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-      cutGetriebeLength = 1250;
     }
 
-    if (height >= 800 && height < 1250) {
+    if (height > 450 && height <= 700) {
       const params = {
-        arr: ['212156'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0202.0102'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-      cutGetriebeLength = 1250;
     }
 
-    if (height >= 1250 && height < 1350) {
+    if (height > 700 && height <= 1200) {
       const params = {
-        arr: ['225098'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0202.0202'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-      cutGetriebeLength = 1350;
     }
 
-    if (height >= 1350 && height < 1750) {
+    if (height > 1200 && height <= 1400) {
       const params = {
-        arr: ['212158'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0202.0302'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-      cutGetriebeLength = 1750;
     }
-    if (height >= 1750) {
+    if (height > 1400 && height <= 1700) {
       const params = {
-        arr: ['212160'],
-        sortSignificance: '3',
+        brand: 'vorne',
+        arr: ['V.0202.0402'],
+        sortSignificance: '13',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-      cutGetriebeLength = 2250;
     }
-    // if (cutGetriebeLength && height - cutGetriebeLength > 0) {
-    //   const extentions = getExtension((Number(height) - cutGetriebeLength) / 2);
-    //   if (extentions) articleItems.push(...extentions);
-    //   getExtension((Number(height) - cutGetriebeLength) / 2);
-    //   if (extentions) articleItems.push(...extentions);
-    // }
+    if (height > 1700) {
+      const params = {
+        brand: 'vorne',
+        arr: ['V.0202.0502'],
+        sortSignificance: '13',
+      };
+      const currentArticleItems = findElementsByArticle(params);
+      if (currentArticleItems) articleItems.push(...currentArticleItems);
+      cutGetriebeLength = 2200;
+    }
+    if (cutGetriebeLength && height - cutGetriebeLength > 0) {
+      const extentions = getExtension((Number(height) - cutGetriebeLength) / 2);
+      if (extentions) articleItems.push(...extentions, ...extentions);
+    }
   }
   return articleItems;
 }
