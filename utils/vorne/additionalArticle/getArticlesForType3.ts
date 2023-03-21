@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
 import { getTopDecor } from '../getTopDecor';

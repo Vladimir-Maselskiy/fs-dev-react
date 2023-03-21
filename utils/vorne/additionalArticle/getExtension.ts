@@ -8,6 +8,7 @@ export function getExtension(length: number) {
   while (customLenght > 0) {
     if (customLenght > 150) {
       const params = {
+        brand: 'vorne',
         arr: ['V.1102.0202'],
         sortSignificance: '17',
       };
@@ -18,6 +19,7 @@ export function getExtension(length: number) {
     }
     if (customLenght > 0) {
       const params = {
+        brand: 'vorne',
         arr: ['V.1102.0102'],
         sortSignificance: '17',
       };

@@ -2,10 +2,12 @@ import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
 
 export function getTurningGetgriebe(fSet: IFSet) {
-  const { height } = fSet;
+  let { height, hanleDistance } = fSet;
   const articleItems: IArticleItem[] = [];
 
   if (height) {
+    if (hanleDistance)
+      height = Math.min((height - hanleDistance) * 2, hanleDistance * 2);
     if (height >= 300 && height <= 500) {
       const params = {
         arr: ['211989'],

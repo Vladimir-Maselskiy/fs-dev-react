@@ -2,10 +2,12 @@ import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
 
 export function getTurningGetgriebe(fSet: IFSet) {
-  const { height } = fSet;
+  let { height, hanleDistance } = fSet;
   const articleItems: IArticleItem[] = [];
 
   if (height) {
+    if (hanleDistance)
+      height = Math.min((height - hanleDistance) * 2, hanleDistance * 2);
     if (height >= 300 && height <= 400) {
       const params = {
         brand: 'vorne',
@@ -14,7 +16,7 @@ export function getTurningGetgriebe(fSet: IFSet) {
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-    } 
+    }
     if (height > 400 && height <= 600) {
       const params = {
         brand: 'vorne',
@@ -23,8 +25,7 @@ export function getTurningGetgriebe(fSet: IFSet) {
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
-    } 
-    else if (height > 600 && height <= 800) {
+    } else if (height > 600 && height <= 800) {
       const params = {
         brand: 'vorne',
         arr: ['V.0103.0302M'],
