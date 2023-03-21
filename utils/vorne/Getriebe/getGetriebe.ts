@@ -1,8 +1,6 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '@/utils/data-utils/findElementsByArticle';
 import { getExtension } from '../additionalArticle/getExtension';
-// import { getExtension } from '../additionalArticle/getExtension';
-// import { getGetriebeRC } from '../rc/getriebeRC/getGetriebeRC';
 import { getConstGetriebe } from './getConstGetriebe';
 import { getGetriebeForSchtulpPassive } from './getGetriebeForSchtulpPassive';
 import { getTiltGetriebe } from './getTiltGetriebe';
