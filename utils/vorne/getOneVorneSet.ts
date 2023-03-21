@@ -1,4 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
+import { getConerGear } from './getConerGear';
 import { getGetriebe } from './Getriebe/getGetriebe';
 
 export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
@@ -6,7 +7,7 @@ export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
   const currentSet: IArticleItem[] = [];
 
   const getribe = getGetriebe(fSet);
-  // const conerGear = getConerGear(fSet);
+  const conerGear = getConerGear(fSet);
   // const shear = getShear(fSet);
   // const bottomEndingForGetriebe = getBottomEndingForGetriebe(fSet);
   // const gorizontalLocks = getGorizontalLocks(fSet);
@@ -22,8 +23,8 @@ export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
   // const type3Articles = getArticlesForType3(fSet);
   // const type5Articles = getArticlesForType5(fSet);
   currentSet.push(
-    ...getribe
-    //   ...conerGear,
+    ...getribe,
+    ...conerGear
     //   ...shear,
     //   ...bottomEndingForGetriebe,
     //   ...gorizontalLocks,
