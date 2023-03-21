@@ -22,21 +22,15 @@ export function getConerGear(fSet: IFSet) {
   }
 
   if (microVentilation) {
-    const params = {
-      arr: ['228430'],
-      sortSignificance: '2',
-    };
-    const currentArticleItems = findElementsByArticle(params);
-    if (currentArticleItems) articleItems.push(...currentArticleItems);
     const microVentilationPlate = getMicroVentilationPlate(fSet);
     if (microVentilationPlate) articleItems.push(...microVentilationPlate);
-    return articleItems;
   }
 
-  if (width && width >= 220 && width < 320) {
+  if (width && width >= 280 && width < 400) {
     const params = {
-      arr: ['211975'],
-      sortSignificance: '2',
+      brand: 'vorne',
+      arr: ['V.0621.0102'],
+      sortSignificance: '12',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -44,8 +38,9 @@ export function getConerGear(fSet: IFSet) {
   }
 
   const params = {
-    arr: ['211974'],
-    sortSignificance: '2',
+    brand: 'vorne',
+    arr: ['V.0601.0102'],
+    sortSignificance: '12',
   };
   const currentArticleItems = findElementsByArticle(params);
   if (currentArticleItems) articleItems.push(...currentArticleItems);

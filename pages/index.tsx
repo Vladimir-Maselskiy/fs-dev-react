@@ -38,7 +38,9 @@ export default function Home() {
   const [isOrderTableVisible, setIsOrderTableVisible] = useState(false);
 
   useEffect(() => {
-    setIsGetOrderButtonDisabled(!(fSetsArray.length > 0));
+    setIsGetOrderButtonDisabled(
+      !(fSetsArray.length > 0) || buttonTitle === 'Змінити'
+    );
   }, [fSetsArray]);
 
   useEffect(() => {
@@ -50,6 +52,12 @@ export default function Home() {
   useEffect(() => {
     setIsPageLoaded(true);
   }, []);
+
+  useEffect(() => {
+    if (buttonTitle === 'Змінити') {
+      setIsGetOrderButtonDisabled(true);
+    }
+  }, [buttonTitle]);
 
   const onClickCountSets = () => {
     const sets = getFSets(fSetsArray);

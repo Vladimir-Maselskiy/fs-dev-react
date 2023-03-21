@@ -17,7 +17,7 @@ export function getLatch(fSet: IFSet) {
       const params = {
         brand: 'vorne',
         arr: ['V.2404.0102'],
-        sortSignificance: '9.1',
+        sortSignificance: '19.1',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -26,7 +26,7 @@ export function getLatch(fSet: IFSet) {
       const params = {
         brand: 'vorne',
         arr: ['V.2404.0102'],
-        sortSignificance: '9.1',
+        sortSignificance: '19.1',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -35,7 +35,7 @@ export function getLatch(fSet: IFSet) {
       const params = {
         brand: 'vorne',
         arr: ['V.2404.0102'],
-        sortSignificance: '9.1',
+        sortSignificance: '19.1',
         quantity: 2,
       };
       const currentArticleItems = findElementsByArticle(params);

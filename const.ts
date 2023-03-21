@@ -98,7 +98,7 @@ export const winkhausRestrictions = {
 };
 
 export const vorneRestrictions = {
-  minWith: 400,
+  minWith: 280,
   maxWidth: 1300,
   minHeight: 470,
   maxHeight: 2200,
