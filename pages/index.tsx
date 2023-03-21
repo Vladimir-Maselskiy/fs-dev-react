@@ -41,7 +41,7 @@ export default function Home() {
     setIsGetOrderButtonDisabled(
       !(fSetsArray.length > 0) || buttonTitle === 'Змінити'
     );
-  }, [fSetsArray]);
+  }, [fSetsArray, buttonTitle]);
 
   useEffect(() => {
     if (fSet?.isWidthValid === 'valid' && fSet.isHeightValid === 'valid') {
