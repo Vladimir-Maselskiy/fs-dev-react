@@ -1,9 +1,9 @@
-import { IFSet, TBrands } from '@/interfaces/interfaces';
+import { IFSet, TBrands, TSystemOfPVC } from '@/interfaces/interfaces';
 
 export const getNewSet = (
-  params: { id?: string; brand?: TBrands } = {}
+  params: { id?: string; brand?: TBrands; systemOfPVC?: TSystemOfPVC } = {}
 ): IFSet => {
-  let { id = '0', brand = 'maco' } = params;
+  let { id = '0', brand = 'maco', systemOfPVC = '13' } = params;
   return {
     id,
     brand,
@@ -13,7 +13,7 @@ export const getNewSet = (
     isHeightValid: 'initial',
     quantitySet: 1,
     sideOfHinge: 'right',
-    systemOfPVC: '13',
+    systemOfPVC,
     typeOfOpening: 'type-1',
     hanleDistance: undefined,
     shtulpGetriebe: 'latch',

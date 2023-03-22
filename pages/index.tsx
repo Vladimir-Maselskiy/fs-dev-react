@@ -73,7 +73,11 @@ export default function Home() {
       setLastId(currentId);
       setFSetsArray(prev => [...prev, fSet]);
       setFSet(
-        getNewSet({ id: (+currentId + 1).toString(), brand: fSet.brand })
+        getNewSet({
+          id: (+currentId + 1).toString(),
+          brand: fSet.brand,
+          systemOfPVC: fSet.systemOfPVC,
+        })
       );
       return;
     }
