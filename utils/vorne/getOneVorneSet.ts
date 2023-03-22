@@ -5,6 +5,7 @@ import { getGorizontalLocks } from './getGorizontalLocks';
 import { getMicroliftPlate } from './getMiсroliftPlate';
 import { getGetriebe } from './Getriebe/getGetriebe';
 import { getShear } from './getShear';
+import { getTurningSlantedPlate } from './getTurningSlantedPlate';
 import { getVerticalLocks } from './getVerticalLocks';
 
 export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
@@ -18,7 +19,7 @@ export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
   const gorizontalLocks = getGorizontalLocks(fSet);
   const verticalLocks = getVerticalLocks(fSet);
   const microliftPlate = getMicroliftPlate(fSet);
-  // const turningSlantedPlate = getTurningSlantedPlate(fSet);
+  const turningSlantedPlate = getTurningSlantedPlate(fSet);
   // const hingeSidePress = getHingeSidePress(fSet);
   // const topDecor = getTopDecor(fSet);
   // const topHinge = getTopHinge(fSet);
@@ -34,8 +35,8 @@ export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
     ...bottomEndingForGetriebe,
     ...gorizontalLocks,
     ...verticalLocks,
-    ...microliftPlate
-    //   ...turningSlantedPlate,
+    ...microliftPlate,
+    ...turningSlantedPlate
     //   ...hingeSidePress,
     //   ...topDecor,
     //   ...topHinge,
