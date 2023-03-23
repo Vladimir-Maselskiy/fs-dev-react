@@ -1,6 +1,7 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '../data-utils/findElementsByArticle';
 import { getFullDecor } from './getFullDecor';
+import { getTopHinge } from './getTopHinge';
 // import { getTopDecor } from './getTopDecor';
 // import { getTopHinge } from './getTopHinge';
 
@@ -88,26 +89,21 @@ export function getHingeSidePress(fSet: IFSet) {
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
   }
-// править нижче по коду
+  const fullDecor = getFullDecor(fSet);
+  const topHinge = getTopHinge(fSet);
   if (
     typeOfHingeSidePress === 'hingeSidePress-type-3' ||
     typeOfHingeSidePress === 'hingeSidePress-type-5'
   ) {
-    const fullDecor = getFullDecor(fSet);
     if (fullDecor) articleItems.push(...fullDecor);
-
-    const topHinge = getTopHinge(fSet);
     if (topHinge) articleItems.push(...topHinge);
   }
   if (
     typeOfHingeSidePress === 'hingeSidePress-type-4' ||
     typeOfHingeSidePress === 'hingeSidePress-type-6'
   ) {
-  //   const topDecor = getTopDecor(fSet);
-  //   if (topDecor) articleItems.push(...topDecor, ...topDecor);
-
-  //   const topHinge = getTopHinge(fSet);
-  //   if (topHinge) articleItems.push(...topHinge, ...topHinge);
-  // }
+    if (fullDecor) articleItems.push(...fullDecor, ...fullDecor);
+    if (topHinge) articleItems.push(...topHinge, ...topHinge);
+  }
   return articleItems;
 }
