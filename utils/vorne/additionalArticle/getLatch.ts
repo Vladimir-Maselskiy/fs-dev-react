@@ -13,34 +13,6 @@ export function getLatch(fSet: IFSet) {
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
-    if (height <= 1400) {
-      const params = {
-        brand: 'vorne',
-        arr: ['V.2404.0102'],
-        sortSignificance: '17.5',
-      };
-      const currentArticleItems = findElementsByArticle(params);
-      if (currentArticleItems) articleItems.push(...currentArticleItems);
-    }
-    if (height <= 2200) {
-      const params = {
-        brand: 'vorne',
-        arr: ['V.2404.0102'],
-        sortSignificance: '17.5',
-      };
-      const currentArticleItems = findElementsByArticle(params);
-      if (currentArticleItems) articleItems.push(...currentArticleItems);
-    }
-    if (height > 2200) {
-      const params = {
-        brand: 'vorne',
-        arr: ['V.2404.0102'],
-        sortSignificance: '17.5',
-        quantity: 2,
-      };
-      const currentArticleItems = findElementsByArticle(params);
-      if (currentArticleItems) articleItems.push(...currentArticleItems);
-    }
   }
   return articleItems;
 }

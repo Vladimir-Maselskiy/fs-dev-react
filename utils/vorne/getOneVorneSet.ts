@@ -11,6 +11,9 @@ import { getShear } from './getShear';
 import { getTopHinge } from './getTopHinge';
 import { getTurningSlantedPlate } from './getTurningSlantedPlate';
 import { getVerticalLocks } from './getVerticalLocks';
+import { getArticlesForType2 } from './additionalArticle/getArticlesForType2';
+import { getArticlesForType3 } from './additionalArticle/getArticlesForType3';
+import { getArticlesForType5 } from './additionalArticle/getArticlesForType5';
 
 export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
   const { width, height, typeOfOpening } = fSet;
@@ -28,10 +31,9 @@ export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
   const fullDecor = getFullDecor(fSet);
   const topHinge = getTopHinge(fSet);
   const bottomHinge = getBottomHinge(fSet);
-  // const bottomDecor = getBottomDecor(fSet);
-  // const type2Articles = getArticlesForType2(fSet);
-  // const type3Articles = getArticlesForType3(fSet);
-  // const type5Articles = getArticlesForType5(fSet);
+  const type2Articles = getArticlesForType2(fSet);
+  const type3Articles = getArticlesForType3(fSet);
+  const type5Articles = getArticlesForType5(fSet);
   currentSet.push(
     ...getribe,
     ...conerGear,
@@ -44,11 +46,10 @@ export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
     ...hingeSidePress,
     ...fullDecor,
     ...topHinge,
-    ...bottomHinge
-    //   ...bottomDecor,
-    //   ...type2Articles,
-    //   ...type3Articles,
-    //   ...type5Articles
+    ...bottomHinge,
+    ...type2Articles,
+    ...type3Articles,
+    ...type5Articles
   );
   //     const strikePlates = getStrikeplates(currentSet, fSet);
   //     if (+strikePlates[0].quantity > 0) currentSet.push(strikePlates[0]);

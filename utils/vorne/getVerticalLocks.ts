@@ -36,6 +36,8 @@ export function getVerticalLocks(fSet: IFSet) {
       return articleItems;
     }
 
+    if (typeOfOpening === 'type-3') return articleItems;
+
     if (height <= 800) {
       const params = {
         brand: 'vorne',
