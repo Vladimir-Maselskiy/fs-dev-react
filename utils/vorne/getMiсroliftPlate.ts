@@ -18,7 +18,7 @@ export function getMicroliftPlate(fSet: IFSet) {
     const params = {
       brand: 'vorne',
       arr: ['V.4801.0102'],
-      sortSignificance: '17.3',
+      sortSignificance: '19.8',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -27,7 +27,7 @@ export function getMicroliftPlate(fSet: IFSet) {
       const params = {
         brand: 'vorne',
         arr: ['V.2806.0102'],
-        sortSignificance: '19.1',
+        sortSignificance: '19.8',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -38,7 +38,7 @@ export function getMicroliftPlate(fSet: IFSet) {
       const params = {
         brand: 'vorne',
         arr: ['V.2801.0102'],
-        sortSignificance: '19.1',
+        sortSignificance: '19.8',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -50,7 +50,7 @@ export function getMicroliftPlate(fSet: IFSet) {
   const params = {
     brand: 'vorne',
     arr: ['V.2701.0102'],
-    sortSignificance: '19.1',
+    sortSignificance: '19.8',
   };
   const currentArticleItems = findElementsByArticle(params);
   if (currentArticleItems) articleItems.push(...currentArticleItems);

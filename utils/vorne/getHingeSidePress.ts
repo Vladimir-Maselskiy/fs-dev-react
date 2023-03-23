@@ -2,8 +2,6 @@ import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '../data-utils/findElementsByArticle';
 import { getFullDecor } from './getFullDecor';
 import { getTopHinge } from './getTopHinge';
-// import { getTopDecor } from './getTopDecor';
-// import { getTopHinge } from './getTopHinge';
 
 export function getHingeSidePress(fSet: IFSet) {
   const { typeOfOpening, typeOfHingeSidePress, decor } = fSet;
@@ -34,7 +32,7 @@ export function getHingeSidePress(fSet: IFSet) {
     const params = {
       brand: 'vorne',
       arr: [...article],
-      sortSignificance: '19.5',
+      sortSignificance: '19.2',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -91,6 +89,7 @@ export function getHingeSidePress(fSet: IFSet) {
   }
   const fullDecor = getFullDecor(fSet);
   const topHinge = getTopHinge(fSet);
+  console.log('fullDecor', fullDecor);
   if (
     typeOfHingeSidePress === 'hingeSidePress-type-3' ||
     typeOfHingeSidePress === 'hingeSidePress-type-5'

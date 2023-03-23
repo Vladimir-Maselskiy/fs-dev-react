@@ -23,7 +23,7 @@ export const getFSets = (fSetsArray: IFSet[]): IArticleItem[] => {
 
   return res.sort((a, b) => {
     if (+a.sortSignificance - +b.sortSignificance === 0) {
-      return +a.article - +b.article;
+      return a.article.localeCompare(b.article);
     } else {
       return +a.sortSignificance - +b.sortSignificance;
     }

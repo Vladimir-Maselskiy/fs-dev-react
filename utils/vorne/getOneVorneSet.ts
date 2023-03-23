@@ -1,11 +1,14 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
+import { getBottomHinge } from './getBottomHinge';
 import { getBottomEndingForGetriebe } from './getBottomEndingForGetriebe';
 import { getConerGear } from './getConerGear';
+import { getFullDecor } from './getFullDecor';
 import { getGorizontalLocks } from './getGorizontalLocks';
 import { getHingeSidePress } from './getHingeSidePress';
 import { getMicroliftPlate } from './getMiсroliftPlate';
 import { getGetriebe } from './Getriebe/getGetriebe';
 import { getShear } from './getShear';
+import { getTopHinge } from './getTopHinge';
 import { getTurningSlantedPlate } from './getTurningSlantedPlate';
 import { getVerticalLocks } from './getVerticalLocks';
 
@@ -22,9 +25,9 @@ export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
   const microliftPlate = getMicroliftPlate(fSet);
   const turningSlantedPlate = getTurningSlantedPlate(fSet);
   const hingeSidePress = getHingeSidePress(fSet);
-  // const topDecor = getTopDecor(fSet);
-  // const topHinge = getTopHinge(fSet);
-  // const bottomHinge = getBottomHinge(fSet);
+  const fullDecor = getFullDecor(fSet);
+  const topHinge = getTopHinge(fSet);
+  const bottomHinge = getBottomHinge(fSet);
   // const bottomDecor = getBottomDecor(fSet);
   // const type2Articles = getArticlesForType2(fSet);
   // const type3Articles = getArticlesForType3(fSet);
@@ -38,10 +41,10 @@ export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
     ...verticalLocks,
     ...microliftPlate,
     ...turningSlantedPlate,
-    ...hingeSidePress
-    //   ...topDecor,
-    //   ...topHinge,
-    //   ...bottomHinge,
+    ...hingeSidePress,
+    ...fullDecor,
+    ...topHinge,
+    ...bottomHinge
     //   ...bottomDecor,
     //   ...type2Articles,
     //   ...type3Articles,

@@ -6,6 +6,7 @@ export function getTopHinge(fSet: IFSet) {
   const articleItems: IArticleItem[] = [];
 
   const params = {
+    brand: 'vorne',
     arr: ['V.1301.0102'],
     sortSignificance: '18.3',
   };
@@ -19,6 +20,7 @@ export function getTopHinge(fSet: IFSet) {
     systemOfPVC === 'Veka'
   ) {
     const params = {
+      brand: 'vorne',
       arr: ['V.1202.0102'],
       sortSignificance: '18.3',
     };
@@ -28,6 +30,7 @@ export function getTopHinge(fSet: IFSet) {
 
   if (systemOfPVC === '9') {
     const params = {
+      brand: 'vorne',
       arr: ['V.1201.0102'],
       sortSignificance: '18.3',
     };
