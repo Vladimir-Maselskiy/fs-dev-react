@@ -28,7 +28,7 @@ export function getGorizontalLocks(fSet: IFSet) {
       const params = {
         brand: 'vorne',
         arr: ['V.0801.0202'],
-        sortSignificance: '16',
+        sortSignificance: '15',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -37,7 +37,7 @@ export function getGorizontalLocks(fSet: IFSet) {
         const params = {
           brand: 'vorne',
           arr: ['V.0801.0202'],
-          sortSignificance: '16',
+          sortSignificance: '15',
         };
         const currentArticleItems = findElementsByArticle(params);
         if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -47,7 +47,7 @@ export function getGorizontalLocks(fSet: IFSet) {
       const params = {
         brand: 'vorne',
         arr: ['V.0801.0302'],
-        sortSignificance: '16',
+        sortSignificance: '15',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -55,7 +55,7 @@ export function getGorizontalLocks(fSet: IFSet) {
         const params = {
           abrand: 'vorne',
           arr: ['V.0801.0302'],
-          sortSignificance: '16',
+          sortSignificance: '15',
         };
         const currentArticleItems = findElementsByArticle(params);
         if (currentArticleItems) articleItems.push(...currentArticleItems);

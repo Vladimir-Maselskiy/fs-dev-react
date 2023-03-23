@@ -18,7 +18,7 @@ export function getMicroliftPlate(fSet: IFSet) {
     const params = {
       brand: 'vorne',
       arr: ['V.4801.0102'],
-      sortSignificance: '19',
+      sortSignificance: '17.3',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);

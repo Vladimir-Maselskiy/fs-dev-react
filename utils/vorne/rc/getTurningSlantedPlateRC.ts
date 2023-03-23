@@ -8,7 +8,7 @@ export const getTurningSlantedPlateRC = (fSet: IFSet) => {
     const params = {
       brand: 'vorne',
       arr: ['V.3301.0102'],
-      sortSignificance: '18',
+      sortSignificance: '17.1',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -18,7 +18,7 @@ export const getTurningSlantedPlateRC = (fSet: IFSet) => {
   const params = {
     brand: 'vorne',
     arr: ['V.3202.0102'],
-    sortSignificance: '18',
+    sortSignificance: '17.1',
   };
   const currentArticleItems = findElementsByArticle(params);
   if (currentArticleItems) articleItems.push(...currentArticleItems);

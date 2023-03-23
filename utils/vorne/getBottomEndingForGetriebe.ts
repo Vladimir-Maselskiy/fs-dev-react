@@ -24,7 +24,7 @@ export function getBottomEndingForGetriebe(fSet: IFSet) {
       const params = {
         brand: 'vorne',
         arr: ['V.0701.0102'],
-        sortSignificance: '15',
+        sortSignificance: '14',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);

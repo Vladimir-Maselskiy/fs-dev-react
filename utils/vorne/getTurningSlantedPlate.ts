@@ -23,7 +23,7 @@ export function getTurningSlantedPlate(fSet: IFSet) {
     const params = {
       brand: 'vorne',
       arr: ['V.2301.0102'],
-      sortSignificance: '18',
+      sortSignificance: '17.1',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -33,7 +33,7 @@ export function getTurningSlantedPlate(fSet: IFSet) {
   const params = {
     brand: 'vorne',
     arr: ['V.2219.0102'],
-    sortSignificance: '18',
+    sortSignificance: '17.1',
   };
   const currentArticleItems = findElementsByArticle(params);
   if (currentArticleItems) articleItems.push(...currentArticleItems);

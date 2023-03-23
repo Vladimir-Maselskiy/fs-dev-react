@@ -14,7 +14,7 @@ export function getStrikePlatesForShtulp(fSet: IFSet) {
     const params = {
       brand: 'vorne',
       arr: ['V.3002.0102'],
-      sortSignificance: '19.2',
+      sortSignificance: '17.9',
       quantity: 2,
     };
     const currentArticleItems = findElementsByArticle(params);
@@ -25,7 +25,7 @@ export function getStrikePlatesForShtulp(fSet: IFSet) {
     const params = {
       brand: 'vorne',
       arr: ['V.3101.0102'],
-      sortSignificance: '19.2',
+      sortSignificance: '17.9',
       quantity: 2,
     };
     const currentArticleItems = findElementsByArticle(params);

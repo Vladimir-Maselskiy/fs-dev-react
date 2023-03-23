@@ -10,7 +10,7 @@ export function getExtension(length: number) {
       const params = {
         brand: 'vorne',
         arr: ['V.1102.0202'],
-        sortSignificance: '17',
+        sortSignificance: '16',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -21,7 +21,7 @@ export function getExtension(length: number) {
       const params = {
         brand: 'vorne',
         arr: ['V.1102.0102'],
-        sortSignificance: '17',
+        sortSignificance: '16',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
