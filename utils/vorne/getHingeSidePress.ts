@@ -1,23 +1,39 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '../data-utils/findElementsByArticle';
-import { getTopDecor } from './getTopDecor';
-import { getTopHinge } from './getTopHinge';
+import { getFullDecor } from './getFullDecor';
+// import { getTopDecor } from './getTopDecor';
+// import { getTopHinge } from './getTopHinge';
 
 export function getHingeSidePress(fSet: IFSet) {
-  const { typeOfOpening, typeOfHingeSidePress } = fSet;
+  const { typeOfOpening, typeOfHingeSidePress, decor } = fSet;
   const articleItems: IArticleItem[] = [];
 
-  if (typeOfOpening === 'type-1' || typeOfOpening === 'type-4') {
+  if (
+    typeOfOpening === 'type-1' ||
+    typeOfOpening === 'type-4' ||
+    typeOfHingeSidePress === 'hingeSidePress-type-7'
+  ) {
     return articleItems;
   }
 
-  if (typeOfHingeSidePress === 'hingeSidePress-type-7') {
-    return articleItems;
+  let article: string[] = [];
+  if (
+    typeOfHingeSidePress === 'hingeSidePress-type-1' ||
+    typeOfHingeSidePress === 'hingeSidePress-type-2'
+  ) {
+    if (decor === 'white') {
+      article = ['V.1701.0107'];
+    } else if (decor === 'brown') {
+      article = ['V.1701.0108'];
+    } else {
+      article = ['V.1702.0002', 'V.1702.0202'];
+    }
   }
   if (typeOfHingeSidePress === 'hingeSidePress-type-1') {
     const params = {
-      arr: ['54783', '41342', '41339'],
-      sortSignificance: '9.5',
+      brand: 'vorne',
+      arr: [...article],
+      sortSignificance: '19.5',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -25,8 +41,10 @@ export function getHingeSidePress(fSet: IFSet) {
   }
   if (typeOfHingeSidePress === 'hingeSidePress-type-2') {
     const params = {
-      arr: ['54783', '41342', '41339', '54783', '41342', '41339'],
-      sortSignificance: '9.5',
+      brand: 'vorne',
+      arr: [...article],
+      quantity: 2,
+      sortSignificance: '19.5',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -34,43 +52,49 @@ export function getHingeSidePress(fSet: IFSet) {
   }
   if (typeOfHingeSidePress === 'hingeSidePress-type-3') {
     const params = {
-      arr: ['94030'],
-      sortSignificance: '9.5',
+      brand: 'vorne',
+      arr: ['V.1601.0102'],
+      sortSignificance: '19.5',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
   }
   if (typeOfHingeSidePress === 'hingeSidePress-type-4') {
     const params = {
-      arr: ['94030', '94030'],
-      sortSignificance: '9.5',
+      brand: 'vorne',
+      arr: ['V.1601.0102'],
+      quantity: 2,
+      sortSignificance: '19.5',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
   }
   if (typeOfHingeSidePress === 'hingeSidePress-type-5') {
     const params = {
-      arr: ['52321'],
-      sortSignificance: '9.5',
+      brand: 'vorne',
+      arr: ['V.1603.0102'],
+      sortSignificance: '19.5',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
   }
   if (typeOfHingeSidePress === 'hingeSidePress-type-6') {
     const params = {
-      arr: ['52321', '52321'],
-      sortSignificance: '9.5',
+      brand: 'vorne',
+      arr: ['V.1603.0102'],
+      quantity: 2,
+      sortSignificance: '19.5',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
   }
-
+// править нижче по коду
   if (
     typeOfHingeSidePress === 'hingeSidePress-type-3' ||
     typeOfHingeSidePress === 'hingeSidePress-type-5'
   ) {
-    const topDecor = getTopDecor(fSet);
-    if (topDecor) articleItems.push(...topDecor);
+    const fullDecor = getFullDecor(fSet);
+    if (fullDecor) articleItems.push(...fullDecor);
 
     const topHinge = getTopHinge(fSet);
     if (topHinge) articleItems.push(...topHinge);
@@ -79,11 +103,11 @@ export function getHingeSidePress(fSet: IFSet) {
     typeOfHingeSidePress === 'hingeSidePress-type-4' ||
     typeOfHingeSidePress === 'hingeSidePress-type-6'
   ) {
-    const topDecor = getTopDecor(fSet);
-    if (topDecor) articleItems.push(...topDecor, ...topDecor);
+  //   const topDecor = getTopDecor(fSet);
+  //   if (topDecor) articleItems.push(...topDecor, ...topDecor);
 
-    const topHinge = getTopHinge(fSet);
-    if (topHinge) articleItems.push(...topHinge, ...topHinge);
-  }
+  //   const topHinge = getTopHinge(fSet);
+  //   if (topHinge) articleItems.push(...topHinge, ...topHinge);
+  // }
   return articleItems;
 }

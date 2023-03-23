@@ -7,7 +7,7 @@ export function getTopHinge(fSet: IFSet) {
 
   const params = {
     arr: ['52480', '94491'],
-    sortSignificance: '11',
+    sortSignificance: '8.3',
   };
   const currentArticleItems = findElementsByArticle(params);
   if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -20,7 +20,7 @@ export function getTopHinge(fSet: IFSet) {
   ) {
     const params = {
       arr: ['52486'],
-      sortSignificance: '11',
+      sortSignificance: '8.3',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -29,7 +29,7 @@ export function getTopHinge(fSet: IFSet) {
   if (systemOfPVC === '9') {
     const params = {
       arr: ['52487'],
-      sortSignificance: '11',
+      sortSignificance: '8.3',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);

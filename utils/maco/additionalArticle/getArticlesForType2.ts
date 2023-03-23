@@ -9,7 +9,7 @@ export function getArticlesForType2(fSet: IFSet) {
 
   const params = {
     arr: ['212686'],
-    sortSignificance: '10.4',
+    sortSignificance: '6.2',
   };
   const currentArticleItems = findElementsByArticle(params);
   if (currentArticleItems) articleItems.push(...currentArticleItems);

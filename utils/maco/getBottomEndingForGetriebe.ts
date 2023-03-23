@@ -18,7 +18,7 @@ export function getBottomEndingForGetriebe(fSet: IFSet) {
     if (typeOfOpening === 'type-3' && height >= 800) {
       const params = {
         arr: ['212689'],
-        sortSignificance: '5',
+        sortSignificance: '4',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -27,7 +27,7 @@ export function getBottomEndingForGetriebe(fSet: IFSet) {
     if (height >= 470 && height < 1750) {
       const params = {
         arr: ['212689'],
-        sortSignificance: '5',
+        sortSignificance: '4',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -35,7 +35,7 @@ export function getBottomEndingForGetriebe(fSet: IFSet) {
     if (height >= 1750) {
       const params = {
         arr: ['212688'],
-        sortSignificance: '5',
+        sortSignificance: '4',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);

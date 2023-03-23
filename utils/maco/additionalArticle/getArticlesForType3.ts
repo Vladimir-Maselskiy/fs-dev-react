@@ -16,7 +16,7 @@ export function getArticlesForType3(fSet: IFSet) {
   if (width! >= 470 && height! >= 800) {
     const params = {
       arr: ['212686'],
-      sortSignificance: '10.4',
+      sortSignificance: '6.2',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -27,7 +27,7 @@ export function getArticlesForType3(fSet: IFSet) {
     ) {
       const params = {
         arr: ['33460'],
-        sortSignificance: '8',
+        sortSignificance: '7.1',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -35,7 +35,7 @@ export function getArticlesForType3(fSet: IFSet) {
     if (systemOfPVC === 'Veka') {
       const params = {
         arr: ['33483'],
-        sortSignificance: '8',
+        sortSignificance: '7.1',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -44,7 +44,7 @@ export function getArticlesForType3(fSet: IFSet) {
     if (systemOfPVC === '9') {
       const params = {
         arr: ['33322'],
-        sortSignificance: '8',
+        sortSignificance: '7.1',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);

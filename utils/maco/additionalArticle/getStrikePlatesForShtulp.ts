@@ -12,7 +12,7 @@ export function getStrikePlatesForShtulp(fSet: IFSet) {
   ) {
     const params = {
       arr: ['26376', '26376'],
-      sortSignificance: '10.2',
+      sortSignificance: '7.9',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -20,7 +20,7 @@ export function getStrikePlatesForShtulp(fSet: IFSet) {
   if (systemOfPVC === 'Veka') {
     const params = {
       arr: ['26171', '26171'],
-      sortSignificance: '10.2',
+      sortSignificance: '7.9',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -28,7 +28,7 @@ export function getStrikePlatesForShtulp(fSet: IFSet) {
   if (systemOfPVC === '9') {
     const params = {
       arr: ['26751', '26751'],
-      sortSignificance: '10.2',
+      sortSignificance: '7.9',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);

@@ -17,7 +17,7 @@ export function getGorizontalLocksRC(fSet: IFSet) {
     }
     const params = {
       arr: [article],
-      sortSignificance: '6',
+      sortSignificance: '5',
       quantity: 2,
     };
     const currentArticleItems = findElementsByArticle(params);
@@ -37,7 +37,7 @@ export function getGorizontalLocksRC(fSet: IFSet) {
     }
     const params = {
       arr: [...articleArr],
-      sortSignificance: '6',
+      sortSignificance: '5',
       quantity: 2,
     };
     const currentArticleItems = findElementsByArticle(params);
@@ -48,7 +48,7 @@ export function getGorizontalLocksRC(fSet: IFSet) {
   if (width! >= 350 && width! <= 750) {
     const params = {
       arr: ['222205'],
-      sortSignificance: '6',
+      sortSignificance: '5',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -56,7 +56,7 @@ export function getGorizontalLocksRC(fSet: IFSet) {
   if (width! > 750) {
     const params = {
       arr: ['211937'],
-      sortSignificance: '6',
+      sortSignificance: '5',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);

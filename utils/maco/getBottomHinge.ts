@@ -9,7 +9,7 @@ export function getBottomHinge(fSet: IFSet) {
 
   const params = {
     arr: ['52478', '52483'],
-    sortSignificance: '12',
+    sortSignificance: '8.3',
   };
   const currentArticleItems = findElementsByArticle(params);
   if (currentArticleItems) articleItems.push(...currentArticleItems);

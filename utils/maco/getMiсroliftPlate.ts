@@ -30,7 +30,7 @@ export function getMicroliftPlate(fSet: IFSet) {
       if (sideOfHinge === 'right') {
         const params = {
           arr: ['355924'],
-          sortSignificance: '9',
+          sortSignificance: '7.3',
         };
         const currentArticleItems = findElementsByArticle(params);
         if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -39,7 +39,7 @@ export function getMicroliftPlate(fSet: IFSet) {
       if (sideOfHinge === 'left') {
         const params = {
           arr: ['355923'],
-          sortSignificance: '9',
+          sortSignificance: '7.3',
         };
         const currentArticleItems = findElementsByArticle(params);
         if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -56,7 +56,7 @@ export function getMicroliftPlate(fSet: IFSet) {
     ) {
       const params = {
         arr: ['356966'],
-        sortSignificance: '9',
+        sortSignificance: '7.3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -71,7 +71,7 @@ export function getMicroliftPlate(fSet: IFSet) {
     ) {
       const params = {
         arr: ['356967'],
-        sortSignificance: '9',
+        sortSignificance: '7.3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -80,7 +80,7 @@ export function getMicroliftPlate(fSet: IFSet) {
     if (systemOfPVC === '9' && sideOfHinge === 'right') {
       const params = {
         arr: ['358680'],
-        sortSignificance: '9',
+        sortSignificance: '7.3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -89,7 +89,7 @@ export function getMicroliftPlate(fSet: IFSet) {
     if (systemOfPVC === '9' && sideOfHinge === 'left') {
       const params = {
         arr: ['358681'],
-        sortSignificance: '9',
+        sortSignificance: '7.3',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);

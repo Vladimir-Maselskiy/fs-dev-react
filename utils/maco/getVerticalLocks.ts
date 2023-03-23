@@ -38,7 +38,7 @@ export function getVerticalLocks(fSet: IFSet) {
       }
       const params = {
         arr: [article, article],
-        sortSignificance: '6',
+        sortSignificance: '5',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -48,7 +48,7 @@ export function getVerticalLocks(fSet: IFSet) {
     if (height > 480 && height < 800) {
       const params = {
         arr: ['228398'],
-        sortSignificance: '6',
+        sortSignificance: '5',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -56,7 +56,7 @@ export function getVerticalLocks(fSet: IFSet) {
     if (height >= 800 && height < 1280) {
       const params = {
         arr: ['211924'],
-        sortSignificance: '6',
+        sortSignificance: '5',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -64,7 +64,7 @@ export function getVerticalLocks(fSet: IFSet) {
     if (height >= 1280 && height < 1500) {
       const params = {
         arr: ['211925'],
-        sortSignificance: '6',
+        sortSignificance: '5',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -72,7 +72,7 @@ export function getVerticalLocks(fSet: IFSet) {
     if (height >= 1500 && height < 2000) {
       const params = {
         arr: ['211926'],
-        sortSignificance: '6',
+        sortSignificance: '5',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -80,7 +80,7 @@ export function getVerticalLocks(fSet: IFSet) {
     if (height >= 2000 && height < 2200) {
       const params = {
         arr: ['211927'],
-        sortSignificance: '6',
+        sortSignificance: '5',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -88,7 +88,7 @@ export function getVerticalLocks(fSet: IFSet) {
     if (height >= 2200 && height < 2450) {
       const params = {
         arr: ['211928'],
-        sortSignificance: '6',
+        sortSignificance: '5',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);

@@ -22,7 +22,7 @@ export function getVerticalLocksRC(fSet: IFSet) {
     }
     const params = {
       arr: [...articleArr],
-      sortSignificance: '6',
+      sortSignificance: '5',
       quantity: 2,
     };
     const currentArticleItems = findElementsByArticle(params);
@@ -54,7 +54,7 @@ export function getVerticalLocksRC(fSet: IFSet) {
   articleItems.push(
     ...findElementsByArticle({
       arr: [...articleArr],
-      sortSignificance: '6',
+      sortSignificance: '5',
     })!
   );
 

@@ -64,7 +64,7 @@ export function getGetriebeForSchtulpPassive(fSet: IFSet) {
     if (height > 2250) {
       const params = {
         arr: ['206630, 206630'],
-        sortSignificance: '7',
+        sortSignificance: '6',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);

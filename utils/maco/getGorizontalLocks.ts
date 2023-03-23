@@ -36,7 +36,7 @@ export function getGorizontalLocks(fSet: IFSet) {
     } else article = '211925';
     const params = {
       arr: [article, article],
-      sortSignificance: '6',
+      sortSignificance: '5',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -47,14 +47,14 @@ export function getGorizontalLocks(fSet: IFSet) {
     if (width < 800) {
       const params = {
         arr: ['228398'],
-        sortSignificance: '6',
+        sortSignificance: '5',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
       if (typeOfOpening === 'type-2' && isTurnTiltGetriebe) {
         const params = {
           arr: ['228398'],
-          sortSignificance: '6',
+          sortSignificance: '5',
         };
         const currentArticleItems = findElementsByArticle(params);
         if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -63,14 +63,14 @@ export function getGorizontalLocks(fSet: IFSet) {
     if (width >= 800) {
       const params = {
         arr: ['211924'],
-        sortSignificance: '6',
+        sortSignificance: '5',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
       if (typeOfOpening === 'type-2' && isTurnTiltGetriebe) {
         const params = {
           arr: ['211924'],
-          sortSignificance: '6',
+          sortSignificance: '5',
         };
         const currentArticleItems = findElementsByArticle(params);
         if (currentArticleItems) articleItems.push(...currentArticleItems);

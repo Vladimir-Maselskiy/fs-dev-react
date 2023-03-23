@@ -12,12 +12,12 @@ export function getStrikeplates(currentSet: IArticleItem[], fSet: IFSet) {
   if (systemOfPVC === '13' || systemOfPVC === 'Salamander') {
     const paramsVZ = {
       arr: ['34824'],
-      sortSignificance: '10',
+      sortSignificance: '7.5',
       quantity: quantityOfPlatesVZ,
     };
     const paramsRC = {
       arr: ['96140'],
-      sortSignificance: '10',
+      sortSignificance: '7.5',
       quantity: quantityOfPlatesRC,
     };
     const currentArticleItemsVZ = findElementsByArticle(paramsVZ);
@@ -27,12 +27,12 @@ export function getStrikeplates(currentSet: IArticleItem[], fSet: IFSet) {
   if (systemOfPVC === 'Rehau') {
     const paramsVZ = {
       arr: ['354970'],
-      sortSignificance: '10',
+      sortSignificance: '7.5',
       quantity: quantityOfPlatesVZ,
     };
     const paramsRC = {
       arr: ['96140'],
-      sortSignificance: '10',
+      sortSignificance: '7.7',
       quantity: quantityOfPlatesRC,
     };
     const currentArticleItemsVZ = findElementsByArticle(paramsVZ);
@@ -42,12 +42,12 @@ export function getStrikeplates(currentSet: IArticleItem[], fSet: IFSet) {
   if (systemOfPVC === 'Veka') {
     const paramsVZ = {
       arr: ['34283'],
-      sortSignificance: '10',
+      sortSignificance: '7.5',
       quantity: quantityOfPlatesVZ,
     };
     const paramsRC = {
       arr: ['96429'],
-      sortSignificance: '10',
+      sortSignificance: '7.7',
       quantity: quantityOfPlatesRC,
     };
     const currentArticleItemsVZ = findElementsByArticle(paramsVZ);
@@ -57,12 +57,12 @@ export function getStrikeplates(currentSet: IArticleItem[], fSet: IFSet) {
   if (systemOfPVC === '9') {
     const paramsVZ = {
       arr: ['34850'],
-      sortSignificance: '10',
+      sortSignificance: '7.5',
       quantity: quantityOfPlatesVZ,
     };
     const paramsRC = {
       arr: ['96482'],
-      sortSignificance: '10',
+      sortSignificance: '7.7',
       quantity: quantityOfPlatesRC,
     };
     const currentArticleItemsVZ = findElementsByArticle(paramsVZ);

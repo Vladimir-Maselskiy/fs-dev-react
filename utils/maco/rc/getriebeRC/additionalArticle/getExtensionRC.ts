@@ -9,7 +9,7 @@ export function getExtensionRC(length: number) {
     if (customLenght > 235) {
       const params = {
         arr: ['201840'],
-        sortSignificance: '7',
+        sortSignificance: '6',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -19,7 +19,7 @@ export function getExtensionRC(length: number) {
     if (customLenght > 141) {
       const params = {
         arr: ['201750'],
-        sortSignificance: '7',
+        sortSignificance: '6',
       };
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);

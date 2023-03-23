@@ -29,7 +29,7 @@ export function getArticlesForType5(fSet: IFSet) {
     isAntiBreakingOpen && antiBreakingOpenType === 'rc1' ? '96558' : '34610';
   const params = {
     arr: [article],
-    sortSignificance: '10',
+    sortSignificance: '7.7',
   };
   const currentArticleItems = findElementsByArticle(params);
   if (currentArticleItems) {

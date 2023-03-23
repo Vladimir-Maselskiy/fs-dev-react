@@ -1,88 +1,73 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { findElementsByArticle } from '../data-utils/findElementsByArticle';
 
-export function getTurningSlantedPlate(fSet: IFSet) {
-  const {
-    systemOfPVC,
-    sideOfHinge,
-    typeOfOpening = 'type-1',
-    isTurnTiltGetriebe = false,
-  } = fSet;
+export function getFullDecor(fSet: IFSet) {
   const articleItems: IArticleItem[] = [];
+  const { decor } = fSet;
 
-  if (typeOfOpening === 'type-2' && !isTurnTiltGetriebe) {
-    return articleItems;
-  }
-  if (
-    typeOfOpening === 'type-3' ||
-    typeOfOpening === 'type-4' ||
-    typeOfOpening === 'type-5'
-  ) {
-    return articleItems;
-  }
-  if (
-    (systemOfPVC === '13' ||
-      systemOfPVC === 'Salamander' ||
-      systemOfPVC === 'Rehau') &&
-    sideOfHinge === 'right'
-  ) {
+  if (decor === 'white') {
     const params = {
-      arr: ['33460'],
-      sortSignificance: '7.1',
+      arr: ['V.4501.0107'],
+      sortSignificance: '3',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
     return articleItems;
   }
-  if (systemOfPVC === 'Veka' && sideOfHinge === 'right') {
+  if (decor === 'brown') {
     const params = {
-      arr: ['33483'],
-      sortSignificance: '7.1',
+      arr: ['42189', '42192'],
+      sortSignificance: '19.3',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
     return articleItems;
   }
-  if (
-    (systemOfPVC === '13' ||
-      systemOfPVC === 'Salamander' ||
-      systemOfPVC === 'Rehau') &&
-    sideOfHinge === 'left'
-  ) {
+  if (decor === 'anthracite') {
     const params = {
-      arr: ['33461'],
-      sortSignificance: '7.1',
+      arr: ['370097', '370098'],
+      sortSignificance: '19.3',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
     return articleItems;
   }
-  if (systemOfPVC === 'Veka' && sideOfHinge === 'left') {
+  if (decor === 'black') {
     const params = {
-      arr: ['33484'],
-      sortSignificance: '7.1',
+      arr: ['42193', '42190'],
+      sortSignificance: '19.3',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
     return articleItems;
   }
-  if (systemOfPVC === '9' && sideOfHinge === 'right') {
+  if (decor === 'bronze') {
     const params = {
-      arr: ['33322'],
-      sortSignificance: '7.1',
+      arr: ['42097', '42105'],
+      sortSignificance: '19.3',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
     return articleItems;
   }
-  if (systemOfPVC === '9' && sideOfHinge === 'left') {
+  if (decor === 'silver') {
     const params = {
-      arr: ['33323'],
-      sortSignificance: '7.1',
+      arr: ['43761', '43760'],
+      sortSignificance: '19.3',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
     return articleItems;
   }
+  if (decor === 'titan') {
+    const params = {
+      arr: ['42099', '42107'],
+      sortSignificance: '19.3',
+    };
+    const currentArticleItems = findElementsByArticle(params);
+    if (currentArticleItems) articleItems.push(...currentArticleItems);
+    return articleItems;
+  }
+
   return articleItems;
 }
