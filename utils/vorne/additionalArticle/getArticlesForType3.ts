@@ -8,9 +8,9 @@ export function getArticlesForType3(fSet: IFSet) {
 
   const { width, height, systemOfPVC, typeOfOpening, isAntiBreakingOpen } =
     fSet;
+  if (typeOfOpening !== 'type-3' || isAntiBreakingOpen) return articleItems;
   articleItems.push(...getFullDecor(fSet));
   articleItems.push(...getTopHinge(fSet));
-  if (typeOfOpening !== 'type-3' || isAntiBreakingOpen) return articleItems;
 
   if (width! >= 450 && height! >= 800) {
     const params = {

@@ -4,9 +4,9 @@ import { findElementsByArticle } from '../data-utils/findElementsByArticle';
 export function getTurningSlantedPlate(fSet: IFSet) {
   const {
     systemOfPVC,
-    sideOfHinge,
     typeOfOpening = 'type-1',
     isTurnTiltGetriebe = false,
+    isAntiBreakingOpen,
   } = fSet;
   const articleItems: IArticleItem[] = [];
 
@@ -14,7 +14,8 @@ export function getTurningSlantedPlate(fSet: IFSet) {
     (typeOfOpening === 'type-2' && !isTurnTiltGetriebe) ||
     typeOfOpening === 'type-3' ||
     typeOfOpening === 'type-4' ||
-    typeOfOpening === 'type-5'
+    typeOfOpening === 'type-5' ||
+    isAntiBreakingOpen
   ) {
     return articleItems;
   }

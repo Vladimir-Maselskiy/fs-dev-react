@@ -14,6 +14,7 @@ import { getVerticalLocks } from './getVerticalLocks';
 import { getArticlesForType2 } from './additionalArticle/getArticlesForType2';
 import { getArticlesForType3 } from './additionalArticle/getArticlesForType3';
 import { getArticlesForType5 } from './additionalArticle/getArticlesForType5';
+import { getStrikeplates } from './getStrikePlates';
 
 export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
   const { width, height, typeOfOpening } = fSet;
@@ -51,9 +52,9 @@ export const getOneVorneSet = (fSet: IFSet): IArticleItem[] => {
     ...type3Articles,
     ...type5Articles
   );
-  //     const strikePlates = getStrikeplates(currentSet, fSet);
-  //     if (+strikePlates[0].quantity > 0) currentSet.push(strikePlates[0]);
-  //     if (+strikePlates[1].quantity > 0) currentSet.push(strikePlates[1]);
+  const strikePlates = getStrikeplates(currentSet, fSet);
+  if (+strikePlates[0].quantity > 0) currentSet.push(strikePlates[0]);
+  if (+strikePlates[1].quantity > 0) currentSet.push(strikePlates[1]);
   //   }
   const finalSet = currentSet.map(set => ({
     ...set,
