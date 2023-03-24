@@ -18,11 +18,13 @@ export const getPdfFile = async (data: DataType[]) => {
   const articleTab = Math.max(15, data[0].article.length * 2);
   doc.text('Прорахунок', x, y);
   y += 10;
+  doc.text('|  №', x, y);
+  x += 7;
   doc.text('| Артикул', x, y);
   x += articleTab;
   doc.text('|  Назва', x, y);
-  x += 110;
-  doc.text(`|  Кількість`, x, y);
+  x += 118 - articleTab;
+  doc.text(`| Кількість`, x, y);
   x += 15;
   doc.text('|  Ціна', x, y);
   x += 20;
@@ -34,11 +36,13 @@ export const getPdfFile = async (data: DataType[]) => {
   y += 10;
   doc.setFont('Segoe', 'normal', 'normal');
   doc.setFontSize(10);
-  data.forEach(({ article, name, price, quantity, sum }) => {
+  data.forEach(({ article, name, price, quantity, sum }, index) => {
+    doc.text(`| ${index + 1}`, x, y);
+    x += 7;
     doc.text(`| ${article}`, x, y);
     x += articleTab;
     doc.text(`|  ${name.slice(0, 55)}`, x, y);
-    x += 110;
+    x += 118 - articleTab;
     doc.text(`|      ${quantity}`, x, y);
     x += 15;
     doc.text(`|  ${price}грн`, x, y);
