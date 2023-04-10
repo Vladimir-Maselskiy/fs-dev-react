@@ -86,7 +86,13 @@ export default function Home() {
       prev.splice(index, 1, fSet);
       return [...prev];
     });
-    setFSet(getNewSet({ id: (+lastID + 1).toString(), brand: fSet.brand }));
+    setFSet(
+      getNewSet({
+        id: (+lastID + 1).toString(),
+        brand: fSet.brand,
+        systemOfPVC: fSet.systemOfPVC,
+      })
+    );
   };
 
   return (

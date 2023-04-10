@@ -20,7 +20,7 @@ export function getMicroVentilationPlate(fSet: IFSet) {
   ) {
     const params = {
       arr: ['25816'],
-      sortSignificance: '3',
+      sortSignificance: '2.2',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -29,7 +29,7 @@ export function getMicroVentilationPlate(fSet: IFSet) {
   if (systemOfPVC === '9') {
     const params = {
       arr: ['25850'],
-      sortSignificance: '3',
+      sortSignificance: '2.2',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);

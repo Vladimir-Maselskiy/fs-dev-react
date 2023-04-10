@@ -115,13 +115,6 @@ export const FormLayout = ({
             <QuantityOfSets fSet={fSet} setFSet={setFSet} form={form} />
             <ImportantSetsOptions fSet={fSet} setFSet={setFSet} form={form} />
           </Box>
-          {/* <ControlButtons
-          isOptitionButtonDisabled={isOptitionButtonDisabled}
-          //   setIsModalOpen={setIsModalOpen}
-          id={fSet.id}
-          //   setCurrentSetId={setCurrentSetId}
-          //   setCurrentModalNumber={setCurrentModalNumber}
-        /> */}
           <ControlButtons
             isOptitionButtonDisabled={isOptitionButtonDisabled}
             setIsModalOpen={setIsModalOpen}

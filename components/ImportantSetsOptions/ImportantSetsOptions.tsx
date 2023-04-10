@@ -22,10 +22,15 @@ export const ImportantSetsOptions = ({ fSet, form }: TProps) => {
   useEffect(() => {
     setSelectOptions(getPVСSystemSelectOpions(fSet?.brand));
     if (willSelectValueChange(fSet?.brand, selectValue)) {
-      const currentSelectValue = getPVСSystemSelectOpions(fSet?.brand)?.[0];
+      const currentSelectValue = getPVСSystemSelectOpions(fSet.brand)?.[0];
       setSelectValue(currentSelectValue);
     }
-  }, [fSet?.brand, selectValue]);
+  }, [fSet.brand, selectValue]);
+
+  useEffect(() => {
+    setSelectValue(getPVCSystemSelectValue(fSet));
+    form.setFieldValue('systemOfPVC', getPVCSystemSelectValue(fSet));
+  }, [fSet.systemOfPVC]);
 
   useEffect(() => {
     form.setFieldValue('sideOfHinge', fSet.sideOfHinge);
