@@ -1,38 +1,38 @@
 import { StyledCurrentRate, StyledSpanRate } from './CurrentRate.styled';
 // import { BiEuro } from 'react-icons/bi';
 import { useState, useEffect } from 'react';
-import { setStartRate } from '@/utils/rate/setStartRate';
-import { getCurrentRate } from '@/utils/rate/getCurrentRate';
+import { setStartEuroRate } from '@/utils/rate/setStartEuroRate';
+import { getCurrentEuroRate } from '@/utils/rate/getCurrentEuroRate';
 import { Spin } from 'antd';
 import { Box } from '../Box/Box';
 import { EuroOutlined } from '@ant-design/icons';
 
 type TProps = {
-  rate: string;
-  setRate: React.Dispatch<React.SetStateAction<string>>;
+  euroRate: string;
+  setEuroRate: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const CurrentRate = ({ rate, setRate }: TProps) => {
+export const CurrentRate = ({ euroRate, setEuroRate }: TProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRateRefreshed, setIsRateRefreshed] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
-    getCurrentRate().then(res => {
+    getCurrentEuroRate().then(res => {
       if (res) {
-        const rate = res.data.currentRate;
-        localStorage.setItem('rate', rate);
-        setRate(rate);
+        const { euroRate } = res.data;
+        localStorage.setItem('euroRate', euroRate);
+        setEuroRate(euroRate);
         setIsLoading(false);
         setIsRateRefreshed(true);
       }
     });
-  }, [setRate]);
+  }, [setEuroRate]);
 
   useEffect(() => {
-    const rate = localStorage.getItem('rate');
-    if (rate) setRate(rate);
-  }, [setRate]);
+    const rate = localStorage.getItem('euroRate');
+    if (rate) setEuroRate(rate);
+  }, [setEuroRate]);
 
   return (
     <StyledCurrentRate>
@@ -43,7 +43,9 @@ export const CurrentRate = ({ rate, setRate }: TProps) => {
           marginRight: 10,
         }}
       />
-      <StyledSpanRate isRateRefreshed={isRateRefreshed}>{rate}</StyledSpanRate>
+      <StyledSpanRate isRateRefreshed={isRateRefreshed}>
+        {euroRate}
+      </StyledSpanRate>
       <Box ml="5px" pt="3px">
         <Spin spinning={isLoading} />
       </Box>

@@ -49,7 +49,7 @@ type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>;
 
 type TTableProps = {
   tableSets: IArticleItem[];
-  rate: string;
+  euroRate: string;
 };
 
 const EditableRow = ({ index, ...props }: EditableRowProps) => {
@@ -130,17 +130,17 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const FSetsOrderTable = ({ tableSets, rate }: TTableProps) => {
+export const FSetsOrderTable = ({ tableSets, euroRate }: TTableProps) => {
   const isWide = useMediaQuery(400);
   const isWide767 = useMediaQuery(767);
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   useEffect(() => {
-    setDataSource(getDataSource(tableSets, rate));
-  }, [tableSets, rate]);
+    setDataSource(getDataSource(tableSets, euroRate));
+  }, [tableSets, euroRate]);
 
   const [dataSource, setDataSource] = useState<DataType[]>(
-    getDataSource(tableSets, rate)
+    getDataSource(tableSets, euroRate)
   );
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {

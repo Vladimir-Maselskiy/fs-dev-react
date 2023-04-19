@@ -1,14 +1,12 @@
 import axios from 'axios';
 type Resp = {
-  data: { currentRate: string };
+  data: { euroRate: string };
 };
 
-export const getCurrentRate = async (): Promise<
-  Resp | undefined
-> => {
+export const getCurrentEuroRate = async (): Promise<Resp | undefined> => {
   try {
     const result = await axios.get(
-      'https://scrapper-fs-dev.onrender.com/api/rate'
+      `${process.env.NEXT_PUBLIC_API_HOST}/scrapper`
     );
     return result;
   } catch (error) {

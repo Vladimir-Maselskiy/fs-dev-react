@@ -5,7 +5,7 @@ import axios from 'axios';
 const SITE = 'https://viknocenter.ua/';
 
 type Data = {
-  euro: string;
+  euroRate: string;
 };
 
 export default async function handler(
@@ -19,7 +19,5 @@ export default async function handler(
   const end = resFullString.indexOf('</h3');
 
   const euroRate = resFullString.slice(start, end).split(' ')[3];
-
-  console.log(request);
-  res.status(200).send({ euro: euroRate });
+  res.status(200).send({ euroRate });
 }

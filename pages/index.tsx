@@ -17,13 +17,13 @@ import { IArticleItem, IFSet } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
-import { setStartRate } from '@/utils/rate/setStartRate';
+import { setStartEuroRate } from '@/utils/rate/setStartEuroRate';
 
 // const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const [rate, setRate] = useState(setStartRate());
+  const [euroRate, setEuroRate] = useState(setStartEuroRate());
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(true);
@@ -100,7 +100,7 @@ export default function Home() {
       {isPageLoaded ? (
         <Box p="10px">
           <Box>
-            <CurrentRate rate={rate} setRate={setRate} />
+            <CurrentRate euroRate={euroRate} setEuroRate={setEuroRate} />
           </Box>
           <FormLayout
             fSet={fSet}
@@ -137,7 +137,7 @@ export default function Home() {
           )}
           <Divider />
           {isOrderTableVisible && (
-            <FSetsOrderTable tableSets={tableSets} rate={rate} />
+            <FSetsOrderTable tableSets={tableSets} euroRate={euroRate} />
           )}
           <ModalLayout
             isModalOpen={isModalOpen}
