@@ -11,17 +11,11 @@ export default async function addTest(
   res: NextApiResponse
 ) {
   try {
-    console.log('CONNECTING TO MONGO');
     await connectMongo();
-    console.log('CONNECTED TO MONGO');
-
-    console.log('CREATING DOCUMENT');
-    const test = await User.create(req.body);
-    console.log('CREATED DOCUMENT');
-
-    res.json({ test });
-  } catch (error) {
-    console.log(error);
+    const user = await User.create(req.body);
+    res.json({ user });
+  } catch (error: any) {
+    console.log(error.message);
     res.json({ error });
   }
 }

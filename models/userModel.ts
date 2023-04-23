@@ -28,4 +28,4 @@ const userSchema = new Schema(
 
 userSchema.post('save', handleSaveErrors);
 
-export const User = models.User || model('users', userSchema);
+export const User = models.users || model('users', userSchema);
