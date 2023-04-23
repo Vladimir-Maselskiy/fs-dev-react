@@ -4,7 +4,8 @@
     "**/*.ts",
     "**/*.tsx",
     "/custom.d.ts",
-    "components/WidthAndHeightInput/WidthAndHeightInput.styled.ts"
+    "components/WidthAndHeightInput/WidthAndHeightInput.styled.ts",
+    "utils/mongo/handleSaveErrors.js"
   ],
   "compilerOptions": {
     "target": "es5",
