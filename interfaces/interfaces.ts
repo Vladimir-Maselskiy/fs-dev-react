@@ -90,3 +90,13 @@ export interface IArticleItem {
   VZ?: string;
   iS?: string;
 }
+
+export interface IUser {
+  _id: string;
+  email: string;
+  password: string | null;
+  name: string;
+  accessToken: string | null;
+  refreshToken: string | null;
+  isActivated: boolean;
+}

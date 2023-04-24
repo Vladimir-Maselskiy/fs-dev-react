@@ -9,16 +9,31 @@ const userSchema = new Schema(
       // match: [emailRegexp, "Email is invalid"],
       unique: true,
     },
-    // password: {
-    // 	type: String,
-    // 	minlength: 6,
-    // 	required: [true, "Password is required"],
-    // },
+    password: {
+      type: String,
+      minlength: 4,
+    },
+
+    activationLink: {
+      type: String,
+      default: null,
+    },
+
+    isActivated: {
+      type: Boolean,
+      default: false,
+    },
+
     firstName: {
       type: String,
     },
 
-    token: {
+    accessToken: {
+      type: String,
+      default: null,
+    },
+
+    refreshToken: {
       type: String,
       default: null,
     },
