@@ -11,7 +11,6 @@ export default function LoginPage() {
   const [isEmailInputDisabled, setIsEmailInputDisabled] = useState(false);
 
   const onFinish = async (values: any) => {
-    console.log('Received values of form:', values);
     const { email, password } = values;
     try {
       const body = { email, password };

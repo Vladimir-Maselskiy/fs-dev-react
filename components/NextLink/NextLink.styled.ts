@@ -8,5 +8,5 @@ export const StyledNextLink = styled(Link)`
   text-align: center;
   letter-spacing: -0.01em;
   color: #32abf2;
-  margin-left: 20px;
+  margin-left: auto;
 `;
