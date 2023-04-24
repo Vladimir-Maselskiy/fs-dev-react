@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import { Box } from '../Box/Box';
 import { FieldData } from 'rc-field-form/lib/interface';
+import axios from 'axios';
 
 export default function LoginPage() {
   const [isEmailInputPassed, setIsEmailInputPassed] = useState(false);
@@ -9,15 +10,24 @@ export default function LoginPage() {
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
   const [isEmailInputDisabled, setIsEmailInputDisabled] = useState(false);
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log('Received values of form:', values);
+    const { email, password } = values;
+    try {
+      const body = { email, password };
+      const newUser = await axios
+        .post(`${process.env.NEXT_PUBLIC_API_HOST}/users/addUser`, body)
+        .then(res => res.data);
+      console.log(newUser);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onFieldsChange = (
     changedFields: FieldData[],
     allFields: FieldData[]
   ) => {
-    console.log('dasda');
     const field = changedFields[0];
     if (Array.isArray(field.name) && field.name[0] === 'email') {
       field.value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i)
@@ -29,7 +39,6 @@ export default function LoginPage() {
         ? setIsSubmitButtonDisabled(false)
         : setIsSubmitButtonDisabled(true);
     }
-    // console.log('changedFields', email);
   };
 
   const onNextButtonClick = () => {
