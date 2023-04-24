@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { connectMongo } from '../../../utils/mongo/connectMongo';
 import { User } from '../../../models/userModel';
 import bcrypt from 'bcrypt';
-import uuid from 'uuid';
+import * as uuid from 'uuid';
 import { sendActivationMail } from '@/utils/mongo/sendActivationMail';
 import { getUserDto } from '@/utils/mongo/getUserDto';
 import { getTokens } from '@/utils/mongo/getTokens';
@@ -23,6 +23,7 @@ export default async function addTest(
 
     const passwordHash = await bcrypt.hash(password, 5);
     const activationLink = uuid.v4();
+    console.log('activationLink', activationLink);
     const newUser = await User.create({
       email,
       password: passwordHash,
