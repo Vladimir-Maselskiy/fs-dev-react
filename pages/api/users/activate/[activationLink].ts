@@ -16,7 +16,7 @@ export default async function activationLink(
     await user.save();
     console.log(user, user);
     res.redirect(`${process.env.API_URL}`);
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    res.status(500).send({ error: error.message });
   }
 }

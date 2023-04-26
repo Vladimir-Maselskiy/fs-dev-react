@@ -37,6 +37,12 @@ const userSchema = new Schema(
       type: String,
       default: null,
     },
+
+    status: {
+      type: String,
+      enum: ['admin', 'manager', 'dealer', 'installer', 'finalBuyer'],
+      default: 'finalBuyer',
+    },
   },
   { versionKey: false, timestamps: true }
 );

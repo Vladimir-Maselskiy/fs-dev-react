@@ -48,7 +48,6 @@ export default async function addTest(
     });
     res.json({ newUser });
   } catch (error: any) {
-    console.log(error.message);
-    res.json({ error });
+    res.status(400).send({ error: error.message });
   }
 }
