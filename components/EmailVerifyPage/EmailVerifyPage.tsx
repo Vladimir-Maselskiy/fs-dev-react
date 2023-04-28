@@ -34,7 +34,7 @@ export const EmailVerifyPage = () => {
         alt="email-verification-validation"
         style={{ margin: '10px auto 0' }}
       />
-      <p style={{ marginTop: 10 }}>
+      <p style={{ marginTop: 40, textAlign: 'justify' }}>
         {`Перевірте свою поштову скриньку ${user?.email}  і натисніть посилання
         підтвердження всередині, щоб завершити реєстрацію. Термін дії цього
         посилання незабаром закінчиться, тому перевірте!`}
