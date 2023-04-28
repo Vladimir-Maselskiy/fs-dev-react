@@ -4,13 +4,13 @@ import { Button, Divider, Spin } from 'antd';
 import { CurrentRate } from '@/components/CurrentRate/CurrentRate';
 import { getNewSet } from '@/utils/data-utils/getNewSet';
 import { Box } from '@/components/Box/Box';
-import { useFSetsContext } from '@/context/state';
+import { useFSetsContext, useUserContext } from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/components/CurrentModal/CurrentModal';
 import { getIsGetOrderButtonDisabled } from '@/utils/ui-utills/getIsGetOrderButtonDisabled';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
 import { getFSets } from '@/utils/data-utils/getFSets';
-import { IArticleItem, IFSet } from '@/interfaces/interfaces';
+import { IArticleItem, IFSet, IUser } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
@@ -19,6 +19,8 @@ import { NextLink } from '@/components/NextLink/NextLink';
 
 export const FInputPage = () => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
+  const { user, setUser } = useUserContext();
+
   const [euroRate, setEuroRate] = useState(setStartEuroRate());
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,6 +49,14 @@ export const FInputPage = () => {
 
   useEffect(() => {
     setIsPageLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    const data = localStorage.getItem('user');
+    if (data) {
+      const user: IUser = JSON.parse(data);
+      setUser(user);
+    }
   }, []);
 
   useEffect(() => {

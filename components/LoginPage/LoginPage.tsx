@@ -1,23 +1,34 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import { Box } from '../Box/Box';
 import { FieldData } from 'rc-field-form/lib/interface';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useUserContext } from '@/context/state';
+import { IUser } from '@/interfaces/interfaces';
 
 export default function LoginPage() {
+  const { setUser } = useUserContext();
   const [isEmailInputPassed, setIsEmailInputPassed] = useState(false);
   const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(true);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
   const [isEmailInputDisabled, setIsEmailInputDisabled] = useState(false);
+  const [form] = Form.useForm();
+  const router = useRouter();
 
   const onFinish = async (values: any) => {
     const { email, password } = values;
     try {
       const body = { email, password };
-      const newUser = await axios
+      await axios
         .post(`${process.env.NEXT_PUBLIC_API_HOST}/users/addUser`, body)
-        .then(res => res.data);
-      console.log(newUser);
+        .then(res => {
+          const newUser: IUser = res.data.user;
+          setUser(newUser);
+          localStorage.setItem('user', JSON.stringify(newUser));
+          form.resetFields();
+          router.push('/account/email/verify');
+        });
     } catch (error) {
       console.log(error);
     }
@@ -56,12 +67,13 @@ export default function LoginPage() {
   return (
     <Box ml={50} mt={50}>
       <Form
+        form={form}
         name="dynamic_form_nest_item"
         onFinish={onFinish}
         style={{ maxWidth: 600 }}
         layout="vertical"
         onFieldsChange={onFieldsChange}
-        autoComplete="off"
+        // autoComplete=""
       >
         <Form.Item>
           <Form.Item

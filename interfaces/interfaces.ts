@@ -98,5 +98,6 @@ export interface IUser {
   name: string;
   accessToken: string | null;
   refreshToken: string | null;
+  activationLink: string | null;
   isActivated: boolean;
 }

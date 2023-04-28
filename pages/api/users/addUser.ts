@@ -19,7 +19,6 @@ export default async function addTest(
     await connectMongo();
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    console.log('user', user);
     if (user) throw new Error(`User with email ${email} already used`);
 
     const passwordHash = await bcrypt.hash(password, 5);
@@ -46,7 +45,7 @@ export default async function addTest(
       maxAge: 60 * 60 * 24 * 30,
       httpOnly: true,
     });
-    res.json({ newUser });
+    res.json({ user: newUser });
   } catch (error: any) {
     res.status(400).send({ error: error.message });
   }
