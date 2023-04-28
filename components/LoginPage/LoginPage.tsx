@@ -27,7 +27,7 @@ export default function LoginPage() {
           setUser(newUser);
           localStorage.setItem('user', JSON.stringify(newUser));
           form.resetFields();
-          router.push('./account/email/verify');
+          router.push('/account/email/verify');
         });
     } catch (error) {
       console.log(error);
