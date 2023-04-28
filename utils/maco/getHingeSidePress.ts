@@ -51,7 +51,7 @@ export function getHingeSidePress(fSet: IFSet) {
   if (typeOfHingeSidePress === 'hingeSidePress-type-5') {
     const params = {
       arr: ['52321'],
-      sortSignificance: '9.5',
+      sortSignificance: '8.2',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
@@ -59,7 +59,7 @@ export function getHingeSidePress(fSet: IFSet) {
   if (typeOfHingeSidePress === 'hingeSidePress-type-6') {
     const params = {
       arr: ['52321', '52321'],
-      sortSignificance: '9.5',
+      sortSignificance: '8.2',
     };
     const currentArticleItems = findElementsByArticle(params);
     if (currentArticleItems) articleItems.push(...currentArticleItems);
