@@ -8,12 +8,15 @@ export default async function resendActivationLink(
   res: NextApiResponse
 ) {
   await connectMongo();
-  const { user }: { user: IUser } = req.body;
+  const user: IUser = req.body;
+
   console.log(user);
   if (user) {
     await sendActivationMail(
       user.email,
       `${process.env.API_URL}/api/users/activate/${user.activationLink}`
-    ).then(_ => console.log('resend link'));
+    );
+    console.log('resend link');
+    res.json({ resend: 'ok' });
   }
 }
