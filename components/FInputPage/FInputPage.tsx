@@ -16,6 +16,7 @@ import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
 import { setStartEuroRate } from '@/utils/rate/setStartEuroRate';
 import { NextLink } from '@/components/NextLink/NextLink';
+import { NextLinkStyledButton } from './FInputPage.styled';
 
 export const FInputPage = () => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
@@ -104,7 +105,19 @@ export const FInputPage = () => {
     <Box p="10px">
       <Box display="flex" justifyContent="start" alignItems="center">
         <CurrentRate euroRate={euroRate} setEuroRate={setEuroRate} />
-        <NextLink path="./account/login">Sign In</NextLink>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          minWidth={300}
+          ml="auto"
+          padding="0 30px"
+        >
+          <NextLink path="./account/login">Sign In</NextLink>
+          <NextLinkStyledButton href="./account/register">
+            Try Free
+          </NextLinkStyledButton>
+        </Box>
       </Box>
       <FormLayout
         fSet={fSet}

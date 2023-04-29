@@ -7,6 +7,7 @@ import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
 import { sendActivationMail } from '@/utils/mongo/sendActivationMail';
 import { getUserDto } from '@/utils/mongo/getUserDto';
 import { getTokens } from '@/utils/mongo/getTokens';
+import { createError } from '@/utils/mongo/createError';
 
 /**
 
@@ -19,7 +20,7 @@ export default async function addTest(
     await connectMongo();
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (user) throw new Error(`User with email ${email} already used`);
+    if (user) throw createError(422, `User with email ${email} already used`);
 
     const passwordHash = await bcrypt.hash(password, 5);
     const activationLink = uuid.v4();
@@ -47,6 +48,6 @@ export default async function addTest(
     });
     res.json({ user: newUser });
   } catch (error: any) {
-    res.status(400).send({ error: error.message });
+    res.status(error.cause || 500).send({ error: error.message });
   }
 }
