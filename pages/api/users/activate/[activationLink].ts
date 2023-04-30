@@ -1,4 +1,3 @@
-import { IUser } from '@/interfaces/interfaces';
 import { User } from '@/models/userModel';
 import { connectMongo } from '@/utils/mongo/connectMongo';
 import type { NextApiRequest, NextApiResponse } from 'next';

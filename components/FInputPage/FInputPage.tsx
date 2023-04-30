@@ -17,6 +17,8 @@ import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
 import { setStartEuroRate } from '@/utils/rate/setStartEuroRate';
 import { NextLink } from '@/components/NextLink/NextLink';
 import { NextLinkStyledButton } from './FInputPage.styled';
+import axios from 'axios';
+import { error } from 'console';
 
 export const FInputPage = () => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
@@ -56,7 +58,14 @@ export const FInputPage = () => {
     const data = localStorage.getItem('user');
     if (data) {
       const user: IUser = JSON.parse(data);
-      setUser(user);
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/${user._id}`)
+        .then(res => {
+          const user = res.data;
+          setUser(user);
+          localStorage.setItem('user', JSON.stringify(user));
+        })
+        .catch(console.log);
     }
   }, []);
 
