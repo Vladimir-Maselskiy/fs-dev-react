@@ -13,6 +13,13 @@ export function getArticlesForType3(fSet: IFSet) {
   articleItems.push(...getTopDecor(fSet));
   articleItems.push(...getTopHinge(fSet));
 
+  const params = {
+    arr: ['52321', '52321'],
+    sortSignificance: '8.2',
+  };
+  const currentArticleItems = findElementsByArticle(params);
+  if (currentArticleItems) articleItems.push(...currentArticleItems);
+
   if (width! >= 470 && height! >= 800) {
     const params = {
       arr: ['212686'],

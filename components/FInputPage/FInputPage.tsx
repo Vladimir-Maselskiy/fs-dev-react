@@ -58,14 +58,15 @@ export const FInputPage = () => {
     const data = localStorage.getItem('user');
     if (data) {
       const user: IUser = JSON.parse(data);
-      axios
-        .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/${user._id}`)
-        .then(res => {
-          const user = res.data;
-          setUser(user);
-          localStorage.setItem('user', JSON.stringify(user));
-        })
-        .catch(console.log);
+      if (user._id)
+        axios
+          .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/${user._id}`)
+          .then(res => {
+            const user = res.data;
+            setUser(user);
+            localStorage.setItem('user', JSON.stringify(user));
+          })
+          .catch(console.log);
     }
   }, []);
 
