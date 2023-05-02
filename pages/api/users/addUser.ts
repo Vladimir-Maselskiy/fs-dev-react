@@ -46,7 +46,9 @@ export default async function addTest(
       maxAge: 60 * 60 * 24 * 30,
       httpOnly: true,
     });
-    res.json({ user: newUser });
+    res.json({
+      user: { ...userDto, accessToken: newUser.accessToken },
+    });
   } catch (error: any) {
     res.status(error.cause || 500).send({ error: error.message });
   }

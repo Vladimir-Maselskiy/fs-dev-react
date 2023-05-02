@@ -17,7 +17,7 @@ import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
 import { setStartEuroRate } from '@/utils/rate/setStartEuroRate';
 import { NextLink } from '@/components/NextLink/NextLink';
 import { NextLinkStyledButton } from './FInputPage.styled';
-import axios from 'axios';
+import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 import { error } from 'console';
 
 export const FInputPage = () => {
@@ -37,6 +37,14 @@ export const FInputPage = () => {
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
   const [isOrderTableVisible, setIsOrderTableVisible] = useState(false);
+
+  const $api = axios.create({ withCredentials: true });
+  $api.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
+    const data = localStorage.getItem('user');
+    if (data && JSON.parse(data).accessToken)
+      config.headers.Authorization = `Bearer ${JSON.parse(data).accessToken}`;
+    return config;
+  });
 
   useEffect(() => {
     setIsGetOrderButtonDisabled(
@@ -58,8 +66,8 @@ export const FInputPage = () => {
     const data = localStorage.getItem('user');
     if (data) {
       const user: IUser = JSON.parse(data);
-      if (user._id)
-        axios
+      if (user.accessToken)
+        $api
           .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/${user._id}`)
           .then(res => {
             const user = res.data;
