@@ -12,17 +12,6 @@ export default async function userId(
   try {
     await connectMongo();
     const { userId } = req.query;
-    console.log('userId', userId);
-    const authHeader = req.headers.authorization;
-    if (!authHeader) throw createError(401, 'Error user auth');
-    const token = authHeader.split(' ')[1];
-    if (!token) throw createError(401, 'Error user auth');
-    try {
-      getIsTokenValid(token, 'access');
-    } catch (error) {
-      throw createError(401, 'Error user auth');
-    }
-
     // const { userId } = req.query;
     const user = await User.findOne({ _id: userId });
     if (!user || !user.isActivated)

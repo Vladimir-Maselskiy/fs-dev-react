@@ -71,7 +71,7 @@ export const FInputPage = () => {
           .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/${user._id}`)
           .then(res => {
             const user = res.data;
-            setUser(user);
+            // setUser(user);
             localStorage.setItem('user', JSON.stringify(user));
           })
           .catch(console.log);
