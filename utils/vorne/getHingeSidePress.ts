@@ -89,7 +89,6 @@ export function getHingeSidePress(fSet: IFSet) {
   }
   const fullDecor = getFullDecor(fSet);
   const topHinge = getTopHinge(fSet);
-  console.log('fullDecor', fullDecor);
   if (
     typeOfHingeSidePress === 'hingeSidePress-type-3' ||
     typeOfHingeSidePress === 'hingeSidePress-type-5'

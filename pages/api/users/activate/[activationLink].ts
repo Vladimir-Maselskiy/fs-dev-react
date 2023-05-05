@@ -13,7 +13,6 @@ export default async function activationLink(
     if (!user) throw new Error('Error user activate');
     user.isActivated = true;
     await user.save();
-    console.log(user, user);
     res.redirect(`${process.env.API_URL}`);
   } catch (error: any) {
     res.status(500).send({ error: error.message });

@@ -10,13 +10,11 @@ export default async function resendActivationLink(
   await connectMongo();
   const user: IUser = req.body;
 
-  console.log(user);
   if (user) {
     await sendActivationMail(
       user.email,
       `${process.env.API_URL}/api/users/activate/${user.activationLink}`
     );
-    console.log('resend link');
     res.json({ resend: 'ok' });
   }
 }

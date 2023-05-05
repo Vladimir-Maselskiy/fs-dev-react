@@ -68,11 +68,11 @@ export const FInputPage = () => {
       const user: IUser = JSON.parse(data);
       if (user.accessToken)
         $api
-          .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/${user._id}`)
+          .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/getUser`)
           .then(res => {
             const user = res.data;
             // setUser(user);
-            localStorage.setItem('user', JSON.stringify(user));
+            // localStorage.setItem('user', JSON.stringify(user));
           })
           .catch(console.log);
     }
