@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
-import { NextResponse } from 'next/server';
 
 export default async function accessToken(
   req: NextApiRequest,
@@ -17,8 +16,6 @@ export default async function accessToken(
       res.status(200).send('token valid');
     }
   } catch (error: any) {
-    // NextResponse.next();
-    console.log('error.message', error.message);
     res.status(401).send(error.message);
   }
 }

@@ -33,10 +33,13 @@ export const FInputPage = () => {
   const [fSet, setFSet] = useState(getNewSet());
   const [lastID, setLastId] = useState(fSet.id);
   const [buttonTitle, setButtonTitle] = useState('Додати');
+  const [isRefreshFetchAllowed, setIsRefreshFetchAllowed] = useState(true);
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
   const [isOrderTableVisible, setIsOrderTableVisible] = useState(false);
+
+  // axios interceptor request
 
   const $api = axios.create({ withCredentials: true });
   $api.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
@@ -46,6 +49,30 @@ export const FInputPage = () => {
     return config;
   });
 
+  // axios interceptor response
+  $api.interceptors.response.use(
+    function (response) {
+      // Any status code that lie within the range of 2xx cause this function to trigger
+      // Do something with response data
+      console.log('responseInInterceptor', response);
+      return response;
+    },
+    async function (error) {
+      if (error.response.status === 401 && !error.config?._isRetry) {
+        const config = error.config;
+        config._isRetry = true;
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_HOST}/users/auth/refresh`,
+          { withCredentials: true }
+        );
+        config._isRetry = false;
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        console.log(response.data);
+        return $api.request(config);
+      }
+      return error;
+    }
+  );
   useEffect(() => {
     setIsGetOrderButtonDisabled(
       !(fSetsArray.length > 0) || buttonTitle === 'Змінити'

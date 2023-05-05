@@ -3,7 +3,7 @@ import { connectMongo } from '../../../utils/mongo/connectMongo';
 import { User } from '../../../models/userModel';
 import bcrypt from 'bcrypt';
 import * as uuid from 'uuid';
-import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { sendActivationMail } from '@/utils/mongo/sendActivationMail';
 import { getUserDto } from '@/utils/mongo/getUserDto';
 import { getTokens } from '@/utils/mongo/getTokens';

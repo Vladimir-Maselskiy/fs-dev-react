@@ -18,13 +18,11 @@ export default async function getUser(
     if (!accessToken) throw createError(401, 'User auth error');
 
     const user = await User.findOne({ accessToken });
-    console.log('user', user);
     if (!user || !user.isActivated) throw createError(401, 'User auth error');
 
     const isTokenValid = await axios.get(
       `${process.env.NEXT_PUBLIC_API_HOST}/users/auth/${accessToken}`
     );
-    console.log('isTokenValid', isTokenValid);
     const userDto = getUserDto(user);
 
     res.status(200).json({ ...userDto, accessToken: user.accessToken });
