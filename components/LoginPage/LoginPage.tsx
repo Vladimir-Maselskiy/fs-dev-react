@@ -21,16 +21,18 @@ export default function LoginPage() {
     try {
       const body = { email, password };
       await axios
-        .post(`${process.env.NEXT_PUBLIC_API_HOST}/users/addUser`, body)
+        .post(`${process.env.NEXT_PUBLIC_API_HOST}/users/login`, body)
         .then(res => {
-          const newUser: IUser = res.data.user;
-          setUser(newUser);
-          localStorage.setItem('user', JSON.stringify(newUser));
+          const user: IUser = res.data.user;
+          setUser(user);
+          localStorage.setItem('user', JSON.stringify(user));
           form.resetFields();
-          router.push('/account/email/verify');
+          router.push('/');
         });
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      const message = error.response.data.error;
+      const { status } = error.response;
+      console.log('message', message, 'status', status);
     }
   };
 
