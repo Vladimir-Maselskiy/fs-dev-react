@@ -9,10 +9,11 @@ export default async function accessToken(
     const { token, tokenType } = req.query;
     const secretKey =
       tokenType === 'refresh'
-        ? process.env.JWT_ACCESS_PWD
-        : process.env.JWT_REFRESH_PWD;
+        ? process.env.JWT_REFRESH_PWD
+        : process.env.JWT_ACCESS_PWD;
+
     if (token && typeof token === 'string') {
-      jwt.verify(token, '123123');
+      jwt.verify(token, secretKey!);
       res.status(200).send('token valid');
     }
   } catch (error: any) {
