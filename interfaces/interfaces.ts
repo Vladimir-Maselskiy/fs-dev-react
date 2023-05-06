@@ -35,15 +35,16 @@ export const ALLDecor = [
 
 export const ALLBrands = ['maco', 'vorne', 'winkhaus'] as const;
 
-export type TSystemOfPVC = typeof ALLSystemOfPVC[number];
+export type TSystemOfPVC = (typeof ALLSystemOfPVC)[number];
 
-export type TTypeOfHingeSidePress = typeof ALLTypeOfHingeSidePressConst[number];
+export type TTypeOfHingeSidePress =
+  (typeof ALLTypeOfHingeSidePressConst)[number];
 
-export type TTypeOfOpenimg = typeof ALLTypeOfOpeningConst[number];
+export type TTypeOfOpenimg = (typeof ALLTypeOfOpeningConst)[number];
 
-export type TBrands = typeof ALLBrands[number];
+export type TBrands = (typeof ALLBrands)[number];
 
-export type TDecor = typeof ALLDecor[number];
+export type TDecor = (typeof ALLDecor)[number];
 
 export interface IFSet {
   id: string;
@@ -100,4 +101,8 @@ export interface IUser {
   refreshToken: string | null;
   activationLink: string | null;
   isActivated: boolean;
+}
+
+export interface IRate {
+  euro: string;
 }

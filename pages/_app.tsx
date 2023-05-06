@@ -1,4 +1,9 @@
-import { AppWrapper, TableWrapper, UserWrapper } from '@/context/state';
+import {
+  AppWrapper,
+  RateWrapper,
+  TableWrapper,
+  UserWrapper,
+} from '@/context/state';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 
@@ -7,7 +12,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <AppWrapper>
       <TableWrapper>
         <UserWrapper>
-          <Component {...pageProps} />
+          <RateWrapper>
+            <Component {...pageProps} />
+          </RateWrapper>
         </UserWrapper>
       </TableWrapper>
     </AppWrapper>

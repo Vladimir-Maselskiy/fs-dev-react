@@ -6,33 +6,29 @@ import { getCurrentEuroRate } from '@/utils/rate/getCurrentEuroRate';
 import { Spin } from 'antd';
 import { Box } from '../Box/Box';
 import { EuroOutlined } from '@ant-design/icons';
+import { useRateContext } from '@/context/state';
+import { IRate } from '@/interfaces/interfaces';
 
-type TProps = {
-  euroRate: string;
-  setEuroRate: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export const CurrentRate = ({ euroRate, setEuroRate }: TProps) => {
+export const CurrentRate = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRateRefreshed, setIsRateRefreshed] = useState(false);
+  const [euroRate, setEuroRate] = useState(setStartEuroRate());
+  const { rate } = useRateContext();
 
   useEffect(() => {
-    setIsLoading(true);
-    getCurrentEuroRate().then(res => {
-      if (res) {
-        const { euroRate } = res.data;
-        localStorage.setItem('euroRate', euroRate);
-        setEuroRate(euroRate);
-        setIsLoading(false);
-        setIsRateRefreshed(true);
-      }
-    });
-  }, [setEuroRate]);
+    if (rate) {
+      localStorage.setItem('rate', JSON.stringify(rate));
+      setEuroRate(rate.euro);
+    }
+  }, [rate]);
 
   useEffect(() => {
-    const rate = localStorage.getItem('euroRate');
-    if (rate) setEuroRate(rate);
-  }, [setEuroRate]);
+    const data = localStorage.getItem('rate');
+    if (data) {
+      const rate: IRate | null = JSON.parse(data);
+      if (rate?.euro) setEuroRate(rate.euro);
+    }
+  }, []);
 
   return (
     <StyledCurrentRate>
@@ -43,11 +39,11 @@ export const CurrentRate = ({ euroRate, setEuroRate }: TProps) => {
           marginRight: 10,
         }}
       />
-      <StyledSpanRate isRateRefreshed={isRateRefreshed}>
+      <StyledSpanRate isRateRefreshed={Boolean(rate)}>
         {euroRate}
       </StyledSpanRate>
       <Box ml="5px" pt="3px">
-        <Spin spinning={isLoading} />
+        <Spin spinning={!Boolean(rate)} />
       </Box>
     </StyledCurrentRate>
   );

@@ -1,13 +1,37 @@
+import { useState, useEffect } from 'react';
 import { ConfigProvider, Layout } from 'antd';
 import { StyledMainContainer } from './MainContainer.styled';
 
 import Head from 'next/head';
+import { setStartEuroRate } from '@/utils/rate/setStartEuroRate';
+import { useRateContext } from '@/context/state';
+import { getCurrentEuroRate } from '@/utils/rate/getCurrentEuroRate';
+import { IRate } from '@/interfaces/interfaces';
 
 type Props = {
   children?: JSX.Element;
 };
 
 export const MainContainer = ({ children }: Props) => {
+  const { setRate } = useRateContext();
+
+  useEffect(() => {
+    const data = localStorage.getItem('rate');
+    if (data) {
+      const rate: IRate | null = JSON.parse(data);
+      if (rate?.euro) setRate(rate);
+    } else {
+      setRate({ euro: setStartEuroRate() });
+    }
+    getCurrentEuroRate().then(res => {
+      if (res) {
+        const { euroRate } = res.data;
+        localStorage.setItem('rate', JSON.stringify({ euro: euroRate }));
+        setRate({ euro: euroRate });
+      }
+    });
+  }, []);
+
   return (
     <ConfigProvider
       theme={{

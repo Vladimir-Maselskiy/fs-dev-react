@@ -1,29 +1,23 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Button, Divider, Spin } from 'antd';
-import { CurrentRate } from '@/components/CurrentRate/CurrentRate';
 import { getNewSet } from '@/utils/data-utils/getNewSet';
 import { Box } from '@/components/Box/Box';
-import { useFSetsContext, useUserContext } from '@/context/state';
+import { useFSetsContext, useRateContext } from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/components/CurrentModal/CurrentModal';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
 import { getFSets } from '@/utils/data-utils/getFSets';
-import { IArticleItem, IFSet, IUser } from '@/interfaces/interfaces';
+import { IArticleItem, IUser } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
-import { setStartEuroRate } from '@/utils/rate/setStartEuroRate';
-import { NextLink } from '@/components/NextLink/NextLink';
-import { NextLinkStyledButton } from './FInputPage.styled';
-import axios, { InternalAxiosRequestConfig } from 'axios';
-import { LogoutOutlined } from '@ant-design/icons';
+import { NavBar } from '../NavBar/NavBar';
 
 export const FInputPage = () => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
-  const { user, setUser } = useUserContext();
+  const { rate } = useRateContext();
 
-  const [euroRate, setEuroRate] = useState(setStartEuroRate());
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(true);
@@ -32,46 +26,11 @@ export const FInputPage = () => {
   const [fSet, setFSet] = useState(getNewSet());
   const [lastID, setLastId] = useState(fSet.id);
   const [buttonTitle, setButtonTitle] = useState('Додати');
-  const [isRefreshFetchAllowed, setIsRefreshFetchAllowed] = useState(true);
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
   const [isOrderTableVisible, setIsOrderTableVisible] = useState(false);
 
-  // axios interceptor request
-
-  const $api = axios.create({ withCredentials: true });
-  $api.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
-    const data = localStorage.getItem('user');
-    if (data && JSON.parse(data).accessToken)
-      config.headers.Authorization = `Bearer ${JSON.parse(data).accessToken}`;
-    return config;
-  });
-
-  // axios interceptor response
-  $api.interceptors.response.use(
-    function (response) {
-      // Any status code that lie within the range of 2xx cause this function to trigger
-      // Do something with response data
-      console.log('responseInInterceptor', response);
-      return response;
-    },
-    async function (error) {
-      if (error.response.status === 401 && !error.config?._isRetry) {
-        const config = error.config;
-        config._isRetry = true;
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_HOST}/users/auth/refresh`,
-          { withCredentials: true }
-        );
-        config._isRetry = false;
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        console.log(response.data);
-        return $api.request(config);
-      }
-      return error;
-    }
-  );
   useEffect(() => {
     setIsGetOrderButtonDisabled(
       !(fSetsArray.length > 0) || buttonTitle === 'Змінити'
@@ -86,22 +45,6 @@ export const FInputPage = () => {
 
   useEffect(() => {
     setIsPageLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    const data = localStorage.getItem('user');
-    if (data) {
-      const user: IUser = JSON.parse(data);
-      if (user.accessToken)
-        $api
-          .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/getUser`)
-          .then(res => {
-            const user = res.data;
-            setUser(user);
-            localStorage.setItem('user', JSON.stringify(user));
-          })
-          .catch(console.log);
-    }
   }, []);
 
   useEffect(() => {
@@ -146,42 +89,9 @@ export const FInputPage = () => {
     );
   };
 
-  const onLogoutButtonClick = () => {
-    try {
-      $api.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/logout`);
-      localStorage.removeItem('user');
-      setUser(null);
-    } catch (error) {}
-  };
-
   return isPageLoaded ? (
     <Box p="10px">
-      <Box display="flex" justifyContent="start" alignItems="center">
-        <CurrentRate euroRate={euroRate} setEuroRate={setEuroRate} />
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          minWidth={300}
-          ml="auto"
-          padding="0 30px"
-        >
-          {user ? (
-            <>
-              <Button icon={<LogoutOutlined />} onClick={onLogoutButtonClick}>
-                {user.name || user.email}
-              </Button>
-            </>
-          ) : (
-            <>
-              <NextLink path="./account/login">Sign In</NextLink>
-              <NextLinkStyledButton href="./account/register">
-                Try Free
-              </NextLinkStyledButton>
-            </>
-          )}
-        </Box>
-      </Box>
+      <NavBar />
       <FormLayout
         fSet={fSet}
         setFSet={setFSet}
@@ -203,7 +113,7 @@ export const FInputPage = () => {
           <Box mt={10} display="flex" justifyContent="space-between">
             <Button
               type="primary"
-              disabled={isGetOrderButtonDisabled}
+              disabled={isGetOrderButtonDisabled || Boolean(rate?.euro)}
               onClick={onClickCountSets}
               style={{ marginLeft: 'auto' }}
             >
@@ -214,7 +124,7 @@ export const FInputPage = () => {
       )}
       <Divider />
       {isOrderTableVisible && (
-        <FSetsOrderTable tableSets={tableSets} euroRate={euroRate} />
+        <FSetsOrderTable tableSets={tableSets} euroRate={rate?.euro!} />
       )}
       <ModalLayout
         isModalOpen={isModalOpen}

@@ -1,4 +1,4 @@
-import { IArticleItem, IFSet, IUser } from '@/interfaces/interfaces';
+import { IArticleItem, IFSet, IRate, IUser } from '@/interfaces/interfaces';
 import { createContext, useContext, useState } from 'react';
 
 type Props = {
@@ -17,10 +17,15 @@ interface IUserContext {
   user: IUser | null;
   setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
 }
+interface IRateContext {
+  rate: IRate | null;
+  setRate: React.Dispatch<React.SetStateAction<IRate | null>>;
+}
 
 const FSetsContext = createContext<IFSetContext | null>(null);
 const TableItemsContext = createContext<ITableContext | null>(null);
 const UserContext = createContext<IUserContext | null>(null);
+const RateContext = createContext<IRateContext | null>(null);
 
 export function AppWrapper({ children }: Props) {
   const [fSetsArray, setFSetsArray] = useState<IFSet[]>([]);
@@ -35,6 +40,7 @@ export function AppWrapper({ children }: Props) {
     </FSetsContext.Provider>
   );
 }
+
 export function TableWrapper({ children }: Props) {
   const [tableItems, setTableItems] = useState<IArticleItem[]>([]);
   let sharedState = {
@@ -58,6 +64,17 @@ export function UserWrapper({ children }: Props) {
 
   return (
     <UserContext.Provider value={sharedState}>{children}</UserContext.Provider>
+  );
+}
+export function RateWrapper({ children }: Props) {
+  const [rate, setRate] = useState<IRate | null>(null);
+  let sharedState = {
+    rate,
+    setRate,
+  };
+
+  return (
+    <RateContext.Provider value={sharedState}>{children}</RateContext.Provider>
   );
 }
 
@@ -84,6 +101,16 @@ export function useUserContext() {
   if (!context) {
     throw new Error(
       'useUserContext has to be used within <useUserContext.Provider>'
+    );
+  }
+  return context;
+}
+
+export function useRateContext() {
+  const context = useContext(RateContext);
+  if (!context) {
+    throw new Error(
+      'useRateContext has to be used within <useRateContext.Provider>'
     );
   }
   return context;
