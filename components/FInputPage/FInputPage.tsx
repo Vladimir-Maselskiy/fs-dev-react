@@ -146,7 +146,13 @@ export const FInputPage = () => {
     );
   };
 
-  const onLogoutButtonClick = () => {};
+  const onLogoutButtonClick = () => {
+    try {
+      $api.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/logout`);
+      localStorage.removeItem('user');
+      setUser(null);
+    } catch (error) {}
+  };
 
   return isPageLoaded ? (
     <Box p="10px">
