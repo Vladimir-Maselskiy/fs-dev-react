@@ -7,7 +7,6 @@ import { Box } from '@/components/Box/Box';
 import { useFSetsContext, useUserContext } from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/components/CurrentModal/CurrentModal';
-import { getIsGetOrderButtonDisabled } from '@/utils/ui-utills/getIsGetOrderButtonDisabled';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
 import { getFSets } from '@/utils/data-utils/getFSets';
 import { IArticleItem, IFSet, IUser } from '@/interfaces/interfaces';
@@ -17,8 +16,8 @@ import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
 import { setStartEuroRate } from '@/utils/rate/setStartEuroRate';
 import { NextLink } from '@/components/NextLink/NextLink';
 import { NextLinkStyledButton } from './FInputPage.styled';
-import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
-import { error } from 'console';
+import axios, { InternalAxiosRequestConfig } from 'axios';
+import { LogoutOutlined } from '@ant-design/icons';
 
 export const FInputPage = () => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
@@ -98,8 +97,8 @@ export const FInputPage = () => {
           .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/getUser`)
           .then(res => {
             const user = res.data;
-            // setUser(user);
-            // localStorage.setItem('user', JSON.stringify(user));
+            setUser(user);
+            localStorage.setItem('user', JSON.stringify(user));
           })
           .catch(console.log);
     }
@@ -146,6 +145,9 @@ export const FInputPage = () => {
       })
     );
   };
+
+  const onLogoutButtonClick = () => {};
+
   return isPageLoaded ? (
     <Box p="10px">
       <Box display="flex" justifyContent="start" alignItems="center">
@@ -158,10 +160,20 @@ export const FInputPage = () => {
           ml="auto"
           padding="0 30px"
         >
-          <NextLink path="./account/login">Sign In</NextLink>
-          <NextLinkStyledButton href="./account/register">
-            Try Free
-          </NextLinkStyledButton>
+          {user ? (
+            <>
+              <Button icon={<LogoutOutlined />} onClick={onLogoutButtonClick}>
+                {user.name || user.email}
+              </Button>
+            </>
+          ) : (
+            <>
+              <NextLink path="./account/login">Sign In</NextLink>
+              <NextLinkStyledButton href="./account/register">
+                Try Free
+              </NextLinkStyledButton>
+            </>
+          )}
         </Box>
       </Box>
       <FormLayout
