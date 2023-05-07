@@ -8,6 +8,7 @@ import { NextLinkStyledButton } from '../FInputPage/FInputPage.styled';
 import { useUserContext } from '@/context/state';
 import axios, { InternalAxiosRequestConfig } from 'axios';
 import { IUser } from '@/interfaces/interfaces';
+import { getUserDto } from '@/utils/mongo/getUserDto';
 
 export const NavBar = () => {
   const { user, setUser } = useUserContext();
@@ -49,17 +50,21 @@ export const NavBar = () => {
   useEffect(() => {
     const data = localStorage.getItem('user');
     if (data) {
-      const user: IUser = JSON.parse(data);
-      if (user.accessToken)
+      const userLS: IUser = JSON.parse(data);
+      if (userLS?.accessToken && !user)
         $api
           .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/getUser`)
           .then(res => {
-            const user = res.data;
-            setUser(user);
-            localStorage.setItem('user', JSON.stringify(user));
+            const userDB = res.data;
+            setUser(userDB);
+            const userDto = getUserDto(userDB);
+            localStorage.setItem(
+              'user',
+              JSON.stringify({ ...userDto, accessToken: userDB.accessToken })
+            );
           })
           .catch(console.log);
-    }
+    } else localStorage.removeItem('user');
   }, [$api, setUser]);
 
   const onLogoutButtonClick = () => {
