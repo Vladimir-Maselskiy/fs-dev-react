@@ -1,10 +1,10 @@
-import { DataType } from '@/components/FSetsOrderTable/FSetsOrderTable';
+import { IItem } from '@/components/FSetsOrderTable/FSetsOrderTable';
 import { jsPDF } from 'jspdf';
 import { fontNormal } from '../../fonts/segoe-ui/font-normal';
 import { fontBold } from '../../fonts/segoe-ui/font-bold';
 // import { font } from './font';
 
-export const getPdfFile = async (data: DataType[]) => {
+export const getPdfFile = async (data: IItem[]) => {
   const doc = new jsPDF();
   doc.addFileToVFS('Segoe-UI-normal.ttf', fontNormal);
   doc.addFileToVFS('Segoe-UI-bold.ttf', fontBold);
@@ -41,7 +41,7 @@ export const getPdfFile = async (data: DataType[]) => {
     x += 7;
     doc.text(`| ${article}`, x, y);
     x += articleTab;
-    doc.text(`|  ${name.slice(0, 55)}`, x, y);
+    doc.text(`|  ${name.slice(0, 53)}`, x, y);
     x += 118 - articleTab;
     doc.text(`|      ${quantity}`, x, y);
     x += 15;

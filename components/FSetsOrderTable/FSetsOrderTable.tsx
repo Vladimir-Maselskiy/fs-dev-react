@@ -342,7 +342,7 @@ export const FSetsOrderTable = ({
           ) : null;
         }}
       />
-      <Button onClick={onGetPdfClick}>Get PDF</Button>
+      {isDiscountAvailable && <Button onClick={onGetPdfClick}>Get PDF</Button>}
     </Box>
   );
 };
