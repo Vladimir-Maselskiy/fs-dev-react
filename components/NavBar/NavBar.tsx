@@ -65,7 +65,7 @@ export const NavBar = () => {
           })
           .catch(console.log);
     } else localStorage.removeItem('user');
-  }, [$api, setUser]);
+  }, [$api, setUser, user]);
 
   const onLogoutButtonClick = () => {
     try {
