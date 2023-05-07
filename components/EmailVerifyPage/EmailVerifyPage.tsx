@@ -13,7 +13,7 @@ export const EmailVerifyPage = () => {
     if (!user) {
       router.push('/account/login');
     }
-  }, []);
+  }, [router, user]);
 
   const onResendLinkClick = () => {
     const body = user;

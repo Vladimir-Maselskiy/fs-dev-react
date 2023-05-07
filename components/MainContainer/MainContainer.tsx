@@ -30,7 +30,7 @@ export const MainContainer = ({ children }: Props) => {
         setRate({ euro: euroRate });
       }
     });
-  }, []);
+  }, [setRate]);
 
   return (
     <ConfigProvider

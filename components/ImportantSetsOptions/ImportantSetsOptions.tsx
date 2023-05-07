@@ -30,7 +30,7 @@ export const ImportantSetsOptions = ({ fSet, form }: TProps) => {
   useEffect(() => {
     setSelectValue(getPVCSystemSelectValue(fSet));
     form.setFieldValue('systemOfPVC', getPVCSystemSelectValue(fSet));
-  }, [fSet.systemOfPVC]);
+  }, [fSet.systemOfPVC, fSet, form]);
 
   useEffect(() => {
     form.setFieldValue('sideOfHinge', fSet.sideOfHinge);

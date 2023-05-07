@@ -60,7 +60,7 @@ export const NavBar = () => {
           })
           .catch(console.log);
     }
-  }, []);
+  }, [$api, setUser]);
 
   const onLogoutButtonClick = () => {
     try {
