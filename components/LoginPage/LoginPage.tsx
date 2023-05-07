@@ -32,7 +32,6 @@ export default function LoginPage() {
     } catch (error: any) {
       const message = error.response.data.error;
       const { status } = error.response;
-      console.log('message', message, 'status', status);
     }
   };
 

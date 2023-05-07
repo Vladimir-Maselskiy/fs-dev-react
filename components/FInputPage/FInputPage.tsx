@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Button, Divider, InputNumber, Spin } from 'antd';
 import { getNewSet } from '@/utils/data-utils/getNewSet';
 import { Box } from '@/components/Box/Box';
-import { useFSetsContext, useRateContext } from '@/context/state';
+import {
+  useFSetsContext,
+  useRateContext,
+  useUserContext,
+} from '@/context/state';
 import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/components/CurrentModal/CurrentModal';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
@@ -12,10 +16,12 @@ import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
 import { NavBar } from '../NavBar/NavBar';
+import { getIsDiscountAvailable } from '@/utils/user-data/getIsDiscountAvailable';
 
 export const FInputPage = () => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const { rate } = useRateContext();
+  const { user } = useUserContext();
 
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,7 +30,7 @@ export const FInputPage = () => {
   const [tableSets, setTableSets] = useState<IArticleItem[]>([]);
   const [fSet, setFSet] = useState(getNewSet());
   const [lastID, setLastId] = useState(fSet.id);
-  const [isDiscountUsed, setIsDiscountUsed] = useState(true);
+  const [isDiscountAviable, setIsDiscountAviable] = useState(false);
   const [discountValue, setDiscountValue] = useState(0);
   const [discountAsProp, setDiscountAsProp] = useState(0);
   const [buttonTitle, setButtonTitle] = useState('Додати');
@@ -54,6 +60,10 @@ export const FInputPage = () => {
       setIsGetOrderButtonDisabled(true);
     }
   }, [buttonTitle]);
+
+  useEffect(() => {
+    setIsDiscountAviable(getIsDiscountAvailable(user));
+  }, [user]);
 
   const onClickCountSets = () => {
     const sets = getFSets(fSetsArray);
@@ -118,7 +128,7 @@ export const FInputPage = () => {
         <>
           <FSetsListTable setFSet={setFSet} setButtonTitle={setButtonTitle} />
           <Box mt={10} display="flex" justifyContent="space-between">
-            {isDiscountUsed && (
+            {isDiscountAviable && (
               <InputNumber
                 addonBefore="Знижка"
                 value={discountValue}

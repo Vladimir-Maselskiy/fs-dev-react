@@ -8,6 +8,8 @@ import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { Box } from '../Box/Box';
 import { useMediaQuery } from '@/hooks';
 import { getPdfFile } from '@/utils/pdf/getPdfFile';
+import { useUserContext } from '@/context/state';
+import { getIsDiscountAvailable } from '@/utils/user-data/getIsDiscountAvailable';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -140,18 +142,32 @@ export const FSetsOrderTable = ({
   const isWide = useMediaQuery(400);
   const isWide767 = useMediaQuery(767);
 
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const { user } = useUserContext();
+  const [discountValue, setDiscountValue] = useState(discount);
 
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [dataSourceWithDiscount, setDataSourceWithDiscount] = useState<IItem[]>(
-    getDataSource(tableSets, euroRate, discount)
+    getDataSource(tableSets, euroRate, discountValue)
   );
-  const [dataSourceBasePrice, setDataSourceBasePrice] = useState<IItem[]>(
-    getDataSource(tableSets, euroRate)
-  );
+  const dataSourceBasePrice = getDataSource(tableSets, euroRate);
+  const isDiscountAvailable = getIsDiscountAvailable(user);
 
   useEffect(() => {
-    setDataSourceWithDiscount(getDataSource(tableSets, euroRate, discount));
-  }, [tableSets, euroRate, discount]);
+    setDataSourceWithDiscount(
+      getDataSource(tableSets, euroRate, discountValue)
+    );
+  }, [tableSets, euroRate, discountValue]);
+
+  useEffect(() => {
+    if (
+      (user && user?.status === 'finalBuyer') ||
+      user?.status === 'installer'
+    ) {
+      setDiscountValue(-10);
+    } else {
+      setDiscountValue(discount);
+    }
+  }, [user, discount]);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -209,19 +225,22 @@ export const FSetsOrderTable = ({
       title: 'Ціна',
       dataIndex: 'price',
       align: 'center',
+      responsive: user ? undefined : [],
     },
     {
       title: 'Знижка',
       dataIndex: 'discount',
       editable: true,
+
       align: 'center',
-      responsive: ['md'],
+      responsive: isDiscountAvailable ? undefined : [],
     },
 
     {
       title: 'Сума',
       dataIndex: 'sum',
       align: 'center',
+      responsive: user ? undefined : [],
     },
     Table.SELECTION_COLUMN,
   ];
@@ -230,6 +249,9 @@ export const FSetsOrderTable = ({
     const newData = [...dataSourceWithDiscount];
     const index = newData.findIndex(item => row.key === item.key);
     const item = newData[index];
+    if (isNaN(row.quantity)) row.quantity = 1;
+    if (isNaN(row.discount)) row.discount = 0;
+
     const itemWithBasePrice = dataSourceBasePrice.find(
       itemWithBasePrice => itemWithBasePrice.article === item.article
     );
@@ -307,21 +329,17 @@ export const FSetsOrderTable = ({
             const currentItem = item as IItem;
             return acc + +currentItem.sum;
           }, 0);
-          return (
-            <>
-              <Table.Summary.Row
-                style={{ fontWeight: 'bold', fontSize: '16px' }}
-              >
-                <Table.Summary.Cell index={0} colSpan={3}></Table.Summary.Cell>
-                <Table.Summary.Cell index={1} colSpan={isWide767 ? 2 : 1}>
-                  Всього
-                </Table.Summary.Cell>
-                <Table.Summary.Cell index={2} colSpan={2}>
-                  <p>{`${lotalPrice.toFixed(2)} грн`}</p>
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-            </>
-          );
+          return user ? (
+            <Table.Summary.Row style={{ fontWeight: 'bold', fontSize: '16px' }}>
+              <Table.Summary.Cell index={0} colSpan={3}></Table.Summary.Cell>
+              <Table.Summary.Cell index={1} colSpan={isWide767 ? 2 : 1}>
+                Всього
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={2} colSpan={2}>
+                <p>{`${lotalPrice.toFixed(2)} грн`}</p>
+              </Table.Summary.Cell>
+            </Table.Summary.Row>
+          ) : null;
         }}
       />
       <Button onClick={onGetPdfClick}>Get PDF</Button>

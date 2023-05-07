@@ -22,7 +22,8 @@ export const EmailVerifyPage = () => {
         `${process.env.NEXT_PUBLIC_API_HOST}/users/activate/resendActivationLink`,
         body
       )
-      .then(res => console.log(res.data));
+      .then()
+      .catch(console.log);
   };
   return (
     <Box padding={100} display="flex" flexDirection="column" width="50%">

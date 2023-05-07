@@ -41,7 +41,6 @@ export default function RegisterPage() {
     } catch (error: any) {
       const message = error.response.data.error;
       const { status } = error.response;
-      console.log(message, status);
       if (status === 422) {
         setIsErrorEmail(true);
       }

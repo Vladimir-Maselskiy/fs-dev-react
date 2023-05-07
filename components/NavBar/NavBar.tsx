@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '../Box/Box';
 import { CurrentRate } from '../CurrentRate/CurrentRate';
 import { Button } from 'antd';
@@ -27,7 +27,6 @@ export const NavBar = () => {
     function (response) {
       // Any status code that lie within the range of 2xx cause this function to trigger
       // Do something with response data
-      console.log('responseInInterceptor', response);
       return response;
     },
     async function (error) {

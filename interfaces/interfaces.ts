@@ -33,6 +33,14 @@ export const ALLDecor = [
   'bronze',
 ] as const;
 
+export const ALLUserStatus = [
+  'admin',
+  'manager',
+  'dealer',
+  'installer',
+  'finalBuyer',
+] as const;
+
 export const ALLBrands = ['maco', 'vorne', 'winkhaus'] as const;
 
 export type TSystemOfPVC = (typeof ALLSystemOfPVC)[number];
@@ -45,6 +53,8 @@ export type TTypeOfOpenimg = (typeof ALLTypeOfOpeningConst)[number];
 export type TBrands = (typeof ALLBrands)[number];
 
 export type TDecor = (typeof ALLDecor)[number];
+
+export type TUserStatus = (typeof ALLUserStatus)[number];
 
 export interface IFSet {
   id: string;
@@ -101,6 +111,7 @@ export interface IUser {
   refreshToken: string | null;
   activationLink: string | null;
   isActivated: boolean;
+  status: TUserStatus;
 }
 
 export interface IRate {
