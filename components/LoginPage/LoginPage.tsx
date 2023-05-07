@@ -69,12 +69,12 @@ export default function LoginPage() {
     <Box ml={50} mt={50}>
       <Form
         form={form}
-        name="dynamic_form_nest_item"
+        name="loginForm"
         onFinish={onFinish}
         style={{ maxWidth: 600 }}
         layout="vertical"
         onFieldsChange={onFieldsChange}
-        // autoComplete=""
+        autoComplete="on"
       >
         <Form.Item>
           <Form.Item

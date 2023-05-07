@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Divider, InputNumber, Spin } from 'antd';
+import { Button, Divider, InputNumber, Select, Spin } from 'antd';
 import { getNewSet } from '@/utils/data-utils/getNewSet';
 import { Box } from '@/components/Box/Box';
 import {
@@ -17,6 +17,7 @@ import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
 import { NavBar } from '../NavBar/NavBar';
 import { getIsDiscountAvailable } from '@/utils/user-data/getIsDiscountAvailable';
+import { DefaultOptionType } from 'antd/es/select';
 
 export const FInputPage = () => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
@@ -34,10 +35,13 @@ export const FInputPage = () => {
   const [discountValue, setDiscountValue] = useState(0);
   const [discountAsProp, setDiscountAsProp] = useState(0);
   const [buttonTitle, setButtonTitle] = useState('Додати');
+  const [discountSign, setDiscountSign] = useState<'add' | 'minus'>('add');
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
   const [isOrderTableVisible, setIsOrderTableVisible] = useState(false);
+
+  const { Option } = Select;
 
   useEffect(() => {
     setIsGetOrderButtonDisabled(
@@ -68,7 +72,13 @@ export const FInputPage = () => {
   const onClickCountSets = () => {
     const sets = getFSets(fSetsArray);
     setTableSets(sets);
-    setDiscountAsProp(discountValue);
+
+    if (discountSign === 'add') {
+      setDiscountAsProp(discountValue);
+    } else {
+      setDiscountAsProp(discountValue * -1);
+    }
+
     setIsOrderTableVisible(true);
   };
 
@@ -106,6 +116,24 @@ export const FInputPage = () => {
     if (value !== null) setDiscountValue(value);
   };
 
+  const onChangeSelectSign = (
+    value: string,
+    option: DefaultOptionType | DefaultOptionType[]
+  ) => {
+    if (value === 'add' || value === 'minus') setDiscountSign(value);
+  };
+
+  const selectBefore = (
+    <Select
+      defaultValue="add"
+      style={{ width: 60 }}
+      onChange={onChangeSelectSign}
+    >
+      <Option value="add">+</Option>
+      <Option value="minus">-</Option>
+    </Select>
+  );
+
   return isPageLoaded ? (
     <Box p="10px">
       <NavBar />
@@ -130,10 +158,12 @@ export const FInputPage = () => {
           <Box mt={10} display="flex" justifyContent="space-between">
             {isDiscountAviable && (
               <InputNumber
-                addonBefore="Знижка"
+                addonBefore={selectBefore}
+                addonAfter="Знижка"
                 value={discountValue}
                 onChange={onDiscountInputChange}
                 style={{ marginRight: 20 }}
+                min={0}
               />
             )}
             <Button

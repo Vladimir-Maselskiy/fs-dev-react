@@ -233,7 +233,7 @@ export const FSetsOrderTable = ({
       editable: true,
 
       align: 'center',
-      responsive: isDiscountAvailable ? undefined : [],
+      responsive: isDiscountAvailable ? ['md'] : [],
     },
 
     {

@@ -74,7 +74,7 @@ export default function RegisterPage() {
       <p>Sign up</p>
       <Form
         form={form}
-        name="regiter_form"
+        name="regiterForm"
         onFinish={onFinish}
         style={{ maxWidth: 600 }}
         layout="vertical"
