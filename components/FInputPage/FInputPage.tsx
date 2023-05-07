@@ -1,6 +1,5 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { Button, Divider, Spin } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Button, Divider, InputNumber, Spin } from 'antd';
 import { getNewSet } from '@/utils/data-utils/getNewSet';
 import { Box } from '@/components/Box/Box';
 import { useFSetsContext, useRateContext } from '@/context/state';
@@ -25,6 +24,9 @@ export const FInputPage = () => {
   const [tableSets, setTableSets] = useState<IArticleItem[]>([]);
   const [fSet, setFSet] = useState(getNewSet());
   const [lastID, setLastId] = useState(fSet.id);
+  const [isDiscountUsed, setIsDiscountUsed] = useState(true);
+  const [discountValue, setDiscountValue] = useState(0);
+  const [discountAsProp, setDiscountAsProp] = useState(0);
   const [buttonTitle, setButtonTitle] = useState('Додати');
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
@@ -56,6 +58,7 @@ export const FInputPage = () => {
   const onClickCountSets = () => {
     const sets = getFSets(fSetsArray);
     setTableSets(sets);
+    setDiscountAsProp(discountValue);
     setIsOrderTableVisible(true);
   };
 
@@ -89,6 +92,10 @@ export const FInputPage = () => {
     );
   };
 
+  const onDiscountInputChange = (value: number | null) => {
+    if (value !== null) setDiscountValue(value);
+  };
+
   return isPageLoaded ? (
     <Box p="10px">
       <NavBar />
@@ -111,9 +118,17 @@ export const FInputPage = () => {
         <>
           <FSetsListTable setFSet={setFSet} setButtonTitle={setButtonTitle} />
           <Box mt={10} display="flex" justifyContent="space-between">
+            {isDiscountUsed && (
+              <InputNumber
+                addonBefore="Знижка"
+                value={discountValue}
+                onChange={onDiscountInputChange}
+                style={{ marginRight: 20 }}
+              />
+            )}
             <Button
               type="primary"
-              disabled={isGetOrderButtonDisabled || Boolean(rate?.euro)}
+              disabled={isGetOrderButtonDisabled && !Boolean(rate?.euro)}
               onClick={onClickCountSets}
               style={{ marginLeft: 'auto' }}
             >
@@ -124,7 +139,11 @@ export const FInputPage = () => {
       )}
       <Divider />
       {isOrderTableVisible && (
-        <FSetsOrderTable tableSets={tableSets} euroRate={rate?.euro!} />
+        <FSetsOrderTable
+          tableSets={tableSets}
+          euroRate={rate?.euro!}
+          discount={discountAsProp}
+        />
       )}
       <ModalLayout
         isModalOpen={isModalOpen}
@@ -134,7 +153,6 @@ export const FInputPage = () => {
         fSet={fSet}
         setFSet={setFSet}
       />
-      {/* <TestComonent /> */}
     </Box>
   ) : (
     <Box

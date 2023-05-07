@@ -11,13 +11,14 @@ import { getPdfFile } from '@/utils/pdf/getPdfFile';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
-interface Item {
+export interface IItem {
   key: React.Key;
   rowNumber: string;
   article: string;
   name: string;
   quantity: number;
   price: string;
+  discount: number;
   sum: string;
 }
 
@@ -28,28 +29,29 @@ interface EditableCellProps {
   title: React.ReactNode;
   editable: boolean;
   children: React.ReactNode;
-  dataIndex: keyof Item;
-  record: Item;
-  handleSave: (record: Item) => void;
+  dataIndex: keyof IItem;
+  record: IItem;
+  handleSave: (record: IItem) => void;
 }
 
 type EditableTableProps = Parameters<typeof Table>[0];
 
-export interface DataType {
-  key: React.Key;
-  rowNumber: string;
-  article: string;
-  name: string;
-  quantity: number;
-  price: string;
-  sum: string;
-}
+// export interface DataType {
+//   key: React.Key;
+//   rowNumber: string;
+//   article: string;
+//   name: string;
+//   quantity: number;
+//   price: string;
+//   sum: string;
+// }
 
 type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>;
 
 type TTableProps = {
   tableSets: IArticleItem[];
   euroRate: string;
+  discount: number;
 };
 
 const EditableRow = ({ index, ...props }: EditableRowProps) => {
@@ -130,25 +132,33 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-export const FSetsOrderTable = ({ tableSets, euroRate }: TTableProps) => {
+export const FSetsOrderTable = ({
+  tableSets,
+  euroRate,
+  discount,
+}: TTableProps) => {
   const isWide = useMediaQuery(400);
   const isWide767 = useMediaQuery(767);
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  useEffect(() => {
-    setDataSource(getDataSource(tableSets, euroRate));
-  }, [tableSets, euroRate]);
 
-  const [dataSource, setDataSource] = useState<DataType[]>(
+  const [dataSourceWithDiscount, setDataSourceWithDiscount] = useState<IItem[]>(
+    getDataSource(tableSets, euroRate, discount)
+  );
+  const [dataSourceBasePrice, setDataSourceBasePrice] = useState<IItem[]>(
     getDataSource(tableSets, euroRate)
   );
+
+  useEffect(() => {
+    setDataSourceWithDiscount(getDataSource(tableSets, euroRate, discount));
+  }, [tableSets, euroRate, discount]);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
   const onGetPdfClick = () => {
-    getPdfFile(dataSource);
+    getPdfFile(dataSourceWithDiscount);
   };
 
   const rowSelection = {
@@ -157,9 +167,11 @@ export const FSetsOrderTable = ({ tableSets, euroRate }: TTableProps) => {
   };
 
   const handleDelete = (keys: React.Key[]) => {
-    const newData = dataSource.filter(item => !keys.includes(item.key));
+    const newData = dataSourceWithDiscount.filter(
+      item => !keys.includes(item.key)
+    );
     setSelectedRowKeys([]);
-    setDataSource(newData);
+    setDataSourceWithDiscount(newData);
   };
 
   const defaultColumns: (
@@ -199,6 +211,14 @@ export const FSetsOrderTable = ({ tableSets, euroRate }: TTableProps) => {
       align: 'center',
     },
     {
+      title: 'Знижка',
+      dataIndex: 'discount',
+      editable: true,
+      align: 'center',
+      responsive: ['md'],
+    },
+
+    {
       title: 'Сума',
       dataIndex: 'sum',
       align: 'center',
@@ -206,16 +226,29 @@ export const FSetsOrderTable = ({ tableSets, euroRate }: TTableProps) => {
     Table.SELECTION_COLUMN,
   ];
 
-  const handleSave = (row: DataType) => {
-    const newData = [...dataSource];
+  const handleSave = (row: IItem) => {
+    const newData = [...dataSourceWithDiscount];
     const index = newData.findIndex(item => row.key === item.key);
     const item = newData[index];
-    row.sum = (row.quantity * +row.price).toFixed(2);
+    const itemWithBasePrice = dataSourceBasePrice.find(
+      itemWithBasePrice => itemWithBasePrice.article === item.article
+    );
+    if (itemWithBasePrice) {
+      row.price = (
+        (+itemWithBasePrice.price * (100 - row.discount)) /
+        100
+      ).toFixed(2);
+      row.sum = (
+        row.quantity *
+        +itemWithBasePrice.price *
+        ((100 - row.discount) / 100)
+      ).toFixed(2);
+    }
     newData.splice(index, 1, {
       ...item,
       ...row,
     });
-    setDataSource(newData);
+    setDataSourceWithDiscount(newData);
   };
 
   const components = {
@@ -235,7 +268,7 @@ export const FSetsOrderTable = ({ tableSets, euroRate }: TTableProps) => {
     }
     return {
       ...col,
-      onCell: (record: DataType) => ({
+      onCell: (record: IItem) => ({
         record,
         editable: newCol.editable,
         dataIndex: newCol.dataIndex,
@@ -262,7 +295,7 @@ export const FSetsOrderTable = ({ tableSets, euroRate }: TTableProps) => {
         components={components}
         rowClassName={() => 'editable-row'}
         bordered
-        dataSource={dataSource}
+        dataSource={dataSourceWithDiscount}
         columns={columns as ColumnTypes}
         pagination={false}
         style={{ marginTop: 30, width: '100%', minWidth: '290px' }}
@@ -271,7 +304,7 @@ export const FSetsOrderTable = ({ tableSets, euroRate }: TTableProps) => {
         rowSelection={rowSelection}
         summary={dataSource => {
           let lotalPrice = dataSource.reduce((acc, item) => {
-            const currentItem = item as DataType;
+            const currentItem = item as IItem;
             return acc + +currentItem.sum;
           }, 0);
           return (
