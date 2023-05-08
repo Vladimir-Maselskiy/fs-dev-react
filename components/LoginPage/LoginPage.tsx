@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import { Box } from '../Box/Box';
 import { FieldData } from 'rc-field-form/lib/interface';
@@ -6,9 +6,8 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useUserContext } from '@/context/state';
 import { IUser } from '@/interfaces/interfaces';
-import { GoogleOutlined } from '@ant-design/icons';
 import IconGoogleLogo from '../../img/google-icon.svg';
-import { display } from 'styled-system';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 export default function LoginPage() {
   const { setUser } = useUserContext();
@@ -18,6 +17,13 @@ export default function LoginPage() {
   const [isEmailInputDisabled, setIsEmailInputDisabled] = useState(false);
   const [form] = Form.useForm();
   const router = useRouter();
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      router.push('/');
+    }
+  }, [session]);
 
   const onFinish = async (values: any) => {
     const { email, password } = values;
@@ -69,7 +75,7 @@ export default function LoginPage() {
   };
 
   const onGooleLoginButtonClick = () => {
-    console.log('loginWithGoogle');
+    signIn();
   };
 
   return (

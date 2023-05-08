@@ -6,17 +6,20 @@ import {
 } from '@/context/state';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <AppWrapper>
-      <TableWrapper>
-        <UserWrapper>
-          <RateWrapper>
-            <Component {...pageProps} />
-          </RateWrapper>
-        </UserWrapper>
-      </TableWrapper>
-    </AppWrapper>
+    <SessionProvider>
+      <AppWrapper>
+        <TableWrapper>
+          <UserWrapper>
+            <RateWrapper>
+              <Component {...pageProps} />
+            </RateWrapper>
+          </UserWrapper>
+        </TableWrapper>
+      </AppWrapper>
+    </SessionProvider>
   );
 }

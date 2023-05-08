@@ -9,9 +9,12 @@ import { useUserContext } from '@/context/state';
 import axios, { InternalAxiosRequestConfig } from 'axios';
 import { IUser } from '@/interfaces/interfaces';
 import { getUserDto } from '@/utils/mongo/getUserDto';
+import { useSession, signOut } from 'next-auth/react';
 
 export const NavBar = () => {
   const { user, setUser } = useUserContext();
+  const { data: session, status: sessionStatus } = useSession();
+  console.log('sessionInNavBar', session);
 
   // axios interceptor request
 
@@ -48,27 +51,53 @@ export const NavBar = () => {
   );
 
   useEffect(() => {
-    const data = localStorage.getItem('user');
-    if (data) {
-      const userLS: IUser = JSON.parse(data);
-      if (userLS?.accessToken && !user)
-        $api
-          .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/getUser`)
-          .then(res => {
-            const userDB = res.data;
-            setUser(userDB);
-            const userDto = getUserDto(userDB);
-            localStorage.setItem(
-              'user',
-              JSON.stringify({ ...userDto, accessToken: userDB.accessToken })
-            );
-          })
-          .catch(console.log);
-    } else localStorage.removeItem('user');
-  }, [$api, setUser, user]);
+    if (sessionStatus !== 'loading' && !session) {
+      const data = localStorage.getItem('user');
+      if (data) {
+        const userLS: IUser = JSON.parse(data);
+        if (userLS?.accessToken && !user)
+          $api
+            .get(`${process.env.NEXT_PUBLIC_API_HOST}/users/getUser`)
+            .then(res => {
+              const userDB = res.data;
+              setUser(userDB);
+              const userDto = getUserDto(userDB);
+              localStorage.setItem(
+                'user',
+                JSON.stringify({ ...userDto, accessToken: userDB.accessToken })
+              );
+            })
+            .catch(console.log);
+      } else localStorage.removeItem('user');
+    }
+  }, [$api, setUser, user, session]);
+
+  useEffect(() => {
+    if (session && sessionStatus === 'authenticated') {
+      const { email, image, name } = session.user!;
+      const options = { email, image, name };
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_API_HOST}/users/getUserWithGoogleAuth`,
+          options
+        )
+        .then(res => {
+          const userDB = res.data;
+          setUser(userDB);
+          localStorage.setItem(
+            'user',
+            JSON.stringify({ ...userDB, accessToken: userDB.accessToken })
+          );
+        })
+        .catch(console.log);
+    }
+  }, [session]);
 
   const onLogoutButtonClick = () => {
     try {
+      if (session) {
+        signOut();
+      }
       $api.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/logout`);
       localStorage.removeItem('user');
       setUser(null);

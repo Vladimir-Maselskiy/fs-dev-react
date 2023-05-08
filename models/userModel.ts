@@ -42,6 +42,10 @@ const userSchema = new Schema(
       enum: ['admin', 'manager', 'dealer', 'installer', 'finalBuyer'],
       default: 'finalBuyer',
     },
+    image: {
+      type: String,
+      default: '',
+    },
   },
   { versionKey: false, timestamps: true }
 );

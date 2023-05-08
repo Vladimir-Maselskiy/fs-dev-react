@@ -112,6 +112,7 @@ export interface IUser {
   activationLink: string | null;
   isActivated: boolean;
   status: TUserStatus;
+  image: string;
 }
 
 export interface IRate {
