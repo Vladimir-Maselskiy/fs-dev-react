@@ -70,7 +70,7 @@ export const NavBar = () => {
             .catch(console.log);
       } else localStorage.removeItem('user');
     }
-  }, [$api, setUser, user, session]);
+  }, [$api, setUser, user, session, sessionStatus]);
 
   useEffect(() => {
     if (session && sessionStatus === 'authenticated') {
@@ -91,7 +91,7 @@ export const NavBar = () => {
         })
         .catch(console.log);
     }
-  }, [session]);
+  }, [session, sessionStatus]);
 
   const onLogoutButtonClick = async () => {
     try {
