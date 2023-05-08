@@ -15,6 +15,7 @@ export const NavBar = () => {
   const { user, setUser } = useUserContext();
   const { data: session, status: sessionStatus } = useSession();
   console.log('sessionInNavBar', session);
+  console.log('user', user);
 
   // axios interceptor request
 
