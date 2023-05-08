@@ -13,7 +13,7 @@ export default async function getUserWithGoogleAuth(
   res: NextApiResponse
 ) {
   try {
-    // await connectMongo();
+    await connectMongo();
     const body = req.body;
     if (body) {
       const { email, image, name } = body;
