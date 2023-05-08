@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box } from '../Box/Box';
 import { CurrentRate } from '../CurrentRate/CurrentRate';
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { NextLink } from '../NextLink/NextLink';
 import { NextLinkStyledButton } from '../FInputPage/FInputPage.styled';
@@ -14,6 +14,8 @@ import { useSession, signOut } from 'next-auth/react';
 export const NavBar = () => {
   const { user, setUser } = useUserContext();
   const { data: session, status: sessionStatus } = useSession();
+
+  const [isUserLoading, setIsUserLoading] = useState(true);
   console.log('sessionInNavBar', session);
   console.log('user', user);
 
@@ -94,6 +96,14 @@ export const NavBar = () => {
     }
   }, [session, sessionStatus]);
 
+  useEffect(() => {
+    if (sessionStatus === 'loading') {
+      setIsUserLoading(true);
+    } else {
+      setIsUserLoading(false);
+    }
+  }, [sessionStatus]);
+
   const onLogoutButtonClick = async () => {
     try {
       await $api.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/logout`);
@@ -116,10 +126,12 @@ export const NavBar = () => {
         ml="auto"
         padding="0 30px"
       >
-        {user?.email ? (
+        {isUserLoading ? (
+          <Spin />
+        ) : user ? (
           <>
             <Button icon={<LogoutOutlined />} onClick={onLogoutButtonClick}>
-              {user.name || user.email}
+              {user?.name || user?.email}
             </Button>
           </>
         ) : (
