@@ -6,6 +6,9 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useUserContext } from '@/context/state';
 import { IUser } from '@/interfaces/interfaces';
+import { GoogleOutlined } from '@ant-design/icons';
+import IconGoogleLogo from '../../img/google-icon.svg';
+import { display } from 'styled-system';
 
 export default function LoginPage() {
   const { setUser } = useUserContext();
@@ -63,6 +66,10 @@ export default function LoginPage() {
     e.preventDefault();
     setIsEmailInputDisabled(false);
     setIsEmailInputPassed(false);
+  };
+
+  const onGooleLoginButtonClick = () => {
+    console.log('loginWithGoogle');
   };
 
   return (
@@ -137,6 +144,21 @@ export default function LoginPage() {
           </>
         )}
       </Form>
+      <p>Sing with Google</p>
+      <Button
+        icon={<IconGoogleLogo />}
+        onClick={onGooleLoginButtonClick}
+        style={{
+          width: 120,
+          marginTop: 20,
+          padding: '20px 20px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        Google
+      </Button>
     </Box>
   );
 }
