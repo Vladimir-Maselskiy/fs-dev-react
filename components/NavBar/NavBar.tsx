@@ -93,14 +93,14 @@ export const NavBar = () => {
     }
   }, [session]);
 
-  const onLogoutButtonClick = () => {
+  const onLogoutButtonClick = async () => {
     try {
-      if (session) {
-        signOut();
-      }
-      $api.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/logout`);
+      await $api.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/logout`);
       localStorage.removeItem('user');
       setUser(null);
+      if (session) {
+        await signOut();
+      }
     } catch (error) {}
   };
 
