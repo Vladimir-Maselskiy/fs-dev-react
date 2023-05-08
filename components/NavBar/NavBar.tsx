@@ -115,7 +115,7 @@ export const NavBar = () => {
         ml="auto"
         padding="0 30px"
       >
-        {user ? (
+        {user?.email ? (
           <>
             <Button icon={<LogoutOutlined />} onClick={onLogoutButtonClick}>
               {user.name || user.email}
