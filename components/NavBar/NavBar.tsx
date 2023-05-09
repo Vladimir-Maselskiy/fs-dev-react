@@ -16,8 +16,6 @@ export const NavBar = () => {
   const { data: session, status: sessionStatus } = useSession();
 
   const [isUserLoading, setIsUserLoading] = useState(true);
-  console.log('sessionInNavBar', session);
-  console.log('user', user);
 
   // axios interceptor request
 
