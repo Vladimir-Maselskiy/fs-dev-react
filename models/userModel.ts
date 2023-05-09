@@ -3,6 +3,10 @@ import { handleSaveErrors } from '../utils/mongo/handleSaveErrors';
 
 const userSchema = new Schema(
   {
+    name: {
+      type: String,
+      required: [true, 'Name is required'],
+    },
     email: {
       type: String,
       required: [true, 'Email is required'],
@@ -45,6 +49,10 @@ const userSchema = new Schema(
     image: {
       type: String,
       default: '',
+    },
+    price: {
+      type: Number,
+      default: 1,
     },
   },
   { versionKey: false, timestamps: true }

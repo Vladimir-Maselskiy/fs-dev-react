@@ -76,11 +76,11 @@ export const NavBar = () => {
   useEffect(() => {
     if (session && sessionStatus === 'authenticated') {
       const { email, image, name } = session.user!;
-      const options = { email, image, name };
+      const body = { email, image, name };
       axios
         .post(
           `${process.env.NEXT_PUBLIC_API_HOST}/users/getUserWithGoogleAuth`,
-          options
+          body
         )
         .then(res => {
           const userDB = res.data;

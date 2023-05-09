@@ -113,6 +113,7 @@ export interface IUser {
   isActivated: boolean;
   status: TUserStatus;
   image: string;
+  price: number;
 }
 
 export interface IRate {

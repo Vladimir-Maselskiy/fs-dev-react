@@ -1,6 +1,6 @@
 import { IUser } from '@/interfaces/interfaces';
 
 export const getUserDto = (user: IUser) => {
-  const { _id, email, isActivated, status } = user;
-  return { _id, email, isActivated, status };
+  const { email, status, name } = user;
+  return { email, status, name };
 };

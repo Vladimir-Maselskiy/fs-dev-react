@@ -18,7 +18,7 @@ export default async function addTest(
 ) {
   try {
     await connectMongo();
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
     const user = await User.findOne({ email });
     if (user) throw createError(422, `User with email ${email} already used`);
 
@@ -28,6 +28,7 @@ export default async function addTest(
       email,
       password: passwordHash,
       activationLink,
+      name,
     });
 
     const userDto = getUserDto(newUser);
