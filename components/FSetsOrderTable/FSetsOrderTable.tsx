@@ -144,17 +144,18 @@ export const FSetsOrderTable = ({
 
   const { user } = useUserContext();
   const [discountValue, setDiscountValue] = useState(discount);
+  let userPrice = user?.price;
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [dataSourceWithDiscount, setDataSourceWithDiscount] = useState<IItem[]>(
-    getDataSource(tableSets, euroRate, discountValue)
+    getDataSource(tableSets, euroRate, discountValue, userPrice)
   );
-  const dataSourceBasePrice = getDataSource(tableSets, euroRate);
+  const dataSourceBasePrice = getDataSource(tableSets, euroRate, 0, userPrice);
   const isDiscountAvailable = getIsDiscountAvailable(user);
 
   useEffect(() => {
     setDataSourceWithDiscount(
-      getDataSource(tableSets, euroRate, discountValue)
+      getDataSource(tableSets, euroRate, discountValue, userPrice)
     );
   }, [tableSets, euroRate, discountValue]);
 

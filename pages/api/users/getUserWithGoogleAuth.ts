@@ -25,7 +25,7 @@ export default async function getUserWithGoogleAuth(
         user.accessToken = accessToken;
         user.refreshToken = refreshToken;
         await user.save();
-        return res.status(200).json({ ...userDto, accessToken, image });
+        return res.status(200).json(user);
       }
       if (!user) {
         const newUser = await User.create({
@@ -39,7 +39,7 @@ export default async function getUserWithGoogleAuth(
         newUser.accessToken = accessToken;
         newUser.refreshToken = refreshToken;
         await newUser.save();
-        return res.status(200).json({ ...userDto, accessToken, image });
+        return res.status(200).json(newUser);
       }
     } else createError(400, 'bad request');
 
