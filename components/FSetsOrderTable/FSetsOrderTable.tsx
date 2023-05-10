@@ -232,6 +232,7 @@ export const FSetsOrderTable = ({
       title: 'Знижка',
       dataIndex: 'discount',
       editable: true,
+      width: '4%',
 
       align: 'center',
       responsive: isDiscountAvailable ? ['md'] : [],

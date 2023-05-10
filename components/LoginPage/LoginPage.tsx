@@ -8,6 +8,7 @@ import { useUserContext } from '@/context/state';
 import { IUser } from '@/interfaces/interfaces';
 import IconGoogleLogo from '../../img/google-icon.svg';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import { createError } from '@/utils/mongo/createError';
 
 export default function LoginPage() {
   const { setUser } = useUserContext();
@@ -32,11 +33,17 @@ export default function LoginPage() {
       await axios
         .post(`${process.env.NEXT_PUBLIC_API_HOST}/users/login`, body)
         .then(res => {
-          const user: IUser = res.data.user;
-          setUser(user);
-          localStorage.setItem('user', JSON.stringify(user));
-          form.resetFields();
-          router.push('/');
+          console.log('redInLogin', res);
+          const user: IUser = res.data;
+          if (user) {
+            setUser(user);
+            console.log('userInLogin', user);
+            localStorage.setItem('user', JSON.stringify(user));
+            form.resetFields();
+            router.push('/');
+          } else {
+            createError(500, 'Server error');
+          }
         });
     } catch (error: any) {
       const message = error.response.data.error;

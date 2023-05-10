@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '../Box/Box';
 import { CurrentRate } from '../CurrentRate/CurrentRate';
-import { Button, Spin } from 'antd';
+import { Avatar, Button, Spin } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { NextLink } from '../NextLink/NextLink';
 import { NextLinkStyledButton } from '../FInputPage/FInputPage.styled';
@@ -125,6 +125,22 @@ export const NavBar = () => {
         ml="auto"
         padding="0 30px"
       >
+        {isUserLoading ? (
+          <Spin />
+        ) : user ? (
+          <>
+            <Avatar src={user.image}>
+              {user.name.slice(0, 1).toUpperCase()}
+            </Avatar>
+          </>
+        ) : (
+          <>
+            <NextLink path="./account/login">Sign In</NextLink>
+            <NextLinkStyledButton href="./account/register">
+              Try Free
+            </NextLinkStyledButton>
+          </>
+        )}
         {isUserLoading ? (
           <Spin />
         ) : user ? (

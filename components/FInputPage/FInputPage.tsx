@@ -80,7 +80,6 @@ export const FInputPage = () => {
     const data = localStorage.getItem('discount');
     if (data) {
       const discount: TDiscount = JSON.parse(data);
-      console.log('dataLS', data);
       setDiscountSign(discount.sign);
       setDiscountValue(discount.value);
     }
