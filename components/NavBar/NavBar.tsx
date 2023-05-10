@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '../Box/Box';
 import { CurrentRate } from '../CurrentRate/CurrentRate';
-import { Avatar, Button, Spin } from 'antd';
-import { LogoutOutlined } from '@ant-design/icons';
+import { Avatar, Button, Divider, Popover, Spin } from 'antd';
+import { LogoutOutlined, MenuOutlined } from '@ant-design/icons';
 import { NextLink } from '../NextLink/NextLink';
 import { NextLinkStyledButton } from '../FInputPage/FInputPage.styled';
 import { useUserContext } from '@/context/state';
@@ -10,10 +10,15 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 import { IUser } from '@/interfaces/interfaces';
 import { getUserDto } from '@/utils/mongo/getUserDto';
 import { useSession, signOut } from 'next-auth/react';
+import { flexDirection } from 'styled-system';
+import Link from 'next/link';
+import { useMediaQuery } from '@/hooks';
 
 export const NavBar = () => {
   const { user, setUser } = useUserContext();
   const { data: session, status: sessionStatus } = useSession();
+
+  const isWide460 = useMediaQuery(460);
 
   const [isUserLoading, setIsUserLoading] = useState(true);
 
@@ -121,41 +126,60 @@ export const NavBar = () => {
         display="flex"
         justifyContent="space-between"
         alignItems="center"
-        minWidth={300}
+        width={180}
         ml="auto"
-        padding="0 30px"
+        // padding="0 30px"
       >
         {isUserLoading ? (
           <Spin />
         ) : user ? (
-          <>
-            <Avatar src={user.image}>
-              {user.name.slice(0, 1).toUpperCase()}
-            </Avatar>
-          </>
-        ) : (
+          <Popover
+            placement="bottomRight"
+            content={
+              <>
+                <p style={{ marginTop: 10, textAlign: 'end' }}>{user.name}</p>
+                <p style={{ marginTop: 10 }}>{user.email}</p>
+                <Divider />
+                <Button icon={<LogoutOutlined />} onClick={onLogoutButtonClick}>
+                  Log out
+                </Button>
+              </>
+            }
+          >
+            <Avatar
+              style={{
+                marginLeft: 'auto',
+                backgroundColor: user.image ? '' : '#f56a00',
+              }}
+              src={user.image}
+              alt={user.name.slice(0, 1).toUpperCase()}
+            />
+          </Popover>
+        ) : isWide460 ? (
           <>
             <NextLink path="./account/login">Sign In</NextLink>
             <NextLinkStyledButton href="./account/register">
               Try Free
             </NextLinkStyledButton>
           </>
-        )}
-        {isUserLoading ? (
-          <Spin />
-        ) : user ? (
-          <>
-            <Button icon={<LogoutOutlined />} onClick={onLogoutButtonClick}>
-              {user?.name || user?.email}
-            </Button>
-          </>
         ) : (
-          <>
-            <NextLink path="./account/login">Sign In</NextLink>
-            <NextLinkStyledButton href="./account/register">
-              Try Free
-            </NextLinkStyledButton>
-          </>
+          <Popover
+            placement="bottomRight"
+            content={
+              <Box display="flex" flexDirection="column" fontSize={20}>
+                <Link href="./account/login">Sign In</Link>
+                <Link href="./account/register" style={{ marginTop: 10 }}>
+                  Try Free
+                </Link>
+              </Box>
+            }
+          >
+            <Button
+              icon={<MenuOutlined />}
+              onClick={onLogoutButtonClick}
+              style={{ marginLeft: 'auto' }}
+            />
+          </Popover>
         )}
       </Box>
     </Box>
