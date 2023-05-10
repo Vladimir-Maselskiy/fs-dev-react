@@ -19,6 +19,13 @@ import { NavBar } from '../NavBar/NavBar';
 import { getIsDiscountAvailable } from '@/utils/user-data/getIsDiscountAvailable';
 import { DefaultOptionType } from 'antd/es/select';
 
+type TDiscountSing = 'add' | 'minus';
+
+type TDiscount = {
+  value: number;
+  sign: TDiscountSing;
+};
+
 export const FInputPage = () => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const { rate } = useRateContext();
@@ -35,7 +42,7 @@ export const FInputPage = () => {
   const [discountValue, setDiscountValue] = useState(0);
   const [discountAsProp, setDiscountAsProp] = useState(0);
   const [buttonTitle, setButtonTitle] = useState('Додати');
-  const [discountSign, setDiscountSign] = useState<'add' | 'minus'>('add');
+  const [discountSign, setDiscountSign] = useState<TDiscountSing>('add');
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
@@ -68,6 +75,16 @@ export const FInputPage = () => {
   useEffect(() => {
     setIsDiscountAviable(getIsDiscountAvailable(user));
   }, [user]);
+
+  useEffect(() => {
+    const data = localStorage.getItem('discount');
+    if (data) {
+      const discount: TDiscount = JSON.parse(data);
+      console.log('dataLS', data);
+      setDiscountSign(discount.sign);
+      setDiscountValue(discount.value);
+    }
+  }, []);
 
   const onClickCountSets = () => {
     const sets = getFSets(fSetsArray);
@@ -114,18 +131,28 @@ export const FInputPage = () => {
 
   const onDiscountInputChange = (value: number | null) => {
     if (value !== null) setDiscountValue(value);
+    localStorage.setItem(
+      'discount',
+      JSON.stringify({ sign: discountSign, value })
+    );
   };
 
   const onChangeSelectSign = (
     value: string,
     option: DefaultOptionType | DefaultOptionType[]
   ) => {
-    if (value === 'add' || value === 'minus') setDiscountSign(value);
+    if (value === 'add' || value === 'minus') {
+      setDiscountSign(value);
+      localStorage.setItem(
+        'discount',
+        JSON.stringify({ sign: value, value: discountValue })
+      );
+    }
   };
 
   const selectBefore = (
     <Select
-      defaultValue="add"
+      defaultValue={discountSign}
       style={{ width: 60 }}
       onChange={onChangeSelectSign}
     >

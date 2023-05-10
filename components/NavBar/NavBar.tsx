@@ -106,6 +106,7 @@ export const NavBar = () => {
     try {
       await $api.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/logout`);
       localStorage.removeItem('user');
+      localStorage.removeItem('discount');
       setUser(null);
       if (session) {
         await signOut();
