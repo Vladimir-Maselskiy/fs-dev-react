@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useUserContext } from '@/context/state';
 import { IUser } from '@/interfaces/interfaces';
+import { AuthLayout } from '../AuthLayout/AuthLayout';
 
 export default function RegisterPage() {
   const { setUser } = useUserContext();
@@ -70,64 +71,68 @@ export default function RegisterPage() {
   };
 
   return (
-    <Box ml={50} mt={50}>
-      <p>Sign up</p>
-      <Form
-        form={form}
-        name="regiterForm"
-        onFinish={onFinish}
-        style={{ maxWidth: 600 }}
-        layout="vertical"
-        onFieldsChange={onFieldsChange}
-      >
-        <Form.Item
-          label="Name"
-          name="name"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your name!',
-            },
-          ]}
+    <AuthLayout>
+      <Box ml={50} mt={50}>
+        <p>Sign up</p>
+        <Form
+          form={form}
+          name="regiterForm"
+          onFinish={onFinish}
+          style={{ maxWidth: 600 }}
+          layout="vertical"
+          onFieldsChange={onFieldsChange}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Email Address"
-          name="email"
-          validateStatus={isErrorEmail ? 'error' : ''}
-          help={isErrorEmail ? 'Email already used' : ''}
-          rules={[
-            {
-              required: true,
-              message: 'Please input your email!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <>
           <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            label="Name"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your name!',
+              },
+            ]}
           >
-            <Input.Password />
+            <Input />
           </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{ width: 90 }}
-              disabled={isSubmitButtonDisabled}
+
+          <Form.Item
+            label="Email Address"
+            name="email"
+            validateStatus={isErrorEmail ? 'error' : ''}
+            help={isErrorEmail ? 'Email already used' : ''}
+            rules={[
+              {
+                required: true,
+                message: 'Please input your email!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <>
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[
+                { required: true, message: 'Please input your password!' },
+              ]}
             >
-              Ok
-            </Button>
-          </Form.Item>
-        </>
-      </Form>
-    </Box>
+              <Input.Password />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ width: 90 }}
+                disabled={isSubmitButtonDisabled}
+              >
+                Ok
+              </Button>
+            </Form.Item>
+          </>
+        </Form>
+      </Box>
+    </AuthLayout>
   );
 }

@@ -176,10 +176,10 @@ export const FInputPage = () => {
       >
         {buttonTitle}
       </ButtonStyled>
-      <Divider />
 
       {fSetsArray.length > 0 && (
         <>
+          <Divider />
           <FSetsListTable setFSet={setFSet} setButtonTitle={setButtonTitle} />
           <Box mt={10} display="flex" justifyContent="space-between">
             {isDiscountAviable && (
@@ -203,13 +203,15 @@ export const FInputPage = () => {
           </Box>
         </>
       )}
-      <Divider />
       {isOrderTableVisible && (
-        <FSetsOrderTable
-          tableSets={tableSets}
-          euroRate={rate?.euro!}
-          discount={discountAsProp}
-        />
+        <>
+          <Divider />
+          <FSetsOrderTable
+            tableSets={tableSets}
+            euroRate={rate?.euro!}
+            discount={discountAsProp}
+          />
+        </>
       )}
       <ModalLayout
         isModalOpen={isModalOpen}
