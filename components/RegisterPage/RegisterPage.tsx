@@ -72,7 +72,13 @@ export default function RegisterPage() {
 
   return (
     <AuthLayout>
-      <Box ml={50} mt={50}>
+      <Box
+        width="40%"
+        minWidth={350}
+        padding="20px 50px"
+        border="2px solid var(--accent-color)"
+        borderRadius={30}
+      >
         <p>Sign up</p>
         <Form
           form={form}

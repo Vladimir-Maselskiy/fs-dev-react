@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Divider, Form, Input } from 'antd';
 import { Box } from '../Box/Box';
 import { FieldData } from 'rc-field-form/lib/interface';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import { IUser } from '@/interfaces/interfaces';
 import IconGoogleLogo from '../../img/google-icon.svg';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { createError } from '@/utils/mongo/createError';
+import { AuthLayout } from '../AuthLayout/AuthLayout';
 
 export default function LoginPage() {
   const { setUser } = useUserContext();
@@ -86,92 +87,101 @@ export default function LoginPage() {
   };
 
   return (
-    <Box ml={50} mt={50}>
-      <Form
-        form={form}
-        name="loginForm"
-        onFinish={onFinish}
-        style={{ maxWidth: 600 }}
-        layout="vertical"
-        onFieldsChange={onFieldsChange}
-        autoComplete="on"
+    <AuthLayout>
+      <Box
+        width="40%"
+        minWidth={350}
+        padding="20px 50px"
+        border="2px solid var(--accent-color)"
+        borderRadius={30}
       >
-        <Form.Item>
-          <Form.Item
-            label="Email Address"
-            name="email"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your email!',
-              },
-            ]}
-          >
-            <Input disabled={isEmailInputDisabled} />
-          </Form.Item>
-          {isEmailInputDisabled && (
-            <a
-              href=""
-              onClick={onClickChangeEmailInput}
-              style={{ position: 'absolute', top: '35px', right: '10px' }}
-            >
-              Change
-            </a>
-          )}
-        </Form.Item>
-        {!isEmailInputPassed && (
+        <Form
+          form={form}
+          name="loginForm"
+          onFinish={onFinish}
+          style={{ maxWidth: 600 }}
+          layout="vertical"
+          onFieldsChange={onFieldsChange}
+          autoComplete="on"
+        >
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="button"
-              style={{ width: 90 }}
-              disabled={isNextButtonDisabled}
-              onClick={onNextButtonClick}
-            >
-              Next
-            </Button>
-          </Form.Item>
-        )}
-
-        {isEmailInputPassed && (
-          <>
             <Form.Item
-              label="Password"
-              name="password"
+              label="Email Address"
+              name="email"
               rules={[
-                { required: true, message: 'Please input your password!' },
+                {
+                  required: true,
+                  message: 'Please input your email!',
+                },
               ]}
             >
-              <Input.Password />
+              <Input disabled={isEmailInputDisabled} />
             </Form.Item>
+            {isEmailInputDisabled && (
+              <a
+                href=""
+                onClick={onClickChangeEmailInput}
+                style={{ position: 'absolute', top: '35px', right: '10px' }}
+              >
+                Change
+              </a>
+            )}
+          </Form.Item>
+          {!isEmailInputPassed && (
             <Form.Item>
               <Button
                 type="primary"
-                htmlType="submit"
+                htmlType="button"
                 style={{ width: 90 }}
-                disabled={isSubmitButtonDisabled}
+                disabled={isNextButtonDisabled}
+                onClick={onNextButtonClick}
               >
-                Login
+                Next
               </Button>
             </Form.Item>
-          </>
-        )}
-      </Form>
-      <p>Sing with Google</p>
-      <Button
-        icon={<IconGoogleLogo />}
-        onClick={onGooleLoginButtonClick}
-        style={{
-          width: 120,
-          marginTop: 20,
-          padding: '20px 20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        Google
-      </Button>
-    </Box>
+          )}
+
+          {isEmailInputPassed && (
+            <>
+              <Form.Item
+                label="Password"
+                name="password"
+                rules={[
+                  { required: true, message: 'Please input your password!' },
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ width: 90 }}
+                  disabled={isSubmitButtonDisabled}
+                >
+                  Login
+                </Button>
+              </Form.Item>
+            </>
+          )}
+        </Form>
+        <Divider />
+        <p>Sing with Google</p>
+        <Button
+          icon={<IconGoogleLogo />}
+          onClick={onGooleLoginButtonClick}
+          style={{
+            width: 120,
+            marginTop: 20,
+            padding: '20px 20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
+          Google
+        </Button>
+      </Box>
+    </AuthLayout>
   );
 }

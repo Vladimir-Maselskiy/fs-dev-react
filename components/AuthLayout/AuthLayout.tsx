@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '../Box/Box';
-import { StyledImageBox } from './AuthLayout.styled';
+import { AuthImageContainer, StyledImageBox } from './AuthLayout.styled';
 
 type TProps = {
   children: React.ReactNode;
@@ -8,9 +8,11 @@ type TProps = {
 
 export const AuthLayout = ({ children }: TProps) => {
   return (
-    <Box display="flex">
+    <Box display="flex" padding="100px 50px 50px 30px">
       {children}
-      <StyledImageBox></StyledImageBox>
+      <AuthImageContainer>
+        <StyledImageBox></StyledImageBox>
+      </AuthImageContainer>
     </Box>
   );
 };
