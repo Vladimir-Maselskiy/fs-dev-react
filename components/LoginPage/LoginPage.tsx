@@ -10,6 +10,7 @@ import IconGoogleLogo from '../../img/google-icon.svg';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { createError } from '@/utils/mongo/createError';
 import { AuthLayout } from '../AuthLayout/AuthLayout';
+import { AuthFormBox } from '../AuthFormBox/AuthFormBox';
 
 export default function LoginPage() {
   const { setUser } = useUserContext();
@@ -88,13 +89,7 @@ export default function LoginPage() {
 
   return (
     <AuthLayout>
-      <Box
-        width="40%"
-        minWidth={350}
-        padding="20px 50px"
-        border="2px solid var(--accent-color)"
-        borderRadius={30}
-      >
+      <AuthFormBox>
         <Form
           form={form}
           name="loginForm"
@@ -181,7 +176,7 @@ export default function LoginPage() {
         >
           Google
         </Button>
-      </Box>
+      </AuthFormBox>
     </AuthLayout>
   );
 }

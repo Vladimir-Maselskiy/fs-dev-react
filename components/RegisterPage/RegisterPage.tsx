@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useUserContext } from '@/context/state';
 import { IUser } from '@/interfaces/interfaces';
 import { AuthLayout } from '../AuthLayout/AuthLayout';
+import { AuthFormBox } from '../AuthFormBox/AuthFormBox';
 
 export default function RegisterPage() {
   const { setUser } = useUserContext();
@@ -72,19 +73,13 @@ export default function RegisterPage() {
 
   return (
     <AuthLayout>
-      <Box
-        width="40%"
-        minWidth={350}
-        padding="20px 50px"
-        border="2px solid var(--accent-color)"
-        borderRadius={30}
-      >
+      <AuthFormBox>
         <p>Sign up</p>
         <Form
           form={form}
           name="regiterForm"
           onFinish={onFinish}
-          style={{ maxWidth: 600 }}
+          style={{ maxWidth: 600, paddingTop: 20 }}
           layout="vertical"
           onFieldsChange={onFieldsChange}
         >
@@ -138,7 +133,7 @@ export default function RegisterPage() {
             </Form.Item>
           </>
         </Form>
-      </Box>
+      </AuthFormBox>
     </AuthLayout>
   );
 }
