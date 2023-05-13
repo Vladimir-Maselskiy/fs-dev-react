@@ -8,10 +8,16 @@ import IconWinkhausLogo from '../../img/winkhaus-logo.svg';
 import IconWinkhauseLogoGray from '../../img/winkhaus-logo-gray.svg';
 import type { RadioChangeEvent } from 'antd';
 import { IFSet, TBrands } from '@/interfaces/interfaces';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperOptions } from 'swiper';
+import { Pagination } from 'swiper';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 import { Box } from '../Box/Box';
 import { getIndexByBrand } from '@/utils/ui-utills/getIndexByBrand';
+import { IconWrapper } from './ModalSetBrand.styled';
 
 type TProps = {
   fSet: IFSet;
@@ -22,7 +28,8 @@ export const ModalSetBrand = ({ fSet, form }: TProps) => {
   const [brand, setBrand] = useState(fSet.brand);
   const [index, setIndex] = useState(getIndexByBrand(fSet));
 
-  const onChangeCarousel = (index: number) => {
+  const onSlideChange = (swiper: any) => {
+    const index = swiper.realIndex;
     switch (index) {
       case 0:
         setBrand('maco');
@@ -46,45 +53,37 @@ export const ModalSetBrand = ({ fSet, form }: TProps) => {
       <Box pt={20}>
         <p>{brand.toUpperCase()}</p>
       </Box>
+
       <Divider />
+
       <Form.Item name="brand" initialValue={fSet?.brand}>
-        <Carousel
-          centerSlidePercentage={60}
-          emulateTouch={true}
-          infiniteLoop={true}
-          showArrows={false}
-          showStatus={false}
-          showIndicators={false}
-          preventMovementUntilSwipeScrollTolerance={false}
-          thumbWidth={20}
-          onChange={onChangeCarousel}
-          selectedItem={index}
+        <Swiper
+          style={{ minHeight: 130 }}
+          slidesPerView={1}
+          loop={true}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination]}
+          onSlideChange={onSlideChange}
+          initialSlide={index}
         >
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            height={80}
-          >
-            <IconMacoLogo width={80} height={80} />
-          </Box>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            height={80}
-          >
-            <IconVorneLogo width={80} />
-          </Box>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            height={80}
-          >
-            <IconWinkhausLogo width={80} />
-          </Box>
-        </Carousel>
+          <SwiperSlide>
+            <IconWrapper>
+              <IconMacoLogo width={80} height={80} />
+            </IconWrapper>
+          </SwiperSlide>
+          <SwiperSlide>
+            <IconWrapper>
+              <IconVorneLogo width={80} />
+            </IconWrapper>
+          </SwiperSlide>
+          {/* <SwiperSlide>
+            <IconWrapper>
+              <IconWinkhausLogo width={80} />
+            </IconWrapper>
+          </SwiperSlide> */}
+        </Swiper>
       </Form.Item>
     </Box>
   );
