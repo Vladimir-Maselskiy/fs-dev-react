@@ -150,15 +150,6 @@ export const NavBar = () => {
                 <Button icon={<LogoutOutlined />} onClick={onLogoutButtonClick}>
                   Log out
                 </Button>
-                <a
-                  href={`/api/auth/signout`}
-                  onClick={e => {
-                    // e.preventDefault();
-                    // signOut();
-                  }}
-                >
-                  Sign out
-                </a>
               </>
             }
           >
