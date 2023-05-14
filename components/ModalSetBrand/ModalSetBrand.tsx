@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Radio, Form, Divider, FormInstance } from 'antd';
+import { Form, Divider, FormInstance } from 'antd';
 import IconMacoLogo from '../../img/maco-logo.svg';
 import IconMacoLogoGray from '../../img/maco-logo-gray.svg';
 import IconVorneLogo from '../../img/vorne-logo.svg';
 import IconVorneLogoGray from '../../img/vorne-logo-gray.svg';
 import IconWinkhausLogo from '../../img/winkhaus-logo.svg';
 import IconWinkhauseLogoGray from '../../img/winkhaus-logo-gray.svg';
-import type { RadioChangeEvent } from 'antd';
-import { IFSet, TBrands } from '@/interfaces/interfaces';
+import { IFSet } from '@/interfaces/interfaces';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { SwiperOptions } from 'swiper';
 import { Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -53,9 +51,7 @@ export const ModalSetBrand = ({ fSet, form }: TProps) => {
       <Box pt={20}>
         <p>{brand.toUpperCase()}</p>
       </Box>
-
       <Divider />
-
       <Form.Item name="brand" initialValue={fSet?.brand}>
         <Swiper
           style={{ minHeight: 130 }}
