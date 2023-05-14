@@ -10,7 +10,6 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 import { IUser } from '@/interfaces/interfaces';
 import { getUserDto } from '@/utils/mongo/getUserDto';
 import { useSession, signOut } from 'next-auth/react';
-import { flexDirection } from 'styled-system';
 import Link from 'next/link';
 import { useMediaQuery } from '@/hooks';
 
@@ -107,14 +106,22 @@ export const NavBar = () => {
     }
   }, [sessionStatus]);
 
-  const onLogoutButtonClick = async () => {
+  const onLogoutButtonClick = async (e: any) => {
+    e.preventDefault();
     try {
       await $api.get(`${process.env.NEXT_PUBLIC_API_HOST}/users/logout`);
       localStorage.removeItem('user');
       localStorage.removeItem('discount');
       setUser(null);
+      console.log('session', session);
       if (session) {
-        await signOut();
+        await signOut({ redirect: false });
+        // const res = await fetch('/api/auth/signout', { method: 'POST' });
+        // if (res.ok) {
+        //   // Clear the session on the client-side without reloading the page
+        //   window.localStorage.removeItem('next-auth.session-token');
+        // }
+        // window.localStorage.removeItem('next-auth.session-token');
       }
     } catch (error) {}
   };
@@ -143,6 +150,15 @@ export const NavBar = () => {
                 <Button icon={<LogoutOutlined />} onClick={onLogoutButtonClick}>
                   Log out
                 </Button>
+                <a
+                  href={`/api/auth/signout`}
+                  onClick={e => {
+                    // e.preventDefault();
+                    // signOut();
+                  }}
+                >
+                  Sign out
+                </a>
               </>
             }
           >

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Divider, Form, Input } from 'antd';
+import { Button, Divider, Form, Input, Spin } from 'antd';
 import { Box } from '../Box/Box';
 import { FieldData } from 'rc-field-form/lib/interface';
 import axios from 'axios';
@@ -18,6 +18,7 @@ export default function LoginPage() {
   const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(true);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
   const [isEmailInputDisabled, setIsEmailInputDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
   const router = useRouter();
   const { data: session } = useSession();
@@ -84,10 +85,21 @@ export default function LoginPage() {
   };
 
   const onGooleLoginButtonClick = () => {
-    signIn();
+    setIsLoading(true);
+    signIn('google', { callbackUrl: '/' });
   };
 
-  return (
+  return isLoading ? (
+    <Box
+      display="flex"
+      width="100vw"
+      height="100vh"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Spin size="large" />
+    </Box>
+  ) : (
     <AuthLayout>
       <AuthFormBox>
         <Form
