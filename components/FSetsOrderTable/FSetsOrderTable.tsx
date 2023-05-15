@@ -10,6 +10,8 @@ import { useMediaQuery } from '@/hooks';
 import { getPdfFile } from '@/utils/pdf/getPdfFile';
 import { useUserContext } from '@/context/state';
 import { getIsDiscountAvailable } from '@/utils/user-data/getIsDiscountAvailable';
+import { getTotalPriceInFTable } from '@/utils/data-utils/getTotalPriceInFTable';
+import { fetchMockApiStatistic } from '@/utils/api/fetchMockApiStatistic';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -37,16 +39,6 @@ interface EditableCellProps {
 }
 
 type EditableTableProps = Parameters<typeof Table>[0];
-
-// export interface DataType {
-//   key: React.Key;
-//   rowNumber: string;
-//   article: string;
-//   name: string;
-//   quantity: number;
-//   price: string;
-//   sum: string;
-// }
 
 type ColumnTypes = Exclude<EditableTableProps['columns'], undefined>;
 
@@ -169,6 +161,10 @@ export const FSetsOrderTable = ({
       setDiscountValue(discount);
     }
   }, [user, discount]);
+
+  useEffect(() => {
+    fetchMockApiStatistic({user, dataSourceWithDiscount, discount});
+  }, []);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -327,10 +323,7 @@ export const FSetsOrderTable = ({
         scroll={{ x: 336 }}
         rowSelection={rowSelection}
         summary={dataSource => {
-          let lotalPrice = dataSource.reduce((acc, item) => {
-            const currentItem = item as IItem;
-            return acc + +currentItem.sum;
-          }, 0);
+          let totalPrice = getTotalPriceInFTable(dataSource);
           return user ? (
             <Table.Summary.Row style={{ fontWeight: 'bold', fontSize: '16px' }}>
               <Table.Summary.Cell index={0} colSpan={3}></Table.Summary.Cell>
@@ -338,7 +331,7 @@ export const FSetsOrderTable = ({
                 Всього
               </Table.Summary.Cell>
               <Table.Summary.Cell index={2} colSpan={2}>
-                <p>{`${lotalPrice.toFixed(2)} грн`}</p>
+                <p>{`${totalPrice.toFixed(2)} грн`}</p>
               </Table.Summary.Cell>
             </Table.Summary.Row>
           ) : null;
