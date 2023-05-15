@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledAuthLayout = styled.div`
   display: flex;
-  padding: 20px 50px 50px 0px;
+  margin-top: 20px;
   min-height: 580px;
   @media screen and (max-width: 1024px) {
     justify-content: center;
