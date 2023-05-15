@@ -10,6 +10,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper';
 import Image from 'next/image';
+import { Logo } from '../Logo/Logo';
+import { Box } from '../Box/Box';
 
 type TProps = {
   children: React.ReactNode;
@@ -17,66 +19,69 @@ type TProps = {
 
 export const AuthLayout = ({ children }: TProps) => {
   return (
-    <StyledAuthLayout>
-      {children}
-      <SwiperContainer>
-        <Swiper
-          style={{ height: '100%' }}
-          //   spaceBetween={30}
-          centeredSlides={true}
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-          loop={true}
-          pagination={{
-            clickable: true,
-          }}
-          //   navigation={true}
-          modules={[Autoplay, Pagination, Navigation]}
-          className="mySwiper"
-        >
-          <SwiperSlide>
-            <Image src="/eye.jpg" alt="multikey maco" fill />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src="/plates.jpg" alt="multikey maco" fill />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src="/Praxisbeispiel.jpg" alt="multikey maco" fill />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{
-              backgroundColor: 'var(--accent-color)',
+    <Box padding={20}>
+      <Logo />
+      <StyledAuthLayout>
+        {children}
+        <SwiperContainer>
+          <Swiper
+            style={{ height: '100%' }}
+            //   spaceBetween={30}
+            centeredSlides={true}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
             }}
+            loop={true}
+            pagination={{
+              clickable: true,
+            }}
+            //   navigation={true}
+            modules={[Autoplay, Pagination, Navigation]}
+            className="mySwiper"
           >
-            <Image
-              src="/maco-key.png"
-              alt="maco key"
-              fill
+            <SwiperSlide>
+              <Image src="/eye.jpg" alt="multikey maco" fill />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/plates.jpg" alt="multikey maco" fill />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/Praxisbeispiel.jpg" alt="multikey maco" fill />
+            </SwiperSlide>
+            <SwiperSlide
               style={{
-                transform: 'translateX(80px) rotate(-45deg)',
+                backgroundColor: 'var(--accent-color)',
               }}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src="/Praxis.jpg" alt="multikey maco" fill />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src="/Getreibe.jpg" alt="multikey maco" fill />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src="/abdeckkappen.jpg" alt="multikey maco" fill />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src="/multipower.jpg" alt="multikey maco" fill />
-          </SwiperSlide>
+            >
+              <Image
+                src="/maco-key.png"
+                alt="maco key"
+                fill
+                style={{
+                  transform: 'translateX(80px) rotate(-45deg)',
+                }}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/Praxis.jpg" alt="multikey maco" fill />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/Getreibe.jpg" alt="multikey maco" fill />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/abdeckkappen.jpg" alt="multikey maco" fill />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image src="/multipower.jpg" alt="multikey maco" fill />
+            </SwiperSlide>
 
-          <SwiperSlide>
-            <Image src="/multikey.png" alt="multikey maco" fill />
-          </SwiperSlide>
-        </Swiper>
-      </SwiperContainer>
-    </StyledAuthLayout>
+            <SwiperSlide>
+              <Image src="/multikey.png" alt="multikey maco" fill />
+            </SwiperSlide>
+          </Swiper>
+        </SwiperContainer>
+      </StyledAuthLayout>
+    </Box>
   );
 };

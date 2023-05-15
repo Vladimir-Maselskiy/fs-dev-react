@@ -12,6 +12,7 @@ import { getUserDto } from '@/utils/mongo/getUserDto';
 import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useMediaQuery } from '@/hooks';
+import { Logo } from '../Logo/Logo';
 
 export const NavBar = () => {
   const { user, setUser } = useUserContext();
@@ -128,6 +129,7 @@ export const NavBar = () => {
 
   return (
     <Box display="flex" justifyContent="start" alignItems="center">
+      <Logo />
       <CurrentRate />
       <Box
         display="flex"

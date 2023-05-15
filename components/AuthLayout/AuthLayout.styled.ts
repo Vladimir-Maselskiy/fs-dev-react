@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledAuthLayout = styled.div`
   display: flex;
-  padding: 100px 50px 50px 30px;
+  padding: 20px 50px 50px 0px;
   min-height: 580px;
   @media screen and (max-width: 1024px) {
     justify-content: center;
@@ -15,7 +15,6 @@ export const StyledImageBox = styled.div`
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  transform: rotate(-45deg);
   transform: rotate(-45deg);
   transform: translateX(100px);
 `;
