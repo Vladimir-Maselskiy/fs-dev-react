@@ -11,13 +11,14 @@ import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/components/CurrentModal/CurrentModal';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
 import { getFSets } from '@/utils/data-utils/getFSets';
-import { IArticleItem, IUser } from '@/interfaces/interfaces';
+import { IArticleItem, IUser, TBrands } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
 import { NavBar } from '../NavBar/NavBar';
 import { getIsDiscountAvailable } from '@/utils/user-data/getIsDiscountAvailable';
 import { DefaultOptionType } from 'antd/es/select';
+import { useRouter } from 'next/router';
 
 type TDiscountSing = 'add' | 'minus';
 
@@ -30,13 +31,15 @@ export const FInputPage = () => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const { rate } = useRateContext();
   const { user } = useUserContext();
+  const router = useRouter();
+  const { brand } = router.query;
 
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(true);
   const [currentModalNumber, setCurrentModalNumber] = useState(0);
   const [tableSets, setTableSets] = useState<IArticleItem[]>([]);
-  const [fSet, setFSet] = useState(getNewSet());
+  const [fSet, setFSet] = useState(getNewSet({ brand: brand as TBrands }));
   const [lastID, setLastId] = useState(fSet.id);
   const [isDiscountAviable, setIsDiscountAviable] = useState(false);
   const [discountValue, setDiscountValue] = useState(0);

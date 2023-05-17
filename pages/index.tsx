@@ -1,15 +1,12 @@
-// import Head from 'next/head';
-// import Image from 'next/image';
-// import { Inter } from '@next/font/google';
-import { FInputPage } from '@/components/FInputPage/FInputPage';
 import { MainContainer } from '@/components/MainContainer/MainContainer';
+import { Home } from '@/components/Home/Home';
 
 // const inter = Inter({ subsets: ['latin'] });
 
-export default function Home() {
+export default function HomePage() {
   return (
     <MainContainer>
-      <FInputPage />
+      <Home />
     </MainContainer>
   );
 }
