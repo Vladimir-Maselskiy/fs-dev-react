@@ -13,7 +13,7 @@ export function getMicroVentilationPlate(fSet: IFSet) {
   ) {
     const params = {
       brand: 'vorne',
-      arr: ['V.3602.0102'],
+      arr: ['V.3604.0102'],
       sortSignificance: '12.2',
     };
     const currentArticleItems = findElementsByArticle(params);

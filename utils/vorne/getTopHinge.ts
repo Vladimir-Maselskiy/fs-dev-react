@@ -7,7 +7,7 @@ export function getTopHinge(fSet: IFSet) {
 
   const params = {
     brand: 'vorne',
-    arr: ['V.1301.0102'],
+    arr: ['V.1303.0102'],
     sortSignificance: '18.3',
   };
   const currentArticleItems = findElementsByArticle(params);

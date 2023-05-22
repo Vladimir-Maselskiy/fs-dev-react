@@ -65,7 +65,7 @@ export function getVerticalLocks(fSet: IFSet) {
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-    if (height > 2200) {
+    if (height > 1700) {
       const params = {
         brand: 'vorne',
         arr: ['V.0801.0502'],

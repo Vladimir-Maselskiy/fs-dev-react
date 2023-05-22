@@ -9,7 +9,7 @@ export function getBottomHinge(fSet: IFSet) {
 
   const params = {
     brand: 'vorne',
-    arr: ['V.1404.0102', 'V.1502.0102'],
+    arr: ['V.1404.0102', 'V.1501.0102'],
     sortSignificance: '18.3',
   };
   const currentArticleItems = findElementsByArticle(params);
