@@ -152,10 +152,7 @@ export const FSetsOrderTable = ({
   }, [tableSets, euroRate, discountValue]);
 
   useEffect(() => {
-    if (
-      (user && user?.status === 'finalBuyer') ||
-      user?.status === 'installer'
-    ) {
+    if (user?.status === 'finalBuyer' || user?.status === 'installer') {
       setDiscountValue(-10);
     } else {
       setDiscountValue(discount);
@@ -163,7 +160,7 @@ export const FSetsOrderTable = ({
   }, [user, discount]);
 
   useEffect(() => {
-    fetchMockApiStatistic({user, dataSourceWithDiscount, discount});
+    fetchMockApiStatistic({ user, dataSourceWithDiscount, discount });
   }, []);
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
