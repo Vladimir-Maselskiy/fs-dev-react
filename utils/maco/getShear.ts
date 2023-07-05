@@ -24,7 +24,7 @@ export function getShear(fSet: IFSet) {
       if (currentArticleItems) articleItems.push(...currentArticleItems);
       return articleItems;
     }
-    if (width >= 220 && width < 400) {
+    if (width >= 220 && width <= 400) {
       const params = {
         arr: ['211694'],
         sortSignificance: '1',
@@ -32,7 +32,7 @@ export function getShear(fSet: IFSet) {
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-    if (width >= 400 && width < 600) {
+    if (width > 400 && width <= 600) {
       const params = {
         arr: ['211695'],
         sortSignificance: '1',
@@ -40,7 +40,7 @@ export function getShear(fSet: IFSet) {
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-    if (width >= 600 && width < 800) {
+    if (width > 600 && width <= 800) {
       const params = {
         arr: ['211696'],
         sortSignificance: '1',
@@ -48,7 +48,7 @@ export function getShear(fSet: IFSet) {
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-    if (width >= 800 && width < 1050) {
+    if (width > 800 && width <= 1050) {
       const params = {
         arr: ['211698'],
         sortSignificance: '1',
@@ -56,7 +56,7 @@ export function getShear(fSet: IFSet) {
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-    if (width >= 1050 && width <= 1300) {
+    if (width > 1050 && width <= 1300) {
       const params = {
         arr: ['211699'],
         sortSignificance: '1',
