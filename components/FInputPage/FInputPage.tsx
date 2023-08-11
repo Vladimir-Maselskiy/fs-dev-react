@@ -19,6 +19,8 @@ import { NavBar } from '../NavBar/NavBar';
 import { getIsDiscountAvailable } from '@/utils/user-data/getIsDiscountAvailable';
 import { DefaultOptionType } from 'antd/es/select';
 import { useRouter } from 'next/router';
+import { getDataSource } from '@/utils/data-utils/getDataSource';
+import { fetchMockApiStatistic } from '@/utils/api/fetchMockApiStatistic';
 
 type TDiscountSing = 'add' | 'minus';
 
@@ -91,14 +93,22 @@ export const FInputPage = () => {
   const onClickCountSets = () => {
     const sets = getFSets(fSetsArray);
     setTableSets(sets);
+    const sign = discountSign === 'add' ? 1 : -1;
 
-    if (discountSign === 'add') {
-      setDiscountAsProp(discountValue);
-    } else {
-      setDiscountAsProp(discountValue * -1);
-    }
+    setDiscountAsProp(discountValue * sign);
 
     setIsOrderTableVisible(true);
+
+    fetchMockApiStatistic({
+      user,
+      dataSourceWithDiscount: getDataSource(
+        getFSets(fSetsArray),
+        rate?.euro!,
+        discountValue * sign,
+        user?.price
+      ),
+      discount: discountValue,
+    });
   };
 
   const onClickAddSet = () => {

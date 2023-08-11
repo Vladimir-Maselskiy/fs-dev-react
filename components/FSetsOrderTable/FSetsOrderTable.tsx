@@ -159,10 +159,6 @@ export const FSetsOrderTable = ({
     }
   }, [user, discount]);
 
-  useEffect(() => {
-    fetchMockApiStatistic({ user, dataSourceWithDiscount, discount });
-  }, []);
-
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
