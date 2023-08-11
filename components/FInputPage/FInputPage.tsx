@@ -107,7 +107,7 @@ export const FInputPage = () => {
         discountValue * sign,
         user?.price
       ),
-      discount: discountValue,
+      discount: discountValue * sign,
     });
   };
 
