@@ -165,11 +165,11 @@ export const FInputPage = () => {
   const selectBefore = (
     <Select
       defaultValue={discountSign}
-      style={{ width: 60 }}
+      style={{ width: 100 }}
       onChange={onChangeSelectSign}
     >
-      <Option value="add">+</Option>
-      <Option value="minus">-</Option>
+      <Option value="add">Знижка</Option>
+      <Option value="minus">Націнка</Option>
     </Select>
   );
 
@@ -198,7 +198,7 @@ export const FInputPage = () => {
             {isDiscountAviable && (
               <InputNumber
                 addonBefore={selectBefore}
-                addonAfter="Знижка"
+                addonAfter="Відсотків"
                 value={discountValue}
                 onChange={onDiscountInputChange}
                 style={{ marginRight: 20 }}
