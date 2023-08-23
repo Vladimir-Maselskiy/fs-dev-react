@@ -198,7 +198,7 @@ export const FInputPage = () => {
             {isDiscountAviable && (
               <InputNumber
                 addonBefore={selectBefore}
-                addonAfter="Відсотків"
+                addonAfter="%"
                 value={discountValue}
                 onChange={onDiscountInputChange}
                 style={{ marginRight: 20 }}
