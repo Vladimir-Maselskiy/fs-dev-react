@@ -149,7 +149,7 @@ export const FSetsOrderTable = ({
     setDataSourceWithDiscount(
       getDataSource(tableSets, euroRate, discountValue, userPrice)
     );
-  }, [tableSets, euroRate, discountValue]);
+  }, [tableSets, euroRate, discountValue, userPrice]);
 
   useEffect(() => {
     if (user?.status === 'finalBuyer' || user?.status === 'installer') {

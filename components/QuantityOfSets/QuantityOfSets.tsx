@@ -56,7 +56,6 @@ export const QuantityOfSets = ({ fSet, setFSet, form }: TProps) => {
               width: '60px',
               height: '50px',
               fontSize: '30px',
-              paddingTop: '10px',
             }}
           />
         </Form.Item>

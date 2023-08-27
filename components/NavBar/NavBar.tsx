@@ -97,7 +97,7 @@ export const NavBar = () => {
         })
         .catch(console.log);
     }
-  }, [session, sessionStatus]);
+  }, [session, sessionStatus, setUser]);
 
   useEffect(() => {
     if (sessionStatus === 'loading') {

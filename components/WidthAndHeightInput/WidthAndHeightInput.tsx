@@ -157,7 +157,6 @@ export const WidthAndHeightInput = ({
               width: '110px',
               height: '50px',
               fontSize: '30px',
-              paddingTop: '10px',
             }}
             // onChange={onChangeWidthInput}
             onPressEnter={onPressEnterWidth}
@@ -180,7 +179,6 @@ export const WidthAndHeightInput = ({
               width: '110px',
               height: '50px',
               fontSize: '30px',
-              paddingTop: '10px',
             }}
             // onChange={onChangeHeightInput}
             onPressEnter={onPressEnterHeight}

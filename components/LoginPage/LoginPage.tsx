@@ -27,7 +27,7 @@ export default function LoginPage() {
     if (session) {
       router.push('/');
     }
-  }, [session]);
+  }, [session, router]);
 
   const onFinish = async (values: any) => {
     const { email, password } = values;
