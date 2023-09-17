@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Select, Form } from 'antd';
 import { typeOfOpeningSelectOpions } from '@/const';
 import { IFSet } from '@/interfaces/interfaces';
+import { getOneOptionTypeOfOpening } from '@/utils/ui-utills/getOneOptionTypeOfOpening';
 
 type TProps = {
   fSet: IFSet;
@@ -9,16 +10,12 @@ type TProps = {
 };
 
 export const ModalTypeOfOpening = ({ fSet, form }: TProps) => {
-  useEffect(() => {
-    form.setFieldsValue(fSet?.typeOfOpening);
-  }, [fSet?.typeOfOpening, form]);
-
   return (
     <Form.Item
       label="Тип відкривання"
       name="typeOfOpening"
       style={{ paddingRight: 40 }}
-      initialValue={fSet?.typeOfOpening}
+      initialValue={getOneOptionTypeOfOpening(fSet)}
     >
       <Select options={typeOfOpeningSelectOpions} listHeight={170} />
     </Form.Item>
