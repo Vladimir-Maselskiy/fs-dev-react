@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Select, Form } from 'antd';
 import { typeOfOpeningSelectOpions } from '@/const';
 import { IFSet } from '@/interfaces/interfaces';
