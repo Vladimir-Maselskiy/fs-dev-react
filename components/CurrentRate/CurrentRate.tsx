@@ -12,7 +12,6 @@ import { SP } from 'next/dist/shared/lib/utils';
 
 export const CurrentRate = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isRateRefreshed, setIsRateRefreshed] = useState(false);
   const [euroRate, setEuroRate] = useState(setStartEuroRate());
   const { rate, setRate } = useRateContext();
 
@@ -54,9 +53,7 @@ export const CurrentRate = () => {
           marginRight: 10,
         }}
       />
-      <StyledSpanRate isRateRefreshed={Boolean(rate)} isLoading={isLoading}>
-        {euroRate}
-      </StyledSpanRate>
+      <StyledSpanRate isLoading={isLoading}>{euroRate}</StyledSpanRate>
       {!isLoading ? (
         <RetweetOutlined
           style={{
