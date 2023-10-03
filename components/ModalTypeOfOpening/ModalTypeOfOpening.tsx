@@ -9,7 +9,7 @@ type TProps = {
   form: any;
 };
 
-export const ModalTypeOfOpening = ({ fSet, form }: TProps) => {
+export const ModalTypeOfOpening = ({ fSet }: TProps) => {
   return (
     <Form.Item
       label="Тип відкривання"

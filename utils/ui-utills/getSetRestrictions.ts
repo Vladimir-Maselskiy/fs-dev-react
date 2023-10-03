@@ -22,7 +22,5 @@ export const getSetRestrictions = (
       return vorneRestrictions;
     case 'winkhaus':
       return winkhausRestrictions;
-    // default:
-    //   return macoRestrictions;
   }
 };

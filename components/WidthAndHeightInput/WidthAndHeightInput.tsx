@@ -50,7 +50,8 @@ export const WidthAndHeightInput = ({
       const isGorizontalLock = getCurrentIsGorizontalLock(
         fSet?.width,
         fSet?.typeOfOpening,
-        fSet?.brand
+        fSet?.brand,
+        fSet.isGorizontalLock
       );
       let microVentilation = true;
       if (fSet?.width && fSet?.width < 320) microVentilation = false;

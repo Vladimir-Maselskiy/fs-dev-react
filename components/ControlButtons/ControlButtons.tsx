@@ -60,11 +60,6 @@ export const ControlButtons = ({
         }}
         icon={<IconTypeOfWindow />}
       />
-
-      {/* <StyledControlButton
-        onClick={() => onClickRemoveButton(id)}
-        icon={<RiDeleteBin2Line size={32} />}
-      /> */}
     </StyledContlolButtonBox>
   );
 };

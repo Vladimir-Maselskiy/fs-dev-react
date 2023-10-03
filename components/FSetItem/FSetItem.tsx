@@ -1,15 +1,8 @@
 import { useEffect, useState } from 'react';
 import { IFSet } from '@/interfaces/interfaces';
-import { Box } from '../Box/Box';
-import { StyledFSetItem } from './FSetItem.styled';
-import { ControlButtons } from '../ControlButtons/ControlButtons';
-import { ImportantSetsOptions } from '../ImportantSetsOptions/ImportantSetsOptions';
-import { QuantityOfSets } from '../QuantityOfSets/QuantityOfSets';
-import { WidthAndHeightInput } from '../WidthAndHeightInput/WidthAndHeightInput';
 import { useFSetsContext } from '@/context/state';
 import { getSetRestrictions } from '@/utils/ui-utills/getSetRestrictions';
 import { decor, TRestrictions } from '@/const';
-import { Tag } from 'antd';
 import { willDecorSelecteValueChange } from '@/utils/ui-utills/willDecorSelecteValueChange';
 
 interface IProp {
