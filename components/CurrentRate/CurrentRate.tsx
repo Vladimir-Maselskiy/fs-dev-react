@@ -5,15 +5,30 @@ import { setStartEuroRate } from '@/utils/rate/setStartEuroRate';
 import { getCurrentEuroRate } from '@/utils/rate/getCurrentEuroRate';
 import { Spin } from 'antd';
 import { Box } from '../Box/Box';
-import { EuroOutlined } from '@ant-design/icons';
+import { EuroOutlined, RetweetOutlined } from '@ant-design/icons';
 import { useRateContext } from '@/context/state';
 import { IRate } from '@/interfaces/interfaces';
+import { SP } from 'next/dist/shared/lib/utils';
 
 export const CurrentRate = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRateRefreshed, setIsRateRefreshed] = useState(false);
   const [euroRate, setEuroRate] = useState(setStartEuroRate());
-  const { rate } = useRateContext();
+  const { rate, setRate } = useRateContext();
+
+  const updateCurrentRate = () => {
+    setIsLoading(true);
+    getCurrentEuroRate().then(res => {
+      if (res) {
+        const { euroRate } = res.data;
+        if (euroRate) {
+          localStorage.setItem('rate', JSON.stringify({ euro: euroRate }));
+          setRate({ euro: euroRate });
+        }
+        setIsLoading(false);
+      }
+    });
+  };
 
   useEffect(() => {
     if (rate) {
@@ -39,9 +54,24 @@ export const CurrentRate = () => {
           marginRight: 10,
         }}
       />
-      <StyledSpanRate isRateRefreshed={Boolean(rate)}>
+      <StyledSpanRate isRateRefreshed={Boolean(rate)} isLoading={isLoading}>
         {euroRate}
       </StyledSpanRate>
+      {!isLoading ? (
+        <RetweetOutlined
+          style={{
+            fontSize: 24,
+            marginLeft: 10,
+          }}
+          onClick={updateCurrentRate}
+        />
+      ) : (
+        <Spin
+          style={{
+            marginLeft: 10,
+          }}
+        />
+      )}
       <Box ml="5px" pt="3px">
         <Spin spinning={!Boolean(rate)} />
       </Box>
