@@ -114,15 +114,8 @@ export const NavBar = () => {
       localStorage.removeItem('user');
       localStorage.removeItem('discount');
       setUser(null);
-      console.log('session', session);
       if (session) {
         await signOut({ redirect: false });
-        // const res = await fetch('/api/auth/signout', { method: 'POST' });
-        // if (res.ok) {
-        //   // Clear the session on the client-side without reloading the page
-        //   window.localStorage.removeItem('next-auth.session-token');
-        // }
-        // window.localStorage.removeItem('next-auth.session-token');
       }
     } catch (error) {}
   };
@@ -137,7 +130,6 @@ export const NavBar = () => {
         alignItems="center"
         width={180}
         ml="auto"
-        // padding="0 30px"
       >
         {isUserLoading ? (
           <Spin />
@@ -160,9 +152,10 @@ export const NavBar = () => {
                 marginLeft: 'auto',
                 backgroundColor: user.image ? '' : '#f56a00',
               }}
-              src={user.image}
-              alt={user.name.slice(0, 1).toUpperCase()}
-            />
+              src={user.image || 'ASD'}
+            >
+              {!user.image && user.name.slice(0, 1).toUpperCase()}
+            </Avatar>
           </Popover>
         ) : isWide460 ? (
           <>
