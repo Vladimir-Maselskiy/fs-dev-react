@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
+import { getCurrentRate } from '@/utils/api/getCurrentRate';
 
 const SITE = 'https://viknocenter.ua/';
 
@@ -9,14 +10,12 @@ type Data = {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<Data | { error: string }>
 ) {
-  const request = (await axios.get(SITE).then(res => res.data)) as string;
-  const resFullString = request;
-
-  const start = resFullString.indexOf('<h3');
-  const end = resFullString.indexOf('</h3');
-
-  const euroRate = resFullString.slice(start, end).split(' ')[3];
-  res.status(200).send({ euroRate });
+  try {
+    const euroRate = await getCurrentRate();
+    res.status(200).send({ euroRate });
+  } catch (error: any) {
+    res.status(error.cause || 500).send({ error: error.message });
+  }
 }
