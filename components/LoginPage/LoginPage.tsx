@@ -36,11 +36,9 @@ export default function LoginPage() {
       await axios
         .post(`${process.env.NEXT_PUBLIC_API_HOST}/users/login`, body)
         .then(res => {
-          console.log('redInLogin', res);
           const user: IUser = res.data;
           if (user) {
             setUser(user);
-            console.log('userInLogin', user);
             localStorage.setItem('user', JSON.stringify(user));
             form.resetFields();
             router.push('/');
@@ -49,8 +47,8 @@ export default function LoginPage() {
           }
         });
     } catch (error: any) {
-      const message = error.response.data.error;
-      const { status } = error.response;
+      const message = error.response?.data?.error;
+      const status = error.response?.status;
     }
   };
 

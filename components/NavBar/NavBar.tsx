@@ -152,7 +152,7 @@ export const NavBar = () => {
                 marginLeft: 'auto',
                 backgroundColor: user.image ? '' : '#f56a00',
               }}
-              src={user.image || 'ASD'}
+              src={user.image}
             >
               {!user.image && user.name.slice(0, 1).toUpperCase()}
             </Avatar>

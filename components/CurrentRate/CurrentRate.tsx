@@ -9,11 +9,13 @@ import { EuroOutlined, RetweetOutlined } from '@ant-design/icons';
 import { useRateContext } from '@/context/state';
 import { IRate } from '@/interfaces/interfaces';
 import { SP } from 'next/dist/shared/lib/utils';
+import { useMediaQuery } from '@/hooks';
 
 export const CurrentRate = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [euroRate, setEuroRate] = useState(setStartEuroRate());
   const { rate, setRate } = useRateContext();
+  const isMoreThen580 = useMediaQuery(580);
 
   const updateCurrentRate = () => {
     setIsLoading(true);
@@ -54,21 +56,22 @@ export const CurrentRate = () => {
         }}
       />
       <StyledSpanRate isLoading={isLoading}>{euroRate}</StyledSpanRate>
-      {!isLoading ? (
-        <RetweetOutlined
-          style={{
-            fontSize: 24,
-            marginLeft: 10,
-          }}
-          onClick={updateCurrentRate}
-        />
-      ) : (
-        <Spin
-          style={{
-            marginLeft: 10,
-          }}
-        />
-      )}
+      {isMoreThen580 &&
+        (!isLoading ? (
+          <RetweetOutlined
+            style={{
+              fontSize: 24,
+              marginLeft: 10,
+            }}
+            onClick={updateCurrentRate}
+          />
+        ) : (
+          <Spin
+            style={{
+              marginLeft: 10,
+            }}
+          />
+        ))}
       <Box ml="5px" pt="3px">
         <Spin spinning={!Boolean(rate)} />
       </Box>
