@@ -31,12 +31,12 @@ export default async function cron(req: NextApiRequest, res: NextApiResponse) {
         currentDayOfWeek === 0 ||
         currentDayOfWeek === 6
       ) {
-        return res.status(200).send('rate does not updated');
+        return res.status(200).send({ mes: 'rate does not updated' });
       }
       await Rate.create({ euroRate });
       return res.status(200).send({ euroRate });
     }
-    return res.status(200).json('rate does not updated');
+    return res.status(200).send({ mes: 'rate does not updated' });
   } catch (error: any) {
     res.status(error.cause || 500).send({ error: error.message });
   }

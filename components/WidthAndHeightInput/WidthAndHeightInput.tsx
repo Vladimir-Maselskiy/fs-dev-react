@@ -62,7 +62,14 @@ export const WidthAndHeightInput = ({
         microVentilation,
       }));
     }
-  }, [fSet?.width, restrictions, fSet?.brand, fSet?.typeOfOpening, setFSet]);
+  }, [
+    fSet?.width,
+    restrictions,
+    fSet?.brand,
+    fSet?.typeOfOpening,
+    setFSet,
+    fSet.isGorizontalLock,
+  ]);
 
   useEffect(() => {
     if (fSet?.height) {

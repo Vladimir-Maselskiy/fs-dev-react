@@ -1,4 +1,8 @@
-import { FallOutlined, RiseOutlined } from '@ant-design/icons';
+import {
+  FallOutlined,
+  LineChartOutlined,
+  RiseOutlined,
+} from '@ant-design/icons';
 import React from 'react';
 
 type TProps = {
@@ -6,7 +10,16 @@ type TProps = {
 };
 
 export const RateStatisticIcon = ({ rateStatistic }: TProps) => {
-  if (!rateStatistic) return null;
+  if (!rateStatistic)
+    return (
+      <LineChartOutlined
+        style={{
+          fontSize: 24,
+
+          marginRight: 10,
+        }}
+      />
+    );
 
   return rateStatistic === 'up' ? (
     <RiseOutlined

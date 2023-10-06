@@ -51,10 +51,19 @@ export const CurrentRate = () => {
       } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_HOST}/rates/weekRates`
       );
+
       setWeekRates(weekRates);
     };
     getWeekRates();
-  }, []);
+  }, [rate]);
+
+  useEffect(() => {
+    const cronJob = async () => {
+      await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}/cron`);
+    };
+    const hour = new Date().getHours();
+    if (hour < 15) cronJob();
+  }, [rate]);
 
   useEffect(() => {
     if (weekRates.length > 2) {
@@ -66,10 +75,11 @@ export const CurrentRate = () => {
     } else {
       setRateStatistic(null);
     }
-  }, [weekRates]);
+  }, [weekRates, rate]);
 
   const updateCurrentRate = () => {
     setIsLoading(true);
+
     getCurrentEuroRate().then(res => {
       if (res) {
         const { euroRate } = res.data;
