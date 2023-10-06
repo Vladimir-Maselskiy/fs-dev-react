@@ -1,13 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import bcrypt from 'bcrypt';
-import * as uuid from 'uuid';
-import { setCookie } from 'cookies-next';
-import { sendActivationMail } from '@/utils/mongo/sendActivationMail';
-import { getUserDto } from '@/utils/mongo/getUserDto';
-import { getTokens } from '@/utils/mongo/getTokens';
-import { createError } from '@/utils/mongo/createError';
-
 /**
 
  */
