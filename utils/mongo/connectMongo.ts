@@ -1,4 +1,4 @@
 import mongoose from 'mongoose';
 
 export const connectMongo = async () =>
-  mongoose.connect(process.env.MONGO_URI!);
+  mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI!);

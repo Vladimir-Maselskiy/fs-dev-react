@@ -13,4 +13,4 @@ const rateSchema = new Schema(
 
 rateSchema.post('save', handleSaveErrors);
 
-export const Rate = models.rates || model('rates', rateSchema);
+export const Rate = models?.rates || model('rates', rateSchema);
