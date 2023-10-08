@@ -61,8 +61,6 @@ export const CurrentRate = () => {
     const cronJob = async () => {
       await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}/cron`);
     };
-    const hour = new Date().getHours();
-    if (hour < 15) cronJob();
   }, [rate]);
 
   useEffect(() => {

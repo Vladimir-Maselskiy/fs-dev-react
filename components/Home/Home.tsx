@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
 import { NavBar } from '../NavBar/NavBar';
 import { Divider, Spin } from 'antd';
-import { flex } from 'styled-system';
 import { NavContent } from '../NavContent/NavContent';
 
 export const Home = () => {

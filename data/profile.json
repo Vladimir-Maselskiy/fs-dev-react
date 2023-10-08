@@ -1,0 +1,27 @@
+{
+  "profile": [
+    {
+      "profileName": "Salamander",
+      "systems": [
+        { "systemName": "Streamline", "color": ["білий", "коричневий"] },
+        { "systemName": "bEvo82", "color": ["білий", "коричневий"] },
+        { "systemName": "bEvo72 AD", "color": ["білий"] },
+        { "systemName": "bEvo72 MD", "color": ["білий"] }
+      ]
+    },
+    {
+      "profileName": "Decco",
+      "systems": [
+        { "systemName": "62", "color": ["білий", "коричневий"] },
+        { "systemName": "71", "color": ["білий", "коричневий"] }
+      ]
+    },
+    {
+      "profileName": "Openteck",
+      "systems": [
+        { "systemName": "60", "color": ["білий", "коричневий"] },
+        { "systemName": "70", "color": ["білий", "коричневий"] }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,7 @@ import { ModalLayout } from '@/components/ModalLayout/ModalLayout';
 import { CurrentModal } from '@/components/CurrentModal/CurrentModal';
 import { FSetsOrderTable } from '@/components/FSetsOrderTable/FSetsOrderTable';
 import { getFSets } from '@/utils/data-utils/getFSets';
-import { IArticleItem, IUser, TBrands } from '@/interfaces/interfaces';
+import { IArticleItem, TBrands } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
 import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';

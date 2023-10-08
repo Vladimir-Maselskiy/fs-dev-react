@@ -1,15 +1,15 @@
 import React from 'react';
-import { Box } from '../Box/Box';
-import Image from 'next/image';
-import IconMacoLogo from '../../img/maco-logo.svg';
 import {
   StyledImage,
   StyledImageContainer,
   StyledNavContent,
 } from './NavContent.styled';
 import Link from 'next/link';
+import { useUserContext } from '@/context/state';
 
 export const NavContent = () => {
+  const { user } = useUserContext();
+
   return (
     <StyledNavContent>
       <Link
@@ -29,8 +29,19 @@ export const NavContent = () => {
         }}
       >
         <StyledImageContainer>
-          <StyledImage src="/vorne-logo.svg" alt="maco-logo" />
+          <StyledImage src="/vorne-logo.svg" alt="vorne-logo" />
         </StyledImageContainer>
+      </Link>
+      <Link
+        href={{
+          pathname: '/lamination',
+        }}
+      >
+        {user?.status === 'admin' && (
+          <StyledImageContainer>
+            <StyledImage src="/laminates-foto.png" alt="lamanates-foto" />
+          </StyledImageContainer>
+        )}
       </Link>
     </StyledNavContent>
   );

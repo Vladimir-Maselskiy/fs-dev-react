@@ -119,3 +119,20 @@ export interface IUser {
 export interface IRate {
   euro: string;
 }
+
+export const ALLProfileNames = ['Salamander', 'Decco', 'Openteck'] as const;
+
+export type TProfileNames = (typeof ALLProfileNames)[number];
+
+export const ALLProfileColors = ['білий', 'коричневий'] as const;
+
+export type TProfileColors = (typeof ALLProfileColors)[number];
+export type TSystems = {
+  systemName: string;
+  color: TProfileColors[];
+};
+
+export interface IProfile {
+  profileName: TProfileNames;
+  systems: TSystems[];
+}

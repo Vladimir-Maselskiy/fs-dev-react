@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-import { NextLink } from '../NextLink/NextLink';
 import Link from 'next/link';
 
 export const NextLinkStyledButton = styled(Link)`
-  /* display: block; */
   font-weight: 400;
   font-size: 20px;
   text-align: center;
@@ -13,7 +11,6 @@ export const NextLinkStyledButton = styled(Link)`
   border: 2px solid #32abf2;
   border-radius: 5px;
   background-color: var(--first-background-color);
-  /* background-color: white; */
   transition: border-radius 0.25s;
 
   &:hover {

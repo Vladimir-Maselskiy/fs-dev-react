@@ -8,8 +8,8 @@ type TProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   isModalOpen: boolean;
   currentModal: React.ElementType;
-  fSet: IFSet;
-  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
+  fSet?: IFSet;
+  setFSet?: React.Dispatch<React.SetStateAction<IFSet>>;
   modalNumber: number;
 };
 
@@ -33,7 +33,7 @@ export const ModalLayout = ({
     for (let obj in values) {
       if (values[obj]?.value) values[obj] = values[obj].value;
     }
-    setFSet(prev => ({ ...prev, ...values }));
+    setFSet && setFSet(prev => ({ ...prev, ...values }));
 
     setIsModalOpen(false);
   };
