@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
 import { NavBar } from '../NavBar/NavBar';
-
-import { Divider, Select, Spin } from 'antd';
+import { Button, Divider, Select, Spin } from 'antd';
 import Image from 'next/image';
 import { profile } from '../../data/profile.json';
-import { DefaultOptionType } from 'antd/es/select';
 import {
   IProfile,
   TProfileColors,
   TProfileNames,
   TSystems,
 } from '@/interfaces/interfaces';
-import { StyledLabel } from './LaminationPage.styled';
+import { SelectWrapper, StyledLabel } from './LaminationPage.styled';
 
 export const LaminationPage = () => {
+  type TLaminationSide = 'in' | 'both' | 'out' | 'inAndOut';
   const { Option } = Select;
   const profileSet = profile as IProfile[];
   const [isPageLoaded, setIsPageLoaded] = useState(false);
@@ -28,6 +27,11 @@ export const LaminationPage = () => {
   const [currentProfile, setCurrentProfile] = useState<IProfile | null>(null);
   const [currentProfileSystem, setCurrentProfileSystem] =
     useState<TSystems | null>(null);
+  const [currentLaminationSide, setCurrentLaminationSide] =
+    useState<TLaminationSide | null>(null);
+
+  const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(true);
+  const [isPrevButtonDisabled, setIsPrevButtonDisabled] = useState(true);
 
   useEffect(() => {
     setIsPageLoaded(true);
@@ -63,6 +67,14 @@ export const LaminationPage = () => {
       setCurrentProfileColor(currentProfileSystem.color[0]);
   }, [currentProfileSystem]);
 
+  useEffect(() => {
+    if (currentProfileColor && currentSystemName && currentLaminationSide) {
+      setIsNextButtonDisabled(false);
+    } else {
+      setIsNextButtonDisabled(true);
+    }
+  }, [currentProfileColor, currentSystemName, currentLaminationSide]);
+
   const onChangeSelect = (value: string) => {
     const currentValue = value as TProfileNames;
     setCurrentProfileName(currentValue);
@@ -75,8 +87,12 @@ export const LaminationPage = () => {
     setCurrentProfileColor(value as TProfileColors);
   };
 
+  const onChangeLaminationSide = (value: TLaminationSide) => {
+    setCurrentLaminationSide(value);
+  };
+
   return isPageLoaded ? (
-    <Box p="20px">
+    <Box position="relative" p="20px" overflow="hidden">
       <NavBar />
       <Divider />
       <Box display="flex" justifyContent={'space-around'} alignItems={'center'}>
@@ -89,60 +105,78 @@ export const LaminationPage = () => {
         <p>Ламінація від Вікно-Центр</p>
       </Box>
       <Divider />
-      <Box display="flex" flexDirection="column">
-        <Box>
-          <StyledLabel>Профіль:</StyledLabel>
-          <Select
-            placeholder="Оберіть профільну систему"
-            style={{ width: 200 }}
-            onChange={onChangeSelect}
-          >
-            {profileSet.map(profile => (
-              <Option key={profile.profileName} value={profile.profileName}>
-                {profile.profileName}
-              </Option>
-            ))}
-          </Select>
+      <SelectWrapper>
+        <Box maxWidth={300}>
+          <Box>
+            <StyledLabel>Профіль:</StyledLabel>
+            <Select
+              placeholder="Оберіть профільну систему"
+              style={{ width: 200 }}
+              onChange={onChangeSelect}
+            >
+              {profileSet.map(profile => (
+                <Option key={profile.profileName} value={profile.profileName}>
+                  {profile.profileName}
+                </Option>
+              ))}
+            </Select>
+          </Box>
+          <Box mt={20}>
+            <StyledLabel>Модель:</StyledLabel>
+            <Select
+              value={currentSystemName}
+              disabled={!currentProfile}
+              style={{ width: 200 }}
+              onChange={onChangeSystemNameSelect}
+            >
+              {currentProfile?.systems.map(system => (
+                <Option key={system.systemName} value={system.systemName}>
+                  {system.systemName}
+                </Option>
+              ))}
+            </Select>
+          </Box>
+          <Box mt={20}>
+            <StyledLabel>Колір:</StyledLabel>
+            <Select
+              value={currentProfileColor}
+              disabled={!currentSystemName}
+              style={{ width: 200 }}
+              onChange={onChangeProfileColorSelect}
+            >
+              {currentProfileSystem?.color.map(color => (
+                <Option key={color} value={color}>
+                  {color}
+                </Option>
+              ))}
+            </Select>
+          </Box>
+          <Box mt={20}>
+            <StyledLabel>Тип:</StyledLabel>
+            <Select
+              value={currentLaminationSide}
+              placeholder="Оберіть тип ламінації"
+              style={{ width: 200 }}
+              onChange={onChangeLaminationSide}
+            >
+              <Option value={'out'}>зовнішня</Option>
+              <Option value={'both'}>двостороння</Option>
+              <Option value={'in'}>внутрішня</Option>
+              <Option value={'outAndIn'}>зовнішня/внутрішня</Option>
+            </Select>
+          </Box>
         </Box>
-        <Box mt={20}>
-          <StyledLabel>Модель:</StyledLabel>
-          <Select
-            value={currentSystemName}
-            disabled={!currentProfile}
-            style={{ width: 200 }}
-            onChange={onChangeSystemNameSelect}
-          >
-            {currentProfile?.systems.map(system => (
-              <Option key={system.systemName} value={system.systemName}>
-                {system.systemName}
-              </Option>
-            ))}
-          </Select>
-        </Box>
-        <Box mt={20}>
-          <StyledLabel>Колір:</StyledLabel>
-          <Select
-            value={currentProfileColor}
-            disabled={!currentSystemName}
-            style={{ width: 200 }}
-            onChange={onChangeProfileColorSelect}
-          >
-            {currentProfileSystem?.color.map(color => (
-              <Option key={color} value={color}>
-                {color}
-              </Option>
-            ))}
-          </Select>
+      </SelectWrapper>
+      <Box display="flex" justifyContent="center" mt={40}>
+        <Box display="flex" justifyContent="space-between" width={250}>
+          <Button type="primary" disabled={isPrevButtonDisabled}>
+            Назад
+          </Button>
+          <Button type="primary" disabled={isNextButtonDisabled}>
+            Далі
+          </Button>
         </Box>
       </Box>
-
-      {/* <ModalLayout
-        isModalOpen={false}
-        setIsModalOpen={setIsModalOpen}
-        currentModal={CurrentModal}
-        modalNumber={currentModalNumber}
-        
-      /> */}
     </Box>
   ) : (
     <Box
