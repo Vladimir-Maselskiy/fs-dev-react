@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
 import { NavBar } from '../NavBar/NavBar';
-import { Button, Divider, Select, Spin } from 'antd';
+import { Button, Divider, Select, Spin, Table } from 'antd';
 import Image from 'next/image';
 import { profile } from '../../data/profile.json';
 import {
@@ -10,7 +10,12 @@ import {
   TProfileNames,
   TSystems,
 } from '@/interfaces/interfaces';
-import { SelectWrapper, StyledLabel } from './LaminationPage.styled';
+import {
+  ContentWrapper,
+  ProfileSelectWrapper,
+  StyledLabel,
+  TableWrapper,
+} from './LaminationPage.styled';
 
 export const LaminationPage = () => {
   type TLaminationSide = 'in' | 'both' | 'out' | 'inAndOut';
@@ -32,6 +37,7 @@ export const LaminationPage = () => {
 
   const [isNextButtonDisabled, setIsNextButtonDisabled] = useState(true);
   const [isPrevButtonDisabled, setIsPrevButtonDisabled] = useState(true);
+  const [contentStep, setContentStep] = useState(1);
 
   useEffect(() => {
     setIsPageLoaded(true);
@@ -68,12 +74,30 @@ export const LaminationPage = () => {
   }, [currentProfileSystem]);
 
   useEffect(() => {
-    if (currentProfileColor && currentSystemName && currentLaminationSide) {
+    if (
+      currentProfileColor &&
+      currentSystemName &&
+      currentLaminationSide &&
+      contentStep <= 1
+    ) {
       setIsNextButtonDisabled(false);
     } else {
       setIsNextButtonDisabled(true);
     }
-  }, [currentProfileColor, currentSystemName, currentLaminationSide]);
+  }, [
+    currentProfileColor,
+    currentSystemName,
+    currentLaminationSide,
+    contentStep,
+  ]);
+
+  useEffect(() => {
+    if (contentStep <= 1) {
+      setIsPrevButtonDisabled(true);
+    } else {
+      setIsPrevButtonDisabled(false);
+    }
+  }, [contentStep]);
 
   const onChangeSelect = (value: string) => {
     const currentValue = value as TProfileNames;
@@ -91,6 +115,10 @@ export const LaminationPage = () => {
     setCurrentLaminationSide(value);
   };
 
+  const onStepButtonClick = (value: number) => {
+    setContentStep(p => p + value);
+  };
+
   return isPageLoaded ? (
     <Box position="relative" p="20px" overflow="hidden">
       <NavBar />
@@ -105,8 +133,8 @@ export const LaminationPage = () => {
         <p>Ламінація від Вікно-Центр</p>
       </Box>
       <Divider />
-      <SelectWrapper>
-        <Box maxWidth={300}>
+      <ContentWrapper>
+        <ProfileSelectWrapper contentStep={contentStep}>
           <Box>
             <StyledLabel>Профіль:</StyledLabel>
             <Select
@@ -165,14 +193,25 @@ export const LaminationPage = () => {
               <Option value={'outAndIn'}>зовнішня/внутрішня</Option>
             </Select>
           </Box>
-        </Box>
-      </SelectWrapper>
+        </ProfileSelectWrapper>
+        <TableWrapper contentStep={contentStep}>
+          <Table></Table>
+        </TableWrapper>
+      </ContentWrapper>
       <Box display="flex" justifyContent="center" mt={40}>
         <Box display="flex" justifyContent="space-between" width={250}>
-          <Button type="primary" disabled={isPrevButtonDisabled}>
+          <Button
+            type="primary"
+            disabled={isPrevButtonDisabled}
+            onClick={() => onStepButtonClick(-1)}
+          >
             Назад
           </Button>
-          <Button type="primary" disabled={isNextButtonDisabled}>
+          <Button
+            type="primary"
+            disabled={isNextButtonDisabled}
+            onClick={() => onStepButtonClick(+1)}
+          >
             Далі
           </Button>
         </Box>

@@ -61,6 +61,7 @@ export const CurrentRate = () => {
     const cronJob = async () => {
       await axios.get(`${process.env.NEXT_PUBLIC_API_HOST}/cron`);
     };
+    cronJob();
   }, [rate]);
 
   useEffect(() => {
