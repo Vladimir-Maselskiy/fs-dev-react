@@ -21,6 +21,7 @@ import { DefaultOptionType } from 'antd/es/select';
 import { useRouter } from 'next/router';
 import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { fetchMockApiStatistic } from '@/utils/api/fetchMockApiStatistic';
+import { getIdForNewFSet } from '@/utils/data-utils/getIdForNewFSet';
 
 type TDiscountSing = 'add' | 'minus';
 
@@ -111,16 +112,22 @@ export const FInputPage = () => {
     });
   };
 
+  // const onClickAddSet = () => {
+  //   console.log('fSetID', fSet.id);
+  // };
+
   const onClickAddSet = () => {
     setButtonTitle('Додати');
     const index = fSetsArray.findIndex(set => set.id === fSet.id);
     if (index === -1) {
       const currentId = fSet.id;
       setLastId(currentId);
-      setFSetsArray(prev => [...prev, fSet]);
+      setFSetsArray(prev => [
+        ...prev,
+        { ...fSet, id: getIdForNewFSet(fSetsArray) },
+      ]);
       setFSet(
         getNewSet({
-          id: (+currentId + 1).toString(),
           brand: fSet.brand,
           systemOfPVC: fSet.systemOfPVC,
         })
@@ -134,7 +141,6 @@ export const FInputPage = () => {
     });
     setFSet(
       getNewSet({
-        id: (+lastID + 1).toString(),
         brand: fSet.brand,
         systemOfPVC: fSet.systemOfPVC,
       })

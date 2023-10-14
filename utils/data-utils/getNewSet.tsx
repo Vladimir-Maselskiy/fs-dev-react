@@ -3,7 +3,7 @@ import { IFSet, TBrands, TSystemOfPVC } from '@/interfaces/interfaces';
 export const getNewSet = (
   params: { id?: string; brand?: TBrands; systemOfPVC?: TSystemOfPVC } = {}
 ): IFSet => {
-  let { id = '0', brand = 'maco', systemOfPVC = '13' } = params;
+  let { id = '', brand = 'maco', systemOfPVC = '13' } = params;
   return {
     id,
     brand,

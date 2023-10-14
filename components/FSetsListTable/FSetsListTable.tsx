@@ -277,6 +277,7 @@ export const FSetsListTable = ({ setFSet, setButtonTitle }: TProps) => {
     setSelectedRowKeys([]);
   };
   const handleCopy = (keys: React.Key[]) => {
+    console.log('keys', keys);
     const fSet = fSetsArray.find(set => set.id === keys[0]);
     if (fSet)
       setFSetsArray(prev => [
@@ -341,7 +342,7 @@ export const FSetsListTable = ({ setFSet, setButtonTitle }: TProps) => {
             }}
           ></Button>
         </Tooltip>
-        <Tooltip title="Видалити">
+        <Tooltip title="Редагувати">
           <Button
             type="primary"
             style={{ width: '80px', height: '40px', marginLeft: 10 }}
