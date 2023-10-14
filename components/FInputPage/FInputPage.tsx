@@ -22,6 +22,7 @@ import { useRouter } from 'next/router';
 import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { fetchMockApiStatistic } from '@/utils/api/fetchMockApiStatistic';
 import { getIdForNewFSet } from '@/utils/data-utils/getIdForNewFSet';
+import { LocksOptionsDrawModal } from '../LocksOptionsDrawModal/LocksOptionsDrawModal';
 
 type TDiscountSing = 'add' | 'minus';
 
@@ -49,6 +50,8 @@ export const FInputPage = () => {
   const [discountAsProp, setDiscountAsProp] = useState(0);
   const [buttonTitle, setButtonTitle] = useState('Додати');
   const [discountSign, setDiscountSign] = useState<TDiscountSing>('add');
+  const [isModalPressLocksOptionsOpened, setIsModalPressLocksOptionsOpened] =
+    useState(false);
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
@@ -239,6 +242,11 @@ export const FInputPage = () => {
         modalNumber={currentModalNumber}
         fSet={fSet}
         setFSet={setFSet}
+        setIsModalPressLocksOptionsOpened={setIsModalPressLocksOptionsOpened}
+      />
+      <LocksOptionsDrawModal
+        isModalOpen={isModalPressLocksOptionsOpened}
+        setIsModalOpen={setIsModalPressLocksOptionsOpened}
       />
     </Box>
   ) : (

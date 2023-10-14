@@ -8,11 +8,21 @@ type TProps = {
   fSet: IFSet;
   modalNumber: number;
   form: any;
+  setIsModalPressLocksOptionsOpened: React.Dispatch<boolean>;
 };
 
-export const CurrentModal = ({ fSet, modalNumber = 2, form }: TProps) => {
+export const CurrentModal = ({
+  fSet,
+  modalNumber = 2,
+  form,
+  setIsModalPressLocksOptionsOpened,
+}: TProps) => {
   const [Modal, setModal] = useState<JSX.Element>(
-    <ModalSetOption fSet={fSet} form={form} />
+    <ModalSetOption
+      fSet={fSet}
+      form={form}
+      setIsModalPressLocksOptionsOpened={setIsModalPressLocksOptionsOpened}
+    />
   );
   useEffect(() => {
     switch (modalNumber) {
@@ -20,7 +30,15 @@ export const CurrentModal = ({ fSet, modalNumber = 2, form }: TProps) => {
         setModal(<ModalSetBrand fSet={fSet} form={form} />);
         break;
       case 2:
-        setModal(<ModalSetOption fSet={fSet} form={form} />);
+        setModal(
+          <ModalSetOption
+            fSet={fSet}
+            form={form}
+            setIsModalPressLocksOptionsOpened={
+              setIsModalPressLocksOptionsOpened
+            }
+          />
+        );
         break;
       case 3:
         setModal(<ModalTypeOfOpening fSet={fSet} form={form} />);

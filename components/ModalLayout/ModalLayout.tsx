@@ -11,6 +11,9 @@ type TProps = {
   fSet?: IFSet;
   setFSet?: React.Dispatch<React.SetStateAction<IFSet>>;
   modalNumber: number;
+  setIsModalPressLocksOptionsOpened: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
 };
 
 export const ModalLayout = ({
@@ -20,6 +23,7 @@ export const ModalLayout = ({
   fSet,
   setFSet,
   modalNumber,
+  setIsModalPressLocksOptionsOpened,
 }: TProps) => {
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -65,7 +69,14 @@ export const ModalLayout = ({
           onFinish={onFinishHandleSubmit}
           labelAlign="left"
         >
-          <CurrentModal fSet={fSet} modalNumber={modalNumber} form={form} />
+          <CurrentModal
+            fSet={fSet}
+            modalNumber={modalNumber}
+            form={form}
+            setIsModalPressLocksOptionsOpened={
+              setIsModalPressLocksOptionsOpened
+            }
+          />
         </Form>
       </ConfigProvider>
     </StyledModal>

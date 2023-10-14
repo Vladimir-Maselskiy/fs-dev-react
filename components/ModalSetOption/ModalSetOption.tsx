@@ -9,6 +9,7 @@ import {
   RadioChangeEvent,
   FormInstance,
   CollapseProps,
+  Button,
 } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
@@ -18,15 +19,20 @@ import { getOneOptionTypeOfHingeSidePress } from '@/utils/ui-utills/getOneOption
 import { getOneOptionDecor } from '@/utils/ui-utills/getOneOptionDecor';
 import { getDecorSelectOptions } from '@/utils/ui-utills/getDecorSelectOptions';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
-
-const { Panel } = Collapse;
+import { useUserContext } from '@/context/state';
 
 type TProps = {
   fSet: IFSet;
   form: FormInstance<any>;
+  setIsModalPressLocksOptionsOpened: React.Dispatch<boolean>;
 };
 
-export const ModalSetOption = ({ fSet, form }: TProps) => {
+export const ModalSetOption = ({
+  fSet,
+  form,
+  setIsModalPressLocksOptionsOpened,
+}: TProps) => {
+  const { user } = useUserContext();
   const [decorOptions, setDecorOptions] = useState(
     getDecorSelectOptions(fSet?.brand)
   );
@@ -122,6 +128,10 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
     }
   };
 
+  const onPressLocksOptionButtonClick = () => {
+    setIsModalPressLocksOptionsOpened(true);
+  };
+
   const items: CollapseProps['items'] = [
     {
       label: 'Додатково',
@@ -176,35 +186,44 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
           {!(
             fSet?.shtulpGetriebe === 'latch' && fSet?.typeOfOpening === 'type-5'
           ) && (
-            <>
-              <Form.Item label="Протизламна ф-ра:">
-                <Form.Item
-                  valuePropName="checked"
-                  name="isAntiBreakingOpen"
-                  initialValue={fSet.isAntiBreakingOpen}
-                >
-                  <Checkbox
-                    onChange={onChangeAntiBreakingOpen}
-                    checked={fSet.isAntiBreakingOpen ? true : false}
-                  />
-                </Form.Item>
-
-                {!isAntiBreakingOpenSelectDisable && (
-                  <Form.Item
-                    name="antiBreakingOpenType"
-                    valuePropName="value"
-                    initialValue={fSet.antiBreakingOpenType}
-                  >
-                    <Radio.Group name="antiBreakingOpenRadio">
-                      {fSet?.shtulpGetriebe === 'latch' && (
-                        <Radio value="base">Базовий</Radio>
-                      )}
-                      <Radio value="rc1">RC1</Radio>
-                    </Radio.Group>
-                  </Form.Item>
-                )}
+            <Form.Item
+              style={{
+                maxHeight: isAntiBreakingOpenSelectDisable ? 32 : 'none',
+              }}
+              label="Протизламна ф-ра:"
+            >
+              <Form.Item
+                valuePropName="checked"
+                name="isAntiBreakingOpen"
+                initialValue={fSet.isAntiBreakingOpen}
+              >
+                <Checkbox
+                  onChange={onChangeAntiBreakingOpen}
+                  checked={fSet.isAntiBreakingOpen ? true : false}
+                />
               </Form.Item>
-            </>
+
+              {!isAntiBreakingOpenSelectDisable && (
+                <Form.Item
+                  name="antiBreakingOpenType"
+                  valuePropName="value"
+                  initialValue={fSet.antiBreakingOpenType}
+                >
+                  <Radio.Group name="antiBreakingOpenRadio">
+                    {fSet?.shtulpGetriebe === 'latch' && (
+                      <Radio value="base">Базовий</Radio>
+                    )}
+                    <Radio value="rc1">RC1</Radio>
+                  </Radio.Group>
+                </Form.Item>
+              )}
+            </Form.Item>
+          )}
+
+          {user?.status === 'admin' && (
+            <Button onClick={onPressLocksOptionButtonClick}>
+              Опції середнього прижиму
+            </Button>
           )}
         </>
       ),
