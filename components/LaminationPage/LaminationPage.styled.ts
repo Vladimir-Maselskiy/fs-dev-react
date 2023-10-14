@@ -32,6 +32,7 @@ export const TableWrapper = styled.div<TContentStep>`
   flex-direction: column;
   align-items: center;
   transition: transform 1s ease-in-out;
+  transition-delay: 0.5s;
 `;
 
 export const StyledLabel = styled.span`

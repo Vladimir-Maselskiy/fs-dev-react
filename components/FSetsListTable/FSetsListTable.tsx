@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { InputNumber } from 'antd';
+import { InputNumber, Tooltip } from 'antd';
 import { Button, Form, Table } from 'antd';
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
+  CopyOutlined,
   DeleteRowOutlined,
   EditOutlined,
 } from '@ant-design/icons';
@@ -13,6 +14,7 @@ import { Box } from '../Box/Box';
 import { getSetsListDataSource } from '@/utils/data-utils/getSetsListDataSource';
 import { useMediaQuery } from '@/hooks';
 import { useFSetsContext } from '@/context/state';
+import { getIdForNewFSet } from '@/utils/data-utils/getIdForNewFSet';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -166,35 +168,6 @@ export const FSetsListTable = ({ setFSet, setButtonTitle }: TProps) => {
     onChange: onSelectChange,
   };
 
-  const handleDelete = (keys: React.Key[]) => {
-    setFSetsArray(prev => prev.filter(set => !keys.includes(set.id)));
-    setSelectedRowKeys([]);
-  };
-
-  const handleEdit = (keys: React.Key[]) => {
-    const fSet = fSetsArray.find(set => set.id === keys[0]);
-    if (fSet) setFSet(fSet);
-    setButtonTitle('Змінити');
-    setSelectedRowKeys([]);
-  };
-
-  const handleReplace = (keys: React.Key[], direction: 'top' | 'bottom') => {
-    const index = fSetsArray.findIndex(set => set.id === keys[0]);
-    if (index !== -1) {
-      let move = 0;
-      if (direction === 'top') {
-        move = 1;
-      } else move = -1;
-
-      setFSetsArray(prev => {
-        const temp = prev[index];
-        prev[index] = prev[index - move];
-        prev[index - move] = temp;
-        return [...prev];
-      });
-    }
-  };
-
   const defaultColumns: (
     | {}
     | (ColumnTypes[number] & {
@@ -275,53 +248,113 @@ export const FSetsListTable = ({ setFSet, setButtonTitle }: TProps) => {
     };
   });
 
+  const handleReplace = (keys: React.Key[], direction: 'top' | 'bottom') => {
+    const index = fSetsArray.findIndex(set => set.id === keys[0]);
+    if (index !== -1) {
+      let move = 0;
+      if (direction === 'top') {
+        move = 1;
+      } else move = -1;
+
+      setFSetsArray(prev => {
+        const temp = prev[index];
+        prev[index] = prev[index - move];
+        prev[index - move] = temp;
+        return [...prev];
+      });
+    }
+  };
+
+  const handleDelete = (keys: React.Key[]) => {
+    setFSetsArray(prev => prev.filter(set => !keys.includes(set.id)));
+    setSelectedRowKeys([]);
+  };
+
+  const handleEdit = (keys: React.Key[]) => {
+    const fSet = fSetsArray.find(set => set.id === keys[0]);
+    if (fSet) setFSet(fSet);
+    setButtonTitle('Змінити');
+    setSelectedRowKeys([]);
+  };
+  const handleCopy = (keys: React.Key[]) => {
+    const fSet = fSetsArray.find(set => set.id === keys[0]);
+    if (fSet)
+      setFSetsArray(prev => [
+        ...prev,
+        { ...fSet, id: getIdForNewFSet(fSetsArray) },
+      ]);
+  };
+
   return (
     <Box display="flex" width="100%" flexDirection="column">
       <Box display="flex" justifyContent="flex-end">
-        <Button
-          type="primary"
-          style={{ width: '80px', height: '40px' }}
-          disabled={!(selectedRowKeys.length > 0)}
-          icon={
-            <DeleteRowOutlined style={{ fontSize: '25px', color: 'white' }} />
-          }
-          onClick={() => {
-            handleDelete(selectedRowKeys);
-          }}
-        ></Button>
-        <Button
-          type="primary"
-          disabled={isArrowUpDisabled}
-          style={{ width: '80px', height: '40px', marginLeft: 10 }}
-          icon={
-            <ArrowUpOutlined style={{ fontSize: '25px', color: 'white' }} />
-          }
-          onClick={() => {
-            handleReplace(selectedRowKeys, 'top');
-          }}
-        ></Button>
-        <Button
-          type="primary"
-          style={{ width: '80px', height: '40px', marginLeft: 10 }}
-          disabled={isArrowDownDisabled}
-          icon={
-            <ArrowDownOutlined style={{ fontSize: '25px', color: 'white' }} />
-          }
-          onClick={() => {
-            handleReplace(selectedRowKeys, 'bottom');
-          }}
-        ></Button>
-        <Button
-          type="primary"
-          style={{ width: '80px', height: '40px', marginLeft: 10 }}
-          disabled={selectedRowKeys.length !== 1}
-          icon={<EditOutlined style={{ fontSize: '25px', color: 'white' }} />}
-          onClick={() => {
-            handleEdit(selectedRowKeys);
-          }}
-        ></Button>
+        <Tooltip title="Видалити">
+          <Button
+            type="primary"
+            style={{ width: '80px', height: '40px' }}
+            disabled={!(selectedRowKeys.length > 0)}
+            icon={
+              <DeleteRowOutlined style={{ fontSize: '25px', color: 'white' }} />
+            }
+            onClick={() => {
+              handleDelete(selectedRowKeys);
+            }}
+          ></Button>
+        </Tooltip>
+
+        <Tooltip title="Перемістити вгору">
+          <Button
+            type="primary"
+            disabled={isArrowUpDisabled}
+            style={{ width: '80px', height: '40px', marginLeft: 10 }}
+            icon={
+              <ArrowUpOutlined style={{ fontSize: '25px', color: 'white' }} />
+            }
+            onClick={() => {
+              handleReplace(selectedRowKeys, 'top');
+            }}
+          ></Button>
+        </Tooltip>
+
+        <Tooltip title="Перемістити вниз">
+          <Button
+            type="primary"
+            style={{ width: '80px', height: '40px', marginLeft: 10 }}
+            disabled={isArrowDownDisabled}
+            icon={
+              <ArrowDownOutlined style={{ fontSize: '25px', color: 'white' }} />
+            }
+            onClick={() => {
+              handleReplace(selectedRowKeys, 'bottom');
+            }}
+          ></Button>
+        </Tooltip>
+
+        <Tooltip title="Копіювати">
+          <Button
+            type="primary"
+            style={{ width: '80px', height: '40px', marginLeft: 10 }}
+            disabled={selectedRowKeys.length !== 1}
+            icon={<CopyOutlined style={{ fontSize: '25px', color: 'white' }} />}
+            onClick={() => {
+              handleCopy(selectedRowKeys);
+            }}
+          ></Button>
+        </Tooltip>
+        <Tooltip title="Видалити">
+          <Button
+            type="primary"
+            style={{ width: '80px', height: '40px', marginLeft: 10 }}
+            disabled={selectedRowKeys.length !== 1}
+            icon={<EditOutlined style={{ fontSize: '25px', color: 'white' }} />}
+            onClick={() => {
+              handleEdit(selectedRowKeys);
+            }}
+          ></Button>
+        </Tooltip>
       </Box>
       <Table
+        caption
         components={components}
         rowClassName={() => 'editable-row'}
         bordered
