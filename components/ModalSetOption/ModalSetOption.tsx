@@ -8,6 +8,7 @@ import {
   Collapse,
   RadioChangeEvent,
   FormInstance,
+  CollapseProps,
 } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
@@ -121,84 +122,12 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
     }
   };
 
-  return (
-    <Box mt={10}>
-      <p>Опції:</p>
-      <Box pt={20}>
-        <p>
-          Ширина: {fSet?.width} &nbsp; Висота: {fSet?.height}
-        </p>
-      </Box>
-      <Divider />
-
-      {fSet?.typeOfOpening === 'type-2' && (
-        <Form.Item
-          label="П/в привід, покращений прижим"
-          name="isTurnTiltGetriebe"
-          valuePropName="checked"
-          initialValue={fSet.isTurnTiltGetriebe}
-        >
-          <Checkbox
-            checked={fSet.isTurnTiltGetriebe}
-            onChange={onChangeTurnTiltGetriebeCheckbox}
-          />
-        </Form.Item>
-      )}
-
-      {fSet?.typeOfOpening === 'type-5' && (
-        <Form.Item
-          label="Штульп"
-          name="shtulpGetriebe"
-          initialValue={fSet.shtulpGetriebe}
-        >
-          <Radio.Group onChange={onChangeShtulpGetriebe}>
-            <Radio value="shtulpGetriebe">Штульп-привід</Radio>
-            <Radio value="latch">Шпінгалети</Radio>
-          </Radio.Group>
-        </Form.Item>
-      )}
-
-      {typeof fSet?.typeOfOpening === 'string' &&
-        ['type-2', 'type-3', 'type-5'].includes(fSet?.typeOfOpening) && (
-          <Form.Item
-            label="Прижим зі сторони петель"
-            name="typeOfHingeSidePress"
-            initialValue={getOneOptionTypeOfHingeSidePress(fSet)}
-          >
-            <Select options={typeOfHingeSidePressConst} listHeight={150} />
-          </Form.Item>
-        )}
-      {typeof fSet?.typeOfOpening === 'string' &&
-        ['type-1', 'type-4'].includes(fSet?.typeOfOpening) && (
-          <Form.Item
-            label="Зимове провітрювання"
-            name="microVentilation"
-            valuePropName="checked"
-            initialValue={fSet?.microVentilation}
-          >
-            <Checkbox
-              checked={fSet?.microVentilation}
-              disabled={isMicroVentilationDisabled}
-            />
-          </Form.Item>
-        )}
-
-      {fSet?.typeOfOpening !== 'type-3' && (
-        <Form.Item
-          label="Нижній горизонтальний прижим"
-          name="isGorizontalLock"
-          valuePropName="checked"
-          initialValue={fSet.isGorizontalLock}
-        >
-          <Checkbox
-            checked={fSet.isGorizontalLock}
-            disabled={isGorizontalLockDisabled}
-          />
-        </Form.Item>
-      )}
-
-      <Collapse>
-        <Panel header="Додатково" key="1">
+  const items: CollapseProps['items'] = [
+    {
+      label: 'Додатково',
+      key: '1',
+      children: (
+        <>
           <Form.Item
             label="Декор"
             name="decor"
@@ -277,8 +206,88 @@ export const ModalSetOption = ({ fSet, form }: TProps) => {
               </Form.Item>
             </>
           )}
-        </Panel>
-      </Collapse>
+        </>
+      ),
+    },
+  ];
+
+  return (
+    <Box mt={10}>
+      <p>Опції:</p>
+      <Box pt={20}>
+        <p>
+          Ширина: {fSet?.width} &nbsp; Висота: {fSet?.height}
+        </p>
+      </Box>
+      <Divider />
+
+      {fSet?.typeOfOpening === 'type-2' && (
+        <Form.Item
+          label="П/в привід, покращений прижим"
+          name="isTurnTiltGetriebe"
+          valuePropName="checked"
+          initialValue={fSet.isTurnTiltGetriebe}
+        >
+          <Checkbox
+            checked={fSet.isTurnTiltGetriebe}
+            onChange={onChangeTurnTiltGetriebeCheckbox}
+          />
+        </Form.Item>
+      )}
+
+      {fSet?.typeOfOpening === 'type-5' && (
+        <Form.Item
+          label="Штульп"
+          name="shtulpGetriebe"
+          initialValue={fSet.shtulpGetriebe}
+        >
+          <Radio.Group onChange={onChangeShtulpGetriebe}>
+            <Radio value="shtulpGetriebe">Штульп-привід</Radio>
+            <Radio value="latch">Шпінгалети</Radio>
+          </Radio.Group>
+        </Form.Item>
+      )}
+
+      {typeof fSet?.typeOfOpening === 'string' &&
+        ['type-2', 'type-3', 'type-5'].includes(fSet?.typeOfOpening) && (
+          <Form.Item
+            label="Прижим зі сторони петель"
+            name="typeOfHingeSidePress"
+            initialValue={getOneOptionTypeOfHingeSidePress(fSet)}
+          >
+            <Select options={typeOfHingeSidePressConst} listHeight={150} />
+          </Form.Item>
+        )}
+      {typeof fSet?.typeOfOpening === 'string' &&
+        ['type-1', 'type-4'].includes(fSet?.typeOfOpening) && (
+          <Form.Item
+            label="Зимове провітрювання"
+            name="microVentilation"
+            valuePropName="checked"
+            initialValue={fSet?.microVentilation}
+          >
+            <Checkbox
+              checked={fSet?.microVentilation}
+              disabled={isMicroVentilationDisabled}
+            />
+          </Form.Item>
+        )}
+
+      {fSet?.typeOfOpening !== 'type-3' && (
+        <Form.Item
+          label="Нижній горизонтальний прижим"
+          name="isGorizontalLock"
+          valuePropName="checked"
+          initialValue={fSet.isGorizontalLock}
+        >
+          <Checkbox
+            checked={fSet.isGorizontalLock}
+            disabled={isGorizontalLockDisabled}
+          />
+        </Form.Item>
+      )}
+
+      <Collapse items={items} />
 
       <Divider />
     </Box>
