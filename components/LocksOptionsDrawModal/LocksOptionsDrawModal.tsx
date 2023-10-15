@@ -1,12 +1,16 @@
 import { Modal } from 'antd';
-import React, { useState } from 'react';
+import React from 'react';
+import { FSetCanvas } from '../FSetCanvas/FSetCanvas';
+import { IFSet } from '@/interfaces/interfaces';
 
 type TProps = {
+  fSet: IFSet;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const LocksOptionsDrawModal = ({
+  fSet,
   isModalOpen,
   setIsModalOpen,
 }: TProps) => {
@@ -24,7 +28,7 @@ export const LocksOptionsDrawModal = ({
       onCancel={handleCancel}
       destroyOnClose={true}
     >
-      LocksOptionsDrawModal
+      <FSetCanvas fSet={fSet} />
     </Modal>
   );
 };

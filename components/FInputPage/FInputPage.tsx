@@ -245,6 +245,7 @@ export const FInputPage = () => {
         setIsModalPressLocksOptionsOpened={setIsModalPressLocksOptionsOpened}
       />
       <LocksOptionsDrawModal
+        fSet={fSet}
         isModalOpen={isModalPressLocksOptionsOpened}
         setIsModalOpen={setIsModalPressLocksOptionsOpened}
       />
