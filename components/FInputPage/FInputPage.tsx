@@ -44,7 +44,6 @@ export const FInputPage = () => {
   const [currentModalNumber, setCurrentModalNumber] = useState(0);
   const [tableSets, setTableSets] = useState<IArticleItem[]>([]);
   const [fSet, setFSet] = useState(getNewSet({ brand: brand as TBrands }));
-  const [lastID, setLastId] = useState(fSet.id);
   const [isDiscountAviable, setIsDiscountAviable] = useState(false);
   const [discountValue, setDiscountValue] = useState(0);
   const [discountAsProp, setDiscountAsProp] = useState(0);
@@ -124,7 +123,7 @@ export const FInputPage = () => {
     const index = fSetsArray.findIndex(set => set.id === fSet.id);
     if (index === -1) {
       const currentId = fSet.id;
-      setLastId(currentId);
+      // setLastId(currentId);
       setFSetsArray(prev => [
         ...prev,
         { ...fSet, id: getIdForNewFSet(fSetsArray) },
@@ -246,6 +245,7 @@ export const FInputPage = () => {
       />
       <LocksOptionsDrawModal
         fSet={fSet}
+        setFSet={setFSet}
         isModalOpen={isModalPressLocksOptionsOpened}
         setIsModalOpen={setIsModalPressLocksOptionsOpened}
       />

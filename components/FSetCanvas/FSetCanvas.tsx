@@ -1,13 +1,14 @@
-import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
 import React, { useRef, useEffect } from 'react';
 import { StyledCanvas } from './FSetCanvas.styled';
-import { typeOfOpeningSelectOpions } from '@/const';
 import { getTypeOfOpeningLabel } from '@/utils/data-utils/getTypeOfOpeningLabel';
 import { drawCanvasContent } from '@/utils/canvas/drawCanvasContent';
+import { Box } from '../Box/Box';
+import { CanvasGorizontalLock } from './CanvasFElements/CanvasGorizontalLock/CanvasGorizontalLock';
 
 type TProps = {
   fSet: IFSet;
+  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
 };
 
 export const FSetCanvas = ({ fSet }: TProps) => {
@@ -29,7 +30,18 @@ export const FSetCanvas = ({ fSet }: TProps) => {
       <div>{`тип відкривання: ${getTypeOfOpeningLabel(
         fSet.typeOfOpening
       )}`}</div>
-      <StyledCanvas ref={ref} />
+      <Box
+        position="relative"
+        display="flex"
+        justifyContent="center"
+        width="100%"
+        mt={40}
+        p={40}
+        border="2px solid gray"
+      >
+        <StyledCanvas ref={ref} />
+        <CanvasGorizontalLock />
+      </Box>
     </>
   );
 };

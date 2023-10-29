@@ -1,10 +1,11 @@
-import { TArgs } from './drawCanvasContent';
+import { TArgs, px } from './drawCanvasContent';
 
-export const drawTypeOfOpening = ({
+export const drarVerticalLocks = ({
   fSet,
   ctx,
   rectConers,
 }: TArgs & { rectConers: number[] }) => {
+  console.log('fSEt', fSet);
   const lineWidth = 1; // Line width (border thickness)
 
   ctx.lineWidth = lineWidth; // Set the line width
