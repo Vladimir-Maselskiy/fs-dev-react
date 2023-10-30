@@ -7,7 +7,7 @@ export const StyledCanvasGorizontalLock = styled.div`
   left: calc(30% - 60px);
   width: 35%;
 `;
-export const StyledIcon211924W = styled(Icon211924WR)`
+export const StyledIcon = styled(Icon211924WR)`
   &:hover {
     cursor: pointer;
     fill: red;

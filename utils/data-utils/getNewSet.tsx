@@ -25,5 +25,7 @@ export const getNewSet = (
     isAntiBreakingOpen: false,
     antiBreakingOpenType: 'base',
     decor: 'white',
+    optionalGorizontalLock: null,
+    optionalVerticalLock: null,
   };
 };

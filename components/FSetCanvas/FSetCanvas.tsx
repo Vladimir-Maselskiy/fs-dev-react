@@ -5,13 +5,14 @@ import { getTypeOfOpeningLabel } from '@/utils/data-utils/getTypeOfOpeningLabel'
 import { drawCanvasContent } from '@/utils/canvas/drawCanvasContent';
 import { Box } from '../Box/Box';
 import { CanvasGorizontalLock } from './CanvasFElements/CanvasGorizontalLock/CanvasGorizontalLock';
+import { CanvasVerticalLock } from './CanvasFElements/CanvasVerticalLock/CanvasVerticalLock';
 
 type TProps = {
   fSet: IFSet;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
 };
 
-export const FSetCanvas = ({ fSet }: TProps) => {
+export const FSetCanvas = ({ fSet, setFSet }: TProps) => {
   const ref = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = ref.current;
@@ -40,7 +41,8 @@ export const FSetCanvas = ({ fSet }: TProps) => {
         border="2px solid gray"
       >
         <StyledCanvas ref={ref} />
-        <CanvasGorizontalLock />
+        <CanvasGorizontalLock fSet={fSet} setFSet={setFSet} />
+        <CanvasVerticalLock fSet={fSet} setFSet={setFSet} />
       </Box>
     </>
   );

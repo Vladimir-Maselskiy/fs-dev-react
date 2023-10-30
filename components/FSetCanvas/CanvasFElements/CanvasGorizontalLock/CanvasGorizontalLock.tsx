@@ -1,17 +1,23 @@
 import React from 'react';
 import {
   StyledCanvasGorizontalLock,
-  StyledIcon211924W,
+  StyledIcon,
 } from './CanvasGorizontalLock.styled';
+import { useFSetsContext } from '@/context/state';
+import { IFSet } from '@/interfaces/interfaces';
 
-export const CanvasGorizontalLock = () => {
-  const onClick = () => {
-    console.log('click');
-  };
+type TProps = {
+  fSet: IFSet;
+  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
+};
 
+export const CanvasGorizontalLock = ({ fSet, setFSet }: TProps) => {
+  const {} = useFSetsContext();
   return (
-    <StyledCanvasGorizontalLock>
-      <StyledIcon211924W onClick={onClick} />
-    </StyledCanvasGorizontalLock>
+    fSet.typeOfOpening !== 'type-3' && (
+      <StyledCanvasGorizontalLock>
+        <StyledIcon side={fSet.sideOfHinge} />
+      </StyledCanvasGorizontalLock>
+    )
   );
 };

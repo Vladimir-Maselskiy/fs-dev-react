@@ -77,6 +77,8 @@ export interface IFSet {
   isWithoutBottomHinge: boolean;
   isAntiBreakingOpen: boolean;
   antiBreakingOpenType: 'base' | 'rc1';
+  optionalGorizontalLock: null | string[];
+  optionalVerticalLock: null | string[];
 }
 
 export interface IFSetsArray {
