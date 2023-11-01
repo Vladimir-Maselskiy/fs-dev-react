@@ -9,12 +9,21 @@ import Icon211924HL from '../../../../public/articlesSVG/211924h-l.svg';
 type TProps = {
   fSet: IFSet;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
+  outterPadding: number;
 };
 
-export const CanvasVerticalLock = ({ fSet, setFSet }: TProps) => {
+export const CanvasVerticalLock = ({
+  fSet,
+  setFSet,
+  outterPadding,
+}: TProps) => {
   const [defaultGorizontalLock] = fSet.isAntiBreakingOpen
     ? getVerticalLocksRC(fSet)
     : getVerticalLocks(fSet);
+
+  const getIconHeight = (fSet: IFSet) => {
+    return '50%';
+  };
 
   const getDafaultVerticalLockIcon = (
     fSet: IFSet
@@ -38,7 +47,11 @@ export const CanvasVerticalLock = ({ fSet, setFSet }: TProps) => {
   };
 
   return (
-    <StyledCanvasVerticalLock side={fSet.sideOfHinge}>
+    <StyledCanvasVerticalLock
+      side={fSet.sideOfHinge}
+      iconHeight={getIconHeight(fSet)}
+      outterPadding={outterPadding}
+    >
       {getDafaultVerticalLockIcon(fSet)}
     </StyledCanvasVerticalLock>
   );

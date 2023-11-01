@@ -42,7 +42,11 @@ export const FSetCanvas = ({ fSet, setFSet }: TProps) => {
             setFSet={setFSet}
             outterPadding={px * outterPaddingK}
           />
-          <CanvasVerticalLock fSet={fSet} setFSet={setFSet} />
+          <CanvasVerticalLock
+            fSet={fSet}
+            setFSet={setFSet}
+            outterPadding={px * outterPaddingK}
+          />
         </StyledCanvasWrapper>
       </Box>
     </>
