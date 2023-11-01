@@ -16,8 +16,9 @@ export const StyledCanvasVerticalLock = styled.div<TProps>`
   height: ${props => `calc(100% - ${props.outterPadding * 2}px)`};
 
   & svg {
-    height: 100%;
+    height: ${props => props.iconHeight};
   }
+
   & svg:hover {
     cursor: pointer;
     fill: red;

@@ -21,7 +21,7 @@ export const StyledCanvasGorizontalLock = styled.div<TProps>`
     left: ${props => (props.side === 'right' ? 0 : '100%')};
     transform: ${props =>
       props.side === 'right' ? 'translateX(0)' : 'translateX(-100%)'};
-    width: 50%;
+    width: ${props => props.iconWidth};
     height: 100%;
   }
   & svg:hover {

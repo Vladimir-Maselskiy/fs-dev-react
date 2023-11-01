@@ -1,12 +1,9 @@
 import React from 'react';
 import { StyledCanvasGorizontalLock } from './CanvasGorizontalLock.styled';
-import { useFSetsContext } from '@/context/state';
 import { IFSet } from '@/interfaces/interfaces';
-import { getGorizontalLocks } from '@/utils/maco/getGorizontalLocks';
-import { getGorizontalLocksRC } from '@/utils/maco/rc/getGorizontalLocksRC';
-import Icon211924WR from '../../../../public/articlesSVG/211924w-r.svg';
-import Icon211924WL from '../../../../public/articlesSVG/211924w-l.svg';
-import { Box } from '@/components/Box/Box';
+import { getDafaultGoriontalLockIcon } from '@/utils/canvas/getDafaultGoriontalLockIcon';
+import { getDefaultGorizontalLock } from '@/utils/canvas/getDefaultGorizontalLock';
+import { getGorizonalIconWidth } from '@/utils/canvas/getGorizonalIconWidth';
 
 type TProps = {
   fSet: IFSet;
@@ -19,32 +16,8 @@ export const CanvasGorizontalLock = ({
   setFSet,
   outterPadding,
 }: TProps) => {
-  const [defaultGorizontalLock] = fSet.isAntiBreakingOpen
-    ? getGorizontalLocksRC(fSet)
-    : getGorizontalLocks(fSet);
-
-  const getDafaultGoriontalLockIcon = (
-    fSet: IFSet
-  ): React.JSX.Element | null => {
-    if (
-      (defaultGorizontalLock.article === '211924' ||
-        defaultGorizontalLock.article === '228398') &&
-      fSet.sideOfHinge === 'right'
-    )
-      return <Icon211924WR />;
-    if (
-      (defaultGorizontalLock.article === '211924' ||
-        defaultGorizontalLock.article === '228398') &&
-      fSet.sideOfHinge === 'left'
-    )
-      return <Icon211924WL />;
-
-    return null;
-  };
-
-  const getIconWidth = (fSet: IFSet) => {
-    return '50%';
-  };
+  const defaultGorizontalLock = getDefaultGorizontalLock(fSet);
+  const GorizontalLockIcon = getDafaultGoriontalLockIcon(fSet);
 
   return (
     (fSet.typeOfOpening !== 'type-3' &&
@@ -52,10 +25,10 @@ export const CanvasGorizontalLock = ({
       defaultGorizontalLock && (
         <StyledCanvasGorizontalLock
           side={fSet.sideOfHinge}
-          iconWidth={getIconWidth(fSet)}
+          iconWidth={getGorizonalIconWidth(fSet)}
           outterPadding={outterPadding}
         >
-          {getDafaultGoriontalLockIcon(fSet)}
+          <GorizontalLockIcon />
         </StyledCanvasGorizontalLock>
       )) ||
     null
