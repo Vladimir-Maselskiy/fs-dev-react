@@ -1,6 +1,6 @@
-import { TArgs, px } from './drawCanvasContent';
+import { TArgs } from './drawCanvasContent';
 
-export const drawWindowOutLine = ({ fSet, ctx }: TArgs) => {
+export const drawWindowOutLine = ({ fSet, ctx, px }: TArgs) => {
   const canvasWidth = ctx.canvas.width;
   const canvasHeight = ctx.canvas.height;
 
@@ -8,8 +8,8 @@ export const drawWindowOutLine = ({ fSet, ctx }: TArgs) => {
   const fSetWidth = fSet.width!;
   const fSetHeight = fSet.height!;
 
-  const widthScale = (canvasWidth - 2 * px) / fSetWidth;
-  const heightScale = (canvasHeight - 2 * px) / fSetHeight;
+  const widthScale = (canvasWidth - 2 * px!) / fSetWidth;
+  const heightScale = (canvasHeight - 2 * px!) / fSetHeight;
   const currentScale = Math.min(widthScale, heightScale);
   const currentWidth = fSetWidth * currentScale;
   const currentHeight = fSetHeight * currentScale;

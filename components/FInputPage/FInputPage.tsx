@@ -114,9 +114,7 @@ export const FInputPage = () => {
     });
   };
 
-  // const onClickAddSet = () => {
-  //   console.log('fSetID', fSet.id);
-  // };
+
 
   const onClickAddSet = () => {
     setButtonTitle('Додати');

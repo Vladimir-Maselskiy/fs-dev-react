@@ -13,7 +13,6 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
-  // console.log('session', session);
   return (
     <SessionProvider session={session}>
       <AppWrapper>

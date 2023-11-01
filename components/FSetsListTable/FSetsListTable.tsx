@@ -277,7 +277,6 @@ export const FSetsListTable = ({ setFSet, setButtonTitle }: TProps) => {
     setSelectedRowKeys([]);
   };
   const handleCopy = (keys: React.Key[]) => {
-    console.log('keys', keys);
     const fSet = fSetsArray.find(set => set.id === keys[0]);
     if (fSet)
       setFSetsArray(prev => [

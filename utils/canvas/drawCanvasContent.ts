@@ -6,19 +6,22 @@ import { drarVerticalLocks } from './drarVerticalLocks';
 export type TArgs = {
   fSet: IFSet;
   ctx: CanvasRenderingContext2D;
+  px?: number;
+  py?: number;
 };
-
-export const px = 20;
-export const py = 20;
 
 const color = 'grey'; // Line color
 
 export const drawCanvasContent = ({
   fSet,
   canvas,
+  px,
+  py,
 }: {
   fSet: IFSet;
   canvas: HTMLCanvasElement | null;
+  px: number;
+  py: number;
 }) => {
   const ctx = canvas?.getContext('2d');
 
@@ -26,7 +29,7 @@ export const drawCanvasContent = ({
     if (ctx) {
       ctx.strokeStyle = color; // Set the stroke (border) color
 
-      const rectConers = drawWindowOutLine({ fSet, ctx });
+      const rectConers = drawWindowOutLine({ fSet, ctx, px });
       drawTypeOfOpening({ fSet, ctx, rectConers });
       drarVerticalLocks({ fSet, ctx, rectConers });
     }

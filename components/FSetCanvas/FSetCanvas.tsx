@@ -1,6 +1,6 @@
 import { IFSet } from '@/interfaces/interfaces';
 import React, { useRef, useEffect } from 'react';
-import { StyledCanvas } from './FSetCanvas.styled';
+import { StyledCanvas, StyledCanvasWrapper } from './FSetCanvas.styled';
 import { getTypeOfOpeningLabel } from '@/utils/data-utils/getTypeOfOpeningLabel';
 import { drawCanvasContent } from '@/utils/canvas/drawCanvasContent';
 import { Box } from '../Box/Box';
@@ -14,6 +14,9 @@ type TProps = {
 
 export const FSetCanvas = ({ fSet, setFSet }: TProps) => {
   const ref = useRef<HTMLCanvasElement>(null);
+  const px = 20;
+  const py = 20;
+  const outterPaddingK = 3.2;
   useEffect(() => {
     const canvas = ref.current;
     if (canvas) {
@@ -21,7 +24,7 @@ export const FSetCanvas = ({ fSet, setFSet }: TProps) => {
       canvas.height = canvas.clientHeight;
     }
 
-    drawCanvasContent({ fSet, canvas });
+    drawCanvasContent({ fSet, canvas, px, py });
   }, []);
 
   return (
@@ -31,18 +34,16 @@ export const FSetCanvas = ({ fSet, setFSet }: TProps) => {
       <div>{`тип відкривання: ${getTypeOfOpeningLabel(
         fSet.typeOfOpening
       )}`}</div>
-      <Box
-        position="relative"
-        display="flex"
-        justifyContent="center"
-        width="100%"
-        mt={40}
-        p={40}
-        border="2px solid gray"
-      >
-        <StyledCanvas ref={ref} />
-        <CanvasGorizontalLock fSet={fSet} setFSet={setFSet} />
-        <CanvasVerticalLock fSet={fSet} setFSet={setFSet} />
+      <Box border="2px solid gray" mt={20}>
+        <StyledCanvasWrapper style={{ padding: outterPaddingK * px }}>
+          <StyledCanvas ref={ref} />
+          <CanvasGorizontalLock
+            fSet={fSet}
+            setFSet={setFSet}
+            outterPadding={px * outterPaddingK}
+          />
+          <CanvasVerticalLock fSet={fSet} setFSet={setFSet} />
+        </StyledCanvasWrapper>
       </Box>
     </>
   );
