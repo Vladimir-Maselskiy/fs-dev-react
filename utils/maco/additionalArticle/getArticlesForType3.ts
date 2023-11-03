@@ -8,7 +8,7 @@ export function getArticlesForType3(fSet: IFSet) {
 
   const { width, height, systemOfPVC, typeOfOpening, isAntiBreakingOpen } =
     fSet;
-  if (typeOfOpening !== 'type-3' || isAntiBreakingOpen) return [];
+  if (typeOfOpening !== 'type-3') return [];
 
   articleItems.push(...getTopDecor(fSet));
   articleItems.push(...getTopHinge(fSet));
@@ -19,6 +19,8 @@ export function getArticlesForType3(fSet: IFSet) {
   };
   const currentArticleItems = findElementsByArticle(params);
   if (currentArticleItems) articleItems.push(...currentArticleItems);
+
+  if (isAntiBreakingOpen) return articleItems;
 
   if (width! >= 470 && height! >= 800) {
     const params = {
