@@ -5,7 +5,10 @@ export function getGorizontalLocksRC(fSet: IFSet) {
   const { width, shtulpGetriebe, typeOfOpening } = fSet;
   const articleItems: IArticleItem[] = [];
 
-  if (typeOfOpening === 'type-5' && shtulpGetriebe === 'latch') {
+  if (
+    (typeOfOpening === 'type-5' && shtulpGetriebe === 'latch') ||
+    typeOfOpening === 'type-3'
+  ) {
     return [];
   }
   if (typeOfOpening === 'type-5' && shtulpGetriebe === 'shtulpGetriebe') {
