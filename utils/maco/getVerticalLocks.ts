@@ -6,10 +6,7 @@ export function getVerticalLocks(fSet: IFSet) {
   const {
     width,
     height,
-    shtulpGetriebe,
-    isGorizontalLock,
     typeOfOpening,
-    isTurnTiltGetriebe,
     isAntiBreakingOpen,
     antiBreakingOpenType,
   } = fSet;
@@ -85,7 +82,7 @@ export function getVerticalLocks(fSet: IFSet) {
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
     }
-    if (height >= 2200 && height < 2450) {
+    if (height >= 2200) {
       const params = {
         arr: ['211928'],
         sortSignificance: '5',
