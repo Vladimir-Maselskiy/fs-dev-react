@@ -3,6 +3,8 @@ import { StyledCanvasVerticalLock } from './CanvasVerticalLock.styled';
 import { IFSet } from '@/interfaces/interfaces';
 import { getVerticalIconHeight } from '@/utils/canvas/getVerticalIconHeight';
 import { getDafaultVerticalLockIcon } from '@/utils/canvas/getDafaultVerticalLockIcon';
+import { Popover } from 'antd';
+import { getDefaultVerticalLock } from '@/utils/canvas/getDefaultVerticalLock';
 
 type TProps = {
   fSet: IFSet;
@@ -18,16 +20,23 @@ export const CanvasVerticalLock = ({
   const getIconHeight = (fSet: IFSet) => {
     return '50%';
   };
-
+  const defaultVerticalLock = getDefaultVerticalLock(fSet);
   const VerticalLockIcon = getDafaultVerticalLockIcon(fSet);
 
   return (
-    <StyledCanvasVerticalLock
-      side={fSet.sideOfHinge}
-      iconHeight={getVerticalIconHeight(fSet)}
-      outterPadding={outterPadding}
-    >
-      {VerticalLockIcon && <VerticalLockIcon />}
-    </StyledCanvasVerticalLock>
+    defaultVerticalLock && (
+      <StyledCanvasVerticalLock
+        side={fSet.sideOfHinge}
+        iconHeight={getVerticalIconHeight(fSet)}
+        outterPadding={outterPadding}
+      >
+        <Popover
+          // placement="topLeft"
+          title={`арт.${defaultVerticalLock.article} ${defaultVerticalLock.name}`}
+        >
+          {VerticalLockIcon && <VerticalLockIcon />}
+        </Popover>
+      </StyledCanvasVerticalLock>
+    )
   );
 };

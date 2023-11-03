@@ -4,6 +4,7 @@ import { IFSet } from '@/interfaces/interfaces';
 import { getDafaultGoriontalLockIcon } from '@/utils/canvas/getDafaultGoriontalLockIcon';
 import { getDefaultGorizontalLock } from '@/utils/canvas/getDefaultGorizontalLock';
 import { getGorizonalIconWidth } from '@/utils/canvas/getGorizonalIconWidth';
+import { Popover } from 'antd';
 
 type TProps = {
   fSet: IFSet;
@@ -28,7 +29,12 @@ export const CanvasGorizontalLock = ({
           iconWidth={getGorizonalIconWidth(fSet)}
           outterPadding={outterPadding}
         >
-          <GorizontalLockIcon />
+          <Popover
+            // placement="topLeft"
+            title={`арт.${defaultGorizontalLock.article} ${defaultGorizontalLock.name}`}
+          >
+            <GorizontalLockIcon />
+          </Popover>
         </StyledCanvasGorizontalLock>
       )) ||
     null
