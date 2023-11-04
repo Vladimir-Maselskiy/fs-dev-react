@@ -25,8 +25,7 @@ export const CanvasVerticalLock = ({
   };
 
   return (
-    defaultVerticalLock &&
-    !fSet.optionalVerticalLock && (
+    (defaultVerticalLock && !fSet.optionalVerticalLock && (
       <StyledCanvasVerticalLock
         side={fSet.sideOfHinge}
         iconHeight={getVerticalIconHeight(fSet)}
@@ -39,6 +38,7 @@ export const CanvasVerticalLock = ({
           {VerticalLockIcon && <VerticalLockIcon />}
         </Popover>
       </StyledCanvasVerticalLock>
-    )
+    )) ||
+    null
   );
 };
