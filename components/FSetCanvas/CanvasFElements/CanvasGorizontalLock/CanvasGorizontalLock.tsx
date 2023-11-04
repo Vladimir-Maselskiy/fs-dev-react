@@ -4,7 +4,7 @@ import { IFSet } from '@/interfaces/interfaces';
 import { getDafaultGoriontalLockIcon } from '@/utils/canvas/getDafaultGoriontalLockIcon';
 import { getDefaultGorizontalLock } from '@/utils/canvas/getDefaultGorizontalLock';
 import { getGorizonalIconWidth } from '@/utils/canvas/getGorizonalIconWidth';
-import { Popover } from 'antd';
+import { Button, Popover } from 'antd';
 
 type TProps = {
   fSet: IFSet;
@@ -20,18 +20,23 @@ export const CanvasGorizontalLock = ({
   const defaultGorizontalLock = getDefaultGorizontalLock(fSet);
   const GorizontalLockIcon = getDafaultGoriontalLockIcon(fSet);
 
+  const onDeleteButtonClick = () => {
+    setFSet(prev => ({ ...prev, optionalGorizontalLock: [] }));
+  };
+
   return (
     (fSet.typeOfOpening !== 'type-3' &&
       !fSet.optionalGorizontalLock &&
-      defaultGorizontalLock && (
+      defaultGorizontalLock &&
+      !fSet.optionalGorizontalLock && (
         <StyledCanvasGorizontalLock
           side={fSet.sideOfHinge}
           iconWidth={getGorizonalIconWidth(fSet)}
           outterPadding={outterPadding}
         >
           <Popover
-            // placement="topLeft"
             title={`арт.${defaultGorizontalLock.article} ${defaultGorizontalLock.name}`}
+            content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
           >
             <GorizontalLockIcon />
           </Popover>

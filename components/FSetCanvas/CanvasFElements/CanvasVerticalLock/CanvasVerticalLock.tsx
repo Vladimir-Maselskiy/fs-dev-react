@@ -3,7 +3,7 @@ import { StyledCanvasVerticalLock } from './CanvasVerticalLock.styled';
 import { IFSet } from '@/interfaces/interfaces';
 import { getVerticalIconHeight } from '@/utils/canvas/getVerticalIconHeight';
 import { getDafaultVerticalLockIcon } from '@/utils/canvas/getDafaultVerticalLockIcon';
-import { Popover } from 'antd';
+import { Button, Popover } from 'antd';
 import { getDefaultVerticalLock } from '@/utils/canvas/getDefaultVerticalLock';
 
 type TProps = {
@@ -17,22 +17,24 @@ export const CanvasVerticalLock = ({
   setFSet,
   outterPadding,
 }: TProps) => {
-  const getIconHeight = (fSet: IFSet) => {
-    return '50%';
-  };
   const defaultVerticalLock = getDefaultVerticalLock(fSet);
   const VerticalLockIcon = getDafaultVerticalLockIcon(fSet);
 
+  const onDeleteButtonClick = () => {
+    setFSet(prev => ({ ...prev, optionalVerticalLock: [] }));
+  };
+
   return (
-    defaultVerticalLock && (
+    defaultVerticalLock &&
+    !fSet.optionalVerticalLock && (
       <StyledCanvasVerticalLock
         side={fSet.sideOfHinge}
         iconHeight={getVerticalIconHeight(fSet)}
         outterPadding={outterPadding}
       >
         <Popover
-          // placement="topLeft"
           title={`арт.${defaultVerticalLock.article} ${defaultVerticalLock.name}`}
+          content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
         >
           {VerticalLockIcon && <VerticalLockIcon />}
         </Popover>
