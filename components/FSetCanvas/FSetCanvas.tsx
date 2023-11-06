@@ -6,6 +6,7 @@ import { drawCanvasContent } from '@/utils/canvas/drawCanvasContent';
 import { Box } from '../Box/Box';
 import { CanvasGorizontalLock } from './CanvasFElements/CanvasGorizontalLock/CanvasGorizontalLock';
 import { CanvasVerticalLock } from './CanvasFElements/CanvasVerticalLock/CanvasVerticalLock';
+import { CanvasShear } from './CanvasFElements/CanvasShear/CanvasShear';
 
 type TProps = {
   fSet: IFSet;
@@ -37,6 +38,11 @@ export const FSetCanvas = ({ fSet, setFSet }: TProps) => {
       <Box border="2px solid gray" mt={20}>
         <StyledCanvasWrapper style={{ padding: outterPaddingK * px }}>
           <StyledCanvas ref={ref} />
+          <CanvasShear
+            fSet={fSet}
+            setFSet={setFSet}
+            outterPadding={px * outterPaddingK}
+          />
           <CanvasGorizontalLock
             fSet={fSet}
             setFSet={setFSet}

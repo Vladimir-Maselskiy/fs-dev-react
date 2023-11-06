@@ -37,6 +37,7 @@ export const CanvasGorizontalLock = ({
           <Popover
             title={`арт.${defaultGorizontalLock.article} ${defaultGorizontalLock.name}`}
             content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
+            trigger="click"
           >
             <GorizontalLockIcon />
           </Popover>

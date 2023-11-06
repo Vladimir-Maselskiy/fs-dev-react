@@ -8,11 +8,11 @@ type TProps = {
 
 export const StyledCanvasVerticalLock = styled.div<TProps>`
   position: absolute;
-  top: ${props => `calc(${props.outterPadding}px - 15px)`};
+  top: ${props => `calc(${props.outterPadding}px - 10px)`};
   left: ${props =>
     props.side === 'right'
-      ? `calc(100% - ${props.outterPadding}px - 10px)`
-      : `calc(${props.outterPadding}px - 25px)`};
+      ? `calc(100% - ${props.outterPadding}px - 25px)`
+      : `calc(${props.outterPadding}px - 15px)`};
   height: ${props => `calc(100% - ${props.outterPadding * 2}px)`};
 
   & svg {
