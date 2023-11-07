@@ -35,7 +35,6 @@ export const CanvasVerticalLock = ({
           title={`арт.${defaultVerticalLock.article} ${defaultVerticalLock.name}`}
           content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
           trigger="click"
-
         >
           {VerticalLockIcon && <VerticalLockIcon />}
         </Popover>

@@ -1,5 +1,5 @@
 import { IFSet } from '@/interfaces/interfaces';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { StyledCanvas, StyledCanvasWrapper } from './FSetCanvas.styled';
 import { getTypeOfOpeningLabel } from '@/utils/data-utils/getTypeOfOpeningLabel';
 import { drawCanvasContent } from '@/utils/canvas/drawCanvasContent';
@@ -7,13 +7,21 @@ import { Box } from '../Box/Box';
 import { CanvasGorizontalLock } from './CanvasFElements/CanvasGorizontalLock/CanvasGorizontalLock';
 import { CanvasVerticalLock } from './CanvasFElements/CanvasVerticalLock/CanvasVerticalLock';
 import { CanvasShear } from './CanvasFElements/CanvasShear/CanvasShear';
+import { CanvasFElementsList } from './CanvasFElements/CanvasFElementsList/CanvasFElementsList';
 
 type TProps = {
   fSet: IFSet;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
+  isListOpen: boolean;
+  setIsListOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const FSetCanvas = ({ fSet, setFSet }: TProps) => {
+export const FSetCanvas = ({
+  fSet,
+  setFSet,
+  isListOpen,
+  setIsListOpen,
+}: TProps) => {
   const ref = useRef<HTMLCanvasElement>(null);
   const px = 20;
   const py = 20;
@@ -35,13 +43,19 @@ export const FSetCanvas = ({ fSet, setFSet }: TProps) => {
       <div>{`тип відкривання: ${getTypeOfOpeningLabel(
         fSet.typeOfOpening
       )}`}</div>
-      <Box border="2px solid gray" mt={20}>
+      <Box
+        position="relative"
+        overflowX="hidden"
+        border="2px solid gray"
+        mt={20}
+      >
         <StyledCanvasWrapper style={{ padding: outterPaddingK * px }}>
           <StyledCanvas ref={ref} />
           <CanvasShear
             fSet={fSet}
             setFSet={setFSet}
             outterPadding={px * outterPaddingK}
+            setIsListOpen={setIsListOpen}
           />
           <CanvasGorizontalLock
             fSet={fSet}
@@ -54,6 +68,10 @@ export const FSetCanvas = ({ fSet, setFSet }: TProps) => {
             outterPadding={px * outterPaddingK}
           />
         </StyledCanvasWrapper>
+        <CanvasFElementsList
+          isListOpen={isListOpen}
+          setIsListOpen={setIsListOpen}
+        />
       </Box>
     </>
   );

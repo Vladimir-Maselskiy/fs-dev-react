@@ -1,5 +1,5 @@
 import { Modal } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import { FSetCanvas } from '../FSetCanvas/FSetCanvas';
 import { IFSet } from '@/interfaces/interfaces';
 import { Box } from '../Box/Box';
@@ -17,6 +17,7 @@ export const LocksOptionsDrawModal = ({
   isModalOpen,
   setIsModalOpen,
 }: TProps) => {
+  const [isListOpen, setIsListOpen] = useState(false);
   const handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -30,6 +31,8 @@ export const LocksOptionsDrawModal = ({
       onOk={handleOk}
       onCancel={handleCancel}
       destroyOnClose={true}
+      okButtonProps={{ disabled: isListOpen ? true : false }}
+      cancelButtonProps={{ disabled: isListOpen ? true : false }}
     >
       <Box
         display="flex"
@@ -37,7 +40,12 @@ export const LocksOptionsDrawModal = ({
         alignItems="center"
         width="100%"
       >
-        <FSetCanvas fSet={fSet} setFSet={setFSet} />
+        <FSetCanvas
+          fSet={fSet}
+          setFSet={setFSet}
+          isListOpen={isListOpen}
+          setIsListOpen={setIsListOpen}
+        />
       </Box>
     </Modal>
   );

@@ -8,7 +8,6 @@ export const getIconScale = (
 ): { widthScale: number; heightScale: number } => {
   let widthScale = 0;
   let heightScale = 0;
-  const currentSide = Math.min(fSet.width!, fSet.height!);
   const defaultGorizontalLock = getDefaultGorizontalLock(fSet);
   const lockByWidth = defaultGorizontalLock?.article;
   const macoArticleByWidth = macoLocks.find(

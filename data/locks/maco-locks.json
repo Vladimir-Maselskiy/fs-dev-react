@@ -4,41 +4,55 @@
     "article": "228398",
     "length": 349.5,
     "VZ": [283],
-    "extendable": false
+    "startConnection": "clip",
+    "endConnection": false
   },
   {
     "id": "2",
     "article": "211924",
     "length": 585,
     "VZ": [518.5],
-    "extendable": false
+    "startConnection": "clip",
+    "endConnection": false
   },
   {
     "id": "3",
     "article": "211925",
     "length": 820,
     "VZ": [753.5],
-    "extendable": false
+    "startConnection": "clip",
+    "endConnection": false
   },
   {
     "id": "4",
     "article": "211926",
     "length": 1291,
     "VZ": [753.5, 1225],
-    "extendable": false
+    "startConnection": "clip",
+    "endConnection": false
   },
   {
     "id": "5",
     "article": "211927",
     "length": 1526,
     "VZ": [753.5, 1460],
-    "extendable": false
+    "startConnection": "clip",
+    "endConnection": false
   },
   {
     "id": "6",
     "article": "211928",
     "length": 1997,
     "VZ": [753.5, 1460, 1931],
-    "extendable": false
+    "startConnection": "clip",
+    "endConnection": false
+  },
+  {
+    "id": "7",
+    "article": "211976",
+    "length": 113.5,
+    "VZ": [69.5],
+    "startConnection": "clip",
+    "endConnection": "gear"
   }
 ]

@@ -8,11 +8,11 @@ type TProps = {
 
 export const StyledCanvasGorizontalLock = styled.div<TProps>`
   position: absolute;
-  top: ${props => `calc(100% - ${props.outterPadding}px - 15px)`};
+  top: ${props => `calc(100% - ${props.outterPadding}px - 25px)`};
   left: ${props =>
     props.side === 'right'
-      ? `calc(${props.outterPadding}px - 15px)`
-      : `calc(${props.outterPadding}px + 15px)`};
+      ? `calc(${props.outterPadding}px - 10px)`
+      : `calc(${props.outterPadding}px + 10px)`};
 
   width: ${props => `calc(100% - ${props.outterPadding * 2}px)`};
   height: 40px;
@@ -20,7 +20,9 @@ export const StyledCanvasGorizontalLock = styled.div<TProps>`
     position: relative;
     left: ${props => (props.side === 'right' ? 0 : '100%')};
     transform: ${props =>
-      props.side === 'right' ? 'translateX(0)' : 'translateX(-100%)'};
+      props.side === 'right'
+        ? 'translateX(0)'
+        : 'translateX(-100%) scaleX(-1)'};
     width: ${props => props.iconWidth};
     height: 100%;
   }

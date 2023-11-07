@@ -104,6 +104,15 @@ export interface IArticleItem {
   iS?: string;
 }
 
+export interface IMacoLocks {
+  id: string;
+  article: string;
+  length: number;
+  VZ: number[];
+  startConnection: 'clip' | 'gear' | null;
+  endConnection: 'clip' | 'gear' | null;
+}
+
 export interface IUser {
   _id: string;
   email: string;

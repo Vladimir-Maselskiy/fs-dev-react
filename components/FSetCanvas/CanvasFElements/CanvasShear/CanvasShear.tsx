@@ -10,9 +10,15 @@ type TProps = {
   fSet: IFSet;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   outterPadding: number;
+  setIsListOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const CanvasShear = ({ fSet, setFSet, outterPadding }: TProps) => {
+export const CanvasShear = ({
+  fSet,
+  setFSet,
+  outterPadding,
+  setIsListOpen,
+}: TProps) => {
   const [isExtended, setIsExtended] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -28,7 +34,8 @@ export const CanvasShear = ({ fSet, setFSet, outterPadding }: TProps) => {
 
   const onExtendButtonClick = () => {
     setIsPopoverOpen(false);
-    setFSet(prev => ({ ...prev, optionalVerticalLock: null }));
+    setIsListOpen(true);
+    // setFSet(prev => ({ ...prev, optionalVerticalLock: null }));
   };
 
   return (
@@ -42,7 +49,7 @@ export const CanvasShear = ({ fSet, setFSet, outterPadding }: TProps) => {
           title={`арт.${currentShear.article} ${currentShear.name}`}
           content={
             <Button disabled={!isExtended} onClick={onExtendButtonClick}>
-              Продовжити
+              Приєднати ще
             </Button>
           }
           trigger="click"
