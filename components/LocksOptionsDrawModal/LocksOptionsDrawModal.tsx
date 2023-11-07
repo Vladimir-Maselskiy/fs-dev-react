@@ -1,4 +1,4 @@
-import { Modal } from 'antd';
+import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import { FSetCanvas } from '../FSetCanvas/FSetCanvas';
 import { IFSet } from '@/interfaces/interfaces';
@@ -25,6 +25,9 @@ export const LocksOptionsDrawModal = ({
     setIsModalOpen(false);
   };
 
+  const onClick = () => {
+    console.log('fSet', fSet);
+  };
   return (
     <Modal
       open={isModalOpen}
@@ -47,6 +50,7 @@ export const LocksOptionsDrawModal = ({
           setIsListOpen={setIsListOpen}
         />
       </Box>
+      <Button onClick={onClick}>Console.log fSet</Button>
     </Modal>
   );
 };

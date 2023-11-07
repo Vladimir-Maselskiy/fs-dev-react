@@ -66,11 +66,13 @@ export const FSetCanvas = ({
             fSet={fSet}
             setFSet={setFSet}
             outterPadding={px * outterPaddingK}
+            setIsListOpen={setIsListOpen}
           />
         </StyledCanvasWrapper>
         <CanvasFElementsList
           isListOpen={isListOpen}
           setIsListOpen={setIsListOpen}
+          setFSet={setFSet}
         />
       </Box>
     </>

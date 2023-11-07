@@ -12,11 +12,12 @@ export const StyledCanvasFElementsList = styled(List)<TProps>`
   position: absolute;
   top: 0;
   left: 0;
-  min-height: 100%;
+  height: 100%;
   width: 100%;
   transform: ${props => (props.open ? 'translateX(0)' : 'translateX(-100%)')};
   background-color: palegoldenrod;
   transition: transform 0.8s ease-in-out;
+  overflow: ${props => (props.open ? 'auto' : 'hidden')};
 `;
 export const StyledListItem = styled.div`
   display: flex;

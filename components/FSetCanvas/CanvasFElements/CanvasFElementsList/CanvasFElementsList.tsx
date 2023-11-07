@@ -5,7 +5,7 @@ import {
 } from './CanvasFElementsList.styled';
 import { Button, List } from 'antd';
 import data from '../../../../data/locks/maco-locks.json';
-import { IMacoLocks } from '@/interfaces/interfaces';
+import { IFSet, IMacoLocks } from '@/interfaces/interfaces';
 import { getItemNameByArticle } from '@/utils/maco/getItemNameByArticle';
 import Image from 'next/image';
 import { Box } from '@/components/Box/Box';
@@ -13,11 +13,25 @@ import { Box } from '@/components/Box/Box';
 type TProps = {
   isListOpen: boolean;
   setIsListOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
 };
 
-export const CanvasFElementsList = ({ isListOpen, setIsListOpen }: TProps) => {
+export const CanvasFElementsList = ({
+  isListOpen,
+  setIsListOpen,
+  setFSet,
+}: TProps) => {
   const onClick = () => {
     setIsListOpen(false);
+  };
+
+  const onAddButtonClick = (article: string) => {
+    setIsListOpen(false);
+
+    setFSet(prev => ({
+      ...prev,
+      optionalVerticalLock: [...(prev.optionalVerticalLock || []), article],
+    }));
   };
 
   return (
@@ -39,7 +53,12 @@ export const CanvasFElementsList = ({ isListOpen, setIsListOpen }: TProps) => {
             }}
           >
             <StyledListItem>
-              <p>{macoLock.article}</p>
+              <Box>
+                <p>{macoLock.article}</p>
+                <Button onClick={() => onAddButtonClick(macoLock.article)}>
+                  +
+                </Button>
+              </Box>
               <p>{getItemNameByArticle(macoLock.article)}</p>
               <Box position="relative" padding={2} minWidth="30%">
                 <Image

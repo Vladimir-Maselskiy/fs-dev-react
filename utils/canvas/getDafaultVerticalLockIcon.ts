@@ -4,11 +4,11 @@ import Icon211924 from '../../public/articlesSVG/211924.svg';
 import Icon211926 from '../../public/articlesSVG/211926.svg';
 import Icon211928 from '../../public/articlesSVG/211928.svg';
 
-export const getDafaultVerticalLockIcon = (
-  fSet: IFSet
+export const getVerticalLockIcon = (
+  data: IFSet | string
 ): React.ElementType | null => {
-  const defaultVerticalLock = getDefaultVerticalLock(fSet);
-  const article = defaultVerticalLock?.article;
+  const article =
+    typeof data === 'string' ? data : getDefaultVerticalLock(data)?.article;
   if (article === '228398' || article === '211924' || article === '211925')
     return Icon211924;
 
