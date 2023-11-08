@@ -4,7 +4,7 @@ type TProps = {
   side: 'right' | 'left';
   iconHeight?: string;
   outterPadding?: number;
-  currentIconSize?:string
+  currentIconSize?: string;
 };
 
 export const StyledCanvasVerticalLock = styled.div<TProps>`
@@ -23,10 +23,10 @@ export const StyledIconWrapper = styled.div<TProps>`
     props.side === 'right'
       ? 'scaleX(-1) rotate(90deg)'
       : 'scaleX(1) rotate(90deg)'};
-  width: ${props => props.iconHeight};
+  width: ${props => props.currentIconSize};
   height: 40px;
   & svg {
-    width: ${props=>props.currentIconSize};
+    width: 100%;
   }
   & svg:hover {
     cursor: pointer;

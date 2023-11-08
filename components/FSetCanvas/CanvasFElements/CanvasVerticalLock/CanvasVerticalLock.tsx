@@ -12,6 +12,7 @@ import { getItemNameByArticle } from '@/utils/maco/getItemNameByArticle';
 import { CanvasIconByArticle } from '../CanvasIconByArticle/CanvasIconByArticle';
 import { Box } from '@/components/Box/Box';
 import { getCurrentIconSize } from '@/utils/canvas/getCurrentIconSize';
+import { getOptionalVerticalOffset } from '@/utils/canvas/getOptionalVerticalOffset';
 
 type TProps = {
   fSet: IFSet;
@@ -53,18 +54,20 @@ export const CanvasVerticalLock = ({
         side={fSet.sideOfHinge}
         outterPadding={outterPadding}
       >
-        <Popover
-          title={`арт.${defaultVerticalLock.article} ${defaultVerticalLock.name}`}
-          content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
-          trigger="click"
-        >
-          <StyledIconWrapper
-            side={fSet.sideOfHinge}
-            iconHeight={getVerticalIconHeight(fSet)}
+        <Box width={getVerticalIconHeight(fSet)}>
+          <Popover
+            title={`арт.${defaultVerticalLock.article} ${defaultVerticalLock.name}`}
+            content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
+            trigger="click"
           >
-            {VerticalLockIcon && <VerticalLockIcon />}
-          </StyledIconWrapper>
-        </Popover>
+            <StyledIconWrapper
+              side={fSet.sideOfHinge}
+              iconHeight={getVerticalIconHeight(fSet)}
+            >
+              {VerticalLockIcon && <VerticalLockIcon />}
+            </StyledIconWrapper>
+          </Popover>
+        </Box>
       </StyledCanvasVerticalLock>
     )) ||
     (fSet.optionalVerticalLock && (
@@ -74,7 +77,16 @@ export const CanvasVerticalLock = ({
         outterPadding={outterPadding}
       >
         {fSet.optionalVerticalLock.map((article, index) => (
-          <div key={index}>
+          <div
+            key={index}
+            style={{
+              position: 'absolute',
+              width: getVerticalIconHeight(fSet),
+              height: 40,
+              top: 0,
+              paddingTop: getOptionalVerticalOffset({ fSet, index })!,
+            }}
+          >
             <Popover
               title={`арт.${article} ${getItemNameByArticle(article)}`}
               content={
