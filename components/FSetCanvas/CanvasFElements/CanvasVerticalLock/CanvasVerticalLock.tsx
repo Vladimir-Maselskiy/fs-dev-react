@@ -1,5 +1,8 @@
 import React from 'react';
-import { StyledCanvasVerticalLock } from './CanvasVerticalLock.styled';
+import {
+  StyledCanvasVerticalLock,
+  StyledIconWrapper,
+} from './CanvasVerticalLock.styled';
 import { IFSet } from '@/interfaces/interfaces';
 import { getVerticalIconHeight } from '@/utils/canvas/getVerticalIconHeight';
 import { getVerticalLockIcon } from '@/utils/canvas/getDafaultVerticalLockIcon';
@@ -8,6 +11,7 @@ import { getDefaultVerticalLock } from '@/utils/canvas/getDefaultVerticalLock';
 import { getItemNameByArticle } from '@/utils/maco/getItemNameByArticle';
 import { CanvasIconByArticle } from '../CanvasIconByArticle/CanvasIconByArticle';
 import { Box } from '@/components/Box/Box';
+import { getCurrentIconSize } from '@/utils/canvas/getCurrentIconSize';
 
 type TProps = {
   fSet: IFSet;
@@ -26,7 +30,17 @@ export const CanvasVerticalLock = ({
   const VerticalLockIcon = getVerticalLockIcon(fSet);
 
   const onDeleteButtonClick = () => {
-    setFSet(prev => ({ ...prev, optionalVerticalLock: [] }));
+    if (fSet.optionalVerticalLock) {
+      setFSet(prev => ({
+        ...prev,
+        optionalVerticalLock: prev.optionalVerticalLock!.slice(0, -1),
+      }));
+    } else {
+      setFSet(prev => ({
+        ...prev,
+        optionalVerticalLock: [],
+      }));
+    }
   };
 
   const onExtendButtonClick = () => {
@@ -37,7 +51,6 @@ export const CanvasVerticalLock = ({
     (defaultVerticalLock && !fSet.optionalVerticalLock && (
       <StyledCanvasVerticalLock
         side={fSet.sideOfHinge}
-        iconHeight={getVerticalIconHeight(fSet)}
         outterPadding={outterPadding}
       >
         <Popover
@@ -45,7 +58,12 @@ export const CanvasVerticalLock = ({
           content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
           trigger="click"
         >
-          {VerticalLockIcon && <VerticalLockIcon />}
+          <StyledIconWrapper
+            side={fSet.sideOfHinge}
+            iconHeight={getVerticalIconHeight(fSet)}
+          >
+            {VerticalLockIcon && <VerticalLockIcon />}
+          </StyledIconWrapper>
         </Popover>
       </StyledCanvasVerticalLock>
     )) ||
@@ -67,9 +85,13 @@ export const CanvasVerticalLock = ({
               }
               trigger="click"
             >
-              <Box>
+              <StyledIconWrapper
+                side={fSet.sideOfHinge}
+                iconHeight={getVerticalIconHeight(fSet)}
+                currentIconSize={getCurrentIconSize({ fSet, article })}
+              >
                 <CanvasIconByArticle article={article} />
-              </Box>
+              </StyledIconWrapper>
             </Popover>
           </div>
         ))}

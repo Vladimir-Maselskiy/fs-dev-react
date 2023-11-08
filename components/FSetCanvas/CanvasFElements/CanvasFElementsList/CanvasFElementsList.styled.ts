@@ -22,6 +22,7 @@ export const StyledCanvasFElementsList = styled(List)<TProps>`
 export const StyledListItem = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   & p {
     padding: 10px;
   }

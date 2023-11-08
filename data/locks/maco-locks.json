@@ -54,5 +54,13 @@
     "VZ": [69.5],
     "startConnection": "clip",
     "endConnection": "gear"
+  },
+  {
+    "id": "8",
+    "article": "215272",
+    "length": 470,
+    "VZ": [403, 5],
+    "startConnection": "gear",
+    "endConnection": "gear"
   }
 ]

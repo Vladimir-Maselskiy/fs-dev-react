@@ -59,12 +59,16 @@ export const CanvasFElementsList = ({
                   +
                 </Button>
               </Box>
-              <p>{getItemNameByArticle(macoLock.article)}</p>
-              <Box position="relative" padding={2} minWidth="30%">
+              <p style={{ width: '50%', flexShrink: 0 }}>
+                {getItemNameByArticle(macoLock.article)}
+              </p>
+              <Box position="relative" padding={2} width="30%">
                 <Image
+                  //   style={{ position: 'absolute' }}
                   src={`/articlesSVG/${macoLock.article}.svg`}
                   alt="photo"
                   fill
+                  objectFit="contain"
                 />
               </Box>
             </StyledListItem>
