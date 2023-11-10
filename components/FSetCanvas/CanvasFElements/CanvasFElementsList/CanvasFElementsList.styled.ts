@@ -1,11 +1,10 @@
+import { IFSet } from '@/interfaces/interfaces';
 import { List } from 'antd';
 import styled from 'styled-components';
 
 type TProps = {
   open: boolean;
-  side?: 'right' | 'left';
-  iconWidth?: string;
-  outterPadding?: number;
+  fSet: IFSet;
 };
 
 export const StyledCanvasFElementsList = styled(List)<TProps>`
@@ -18,6 +17,11 @@ export const StyledCanvasFElementsList = styled(List)<TProps>`
   background-color: palegoldenrod;
   transition: transform 0.8s ease-in-out;
   overflow: ${props => (props.open ? 'auto' : 'hidden')};
+  z-index: ${props =>
+    Math.max(
+      props.fSet.optionalVerticalLock?.length || 0,
+      props.fSet.optionalGorizontalLock?.length || 0
+    )};
 `;
 export const StyledListItem = styled.div`
   display: flex;

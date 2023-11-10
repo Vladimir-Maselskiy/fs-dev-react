@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyledCanvasFElementsList,
   StyledListItem,
@@ -9,18 +9,48 @@ import { IFSet, IMacoLocks } from '@/interfaces/interfaces';
 import { getItemNameByArticle } from '@/utils/maco/getItemNameByArticle';
 import Image from 'next/image';
 import { Box } from '@/components/Box/Box';
+import { TListFilter } from '../../FSetCanvas';
+import { getLockItemMaco } from '@/utils/canvas/getLockItemMaco';
 
 type TProps = {
   isListOpen: boolean;
   setIsListOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
+  fset: IFSet;
+  listFilter: TListFilter;
 };
 
 export const CanvasFElementsList = ({
   isListOpen,
   setIsListOpen,
   setFSet,
+  fset: fSet,
+  listFilter,
 }: TProps) => {
+  const macoLocks = data as IMacoLocks[];
+  const [filteredData, setFilteredData] = useState(macoLocks);
+  useEffect(() => {
+    if (
+      listFilter.side === 'vertical' &&
+      fSet.optionalVerticalLock?.length! > 0
+    ) {
+      const lastMacoLock = getLockItemMaco(
+        fSet.optionalVerticalLock?.slice(-1)[0]!
+      ) as IMacoLocks;
+      const currentData = macoLocks.filter(item => {
+        return item.startConnection === lastMacoLock.endConnection;
+      });
+      setFilteredData(currentData);
+    }
+    if (
+      listFilter.side === 'vertical' &&
+      (!fSet.optionalVerticalLock || fSet.optionalVerticalLock?.length! === 0)
+    ) {
+      setFilteredData(
+        macoLocks.filter(item => item.startConnection === 'clip')
+      );
+    }
+  }, [listFilter.side, fSet.optionalVerticalLock?.length]);
   const onClick = () => {
     setIsListOpen(false);
   };
@@ -42,7 +72,8 @@ export const CanvasFElementsList = ({
         </Button>
       }
       open={isListOpen}
-      dataSource={data}
+      fSet={fSet}
+      dataSource={filteredData}
       renderItem={(item, index) => {
         const macoLock = item as IMacoLocks;
         return (

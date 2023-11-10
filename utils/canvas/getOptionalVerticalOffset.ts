@@ -1,5 +1,5 @@
 import { IFSet } from '@/interfaces/interfaces';
-import macoLocks from '../../data/locks/maco-locks.json';
+import { getLockItemMaco } from './getLockItemMaco';
 
 export const getOptionalVerticalOffset = ({
   fSet,
@@ -12,7 +12,7 @@ export const getOptionalVerticalOffset = ({
   console.log('arrayOfPrevElements', arrayOfPrevElements);
   if (arrayOfPrevElements?.length === 0) return '0%';
   const arrayOfLocks = arrayOfPrevElements?.map(
-    article => macoLocks.find(lockItem => lockItem.article === article)!
+    article => getLockItemMaco(article)!
   );
   const totalLength = arrayOfLocks?.reduce(
     (acc, lockItem) => acc + lockItem.length,

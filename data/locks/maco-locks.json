@@ -5,7 +5,7 @@
     "length": 349.5,
     "VZ": [283],
     "startConnection": "clip",
-    "endConnection": false
+    "endConnection": null
   },
   {
     "id": "2",
@@ -13,7 +13,7 @@
     "length": 585,
     "VZ": [518.5],
     "startConnection": "clip",
-    "endConnection": false
+    "endConnection": null
   },
   {
     "id": "3",
@@ -21,7 +21,7 @@
     "length": 820,
     "VZ": [753.5],
     "startConnection": "clip",
-    "endConnection": false
+    "endConnection": null
   },
   {
     "id": "4",
@@ -29,7 +29,7 @@
     "length": 1291,
     "VZ": [753.5, 1225],
     "startConnection": "clip",
-    "endConnection": false
+    "endConnection": null
   },
   {
     "id": "5",
@@ -37,7 +37,7 @@
     "length": 1526,
     "VZ": [753.5, 1460],
     "startConnection": "clip",
-    "endConnection": false
+    "endConnection": null
   },
   {
     "id": "6",
@@ -45,7 +45,7 @@
     "length": 1997,
     "VZ": [753.5, 1460, 1931],
     "startConnection": "clip",
-    "endConnection": false
+    "endConnection": null
   },
   {
     "id": "7",

@@ -1,5 +1,5 @@
 import { IFSet } from '@/interfaces/interfaces';
-import macoLocks from '../../data/locks/maco-locks.json';
+import { getLockItemMaco } from './getLockItemMaco';
 
 export const getCurrentIconSize = ({
   fSet,
@@ -9,17 +9,12 @@ export const getCurrentIconSize = ({
   article: string;
 }) => {
   const arrayOfLocks = fSet.optionalVerticalLock?.map(
-    article => macoLocks.find(lockItem => lockItem.article === article)!
+    article => getLockItemMaco(article)!
   );
   const totalLength = arrayOfLocks?.reduce(
     (acc, lockItem) => acc + lockItem.length,
     0
   );
 
-  return (
-    (macoLocks.find(lockItem => lockItem.article === article)!.length /
-      totalLength!) *
-      100 +
-    '%'
-  );
+  return (getLockItemMaco(article)!.length / totalLength!) * 100 + '%';
 };

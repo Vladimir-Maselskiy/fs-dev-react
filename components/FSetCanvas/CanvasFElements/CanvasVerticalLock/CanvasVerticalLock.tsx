@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyledCanvasVerticalLock,
   StyledIconWrapper,
@@ -13,6 +13,7 @@ import { CanvasIconByArticle } from '../CanvasIconByArticle/CanvasIconByArticle'
 import { Box } from '@/components/Box/Box';
 import { getCurrentIconSize } from '@/utils/canvas/getCurrentIconSize';
 import { getOptionalVerticalOffset } from '@/utils/canvas/getOptionalVerticalOffset';
+import { getLockItemMaco } from '@/utils/canvas/getLockItemMaco';
 
 type TProps = {
   fSet: IFSet;
@@ -29,6 +30,9 @@ export const CanvasVerticalLock = ({
 }: TProps) => {
   const defaultVerticalLock = getDefaultVerticalLock(fSet);
   const VerticalLockIcon = getVerticalLockIcon(fSet);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  const [otpionalCurrentIndex, setOtpionalCurrentIndex] = useState(0);
 
   const onDeleteButtonClick = () => {
     if (fSet.optionalVerticalLock) {
@@ -42,10 +46,12 @@ export const CanvasVerticalLock = ({
         optionalVerticalLock: [],
       }));
     }
+    setIsPopoverOpen(false);
   };
 
   const onExtendButtonClick = () => {
     setIsListOpen(true);
+    setIsPopoverOpen(false);
   };
 
   return (
@@ -85,17 +91,35 @@ export const CanvasVerticalLock = ({
               height: 40,
               top: 0,
               paddingTop: getOptionalVerticalOffset({ fSet, index })!,
+              zIndex: fSet.optionalVerticalLock?.length! - index,
             }}
           >
             <Popover
               title={`арт.${article} ${getItemNameByArticle(article)}`}
               content={
                 <Box>
-                  <Button onClick={onDeleteButtonClick}>Видалить</Button>
-                  <Button onClick={onExtendButtonClick}>Приєднати ще</Button>
+                  {otpionalCurrentIndex ===
+                    fSet.optionalVerticalLock?.length! - 1 && (
+                    <>
+                      <Button onClick={onDeleteButtonClick}>Видалити</Button>
+                      {getLockItemMaco(article)?.endConnection && (
+                        <Button
+                          onClick={onExtendButtonClick}
+                          style={{ marginLeft: 20 }}
+                        >
+                          Приєднати ще
+                        </Button>
+                      )}
+                    </>
+                  )}
                 </Box>
               }
               trigger="click"
+              open={isPopoverOpen && index === otpionalCurrentIndex}
+              onOpenChange={newOpen => {
+                setIsPopoverOpen(newOpen);
+                setOtpionalCurrentIndex(index);
+              }}
             >
               <StyledIconWrapper
                 side={fSet.sideOfHinge}

@@ -7,7 +7,6 @@ import { getSetRestrictions } from '@/utils/ui-utills/getSetRestrictions';
 import { TRestrictions } from '@/const';
 import { getCurrentIsGorizontalLock } from '@/utils/ui-utills/getCurrentIsGorizontalLock';
 import { IFSet } from '@/interfaces/interfaces';
-import { width } from 'styled-system';
 
 type TProps = {
   fSet: IFSet;
@@ -28,30 +27,21 @@ export const WidthAndHeightInput = ({
   const heihtInputRef = useRef<HTMLInputElement>(null);
 
   const [frontStatusWidthInput, setFrontStatusWidthInput] = useState<
-    undefined | 'error'
-  >(undefined);
+    'valid' | 'invalid' | 'initial'
+  >('initial');
   const [frontStatusHeightInput, setFrontStatusHeightInput] = useState<
-    undefined | 'error'
-  >(undefined);
+    'valid' | 'invalid' | 'initial'
+  >('initial');
 
   useEffect(() => {
     if (fSet?.width) {
-      const status = getValidateStatus(fSet.width, 'width', restrictions);
-      setFrontStatusWidthInput(status);
-      const isWidthValid =
-        getValidateStatusOfWidthOrHeight(
-          fSet.brand,
-          fSet.typeOfOpening,
-          fSet.width,
-          'width'
-        ) === undefined
-          ? 'valid'
-          : 'invalid';
+      const isWidthValid = getValidateStatus(fSet.width, 'width', restrictions);
+      setFrontStatusWidthInput(isWidthValid);
+
       const isGorizontalLock = getCurrentIsGorizontalLock(
         fSet?.width,
         fSet?.typeOfOpening,
-        fSet?.brand,
-        fSet.isGorizontalLock
+        fSet?.brand
       );
       let microVentilation = true;
       if (fSet?.width && fSet?.width < 320) microVentilation = false;
@@ -62,29 +52,16 @@ export const WidthAndHeightInput = ({
         microVentilation,
       }));
     }
-  }, [
-    fSet?.width,
-    restrictions,
-    fSet?.brand,
-    fSet?.typeOfOpening,
-    setFSet,
-    fSet.isGorizontalLock,
-  ]);
+  }, [fSet?.width, restrictions, fSet?.brand, fSet?.typeOfOpening, setFSet]);
 
   useEffect(() => {
     if (fSet?.height) {
-      const status = getValidateStatus(fSet.height, 'height', restrictions);
-      setFrontStatusHeightInput(status);
-
-      const isHeightValid =
-        getValidateStatusOfWidthOrHeight(
-          fSet.brand,
-          fSet.typeOfOpening,
-          fSet.height,
-          'height'
-        ) === undefined
-          ? 'valid'
-          : 'invalid';
+      const isHeightValid = getValidateStatus(
+        fSet.height,
+        'height',
+        restrictions
+      );
+      setFrontStatusHeightInput(isHeightValid);
 
       setFSet(prev => ({
         ...prev,
@@ -98,6 +75,10 @@ export const WidthAndHeightInput = ({
       setIsOptitionButtonDisabled(false);
     } else setIsOptitionButtonDisabled(true);
   }, [fSet?.isWidthValid, fSet?.isHeightValid, setIsOptitionButtonDisabled]);
+
+  useEffect(() => {
+    console.log('useEffect fSet.isGorizontalLock', fSet.isGorizontalLock);
+  }, [fSet.isGorizontalLock]);
 
   useEffect(() => {
     if (fSet?.width && fSet.height) {
@@ -133,14 +114,20 @@ export const WidthAndHeightInput = ({
 
   const onBlurWidthInput = () => {
     if (fSet) {
-      const status = getValidateStatus(fSet.width, 'width', restrictions);
-      setFrontStatusWidthInput(status);
+      const isWidthValid = getValidateStatus(fSet.width, 'width', restrictions);
+      setFrontStatusWidthInput(isWidthValid);
+      setFSet(prev => ({ ...prev, isWidthValid }));
     }
   };
   const onBlurHeightInput = () => {
     if (fSet) {
-      const status = getValidateStatus(fSet.height, 'height', restrictions);
-      setFrontStatusHeightInput(status);
+      const isHeightValid = getValidateStatus(
+        fSet.height,
+        'height',
+        restrictions
+      );
+      setFrontStatusHeightInput(isHeightValid);
+      setFSet(prev => ({ ...prev, isHeightValid }));
     }
   };
 
@@ -166,11 +153,10 @@ export const WidthAndHeightInput = ({
               height: '50px',
               fontSize: '30px',
             }}
-            // onChange={onChangeWidthInput}
             onPressEnter={onPressEnterWidth}
             onBlur={onBlurWidthInput}
             value={fSet?.width}
-            status={frontStatusWidthInput}
+            status={frontStatusWidthInput === 'invalid' ? 'error' : undefined}
           />
         </Form.Item>
       </Box>
@@ -188,13 +174,19 @@ export const WidthAndHeightInput = ({
               height: '50px',
               fontSize: '30px',
             }}
-            // onChange={onChangeHeightInput}
             onPressEnter={onPressEnterHeight}
             onBlur={onBlurHeightInput}
             value={fSet?.height}
-            status={frontStatusHeightInput}
+            status={frontStatusHeightInput === 'invalid' ? 'error' : undefined}
           />
         </Form.Item>
+        <button
+          onClick={() => {
+            console.log('fSet', fSet);
+          }}
+        >
+          fSet
+        </button>
       </Box>
     </Box>
   );

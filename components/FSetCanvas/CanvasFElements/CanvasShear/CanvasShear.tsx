@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyledCanvasShear } from './CanvasShear.styled';
 import { IFSet } from '@/interfaces/interfaces';
 import { getGorizonalIconWidth } from '@/utils/canvas/getGorizonalIconWidth';
@@ -21,7 +21,6 @@ export const CanvasShear = ({
 }: TProps) => {
   const [isExtended, setIsExtended] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (fSet.optionalVerticalLock && fSet.optionalVerticalLock.length === 0) {
@@ -35,7 +34,7 @@ export const CanvasShear = ({
   const onExtendButtonClick = () => {
     setIsPopoverOpen(false);
     setIsListOpen(true);
-    // setFSet(prev => ({ ...prev, optionalVerticalLock: null }));
+    setFSet(prev => ({ ...prev, optionalVerticalLock: [] }));
   };
 
   return (
@@ -60,7 +59,6 @@ export const CanvasShear = ({
         >
           {ShearIcon && <ShearIcon />}
         </Popover>
-        <div ref={ref}></div>
       </StyledCanvasShear>
     )) ||
     null

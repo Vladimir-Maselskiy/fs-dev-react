@@ -16,6 +16,10 @@ type TProps = {
   setIsListOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+export type TListFilter = {
+  side: 'vertical' | 'gorizontal' | null;
+};
+
 export const FSetCanvas = ({
   fSet,
   setFSet,
@@ -26,13 +30,16 @@ export const FSetCanvas = ({
   const px = 20;
   const py = 20;
   const outterPaddingK = 3.2;
+
+  const [listFilter, setListFilter] = useState<TListFilter>({
+    side: 'vertical',
+  });
   useEffect(() => {
     const canvas = ref.current;
     if (canvas) {
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
     }
-
     drawCanvasContent({ fSet, canvas, px, py });
   }, []);
 
@@ -73,6 +80,8 @@ export const FSetCanvas = ({
           isListOpen={isListOpen}
           setIsListOpen={setIsListOpen}
           setFSet={setFSet}
+          fset={fSet}
+          listFilter={listFilter}
         />
       </Box>
     </>

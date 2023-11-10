@@ -4,12 +4,12 @@ export const getValidateStatus = (
   value: number | undefined,
   field: 'width' | 'height',
   { minWith, minHeight, maxHeight, maxWidth }: TRestrictions
-): undefined | 'error' => {
+): 'valid' | 'invalid' => {
   const [minValue, maxValue] =
     field === 'width' ? [minWith, maxWidth] : [minHeight, maxHeight];
 
   if (value && value >= minValue && value <= maxValue) {
-    return undefined;
+    return 'valid';
   }
-  return 'error';
+  return 'invalid';
 };
