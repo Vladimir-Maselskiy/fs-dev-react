@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Divider, InputNumber, Select, Spin } from 'antd';
 import { getNewSet } from '@/utils/data-utils/getNewSet';
 import { Box } from '@/components/Box/Box';
@@ -56,6 +56,8 @@ export const FInputPage = () => {
     useState(true);
   const [isOrderTableVisible, setIsOrderTableVisible] = useState(false);
 
+  const boxRef = useRef<HTMLDivElement>(null);
+
   const { Option } = Select;
 
   useEffect(() => {
@@ -102,6 +104,13 @@ export const FInputPage = () => {
 
     setIsOrderTableVisible(true);
 
+    boxRef.current &&
+      boxRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+        inline: 'nearest',
+      });
+
     fetchMockApiStatistic({
       user,
       dataSourceWithDiscount: getDataSource(
@@ -113,8 +122,6 @@ export const FInputPage = () => {
       discount: discountValue * sign,
     });
   };
-
-
 
   const onClickAddSet = () => {
     setButtonTitle('Додати');
@@ -180,7 +187,7 @@ export const FInputPage = () => {
   );
 
   return isPageLoaded ? (
-    <Box p="20px">
+    <Box p="20px" ref={boxRef}>
       <NavBar />
       <FormLayout
         fSet={fSet}
