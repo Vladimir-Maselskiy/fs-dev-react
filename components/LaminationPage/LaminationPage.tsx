@@ -96,7 +96,7 @@ export const LaminationPage = () => {
         ? setCurrentProfile(currentProfile)
         : setCurrentProfile(null);
     }
-  }, [currentProfileName]);
+  }, [currentProfileName, profileSet]);
 
   useEffect(() => {
     const currentProfileSystem = currentProfile?.systems.find(
@@ -105,7 +105,7 @@ export const LaminationPage = () => {
     currentProfileSystem
       ? setCurrentProfileSystem(currentProfileSystem)
       : setCurrentProfileSystem(null);
-  }, [currentSystemName]);
+  }, [currentSystemName, currentProfile?.systems]);
 
   useEffect(() => {
     currentProfile &&

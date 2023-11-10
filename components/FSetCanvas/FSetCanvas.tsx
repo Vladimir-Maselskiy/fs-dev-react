@@ -41,7 +41,7 @@ export const FSetCanvas = ({
       canvas.height = canvas.clientHeight;
     }
     drawCanvasContent({ fSet, canvas, px, py });
-  }, []);
+  }, [fSet]);
 
   return (
     <>

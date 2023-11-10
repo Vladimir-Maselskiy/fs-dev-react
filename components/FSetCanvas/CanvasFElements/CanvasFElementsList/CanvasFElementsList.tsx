@@ -50,7 +50,12 @@ export const CanvasFElementsList = ({
         macoLocks.filter(item => item.startConnection === 'clip')
       );
     }
-  }, [listFilter.side, fSet.optionalVerticalLock?.length]);
+  }, [
+    listFilter.side,
+    fSet.optionalVerticalLock?.length,
+    fSet.optionalVerticalLock,
+    macoLocks,
+  ]);
   const onClick = () => {
     setIsListOpen(false);
   };

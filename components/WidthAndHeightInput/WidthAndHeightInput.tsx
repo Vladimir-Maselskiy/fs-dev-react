@@ -50,6 +50,8 @@ export const WidthAndHeightInput = ({
         isGorizontalLock,
         isWidthValid,
         microVentilation,
+        optionalGorizontalLock: null,
+        optionalVerticalLock: null,
       }));
     }
   }, [fSet?.width, restrictions, fSet?.brand, fSet?.typeOfOpening, setFSet]);
@@ -66,6 +68,8 @@ export const WidthAndHeightInput = ({
       setFSet(prev => ({
         ...prev,
         isHeightValid,
+        optionalGorizontalLock: null,
+        optionalVerticalLock: null,
       }));
     }
   }, [fSet?.height, restrictions, fSet?.brand, fSet?.typeOfOpening, setFSet]);
@@ -75,8 +79,6 @@ export const WidthAndHeightInput = ({
       setIsOptitionButtonDisabled(false);
     } else setIsOptitionButtonDisabled(true);
   }, [fSet?.isWidthValid, fSet?.isHeightValid, setIsOptitionButtonDisabled]);
-
-
 
   useEffect(() => {
     if (fSet?.width && fSet.height) {

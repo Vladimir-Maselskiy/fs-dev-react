@@ -44,7 +44,7 @@ export const CurrentModal = ({
         setModal(<ModalTypeOfOpening fSet={fSet} form={form} />);
         break;
     }
-  }, [modalNumber, form, fSet]);
+  }, [modalNumber, form, fSet, setIsModalPressLocksOptionsOpened]);
 
   return Modal;
 };
