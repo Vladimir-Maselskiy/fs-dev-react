@@ -72,7 +72,7 @@ export const CanvasFElementsList = ({
         </Button>
       }
       open={isListOpen}
-      fSet={fSet}
+      fset={fSet}
       dataSource={filteredData}
       renderItem={(item, index) => {
         const macoLock = item as IMacoLocks;

@@ -76,9 +76,7 @@ export const WidthAndHeightInput = ({
     } else setIsOptitionButtonDisabled(true);
   }, [fSet?.isWidthValid, fSet?.isHeightValid, setIsOptitionButtonDisabled]);
 
-  useEffect(() => {
-    console.log('useEffect fSet.isGorizontalLock', fSet.isGorizontalLock);
-  }, [fSet.isGorizontalLock]);
+
 
   useEffect(() => {
     if (fSet?.width && fSet.height) {
@@ -180,13 +178,6 @@ export const WidthAndHeightInput = ({
             status={frontStatusHeightInput === 'invalid' ? 'error' : undefined}
           />
         </Form.Item>
-        <button
-          onClick={() => {
-            console.log('fSet', fSet);
-          }}
-        >
-          fSet
-        </button>
       </Box>
     </Box>
   );

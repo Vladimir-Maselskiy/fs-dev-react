@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 type TProps = {
   open: boolean;
-  fSet: IFSet;
+  fset: IFSet;
 };
 
 export const StyledCanvasFElementsList = styled(List)<TProps>`
@@ -19,8 +19,8 @@ export const StyledCanvasFElementsList = styled(List)<TProps>`
   overflow: ${props => (props.open ? 'auto' : 'hidden')};
   z-index: ${props =>
     Math.max(
-      props.fSet.optionalVerticalLock?.length || 0,
-      props.fSet.optionalGorizontalLock?.length || 0
+      props.fset.optionalVerticalLock?.length || 0,
+      props.fset.optionalGorizontalLock?.length || 0
     )};
 `;
 export const StyledListItem = styled.div`
