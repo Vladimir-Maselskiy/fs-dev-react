@@ -111,6 +111,7 @@ export interface IMacoLocks {
   VZ: number[];
   startConnection: 'clip' | 'gear' | null;
   endConnection: 'clip' | 'gear' | null;
+  usedAsLock: boolean;
 }
 
 export interface IUser {

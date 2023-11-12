@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyledCanvasShear } from './CanvasShear.styled';
 import { IFSet } from '@/interfaces/interfaces';
-import { getGorizonalIconWidth } from '@/utils/canvas/getGorizonalIconWidth';
 import { Button, Popover } from 'antd';
-import { getShear } from '@/utils/maco/getShear';
-import { getShearIcon } from '@/utils/canvas/getShearIcon';
-import { getIconScaleByArticle } from '@/utils/canvas/getIconScaleByArticle';
+import { StyledCanvasBottomEnd } from './CanvasBottomEnd.styled';
+import BottomEndIcon from '../../../../public/articlesSVG/212689.svg';
+import { getBottomEndingForGetriebe } from '@/utils/maco/getBottomEndingForGetriebe';
 
 type TProps = {
   fSet: IFSet;
@@ -14,7 +12,7 @@ type TProps = {
   setIsListOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export const CanvasShear = ({
+export const CanvasBottomEnd = ({
   fSet,
   setFSet,
   outterPadding,
@@ -29,8 +27,7 @@ export const CanvasShear = ({
     } else setIsExtended(false);
   }, [fSet.optionalVerticalLock, fSet.optionalVerticalLock?.length]);
 
-  const [currentShear] = getShear(fSet);
-  const ShearIcon = getShearIcon(fSet);
+  const [currentBottomEnd] = getBottomEndingForGetriebe(fSet);
 
   const onExtendButtonClick = () => {
     setIsPopoverOpen(false);
@@ -40,16 +37,12 @@ export const CanvasShear = ({
 
   return (
     (fSet.typeOfOpening !== 'type-3' && (
-      <StyledCanvasShear
+      <StyledCanvasBottomEnd
         side={fSet.sideOfHinge}
-        iconWidth={getIconScaleByArticle({
-          item: currentShear,
-          sideLength: fSet.width!,
-        })}
         outterPadding={outterPadding}
       >
         <Popover
-          title={`арт.${currentShear.article} ${currentShear.name}`}
+          title={`арт.${currentBottomEnd.article} ${currentBottomEnd.name}`}
           content={
             <Button disabled={!isExtended} onClick={onExtendButtonClick}>
               Приєднати ще
@@ -61,9 +54,9 @@ export const CanvasShear = ({
             setIsPopoverOpen(newOpen);
           }}
         >
-          {ShearIcon && <ShearIcon />}
+          <BottomEndIcon />
         </Popover>
-      </StyledCanvasShear>
+      </StyledCanvasBottomEnd>
     )) ||
     null
   );

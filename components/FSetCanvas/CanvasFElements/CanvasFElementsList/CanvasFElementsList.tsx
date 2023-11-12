@@ -4,13 +4,13 @@ import {
   StyledListItem,
 } from './CanvasFElementsList.styled';
 import { Button, List } from 'antd';
-import data from '../../../../data/locks/maco-locks.json';
+import data from '../../../../data/locks/maco-tech.json';
 import { IFSet, IMacoLocks } from '@/interfaces/interfaces';
 import { getItemNameByArticle } from '@/utils/maco/getItemNameByArticle';
 import Image from 'next/image';
 import { Box } from '@/components/Box/Box';
 import { TListFilter } from '../../FSetCanvas';
-import { getLockItemMaco } from '@/utils/canvas/getLockItemMaco';
+import { getLockItemMacoByArticle } from '@/utils/canvas/getLockItemMaco';
 
 type TProps = {
   isListOpen: boolean;
@@ -27,16 +27,18 @@ export const CanvasFElementsList = ({
   fset: fSet,
   listFilter,
 }: TProps) => {
-  const macoLocks = data as IMacoLocks[];
+  const macoItems = data as IMacoLocks[];
+
+  const [macoLocks] = useState(macoItems.filter(item => item.usedAsLock));
   const [filteredData, setFilteredData] = useState(macoLocks);
   useEffect(() => {
     if (
       listFilter.side === 'vertical' &&
       fSet.optionalVerticalLock?.length! > 0
     ) {
-      const lastMacoLock = getLockItemMaco(
+      const lastMacoLock = getLockItemMacoByArticle(
         fSet.optionalVerticalLock?.slice(-1)[0]!
-      ) as IMacoLocks;
+      )!;
       const currentData = macoLocks.filter(item => {
         return item.startConnection === lastMacoLock.endConnection;
       });

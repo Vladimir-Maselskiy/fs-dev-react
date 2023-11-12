@@ -1,0 +1,128 @@
+[
+  {
+    "id": "1",
+    "article": "228398",
+    "length": 349.5,
+    "VZ": [283],
+    "startConnection": "clip",
+    "endConnection": null,
+    "usedAsLock": true
+  },
+  {
+    "id": "2",
+    "article": "211924",
+    "length": 585,
+    "VZ": [518.5],
+    "startConnection": "clip",
+    "endConnection": null,
+    "usedAsLock": true
+  },
+  {
+    "id": "3",
+    "article": "211925",
+    "length": 820,
+    "VZ": [753.5],
+    "startConnection": "clip",
+    "endConnection": null,
+    "usedAsLock": true
+  },
+  {
+    "id": "4",
+    "article": "211926",
+    "length": 1291,
+    "VZ": [753.5, 1225],
+    "startConnection": "clip",
+    "endConnection": null,
+    "usedAsLock": true
+  },
+  {
+    "id": "5",
+    "article": "211927",
+    "length": 1526,
+    "VZ": [753.5, 1460],
+    "startConnection": "clip",
+    "endConnection": null,
+    "usedAsLock": true
+  },
+  {
+    "id": "6",
+    "article": "211928",
+    "length": 1997,
+    "VZ": [753.5, 1460, 1931],
+    "startConnection": "clip",
+    "endConnection": null,
+    "usedAsLock": true
+  },
+  {
+    "id": "7",
+    "article": "211976",
+    "length": 113.5,
+    "VZ": [69.5],
+    "startConnection": "clip",
+    "endConnection": "gear",
+    "usedAsLock": true
+  },
+  {
+    "id": "8",
+    "article": "215272",
+    "length": 470,
+    "VZ": [403.5],
+    "startConnection": "gear",
+    "endConnection": "gear",
+    "usedAsLock": true
+  },
+  {
+    "id": "9",
+    "article": "212689",
+    "length": 113.5,
+    "VZ": [57],
+    "startConnection": "gear",
+    "endConnection": "clip",
+    "usedAsLock": false
+  },
+  {
+    "id": "10",
+    "article": "211694",
+    "length": 323,
+    "VZ": [],
+    "startConnection": "gear",
+    "endConnection": "clip",
+    "usedAsLock": false
+  },
+  {
+    "id": "11",
+    "article": "211695",
+    "length": 496.5,
+    "VZ": [],
+    "startConnection": "gear",
+    "endConnection": "clip",
+    "usedAsLock": false
+  },
+  {
+    "id": "12",
+    "article": "211696",
+    "length": 696.5,
+    "VZ": [],
+    "startConnection": "gear",
+    "endConnection": "clip",
+    "usedAsLock": false
+  },
+  {
+    "id": "12",
+    "article": "211698",
+    "length": 946.5,
+    "VZ": [],
+    "startConnection": "gear",
+    "endConnection": "clip",
+    "usedAsLock": false
+  },
+  {
+    "id": "13",
+    "article": "211699",
+    "length": 1196.5,
+    "VZ": [],
+    "startConnection": "gear",
+    "endConnection": "clip",
+    "usedAsLock": false
+  }
+]

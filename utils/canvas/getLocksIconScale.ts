@@ -1,9 +1,9 @@
 import { IFSet } from '@/interfaces/interfaces';
 import { getDefaultGorizontalLock } from './getDefaultGorizontalLock';
 import { getDefaultVerticalLock } from './getDefaultVerticalLock';
-import macoLocks from '../../data/locks/maco-locks.json';
+import macoLocks from '../../data/locks/maco-tech.json';
 
-export const getIconScale = (
+export const getLocksIconScale = (
   fSet: IFSet
 ): { widthScale: number; heightScale: number } => {
   let widthScale = 0;

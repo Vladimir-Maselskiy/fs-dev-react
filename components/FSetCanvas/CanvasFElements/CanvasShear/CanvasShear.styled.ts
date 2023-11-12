@@ -8,7 +8,7 @@ type TProps = {
 
 export const StyledCanvasShear = styled.div<TProps>`
   position: absolute;
-  top: ${props => `calc(${props.outterPadding}px - 30px)`};
+  top: ${props => `calc(${props.outterPadding}px - 25px)`};
   left: ${props =>
     props.side === 'right'
       ? `calc(100% - ${props.outterPadding}px)`
@@ -17,13 +17,12 @@ export const StyledCanvasShear = styled.div<TProps>`
     props.side === 'right'
       ? 'translateX(calc(-100% + 20px))'
       : 'translateX(0%)'};
+
+  width: ${props => `calc(${props.iconWidth} - ${props.outterPadding * 2}px)`};
+
   & svg {
     height: 15px;
+    width: 100%;
     transform: ${props => (props.side === 'right' ? '' : 'scaleX(-1);')};
-  }
-
-  & svg:hover {
-    cursor: pointer;
-    fill: red;
   }
 `;

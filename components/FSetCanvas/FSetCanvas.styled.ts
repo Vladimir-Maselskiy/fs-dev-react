@@ -10,4 +10,8 @@ export const StyledCanvasWrapper = styled.div`
   justify-content: center;
   width: 100%;
   aspect-ratio: 1/1;
+  & svg:hover {
+    cursor: pointer;
+    fill: red;
+  }
 `;

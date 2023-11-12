@@ -1,7 +1,7 @@
 import { IFSet } from '@/interfaces/interfaces';
-import { getIconScale } from './getIconScale';
+import { getLocksIconScale } from './getLocksIconScale';
 
 export const getGorizonalIconWidth = (fSet: IFSet) => {
-  const scale = getIconScale(fSet);
+  const scale = getLocksIconScale(fSet);
   return `${scale.widthScale * 100}%`;
 };

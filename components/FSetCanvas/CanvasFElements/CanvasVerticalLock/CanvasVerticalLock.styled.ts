@@ -28,8 +28,4 @@ export const StyledIconWrapper = styled.div<TProps>`
   & svg {
     width: 100%;
   }
-  & svg:hover {
-    cursor: pointer;
-    fill: red;
-  }
 `;
