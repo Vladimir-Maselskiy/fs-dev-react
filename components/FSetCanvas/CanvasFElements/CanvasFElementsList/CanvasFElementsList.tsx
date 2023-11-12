@@ -10,7 +10,7 @@ import { getItemNameByArticle } from '@/utils/maco/getItemNameByArticle';
 import Image from 'next/image';
 import { Box } from '@/components/Box/Box';
 import { TListFilter } from '../../FSetCanvas';
-import { getLockItemMacoByArticle } from '@/utils/canvas/getLockItemMaco';
+import { getLockItemMacoByArticle } from '@/utils/canvas/getLockItemMacoByArticle';
 
 type TProps = {
   isListOpen: boolean;

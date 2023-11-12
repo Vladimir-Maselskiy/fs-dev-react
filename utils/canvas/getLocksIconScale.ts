@@ -2,6 +2,7 @@ import { IFSet } from '@/interfaces/interfaces';
 import { getDefaultGorizontalLock } from './getDefaultGorizontalLock';
 import { getDefaultVerticalLock } from './getDefaultVerticalLock';
 import macoLocks from '../../data/locks/maco-tech.json';
+import { getTotalLengthOfOptionalLocks } from './getTotalLengthOfOptionalLocks';
 
 export const getLocksIconScale = (
   fSet: IFSet
@@ -10,9 +11,7 @@ export const getLocksIconScale = (
   let heightScale = 0;
 
   const totalWidth = fSet.optionalGorizontalLock
-    ? fSet.optionalGorizontalLock.reduce((acc, article) => {
-        return macoLocks.find(item => item.article === article)?.length! + acc;
-      }, 0)
+    ? getTotalLengthOfOptionalLocks(fSet.optionalGorizontalLock)
     : macoLocks.find(
         item => item.article === getDefaultGorizontalLock(fSet)?.article
       )?.length;
@@ -21,9 +20,7 @@ export const getLocksIconScale = (
   }
 
   const totalHeight = fSet.optionalVerticalLock
-    ? fSet.optionalVerticalLock.reduce((acc, article) => {
-        return macoLocks.find(item => item.article === article)?.length! + acc;
-      }, 0)
+    ? getTotalLengthOfOptionalLocks(fSet.optionalVerticalLock)
     : macoLocks.find(
         item => item.article === getDefaultVerticalLock(fSet)?.article
       )?.length;

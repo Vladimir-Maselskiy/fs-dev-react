@@ -13,7 +13,7 @@ import { CanvasIconByArticle } from '../CanvasIconByArticle/CanvasIconByArticle'
 import { Box } from '@/components/Box/Box';
 import { getCurrentIconSize } from '@/utils/canvas/getCurrentIconSize';
 import { getOptionalVerticalOffset } from '@/utils/canvas/getOptionalVerticalOffset';
-import { getLockItemMaco } from '@/utils/canvas/getLockItemMaco';
+import { getLockItemMacoByArticle } from '@/utils/canvas/getLockItemMacoByArticle';
 
 type TProps = {
   fSet: IFSet;
@@ -102,7 +102,7 @@ export const CanvasVerticalLock = ({
                     fSet.optionalVerticalLock?.length! - 1 && (
                     <>
                       <Button onClick={onDeleteButtonClick}>Видалити</Button>
-                      {getLockItemMaco(article)?.endConnection && (
+                      {getLockItemMacoByArticle(article)?.endConnection && (
                         <Button
                           onClick={onExtendButtonClick}
                           style={{ marginLeft: 20 }}

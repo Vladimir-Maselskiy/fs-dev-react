@@ -1,5 +1,5 @@
 import { IMacoLocks } from '@/interfaces/interfaces';
-import data from '../../data/locks/maco-tech.json';
+import data from '../../data/tech/maco-tech.json';
 
 const macoLocks = data as IMacoLocks[];
 

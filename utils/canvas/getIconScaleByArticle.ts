@@ -1,5 +1,5 @@
 import { IArticleItem, IFSet } from '@/interfaces/interfaces';
-import { getLockItemMacoByArticle } from './getLockItemMaco';
+import { getLockItemMacoByArticle } from './getLockItemMacoByArticle';
 
 export const getIconScaleByArticle = ({
   item,
