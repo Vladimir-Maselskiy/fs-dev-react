@@ -3,7 +3,7 @@ import {
   StyledCanvasVerticalLock,
   StyledIconWrapper,
 } from './CanvasVerticalLock.styled';
-import { IFSet } from '@/interfaces/interfaces';
+import { IFSet, IMacoLocks } from '@/interfaces/interfaces';
 import { getVerticalIconHeight } from '@/utils/canvas/getVerticalIconHeight';
 import { getVerticalLockIcon } from '@/utils/canvas/getDafaultVerticalLockIcon';
 import { Button, Popover } from 'antd';
@@ -14,12 +14,15 @@ import { Box } from '@/components/Box/Box';
 import { getCurrentIconSize } from '@/utils/canvas/getCurrentIconSize';
 import { getOptionalVerticalOffset } from '@/utils/canvas/getOptionalVerticalOffset';
 import { getLockItemMacoByArticle } from '@/utils/canvas/getLockItemMacoByArticle';
+import { TListFilter } from '../../FSetCanvas';
 
 type TProps = {
   fSet: IFSet;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   outterPadding: number;
   setIsListOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setListFilter: React.Dispatch<React.SetStateAction<TListFilter>>;
+  filteredData: IMacoLocks[];
 };
 
 export const CanvasVerticalLock = ({
@@ -27,12 +30,19 @@ export const CanvasVerticalLock = ({
   setFSet,
   outterPadding,
   setIsListOpen,
+  setListFilter,
+  filteredData,
 }: TProps) => {
   const defaultVerticalLock = getDefaultVerticalLock(fSet);
   const VerticalLockIcon = getVerticalLockIcon(fSet);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const [otpionalCurrentIndex, setOtpionalCurrentIndex] = useState(0);
+
+  const onVerticalLockClick = () => {
+    console.log(" setListFilter(prev => ({ ...prev, side: 'vertical' }))");
+    setListFilter(prev => ({ ...prev, side: 'vertical' }));
+  };
 
   const onDeleteButtonClick = () => {
     if (fSet.optionalVerticalLock) {
@@ -60,7 +70,7 @@ export const CanvasVerticalLock = ({
         side={fSet.sideOfHinge}
         outterPadding={outterPadding}
       >
-        <Box width={getVerticalIconHeight(fSet)}>
+        <Box width={getVerticalIconHeight(fSet)} onClick={onVerticalLockClick}>
           <Popover
             title={`арт.${defaultVerticalLock.article} ${defaultVerticalLock.name}`}
             content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
@@ -81,6 +91,7 @@ export const CanvasVerticalLock = ({
         side={fSet.sideOfHinge}
         iconHeight={getVerticalIconHeight(fSet)}
         outterPadding={outterPadding}
+        onClick={onVerticalLockClick}
       >
         {fSet.optionalVerticalLock.map((article, index) => (
           <div
@@ -102,14 +113,15 @@ export const CanvasVerticalLock = ({
                     fSet.optionalVerticalLock?.length! - 1 && (
                     <>
                       <Button onClick={onDeleteButtonClick}>Видалити</Button>
-                      {getLockItemMacoByArticle(article)?.endConnection && (
-                        <Button
-                          onClick={onExtendButtonClick}
-                          style={{ marginLeft: 20 }}
-                        >
-                          Приєднати ще
-                        </Button>
-                      )}
+                      {getLockItemMacoByArticle(article)?.endConnection &&
+                        filteredData.length > 0 && (
+                          <Button
+                            onClick={onExtendButtonClick}
+                            style={{ marginLeft: 20 }}
+                          >
+                            Приєднати ще
+                          </Button>
+                        )}
                     </>
                   )}
                 </Box>

@@ -4,13 +4,14 @@ import {
   StyledListItem,
 } from './CanvasFElementsList.styled';
 import { Button, List } from 'antd';
-import data from '../../../../data/locks/maco-tech.json';
 import { IFSet, IMacoLocks } from '@/interfaces/interfaces';
 import { getItemNameByArticle } from '@/utils/maco/getItemNameByArticle';
 import Image from 'next/image';
 import { Box } from '@/components/Box/Box';
 import { TListFilter } from '../../FSetCanvas';
 import { getLockItemMacoByArticle } from '@/utils/canvas/getLockItemMacoByArticle';
+import { getTotalLengthOfOptionalLocks } from '@/utils/canvas/getTotalLengthOfOptionalLocks';
+import { it } from 'node:test';
 
 type TProps = {
   isListOpen: boolean;
@@ -18,6 +19,9 @@ type TProps = {
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   fset: IFSet;
   listFilter: TListFilter;
+  macoLocks: IMacoLocks[];
+  filteredData: IMacoLocks[];
+  setFilteredData: React.Dispatch<React.SetStateAction<IMacoLocks[]>>;
 };
 
 export const CanvasFElementsList = ({
@@ -26,31 +30,35 @@ export const CanvasFElementsList = ({
   setFSet,
   fset: fSet,
   listFilter,
+  macoLocks,
+  filteredData,
+  setFilteredData,
 }: TProps) => {
-  const macoItems = data as IMacoLocks[];
-
-  const [macoLocks] = useState(macoItems.filter(item => item.usedAsLock));
-  const [filteredData, setFilteredData] = useState(macoLocks);
   useEffect(() => {
-    if (
-      listFilter.side === 'vertical' &&
-      fSet.optionalVerticalLock?.length! > 0
-    ) {
-      const lastMacoLock = getLockItemMacoByArticle(
-        fSet.optionalVerticalLock?.slice(-1)[0]!
-      )!;
-      const currentData = macoLocks.filter(item => {
-        return item.startConnection === lastMacoLock.endConnection;
-      });
-      setFilteredData(currentData);
-    }
-    if (
-      listFilter.side === 'vertical' &&
-      (!fSet.optionalVerticalLock || fSet.optionalVerticalLock?.length! === 0)
-    ) {
-      setFilteredData(
-        macoLocks.filter(item => item.startConnection === 'clip')
+    if (listFilter.side === 'vertical') {
+      const totalLength = getTotalLengthOfOptionalLocks(
+        fSet.optionalVerticalLock || []
       );
+      const filteredByTotalLength = macoLocks.filter(
+        item => item.length < fSet.height! - totalLength - 50
+      );
+      if (fSet.optionalVerticalLock?.length! > 0) {
+        const lastMacoLock = getLockItemMacoByArticle(
+          fSet.optionalVerticalLock?.slice(-1)[0]!
+        )!;
+        const currentData = filteredByTotalLength.filter(item => {
+          return item.startConnection === lastMacoLock.endConnection;
+        });
+        setFilteredData(currentData);
+      }
+      if (
+        !fSet.optionalVerticalLock ||
+        fSet.optionalVerticalLock?.length! === 0
+      ) {
+        setFilteredData(
+          filteredByTotalLength.filter(item => item.startConnection === 'clip')
+        );
+      }
     }
   }, [
     listFilter.side,
@@ -102,7 +110,6 @@ export const CanvasFElementsList = ({
               </p>
               <Box position="relative" padding={2} width="30%">
                 <Image
-                  //   style={{ position: 'absolute' }}
                   src={`/articlesSVG/${macoLock.article}.svg`}
                   alt="photo"
                   fill

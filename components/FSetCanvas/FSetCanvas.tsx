@@ -1,4 +1,4 @@
-import { IFSet } from '@/interfaces/interfaces';
+import { IFSet, IMacoLocks } from '@/interfaces/interfaces';
 import React, { useRef, useState, useEffect } from 'react';
 import { StyledCanvas, StyledCanvasWrapper } from './FSetCanvas.styled';
 import { getTypeOfOpeningLabel } from '@/utils/data-utils/getTypeOfOpeningLabel';
@@ -9,6 +9,7 @@ import { CanvasVerticalLock } from './CanvasFElements/CanvasVerticalLock/CanvasV
 import { CanvasShear } from './CanvasFElements/CanvasShear/CanvasShear';
 import { CanvasFElementsList } from './CanvasFElements/CanvasFElementsList/CanvasFElementsList';
 import { CanvasBottomEnd } from './CanvasFElements/CanvasBottomEnd/CanvasBottomEnd';
+import data from '../../data/tech/maco-tech.json';
 
 type TProps = {
   fSet: IFSet;
@@ -32,8 +33,12 @@ export const FSetCanvas = ({
   const py = 20;
   const outterPaddingK = 3.2;
 
+  const macoItems = data as IMacoLocks[];
+  const [macoLocks] = useState(macoItems.filter(item => item.usedAsLock));
+  const [filteredData, setFilteredData] = useState(macoLocks);
+
   const [listFilter, setListFilter] = useState<TListFilter>({
-    side: 'vertical',
+    side: null,
   });
   useEffect(() => {
     const canvas = ref.current;
@@ -81,6 +86,8 @@ export const FSetCanvas = ({
             setFSet={setFSet}
             outterPadding={px * outterPaddingK}
             setIsListOpen={setIsListOpen}
+            setListFilter={setListFilter}
+            filteredData={filteredData}
           />
         </StyledCanvasWrapper>
         <CanvasFElementsList
@@ -89,6 +96,9 @@ export const FSetCanvas = ({
           setFSet={setFSet}
           fset={fSet}
           listFilter={listFilter}
+          macoLocks={macoLocks}
+          filteredData={filteredData}
+          setFilteredData={setFilteredData}
         />
       </Box>
     </>
