@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
   StyledCanvasFElementsList,
   StyledListItem,
@@ -11,7 +11,6 @@ import { Box } from '@/components/Box/Box';
 import { TListFilter } from '../../FSetCanvas';
 import { getLockItemMacoByArticle } from '@/utils/canvas/getLockItemMacoByArticle';
 import { getTotalLengthOfOptionalLocks } from '@/utils/canvas/getTotalLengthOfOptionalLocks';
-import { it } from 'node:test';
 
 type TProps = {
   isListOpen: boolean;
