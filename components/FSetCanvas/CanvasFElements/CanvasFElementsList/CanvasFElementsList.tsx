@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyledCanvasFElementsList,
   StyledListItem,
@@ -33,40 +33,50 @@ export const CanvasFElementsList = ({
   filteredData,
   setFilteredData,
 }: TProps) => {
+  const [sidePropName, setSidePropName] = useState<'width' | 'height'>(
+    'height'
+  );
+  const [optionalLockPropName, setOptionalLockPropName] = useState<
+    'optionalVerticalLock' | 'optionalGorizontalLock'
+  >('optionalVerticalLock');
+
   useEffect(() => {
-    if (listFilter.side === 'vertical') {
-      const totalLength = getTotalLengthOfOptionalLocks(
-        fSet.optionalVerticalLock || []
-      );
-      const filteredByTotalLength = macoLocks.filter(
-        item => item.length < fSet.height! - totalLength - 50
-      );
-      if (fSet.optionalVerticalLock?.length! > 0) {
-        const lastMacoLock = getLockItemMacoByArticle(
-          fSet.optionalVerticalLock?.slice(-1)[0]!
-        )!;
-        const currentData = filteredByTotalLength.filter(item => {
-          return item.startConnection === lastMacoLock.endConnection;
-        });
-        setFilteredData(currentData);
-      }
-      if (
-        !fSet.optionalVerticalLock ||
-        fSet.optionalVerticalLock?.length! === 0
-      ) {
-        setFilteredData(
-          filteredByTotalLength.filter(item => item.startConnection === 'clip')
-        );
-      }
+    if (listFilter.side === 'gorizontal') {
+      setSidePropName('width');
+      setOptionalLockPropName('optionalGorizontalLock');
     }
-  }, [
-    listFilter.side,
-    fSet.optionalVerticalLock?.length,
-    fSet.optionalVerticalLock,
-    macoLocks,
-    fSet.height,
-    setFilteredData,
-  ]);
+    if (listFilter.side === 'vertical') {
+      setSidePropName('height');
+      setOptionalLockPropName('optionalVerticalLock');
+    }
+  }, [listFilter.side]);
+
+  useEffect(() => {
+    const totalLength = getTotalLengthOfOptionalLocks(
+      fSet[optionalLockPropName] || []
+    );
+    const filteredByTotalLength = macoLocks.filter(
+      item => item.length < fSet[sidePropName]! - totalLength - 50
+    );
+    if (fSet[optionalLockPropName]?.length! > 0) {
+      const lastMacoLock = getLockItemMacoByArticle(
+        fSet[optionalLockPropName]?.slice(-1)[0]!
+      )!;
+      const currentData = filteredByTotalLength.filter(item => {
+        return item.startConnection === lastMacoLock.endConnection;
+      });
+      setFilteredData(currentData);
+    }
+    if (
+      !fSet[optionalLockPropName] ||
+      fSet[optionalLockPropName]?.length! === 0
+    ) {
+      setFilteredData(
+        filteredByTotalLength.filter(item => item.startConnection === 'clip')
+      );
+    }
+  }, [sidePropName, optionalLockPropName, setFilteredData]);
+
   const onClick = () => {
     setIsListOpen(false);
   };
@@ -76,7 +86,7 @@ export const CanvasFElementsList = ({
 
     setFSet(prev => ({
       ...prev,
-      optionalVerticalLock: [...(prev.optionalVerticalLock || []), article],
+      [optionalLockPropName]: [...(prev[optionalLockPropName] || []), article],
     }));
   };
 

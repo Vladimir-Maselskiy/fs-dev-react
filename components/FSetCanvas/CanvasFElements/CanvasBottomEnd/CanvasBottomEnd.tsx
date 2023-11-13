@@ -26,7 +26,7 @@ export const CanvasBottomEnd = ({
 
   useEffect(() => {
     if (
-      fSet.optionalGorizontalLock &&
+      !fSet.optionalGorizontalLock ||
       fSet.optionalGorizontalLock.length === 0
     ) {
       setIsExtended(true);
