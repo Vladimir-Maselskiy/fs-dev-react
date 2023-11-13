@@ -31,10 +31,10 @@ export const StyledCanvasGorizontalLock = styled.div<TProps>`
 
 export const StyledIconWrapper = styled.div<TProps>`
   transform-origin: top left;
-  transform: ${props =>
+  /* transform: ${props =>
     props.side === 'right'
       ? 'scaleX(-1) rotate(90deg)'
-      : 'scaleX(1) rotate(90deg)'};
+      : 'scaleX(1) rotate(90deg)'}; */
   width: ${props => props.currentIconSize};
   height: 40px;
   & svg {

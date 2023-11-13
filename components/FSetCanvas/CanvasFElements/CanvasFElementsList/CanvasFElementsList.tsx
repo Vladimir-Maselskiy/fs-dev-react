@@ -75,7 +75,7 @@ export const CanvasFElementsList = ({
         filteredByTotalLength.filter(item => item.startConnection === 'clip')
       );
     }
-  }, [sidePropName, optionalLockPropName, setFilteredData]);
+  }, [sidePropName, optionalLockPropName, setFilteredData, fSet, macoLocks]);
 
   const onClick = () => {
     setIsListOpen(false);

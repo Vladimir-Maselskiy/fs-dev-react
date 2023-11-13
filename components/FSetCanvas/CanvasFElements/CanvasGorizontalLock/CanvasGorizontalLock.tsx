@@ -39,11 +39,22 @@ export const CanvasGorizontalLock = ({
   const GorizontalLockIcon = getDafaultGoriontalLockIcon(fSet);
 
   const onGorizontalLockClick = () => {
-    setListFilter(prev => ({ ...prev, side: 'vertical' }));
+    setListFilter(prev => ({ ...prev, side: 'gorizontal' }));
   };
 
   const onDeleteButtonClick = () => {
-    setFSet(prev => ({ ...prev, optionalGorizontalLock: [] }));
+    if (fSet.optionalGorizontalLock) {
+      setFSet(prev => ({
+        ...prev,
+        optionalGorizontalLock: prev.optionalGorizontalLock!.slice(0, -1),
+      }));
+    } else {
+      setFSet(prev => ({
+        ...prev,
+        optionalGorizontalLock: [],
+      }));
+    }
+    setIsPopoverOpen(false);
   };
 
   const onExtendButtonClick = () => {
@@ -84,7 +95,7 @@ export const CanvasGorizontalLock = ({
               height: 40,
               top: 0,
               // paddingTop: getOptionalVerticalOffset({ fSet, index })!,
-              zIndex: fSet.optionalVerticalLock?.length! - index,
+              zIndex: fSet.optionalGorizontalLock?.length! + index,
             }}
           >
             <Popover

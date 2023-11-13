@@ -25,9 +25,6 @@ export const LocksOptionsDrawModal = ({
     setIsModalOpen(false);
   };
 
-  const onClick = () => {
-    console.log('fSet', fSet);
-  };
   return (
     <Modal
       open={isModalOpen}
@@ -50,7 +47,6 @@ export const LocksOptionsDrawModal = ({
           setIsListOpen={setIsListOpen}
         />
       </Box>
-      <Button onClick={onClick}>Console.log fSet</Button>
     </Modal>
   );
 };

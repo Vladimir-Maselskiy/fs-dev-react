@@ -44,7 +44,6 @@ export const CanvasShear = ({
   const changeSideOfFilterByClick = (
     side: 'vertical' | 'gorizontal' | null
   ) => {
-    console.log(' setListFilter(prev => ({ ...prev,  }))', side);
     setListFilter(prev => ({ ...prev, side }));
   };
 
