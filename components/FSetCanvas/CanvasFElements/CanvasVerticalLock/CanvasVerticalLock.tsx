@@ -39,9 +39,11 @@ export const CanvasVerticalLock = ({
 
   const [otpionalCurrentIndex, setOtpionalCurrentIndex] = useState(0);
 
-  const onVerticalLockClick = () => {
-    console.log(" setListFilter(prev => ({ ...prev, side: 'vertical' }))");
-    setListFilter(prev => ({ ...prev, side: 'vertical' }));
+  const changeSideOfFilterByClick = (
+    side: 'vertical' | 'gorizontal' | null
+  ) => {
+    console.log(' setListFilter(prev => ({ ...prev,  }))', side);
+    setListFilter(prev => ({ ...prev, side }));
   };
 
   const onDeleteButtonClick = () => {
@@ -70,7 +72,10 @@ export const CanvasVerticalLock = ({
         side={fSet.sideOfHinge}
         outterPadding={outterPadding}
       >
-        <Box width={getVerticalIconHeight(fSet)} onClick={onVerticalLockClick}>
+        <Box
+          width={getVerticalIconHeight(fSet)}
+          onClick={() => changeSideOfFilterByClick('vertical')}
+        >
           <Popover
             title={`арт.${defaultVerticalLock.article} ${defaultVerticalLock.name}`}
             content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
@@ -91,7 +96,7 @@ export const CanvasVerticalLock = ({
         side={fSet.sideOfHinge}
         iconHeight={getVerticalIconHeight(fSet)}
         outterPadding={outterPadding}
-        onClick={onVerticalLockClick}
+        onClick={() => changeSideOfFilterByClick('vertical')}
       >
         {fSet.optionalVerticalLock.map((article, index) => (
           <div

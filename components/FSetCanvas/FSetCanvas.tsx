@@ -69,17 +69,22 @@ export const FSetCanvas = ({
             setFSet={setFSet}
             outterPadding={px * outterPaddingK}
             setIsListOpen={setIsListOpen}
+            setListFilter={setListFilter}
           />
           <CanvasBottomEnd
             fSet={fSet}
             setFSet={setFSet}
             outterPadding={px * outterPaddingK}
             setIsListOpen={setIsListOpen}
+            setListFilter={setListFilter}
           />
           <CanvasGorizontalLock
             fSet={fSet}
             setFSet={setFSet}
             outterPadding={px * outterPaddingK}
+            setIsListOpen={setIsListOpen}
+            setListFilter={setListFilter}
+            filteredData={filteredData}
           />
           <CanvasVerticalLock
             fSet={fSet}

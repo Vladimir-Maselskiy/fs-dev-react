@@ -6,12 +6,14 @@ import { Button, Popover } from 'antd';
 import { getShear } from '@/utils/maco/getShear';
 import { getShearIcon } from '@/utils/canvas/getShearIcon';
 import { getIconScaleByArticle } from '@/utils/canvas/getIconScaleByArticle';
+import { TListFilter } from '../../FSetCanvas';
 
 type TProps = {
   fSet: IFSet;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   outterPadding: number;
   setIsListOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setListFilter: React.Dispatch<React.SetStateAction<TListFilter>>;
 };
 
 export const CanvasShear = ({
@@ -19,6 +21,7 @@ export const CanvasShear = ({
   setFSet,
   outterPadding,
   setIsListOpen,
+  setListFilter,
 }: TProps) => {
   const [isExtended, setIsExtended] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -38,6 +41,13 @@ export const CanvasShear = ({
     setFSet(prev => ({ ...prev, optionalVerticalLock: [] }));
   };
 
+  const changeSideOfFilterByClick = (
+    side: 'vertical' | 'gorizontal' | null
+  ) => {
+    console.log(' setListFilter(prev => ({ ...prev,  }))', side);
+    setListFilter(prev => ({ ...prev, side }));
+  };
+
   return (
     (fSet.typeOfOpening !== 'type-3' && (
       <StyledCanvasShear
@@ -47,6 +57,7 @@ export const CanvasShear = ({
           sideLength: fSet.width!,
         })}
         outterPadding={outterPadding}
+        onClick={() => changeSideOfFilterByClick('vertical')}
       >
         <Popover
           title={`арт.${currentShear.article} ${currentShear.name}`}

@@ -4,12 +4,14 @@ import { Button, Popover } from 'antd';
 import { StyledCanvasBottomEnd } from './CanvasBottomEnd.styled';
 import BottomEndIcon from '../../../../public/articlesSVG/212689.svg';
 import { getBottomEndingForGetriebe } from '@/utils/maco/getBottomEndingForGetriebe';
+import { TListFilter } from '../../FSetCanvas';
 
 type TProps = {
   fSet: IFSet;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   outterPadding: number;
   setIsListOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setListFilter: React.Dispatch<React.SetStateAction<TListFilter>>;
 };
 
 export const CanvasBottomEnd = ({
@@ -17,22 +19,33 @@ export const CanvasBottomEnd = ({
   setFSet,
   outterPadding,
   setIsListOpen,
+  setListFilter,
 }: TProps) => {
   const [isExtended, setIsExtended] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   useEffect(() => {
-    if (fSet.optionalVerticalLock && fSet.optionalVerticalLock.length === 0) {
+    if (
+      fSet.optionalGorizontalLock &&
+      fSet.optionalGorizontalLock.length === 0
+    ) {
       setIsExtended(true);
     } else setIsExtended(false);
-  }, [fSet.optionalVerticalLock, fSet.optionalVerticalLock?.length]);
+  }, [fSet.optionalGorizontalLock, fSet.optionalGorizontalLock?.length]);
 
   const [currentBottomEnd] = getBottomEndingForGetriebe(fSet);
 
   const onExtendButtonClick = () => {
     setIsPopoverOpen(false);
     setIsListOpen(true);
-    setFSet(prev => ({ ...prev, optionalVerticalLock: [] }));
+    setFSet(prev => ({ ...prev, optionalGorizontalLock: [] }));
+  };
+
+  const changeSideOfFilterByClick = (
+    side: 'vertical' | 'gorizontal' | null
+  ) => {
+    console.log(' setListFilter(prev => ({ ...prev,  }))', side);
+    setListFilter(prev => ({ ...prev, side }));
   };
 
   return (
@@ -40,6 +53,7 @@ export const CanvasBottomEnd = ({
       <StyledCanvasBottomEnd
         side={fSet.sideOfHinge}
         outterPadding={outterPadding}
+        onClick={() => changeSideOfFilterByClick('gorizontal')}
       >
         <Popover
           title={`арт.${currentBottomEnd.article} ${currentBottomEnd.name}`}

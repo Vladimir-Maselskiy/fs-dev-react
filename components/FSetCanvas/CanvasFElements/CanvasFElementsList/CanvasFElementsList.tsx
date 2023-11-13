@@ -64,6 +64,8 @@ export const CanvasFElementsList = ({
     fSet.optionalVerticalLock?.length,
     fSet.optionalVerticalLock,
     macoLocks,
+    fSet.height,
+    setFilteredData,
   ]);
   const onClick = () => {
     setIsListOpen(false);

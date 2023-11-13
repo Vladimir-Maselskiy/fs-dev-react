@@ -9,9 +9,19 @@ export function getVerticalLocks(fSet: IFSet) {
     typeOfOpening,
     isAntiBreakingOpen,
     antiBreakingOpenType,
+    optionalVerticalLock,
   } = fSet;
   const articleItems: IArticleItem[] = [];
   if (height) {
+    if (optionalVerticalLock) {
+      const params = {
+        arr: optionalVerticalLock,
+        sortSignificance: '5',
+      };
+      const currentArticleItems = findElementsByArticle(params);
+      if (currentArticleItems) articleItems.push(...currentArticleItems);
+      return articleItems;
+    }
     if (isAntiBreakingOpen && antiBreakingOpenType === 'rc1') {
       articleItems.push(...getVerticalLocksRC(fSet));
       return articleItems;
