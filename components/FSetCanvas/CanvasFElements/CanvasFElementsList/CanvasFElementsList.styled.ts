@@ -21,7 +21,7 @@ export const StyledCanvasFElementsList = styled(List)<TProps>`
     Math.max(
       props.fset.optionalVerticalLock?.length || 0,
       props.fset.optionalGorizontalLock?.length || 0
-    )};
+    ) + 1};
 `;
 export const StyledListItem = styled.div`
   display: flex;

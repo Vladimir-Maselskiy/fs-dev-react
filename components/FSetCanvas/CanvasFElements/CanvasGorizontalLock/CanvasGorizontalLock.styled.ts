@@ -5,7 +5,6 @@ type TProps = {
   iconWidth?: string;
   outterPadding?: number;
   currentIconSize?: string;
-  oppoziteSide?: 'right' | 'left';
 };
 
 export const StyledCanvasGorizontalLock = styled.div<TProps>`

@@ -101,7 +101,7 @@ export const CanvasGorizontalLock = ({
                 index,
                 sidePropName: 'width',
               })!,
-              zIndex: fSet.optionalGorizontalLock?.length! + index,
+              // zIndex: fSet.optionalGorizontalLock?.length! - index,
             }}
           >
             <Popover
@@ -139,7 +139,6 @@ export const CanvasGorizontalLock = ({
                   article,
                   side: 'gorizontal',
                 })}
-                oppoziteSide={oppoziteSide}
               >
                 <CanvasIconByArticle article={article} />
               </StyledIconWrapper>
