@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 type TProps = {
   side: 'right' | 'left';
-  iconWidth: string;
+  iconWidth?: string;
   outterPadding?: number;
   currentIconSize?: string;
+  oppoziteSide?: 'right' | 'left';
 };
 
 export const StyledCanvasGorizontalLock = styled.div<TProps>`
@@ -17,26 +18,16 @@ export const StyledCanvasGorizontalLock = styled.div<TProps>`
 
   width: ${props => `calc(100% - ${props.outterPadding! * 2}px)`};
   height: 40px;
-  & svg {
-    position: relative;
-    left: ${props => (props.side === 'right' ? 0 : '100%')};
-    transform: ${props =>
-      props.side === 'right'
-        ? 'translateX(0)'
-        : 'translateX(-100%) scaleX(-1)'};
-    width: ${props => props.iconWidth};
-    height: 100%;
-  }
 `;
 
 export const StyledIconWrapper = styled.div<TProps>`
+  position: absolute;
   transform-origin: top left;
-  /* transform: ${props =>
-    props.side === 'right'
-      ? 'scaleX(-1) rotate(90deg)'
-      : 'scaleX(1) rotate(90deg)'}; */
+  transform: ${props =>
+    props.side === 'right' ? 'scaleX(1)' : 'scaleX(-1) translateX(-100%)'};
   width: ${props => props.currentIconSize};
   height: 40px;
+  ${props => (props.side === 'left' ? 'right: 0px' : 'left : 0px')};
   & svg {
     width: 100%;
   }

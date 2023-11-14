@@ -14,6 +14,7 @@ import { getItemNameByArticle } from '@/utils/maco/getItemNameByArticle';
 import { getLockItemMacoByArticle } from '@/utils/canvas/getLockItemMacoByArticle';
 import { getCurrentIconSize } from '@/utils/canvas/getCurrentIconSize';
 import { CanvasIconByArticle } from '../CanvasIconByArticle/CanvasIconByArticle';
+import { getOptionalIconsOffset } from '@/utils/canvas/getOptionalVerticalOffset';
 
 type TProps = {
   fSet: IFSet;
@@ -32,6 +33,7 @@ export const CanvasGorizontalLock = ({
   filteredData,
   setIsListOpen,
 }: TProps) => {
+  const oppoziteSide = fSet.sideOfHinge === 'left' ? 'right' : 'left';
   const [otpionalCurrentIndex, setOtpionalCurrentIndex] = useState(0);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
@@ -94,7 +96,11 @@ export const CanvasGorizontalLock = ({
               width: getGorizonalIconWidth(fSet),
               height: 40,
               top: 0,
-              // paddingTop: getOptionalVerticalOffset({ fSet, index })!,
+              [oppoziteSide]: getOptionalIconsOffset({
+                fSet,
+                index,
+                sidePropName: 'width',
+              })!,
               zIndex: fSet.optionalGorizontalLock?.length! + index,
             }}
           >
@@ -128,8 +134,12 @@ export const CanvasGorizontalLock = ({
             >
               <StyledIconWrapper
                 side={fSet.sideOfHinge}
-                iconWidth={getGorizonalIconWidth(fSet)}
-                currentIconSize={getCurrentIconSize({ fSet, article })}
+                currentIconSize={getCurrentIconSize({
+                  fSet,
+                  article,
+                  side: 'gorizontal',
+                })}
+                oppoziteSide={oppoziteSide}
               >
                 <CanvasIconByArticle article={article} />
               </StyledIconWrapper>

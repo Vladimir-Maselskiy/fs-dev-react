@@ -3,5 +3,6 @@ import { getLocksIconScale } from './getLocksIconScale';
 
 export const getGorizonalIconWidth = (fSet: IFSet) => {
   const scale = getLocksIconScale(fSet);
+
   return `${scale.widthScale * 100}%`;
 };

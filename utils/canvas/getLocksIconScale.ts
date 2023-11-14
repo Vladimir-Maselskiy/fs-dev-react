@@ -27,5 +27,6 @@ export const getLocksIconScale = (
   if (totalHeight) {
     heightScale = totalHeight / fSet.height!;
   }
+  console.log('widthScale', widthScale, 'heightScale', heightScale);
   return { widthScale, heightScale };
 };

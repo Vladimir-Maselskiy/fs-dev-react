@@ -1,4 +1,3 @@
-import { IFSet } from '@/interfaces/interfaces';
 import { getLockItemMacoByArticle } from './getLockItemMacoByArticle';
 
 export const getTotalLengthOfOptionalLocks = (locks: string[]): number => {

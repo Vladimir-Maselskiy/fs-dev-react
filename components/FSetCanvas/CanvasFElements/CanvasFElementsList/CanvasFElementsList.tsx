@@ -103,12 +103,7 @@ export const CanvasFElementsList = ({
       renderItem={(item, index) => {
         const macoLock = item as IMacoLocks;
         return (
-          <List.Item
-            style={{ cursor: 'pointer', padding: '0 10px' }}
-            onClick={() => {
-              console.log(macoLock.article);
-            }}
-          >
+          <List.Item style={{ cursor: 'pointer', padding: '0 10px' }}>
             <StyledListItem>
               <Box>
                 <p>{macoLock.article}</p>

@@ -12,7 +12,7 @@ import { getItemNameByArticle } from '@/utils/maco/getItemNameByArticle';
 import { CanvasIconByArticle } from '../CanvasIconByArticle/CanvasIconByArticle';
 import { Box } from '@/components/Box/Box';
 import { getCurrentIconSize } from '@/utils/canvas/getCurrentIconSize';
-import { getOptionalVerticalOffset } from '@/utils/canvas/getOptionalVerticalOffset';
+import { getOptionalIconsOffset } from '@/utils/canvas/getOptionalVerticalOffset';
 import { getLockItemMacoByArticle } from '@/utils/canvas/getLockItemMacoByArticle';
 import { TListFilter } from '../../FSetCanvas';
 
@@ -105,7 +105,11 @@ export const CanvasVerticalLock = ({
               width: getVerticalIconHeight(fSet),
               height: 40,
               top: 0,
-              paddingTop: getOptionalVerticalOffset({ fSet, index })!,
+              paddingTop: getOptionalIconsOffset({
+                fSet,
+                index,
+                sidePropName: 'height',
+              })!,
               zIndex: fSet.optionalVerticalLock?.length! - index,
             }}
           >
@@ -140,7 +144,11 @@ export const CanvasVerticalLock = ({
               <StyledIconWrapper
                 side={fSet.sideOfHinge}
                 iconHeight={getVerticalIconHeight(fSet)}
-                currentIconSize={getCurrentIconSize({ fSet, article })}
+                currentIconSize={getCurrentIconSize({
+                  fSet,
+                  article,
+                  side: 'vertical',
+                })}
               >
                 <CanvasIconByArticle article={article} />
               </StyledIconWrapper>
