@@ -124,5 +124,14 @@
     "startConnection": "gear",
     "endConnection": "clip",
     "usedAsLock": false
+  },
+  {
+    "id": "14",
+    "article": "206630",
+    "length": 138.5,
+    "VZ": [],
+    "startConnection": "gear",
+    "endConnection": "gear",
+    "usedAsLock": true
   }
 ]

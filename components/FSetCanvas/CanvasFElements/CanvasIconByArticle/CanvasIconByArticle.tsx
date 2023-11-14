@@ -4,6 +4,7 @@ import Icon211926 from '../../../../public/articlesSVG/211926.svg';
 import Icon211928 from '../../../../public/articlesSVG/211928.svg';
 import Icon211976 from '../../../../public/articlesSVG/211976.svg';
 import Icon215272 from '../../../../public/articlesSVG/215272.svg';
+import Icon206630 from '../../../../public/articlesSVG/206630.svg';
 
 type TProps = {
   article: string;
@@ -20,6 +21,8 @@ export const CanvasIconByArticle = ({ article }: TProps) => {
   if (article === '211976') return <Icon211976 />;
   if (article === '215272')
     return <Icon215272 style={{ position: 'absolute', bottom: 0 }} />;
+  if (article === '206630')
+    return <Icon206630 style={{ position: 'absolute', bottom: 0 }} />;
 
   return null;
 };
