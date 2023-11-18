@@ -14,24 +14,24 @@ export const drawTypeOfOpening = ({
 
   if (typeOfOpening !== 'type-3') {
     if (sideOfHinge === 'right') {
-      ctx.moveTo(bottomRightX + topLeftX, topLeftY);
-      ctx.lineTo(topLeftX, bottomRightY / 2 + topLeftY);
-      ctx.lineTo(bottomRightX + topLeftX, topLeftY + bottomRightY);
+      ctx.moveTo(bottomRightX, topLeftY);
+      ctx.lineTo(topLeftX, bottomRightY / 2);
+      ctx.lineTo(bottomRightX, bottomRightY);
       ctx.stroke();
       ctx.closePath();
     }
     if (sideOfHinge === 'left') {
       ctx.moveTo(topLeftX, topLeftY);
-      ctx.lineTo(topLeftX + bottomRightX, bottomRightY / 2 + topLeftY);
-      ctx.lineTo(topLeftX, topLeftY + bottomRightY);
+      ctx.lineTo(bottomRightX, bottomRightY / 2 + topLeftY);
+      ctx.lineTo(topLeftX, bottomRightY);
       ctx.stroke();
       ctx.closePath();
     }
   }
   if (typeOfOpening === 'type-1' || 'type-3' || 'type-4') {
-    ctx.moveTo(topLeftX, topLeftY + bottomRightY);
-    ctx.lineTo(topLeftX + bottomRightX / 2, topLeftY);
-    ctx.lineTo(bottomRightX + topLeftX, topLeftY + bottomRightY);
+    ctx.moveTo(topLeftX, bottomRightY);
+    ctx.lineTo((topLeftX + bottomRightX) / 2, topLeftY);
+    ctx.lineTo(bottomRightX, bottomRightY);
     ctx.stroke();
   }
 };

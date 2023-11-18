@@ -22,5 +22,10 @@ export const drawWindowOutLine = ({ fSet, ctx, px }: TArgs) => {
 
   ctx.lineWidth = lineWidth; // Set the line width
   ctx.strokeRect(currentXMargin, currentYMargin, currentWidth, currentHeight); // Draw the scaled rectangle border
-  return [currentXMargin, currentYMargin, currentWidth, currentHeight];
+  return [
+    currentXMargin,
+    currentYMargin,
+    currentWidth + currentXMargin,
+    currentHeight + currentYMargin,
+  ];
 };

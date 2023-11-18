@@ -3,6 +3,7 @@ import { drawWindowOutLine } from './drawWindowOutLine';
 import { drawTypeOfOpening } from './drawTypeOfOpening';
 import { drarVerticalLocks } from './drarVerticalLocks';
 import { drawVerticalLockPoints } from './drawVerticalLockPoints';
+import { drawGorizontalLockPoints } from './drawGorizontalLockPoints';
 
 export type TArgs = {
   fSet: IFSet;
@@ -33,6 +34,7 @@ export const drawCanvasContent = ({
       const rectConers = drawWindowOutLine({ fSet, ctx, px });
       drawTypeOfOpening({ fSet, ctx, rectConers });
       drawVerticalLockPoints({ fSet, ctx, rectConers });
+      drawGorizontalLockPoints({ fSet, ctx, rectConers });
     }
   };
 

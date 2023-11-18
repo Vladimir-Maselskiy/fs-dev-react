@@ -1,7 +1,7 @@
 import { TArgs } from './drawCanvasContent';
 import { getCanvasLocksPoint } from './getCanvasLocksPoint';
 
-export const drawVerticalLockPoints = ({
+export const drawGorizontalLockPoints = ({
   fSet,
   ctx,
   rectConers,
@@ -13,20 +13,22 @@ export const drawVerticalLockPoints = ({
 
   const { typeOfOpening, sideOfHinge } = fSet;
   const [topLeftX, topLeftY, bottomRightX, bottomRightY] = rectConers;
-  const locksPoints = getCanvasLocksPoint({ fSet, side: 'vertical' });
-  const currentScale = (bottomRightY - topLeftY) / fSet.height!;
+  const locksPoints = getCanvasLocksPoint({ fSet, side: 'gorizontal' });
+  const currentScale = (bottomRightX - topLeftX) / fSet.width!;
+  console.log('locksPoints', locksPoints, 'currentScale', currentScale);
 
   if (typeOfOpening !== 'type-3') {
     if (sideOfHinge === 'right') {
       locksPoints.forEach(lockPoint => {
         ctx.beginPath();
         ctx.arc(
-          bottomRightX,
-          topLeftY + lockPoint * currentScale,
+          topLeftX + lockPoint * currentScale,
+          bottomRightY,
           5,
           0,
           2 * Math.PI
         );
+
         ctx.stroke();
         ctx.closePath();
       });
@@ -35,12 +37,13 @@ export const drawVerticalLockPoints = ({
       locksPoints.forEach(lockPoint => {
         ctx.beginPath();
         ctx.arc(
-          topLeftX,
-          topLeftY + lockPoint * currentScale,
+          bottomRightX - lockPoint * currentScale,
+          bottomRightY,
           5,
           0,
           2 * Math.PI
         );
+
         ctx.stroke();
         ctx.closePath();
       });
