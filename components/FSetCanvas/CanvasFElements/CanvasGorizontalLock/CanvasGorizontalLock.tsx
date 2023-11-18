@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   StyledCanvasGorizontalLock,
   StyledIconWrapper,
+  StyledWrapperForDefaultIcon,
 } from './CanvasGorizontalLock.styled';
 import { IFSet, IMacoLocks } from '@/interfaces/interfaces';
 import { getDafaultGoriontalLockIcon } from '@/utils/canvas/getDafaultGoriontalLockIcon';
@@ -72,13 +73,15 @@ export const CanvasGorizontalLock = ({
         outterPadding={outterPadding}
         onClick={onGorizontalLockClick}
       >
-        <Popover
-          title={`арт.${defaultGorizontalLock.article} ${defaultGorizontalLock.name}`}
-          content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
-          trigger="click"
-        >
-          <GorizontalLockIcon />
-        </Popover>
+        <StyledWrapperForDefaultIcon side={fSet.sideOfHinge}>
+          <Popover
+            title={`арт.${defaultGorizontalLock.article} ${defaultGorizontalLock.name}`}
+            content={<Button onClick={onDeleteButtonClick}>Видалить</Button>}
+            trigger="click"
+          >
+            <GorizontalLockIcon />
+          </Popover>
+        </StyledWrapperForDefaultIcon>
       </StyledCanvasGorizontalLock>
     )) ||
     (fSet.optionalGorizontalLock && (
@@ -101,7 +104,6 @@ export const CanvasGorizontalLock = ({
                 index,
                 sidePropName: 'width',
               })!,
-              // zIndex: fSet.optionalGorizontalLock?.length! - index,
             }}
           >
             <Popover

@@ -19,6 +19,13 @@ export const StyledCanvasGorizontalLock = styled.div<TProps>`
   height: 40px;
 `;
 
+export const StyledWrapperForDefaultIcon = styled.div<TProps>`
+  position: absolute;
+  height: 100%;
+  ${props => (props.side === 'left' ? 'right: 0px' : 'left : 0px')};
+  transform: ${props => (props.side === 'right' ? 'scaleX(1)' : 'scaleX(-1)')};
+`;
+
 export const StyledIconWrapper = styled.div<TProps>`
   position: absolute;
   transform-origin: top left;
