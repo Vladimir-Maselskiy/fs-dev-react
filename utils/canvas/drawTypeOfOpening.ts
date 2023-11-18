@@ -5,11 +5,13 @@ export const drawTypeOfOpening = ({
   ctx,
   rectConers,
 }: TArgs & { rectConers: number[] }) => {
+  ctx.beginPath();
   const lineWidth = 1; // Line width (border thickness)
 
   ctx.lineWidth = lineWidth; // Set the line width
   const { typeOfOpening, sideOfHinge } = fSet;
   const [topLeftX, topLeftY, bottomRightX, bottomRightY] = rectConers;
+
   if (typeOfOpening !== 'type-3') {
     if (sideOfHinge === 'right') {
       ctx.moveTo(bottomRightX + topLeftX, topLeftY);

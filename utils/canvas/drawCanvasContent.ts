@@ -2,6 +2,7 @@ import { IFSet } from '@/interfaces/interfaces';
 import { drawWindowOutLine } from './drawWindowOutLine';
 import { drawTypeOfOpening } from './drawTypeOfOpening';
 import { drarVerticalLocks } from './drarVerticalLocks';
+import { drawVerticalLockPoints } from './drawVerticalLockPoints';
 
 export type TArgs = {
   fSet: IFSet;
@@ -31,7 +32,7 @@ export const drawCanvasContent = ({
 
       const rectConers = drawWindowOutLine({ fSet, ctx, px });
       drawTypeOfOpening({ fSet, ctx, rectConers });
-      drarVerticalLocks({ fSet, ctx, rectConers });
+      drawVerticalLockPoints({ fSet, ctx, rectConers });
     }
   };
 
@@ -41,6 +42,5 @@ export const drawCanvasContent = ({
     ctx.strokeStyle = color; // Set the stroke (border) color
 
     const rectConers = drawWindowOutLine({ fSet, ctx });
-    drawTypeOfOpening({ fSet, ctx, rectConers });
   }
 };
