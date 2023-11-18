@@ -81,7 +81,7 @@ export const CanvasGorizontalLock = ({
         </Popover>
       </StyledCanvasGorizontalLock>
     )) ||
-    (fSet.optionalVerticalLock && (
+    (fSet.optionalGorizontalLock && (
       <StyledCanvasGorizontalLock
         side={fSet.sideOfHinge}
         iconWidth={getGorizonalIconWidth(fSet)}
