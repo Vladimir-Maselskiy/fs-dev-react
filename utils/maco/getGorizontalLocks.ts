@@ -10,8 +10,22 @@ export function getGorizontalLocks(fSet: IFSet) {
     typeOfOpening,
     isTurnTiltGetriebe,
     isAntiBreakingOpen,
+    optionalGorizontalLock,
   } = fSet;
   const articleItems: IArticleItem[] = [];
+
+  if (
+    optionalGorizontalLock &&
+    (typeOfOpening === 'type-1' || typeOfOpening === 'type-4')
+  ) {
+    const params = {
+      arr: optionalGorizontalLock,
+      sortSignificance: '5',
+    };
+    const currentArticleItems = findElementsByArticle(params);
+    if (currentArticleItems) articleItems.push(...currentArticleItems);
+    return articleItems;
+  }
 
   if (isAntiBreakingOpen) {
     articleItems.push(...getGorizontalLocksRC(fSet));

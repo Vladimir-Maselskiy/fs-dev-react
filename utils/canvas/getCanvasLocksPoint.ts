@@ -1,7 +1,7 @@
 import { IFSet } from '@/interfaces/interfaces';
 import { getDefaultGorizontalLock } from './getDefaultGorizontalLock';
 import { getLockItemMacoByArticle } from './getLockItemMacoByArticle';
-import { position } from 'styled-system';
+import { getDefaultVerticalLock } from './getDefaultVerticalLock';
 
 export const getCanvasLocksPoint = ({
   fSet,
@@ -13,7 +13,11 @@ export const getCanvasLocksPoint = ({
   const optionalLockPropName =
     side === 'gorizontal' ? 'optionalGorizontalLock' : 'optionalVerticalLock';
   if (!fSet[optionalLockPropName]) {
-    const articleItem = getDefaultGorizontalLock(fSet);
+    console.log('fSet', fSet);
+    const articleItem =
+      side === 'gorizontal'
+        ? getDefaultGorizontalLock(fSet)
+        : getDefaultVerticalLock(fSet);
     const lockItem = getLockItemMacoByArticle(articleItem.article);
     return [...lockItem?.VZ!];
   }

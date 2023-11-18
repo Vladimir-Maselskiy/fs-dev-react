@@ -13,7 +13,10 @@ export function getVerticalLocks(fSet: IFSet) {
   } = fSet;
   const articleItems: IArticleItem[] = [];
   if (height) {
-    if (optionalVerticalLock) {
+    if (
+      optionalVerticalLock &&
+      (typeOfOpening === 'type-1' || typeOfOpening === 'type-4')
+    ) {
       const params = {
         arr: optionalVerticalLock,
         sortSignificance: '5',

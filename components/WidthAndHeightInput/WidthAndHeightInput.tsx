@@ -50,8 +50,8 @@ export const WidthAndHeightInput = ({
         isGorizontalLock,
         isWidthValid,
         microVentilation,
-        optionalGorizontalLock: null,
-        optionalVerticalLock: null,
+        // optionalGorizontalLock: null,   тест на редагування комплекта
+        // optionalVerticalLock: null,
       }));
     }
   }, [fSet?.width, restrictions, fSet?.brand, fSet?.typeOfOpening, setFSet]);
@@ -68,8 +68,6 @@ export const WidthAndHeightInput = ({
       setFSet(prev => ({
         ...prev,
         isHeightValid,
-        optionalGorizontalLock: null,
-        optionalVerticalLock: null,
       }));
     }
   }, [fSet?.height, restrictions, fSet?.brand, fSet?.typeOfOpening, setFSet]);
