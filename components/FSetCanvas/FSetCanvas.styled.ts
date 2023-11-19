@@ -19,7 +19,7 @@ export const StyledCanvasLayout = styled.div<TProps>`
 `;
 export const StyledCanvas = styled.canvas<TCanvasProps>`
   aspect-ratio: 1/1;
-  border: 2px solid red;
+  border: 2px solid var(--accent-color);
   border-radius: 6px;
   width: ${prop => `${Math.min(prop.windowWidth / 2, 320)}px`};
 `;

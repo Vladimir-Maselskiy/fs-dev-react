@@ -28,7 +28,11 @@ export const drawTypeOfOpening = ({
       ctx.closePath();
     }
   }
-  if (typeOfOpening === 'type-1' || 'type-3' || 'type-4') {
+  if (
+    typeOfOpening === 'type-1' ||
+    typeOfOpening === 'type-3' ||
+    typeOfOpening === 'type-4'
+  ) {
     ctx.moveTo(topLeftX, bottomRightY);
     ctx.lineTo((topLeftX + bottomRightX) / 2, topLeftY);
     ctx.lineTo(bottomRightX, bottomRightY);

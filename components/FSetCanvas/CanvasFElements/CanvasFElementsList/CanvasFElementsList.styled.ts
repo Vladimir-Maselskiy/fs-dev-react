@@ -14,6 +14,7 @@ export const StyledCanvasFElementsList = styled(List)<TProps>`
   height: calc(100% - 10px);
   width: calc(100% - 10px);
   border: 2px solid #806d3c;
+  border: 2px solid var(--accent-color);
   border-radius: 6px;
   transform: ${props =>
     props.open ? 'translateX(0)' : 'translateX(calc(-100% - 5px))'};
