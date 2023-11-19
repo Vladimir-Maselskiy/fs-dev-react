@@ -9,10 +9,10 @@ export const FormLayoutStyled = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 15px 15px 40px 15px;
-  margin-top: 10px;
   margin-bottom: 0px;
   border: solid #2196f3 2px;
   border-radius: 10px;
+  margin-top: 50px;
   width: 100%;
   background-image: url(${image.src});
   background-color: transparent;
@@ -21,8 +21,30 @@ export const FormLayoutStyled = styled.div`
   z-index: 1;
 `;
 
+export const OverFlowWrapper = styled.div`
+  overflow: hidden;
+`;
+
+export const StyledCanvasBox = styled.div`
+  position: absolute;
+  left: 32px;
+  top: 80px;
+  z-index: 1;
+`;
+
+export const StyledDoubleRightOutlined = styled(Button)`
+  position: absolute;
+  left: 0;
+  top: 80px;
+  height: 100px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  z-index: 2;
+`;
+
 export const ButtonStyled = styled(Button)`
   position: relative;
+  top: -36px;
   display: flex;
   align-items: flex-end;
   justify-content: center;

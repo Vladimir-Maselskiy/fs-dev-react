@@ -15,7 +15,6 @@ export const drawGorizontalLockPoints = ({
   const [topLeftX, topLeftY, bottomRightX, bottomRightY] = rectConers;
   const locksPoints = getCanvasLocksPoint({ fSet, side: 'gorizontal' });
   const currentScale = (bottomRightX - topLeftX) / fSet.width!;
-  console.log('locksPoints', locksPoints, 'currentScale', currentScale);
 
   if (typeOfOpening !== 'type-3') {
     if (sideOfHinge === 'right') {

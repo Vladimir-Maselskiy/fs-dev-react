@@ -13,13 +13,14 @@ export const getCanvasLocksPoint = ({
   const optionalLockPropName =
     side === 'gorizontal' ? 'optionalGorizontalLock' : 'optionalVerticalLock';
   if (!fSet[optionalLockPropName]) {
-    console.log('fSet', fSet);
     const articleItem =
       side === 'gorizontal'
         ? getDefaultGorizontalLock(fSet)
         : getDefaultVerticalLock(fSet);
-    const lockItem = getLockItemMacoByArticle(articleItem.article);
-    return [...lockItem?.VZ!];
+    console.log('side', side, 'articleItem', articleItem);
+    const lockItem = getLockItemMacoByArticle(articleItem?.article);
+    console.log('side', side, 'lockItem', lockItem);
+    return [...(lockItem?.VZ || [])];
   }
 
   const currentPoints: number[] = [];

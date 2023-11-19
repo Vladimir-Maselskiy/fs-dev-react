@@ -9,11 +9,14 @@ type TProps = {
 
 export const StyledCanvasFElementsList = styled(List)<TProps>`
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  transform: ${props => (props.open ? 'translateX(0)' : 'translateX(-100%)')};
+  top: 5px;
+  left: 5px;
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
+  border: 2px solid #806d3c;
+  border-radius: 6px;
+  transform: ${props =>
+    props.open ? 'translateX(0)' : 'translateX(calc(-100% - 5px))'};
   background-color: palegoldenrod;
   transition: transform 0.8s ease-in-out;
   overflow: ${props => (props.open ? 'auto' : 'hidden')};

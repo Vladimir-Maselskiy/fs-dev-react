@@ -1,4 +1,4 @@
-import { ConfigProvider, Form } from 'antd';
+import { Button, ConfigProvider, Form } from 'antd';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { IFSet } from '@/interfaces/interfaces';
@@ -12,9 +12,16 @@ import { getSetRestrictions } from '@/utils/ui-utills/getSetRestrictions';
 import { decor, TRestrictions } from '@/const';
 import { Tag } from 'antd';
 import { willDecorSelecteValueChange } from '@/utils/ui-utills/willDecorSelecteValueChange';
-import { FormLayoutStyled } from './FormLayout.styled';
+import {
+  FormLayoutStyled,
+  StyledCanvasBox,
+  StyledDoubleRightOutlined,
+  OverFlowWrapper,
+} from './FormLayout.styled';
 import { BrandButton } from '../BrandButton/BrandButton';
 import { getIndexByFSet } from '@/utils/data-utils/getIndexByFSet';
+import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
+import { FSetCanvas } from '../FSetCanvas/FSetCanvas';
 
 interface TProps {
   fSet: IFSet;
@@ -32,10 +39,12 @@ export const FormLayout = ({
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [isOptitionButtonDisabled, setIsOptitionButtonDisabled] =
     useState(true);
+  const [isCanvasOpen, setIsCanvasOpen] = useState(false);
 
   const [restrictions, setRestrictions] = useState<TRestrictions>(
     getSetRestrictions(fSet.typeOfOpening, fSet.brand)
   );
+  const [isListOpen, setIsListOpen] = useState(false);
 
   const [form] = Form.useForm();
 
@@ -86,6 +95,10 @@ export const FormLayout = ({
     }
   };
 
+  const onControllCanvasButtonClick = () => {
+    setIsCanvasOpen(prev => !prev);
+  };
+
   return (
     <ConfigProvider
       theme={{
@@ -100,35 +113,54 @@ export const FormLayout = ({
         onValuesChange={onValuesChange}
         layout="vertical"
       >
-        <FormLayoutStyled>
-          <Tag style={{ alignSelf: 'start' }}>
-            {getIndexByFSet(fSetsArray, fSet) + 1}
-          </Tag>
-          <WidthAndHeightInput
-            setIsOptitionButtonDisabled={setIsOptitionButtonDisabled}
-            fSet={fSet}
-            setFSet={setFSet}
-            restrictions={restrictions}
-            form={form}
-          />
-          <Box display="flex" flexDirection="column" alignItems="center">
-            <QuantityOfSets fSet={fSet} setFSet={setFSet} form={form} />
-            <ImportantSetsOptions fSet={fSet} setFSet={setFSet} form={form} />
-          </Box>
-          <ControlButtons
-            isOptitionButtonDisabled={isOptitionButtonDisabled}
-            setIsModalOpen={setIsModalOpen}
-            fSet={fSet}
-            setFSet={setFSet}
-            setCurrentModalNumber={setCurrentModalNumber}
-          />
-          <BrandButton
-            setIsModalOpen={setIsModalOpen}
-            fSet={fSet}
-            setFSet={setFSet}
-            setCurrentModalNumber={setCurrentModalNumber}
-          />
-        </FormLayoutStyled>
+        <OverFlowWrapper>
+          <FormLayoutStyled>
+            <Tag style={{ alignSelf: 'start' }}>
+              {getIndexByFSet(fSetsArray, fSet) + 1}
+            </Tag>
+            <StyledDoubleRightOutlined
+              onClick={onControllCanvasButtonClick}
+              icon={
+                isCanvasOpen ? <DoubleLeftOutlined /> : <DoubleRightOutlined />
+              }
+            ></StyledDoubleRightOutlined>
+            {fSet.width && fSet.height && (
+              <StyledCanvasBox>
+                <FSetCanvas
+                  fSet={fSet}
+                  setFSet={setFSet}
+                  isListOpen={isListOpen}
+                  setIsListOpen={setIsListOpen}
+                  isCanvasOpen={isCanvasOpen}
+                />
+              </StyledCanvasBox>
+            )}
+            <WidthAndHeightInput
+              setIsOptitionButtonDisabled={setIsOptitionButtonDisabled}
+              fSet={fSet}
+              setFSet={setFSet}
+              restrictions={restrictions}
+              form={form}
+            />
+            <Box display="flex" flexDirection="column" alignItems="center">
+              <QuantityOfSets fSet={fSet} setFSet={setFSet} form={form} />
+              <ImportantSetsOptions fSet={fSet} setFSet={setFSet} form={form} />
+            </Box>
+            <ControlButtons
+              isOptitionButtonDisabled={isOptitionButtonDisabled}
+              setIsModalOpen={setIsModalOpen}
+              fSet={fSet}
+              setFSet={setFSet}
+              setCurrentModalNumber={setCurrentModalNumber}
+            />
+            <BrandButton
+              setIsModalOpen={setIsModalOpen}
+              fSet={fSet}
+              setFSet={setFSet}
+              setCurrentModalNumber={setCurrentModalNumber}
+            />
+          </FormLayoutStyled>
+        </OverFlowWrapper>
       </Form>
     </ConfigProvider>
   );

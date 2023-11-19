@@ -22,7 +22,6 @@ import { useRouter } from 'next/router';
 import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { fetchMockApiStatistic } from '@/utils/api/fetchMockApiStatistic';
 import { getIdForNewFSet } from '@/utils/data-utils/getIdForNewFSet';
-import { LocksOptionsDrawModal } from '../LocksOptionsDrawModal/LocksOptionsDrawModal';
 
 type TDiscountSing = 'add' | 'minus';
 
@@ -247,12 +246,6 @@ export const FInputPage = () => {
         fSet={fSet}
         setFSet={setFSet}
         setIsModalPressLocksOptionsOpened={setIsModalPressLocksOptionsOpened}
-      />
-      <LocksOptionsDrawModal
-        fSet={fSet}
-        setFSet={setFSet}
-        isModalOpen={isModalPressLocksOptionsOpened}
-        setIsModalOpen={setIsModalPressLocksOptionsOpened}
       />
     </Box>
   ) : (

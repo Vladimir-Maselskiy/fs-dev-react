@@ -24,23 +24,6 @@ export const ControlButtons = ({
   fSet,
   setFSet,
 }: TProps) => {
-  // useEffect(() => {
-  //   if (fSet?.width)
-  //     getValidateStatusOfWidthOrHeight(
-  //       fSet.brand,
-  //       fSet.typeOfOpening,
-  //       fSet.width,
-  //       'width'
-  //     );
-  //   if (fSet?.height)
-  //     getValidateStatusOfWidthOrHeight(
-  //       fSet.brand,
-  //       fSet.typeOfOpening,
-  //       fSet.height,
-  //       'height'
-  //     );
-  // }, [fSet?.brand, fSet?.typeOfOpening, fSet?.width, fSet?.height]);
-
   return (
     <StyledContlolButtonBox>
       <Tooltip title="Опції">
