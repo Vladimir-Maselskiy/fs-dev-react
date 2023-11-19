@@ -17,17 +17,23 @@ import {
   StyledCanvasBox,
   StyledDoubleRightOutlined,
   OverFlowWrapper,
+  ButtonStyled,
 } from './FormLayout.styled';
 import { BrandButton } from '../BrandButton/BrandButton';
 import { getIndexByFSet } from '@/utils/data-utils/getIndexByFSet';
 import { DoubleLeftOutlined, DoubleRightOutlined } from '@ant-design/icons';
 import { FSetCanvas } from '../FSetCanvas/FSetCanvas';
+import { getIdForNewFSet } from '@/utils/data-utils/getIdForNewFSet';
+import { getNewSet } from '@/utils/data-utils/getNewSet';
 
 interface TProps {
   fSet: IFSet;
   setFSet: React.Dispatch<React.SetStateAction<IFSet>>;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setCurrentModalNumber: React.Dispatch<React.SetStateAction<number>>;
+  buttonTitle: string;
+  setButtonTitle: React.Dispatch<React.SetStateAction<string>>;
+  setIsGetOrderButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const FormLayout = ({
@@ -35,6 +41,9 @@ export const FormLayout = ({
   setFSet,
   setIsModalOpen,
   setCurrentModalNumber,
+  buttonTitle,
+  setButtonTitle,
+  setIsGetOrderButtonDisabled,
 }: TProps) => {
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [isOptitionButtonDisabled, setIsOptitionButtonDisabled] =
@@ -45,8 +54,21 @@ export const FormLayout = ({
     getSetRestrictions(fSet.typeOfOpening, fSet.brand)
   );
   const [isListOpen, setIsListOpen] = useState(false);
+  const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(true);
 
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    if (buttonTitle === 'Змінити') {
+      setIsGetOrderButtonDisabled(true);
+    }
+  }, [buttonTitle]);
+
+  useEffect(() => {
+    setIsGetOrderButtonDisabled(
+      !(fSetsArray.length > 0) || buttonTitle === 'Змінити'
+    );
+  }, [fSetsArray, buttonTitle]);
 
   useEffect(() => {
     setRestrictions(getSetRestrictions(fSet.typeOfOpening, fSet.brand));
@@ -66,6 +88,12 @@ export const FormLayout = ({
       })
     );
   }, [fSet.brand, fSet.id, setFSetsArray]);
+
+  useEffect(() => {
+    if (fSet?.isWidthValid === 'valid' && fSet.isHeightValid === 'valid') {
+      setIsAddButtonDisabled(false);
+    } else setIsAddButtonDisabled(true);
+  }, [fSet.isWidthValid, fSet.isHeightValid]);
 
   useEffect(() => {
     if (
@@ -97,6 +125,37 @@ export const FormLayout = ({
 
   const onControllCanvasButtonClick = () => {
     setIsCanvasOpen(prev => !prev);
+  };
+
+  const onClickAddSet = () => {
+    setButtonTitle('Додати');
+    const index = fSetsArray.findIndex(set => set.id === fSet.id);
+    if (index === -1) {
+      const currentId = fSet.id;
+      // setLastId(currentId);
+      setFSetsArray(prev => [
+        ...prev,
+        { ...fSet, id: getIdForNewFSet(fSetsArray) },
+      ]);
+      setFSet(
+        getNewSet({
+          brand: fSet.brand,
+          systemOfPVC: fSet.systemOfPVC,
+        })
+      );
+      return;
+    }
+
+    setFSetsArray(prev => {
+      prev.splice(index, 1, fSet);
+      return [...prev];
+    });
+    setFSet(
+      getNewSet({
+        brand: fSet.brand,
+        systemOfPVC: fSet.systemOfPVC,
+      })
+    );
   };
 
   return (
@@ -160,6 +219,13 @@ export const FormLayout = ({
               setCurrentModalNumber={setCurrentModalNumber}
             />
           </FormLayoutStyled>
+          <ButtonStyled
+            onClick={onClickAddSet}
+            type="primary"
+            disabled={isAddButtonDisabled}
+          >
+            {buttonTitle}
+          </ButtonStyled>
         </OverFlowWrapper>
       </Form>
     </ConfigProvider>

@@ -8,7 +8,7 @@ type TProps = {
 
 export const StyledCanvasShear = styled.div<TProps>`
   position: absolute;
-  top: ${props => `calc(${props.outterPadding}px - 25px)`};
+  top: ${props => `calc(${props.outterPadding}px - 35px)`};
   left: ${props =>
     props.side === 'right'
       ? `calc(100% - ${props.outterPadding}px)`

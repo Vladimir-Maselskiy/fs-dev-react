@@ -33,14 +33,13 @@ export const FSetCanvas = ({
   isListOpen,
   setIsListOpen,
 }: TProps) => {
+  const { windowWidth } = useWindowWidth();
   const ref = useRef<HTMLCanvasElement>(null);
   const px = 20;
   const py = 20;
-  const outterPaddingK = 3.2;
+  const outterPaddingK = windowWidth >= 480 ? 3.2 : 1.6;
 
   const macoItems = data as IMacoLocks[];
-  const { windowWidth } = useWindowWidth();
-  console.log('width', windowWidth);
 
   const [macoLocks] = useState(macoItems.filter(item => item.usedAsLock));
   const [filteredData, setFilteredData] = useState(macoLocks);

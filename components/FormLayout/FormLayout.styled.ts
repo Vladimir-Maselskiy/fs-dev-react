@@ -13,6 +13,7 @@ export const FormLayoutStyled = styled.div`
   border: solid #2196f3 2px;
   border-radius: 10px;
   margin-top: 50px;
+  min-height: 550px;
   width: 100%;
   background-image: url(${image.src});
   background-color: transparent;
@@ -44,7 +45,6 @@ export const StyledDoubleRightOutlined = styled(Button)`
 
 export const ButtonStyled = styled(Button)`
   position: relative;
-  top: -36px;
   display: flex;
   align-items: flex-end;
   justify-content: center;

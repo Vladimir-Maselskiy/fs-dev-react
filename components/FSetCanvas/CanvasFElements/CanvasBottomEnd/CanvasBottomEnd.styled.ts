@@ -7,11 +7,11 @@ type TProps = {
 
 export const StyledCanvasBottomEnd = styled.div<TProps>`
   position: absolute;
-  bottom: ${props => `calc(${props.outterPadding}px - 25px)`};
+  bottom: ${props => `calc(${props.outterPadding}px - 30px)`};
   left: ${props =>
     props.side === 'left'
-      ? `calc(100% - ${props.outterPadding}px + 20px)`
-      : `calc(${props.outterPadding}px - 20px)`};
+      ? `calc(100% - ${props.outterPadding}px + 25px)`
+      : `calc(${props.outterPadding}px - 25px)`};
   transform-origin: left;
   transform: ${props =>
     props.side === 'right'

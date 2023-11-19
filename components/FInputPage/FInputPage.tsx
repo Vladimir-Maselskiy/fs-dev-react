@@ -14,14 +14,12 @@ import { getFSets } from '@/utils/data-utils/getFSets';
 import { IArticleItem, TBrands } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
-import { ButtonStyled } from '@/components/FormLayout/FormLayout.styled';
 import { NavBar } from '../NavBar/NavBar';
 import { getIsDiscountAvailable } from '@/utils/user-data/getIsDiscountAvailable';
 import { DefaultOptionType } from 'antd/es/select';
 import { useRouter } from 'next/router';
 import { getDataSource } from '@/utils/data-utils/getDataSource';
 import { fetchMockApiStatistic } from '@/utils/api/fetchMockApiStatistic';
-import { getIdForNewFSet } from '@/utils/data-utils/getIdForNewFSet';
 
 type TDiscountSing = 'add' | 'minus';
 
@@ -31,7 +29,7 @@ type TDiscount = {
 };
 
 export const FInputPage = () => {
-  const { fSetsArray, setFSetsArray } = useFSetsContext();
+  const { fSetsArray } = useFSetsContext();
   const { rate } = useRateContext();
   const { user } = useUserContext();
   const router = useRouter();
@@ -39,17 +37,16 @@ export const FInputPage = () => {
 
   const [isPageLoaded, setIsPageLoaded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAddButtonDisabled, setIsAddButtonDisabled] = useState(true);
   const [currentModalNumber, setCurrentModalNumber] = useState(0);
   const [tableSets, setTableSets] = useState<IArticleItem[]>([]);
   const [fSet, setFSet] = useState(getNewSet({ brand: brand as TBrands }));
   const [isDiscountAviable, setIsDiscountAviable] = useState(false);
   const [discountValue, setDiscountValue] = useState(0);
   const [discountAsProp, setDiscountAsProp] = useState(0);
-  const [buttonTitle, setButtonTitle] = useState('Додати');
   const [discountSign, setDiscountSign] = useState<TDiscountSing>('add');
   const [isModalPressLocksOptionsOpened, setIsModalPressLocksOptionsOpened] =
     useState(false);
+  const [buttonTitle, setButtonTitle] = useState('Додати');
 
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
@@ -60,26 +57,8 @@ export const FInputPage = () => {
   const { Option } = Select;
 
   useEffect(() => {
-    setIsGetOrderButtonDisabled(
-      !(fSetsArray.length > 0) || buttonTitle === 'Змінити'
-    );
-  }, [fSetsArray, buttonTitle]);
-
-  useEffect(() => {
-    if (fSet?.isWidthValid === 'valid' && fSet.isHeightValid === 'valid') {
-      setIsAddButtonDisabled(false);
-    } else setIsAddButtonDisabled(true);
-  }, [fSet.isWidthValid, fSet.isHeightValid]);
-
-  useEffect(() => {
     setIsPageLoaded(true);
   }, []);
-
-  useEffect(() => {
-    if (buttonTitle === 'Змінити') {
-      setIsGetOrderButtonDisabled(true);
-    }
-  }, [buttonTitle]);
 
   useEffect(() => {
     setIsDiscountAviable(getIsDiscountAvailable(user));
@@ -122,37 +101,6 @@ export const FInputPage = () => {
     });
   };
 
-  const onClickAddSet = () => {
-    setButtonTitle('Додати');
-    const index = fSetsArray.findIndex(set => set.id === fSet.id);
-    if (index === -1) {
-      const currentId = fSet.id;
-      // setLastId(currentId);
-      setFSetsArray(prev => [
-        ...prev,
-        { ...fSet, id: getIdForNewFSet(fSetsArray) },
-      ]);
-      setFSet(
-        getNewSet({
-          brand: fSet.brand,
-          systemOfPVC: fSet.systemOfPVC,
-        })
-      );
-      return;
-    }
-
-    setFSetsArray(prev => {
-      prev.splice(index, 1, fSet);
-      return [...prev];
-    });
-    setFSet(
-      getNewSet({
-        brand: fSet.brand,
-        systemOfPVC: fSet.systemOfPVC,
-      })
-    );
-  };
-
   const onDiscountInputChange = (value: number | null) => {
     if (value !== null) setDiscountValue(value);
     localStorage.setItem(
@@ -193,14 +141,10 @@ export const FInputPage = () => {
         setFSet={setFSet}
         setIsModalOpen={setIsModalOpen}
         setCurrentModalNumber={setCurrentModalNumber}
-      ></FormLayout>
-      <ButtonStyled
-        onClick={onClickAddSet}
-        type="primary"
-        disabled={isAddButtonDisabled}
-      >
-        {buttonTitle}
-      </ButtonStyled>
+        buttonTitle={buttonTitle}
+        setButtonTitle={setButtonTitle}
+        setIsGetOrderButtonDisabled={setIsGetOrderButtonDisabled}
+      />
 
       {fSetsArray.length > 0 && (
         <>
