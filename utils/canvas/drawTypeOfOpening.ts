@@ -15,14 +15,14 @@ export const drawTypeOfOpening = ({
   if (typeOfOpening !== 'type-3') {
     if (sideOfHinge === 'right') {
       ctx.moveTo(bottomRightX, topLeftY);
-      ctx.lineTo(topLeftX, bottomRightY / 2);
+      ctx.lineTo(topLeftX, (bottomRightY + topLeftY) / 2);
       ctx.lineTo(bottomRightX, bottomRightY);
       ctx.stroke();
       ctx.closePath();
     }
     if (sideOfHinge === 'left') {
       ctx.moveTo(topLeftX, topLeftY);
-      ctx.lineTo(bottomRightX, bottomRightY / 2 + topLeftY);
+      ctx.lineTo(bottomRightX, (bottomRightY + topLeftY) / 2);
       ctx.lineTo(topLeftX, bottomRightY);
       ctx.stroke();
       ctx.closePath();
