@@ -48,7 +48,7 @@ export const FormLayout = ({
   const { fSetsArray, setFSetsArray } = useFSetsContext();
   const [isOptitionButtonDisabled, setIsOptitionButtonDisabled] =
     useState(true);
-  const [isCanvasOpen, setIsCanvasOpen] = useState(false);
+  const [isCanvasOpen, setIsCanvasOpen] = useState(true);
 
   const [restrictions, setRestrictions] = useState<TRestrictions>(
     getSetRestrictions(fSet.typeOfOpening, fSet.brand)
