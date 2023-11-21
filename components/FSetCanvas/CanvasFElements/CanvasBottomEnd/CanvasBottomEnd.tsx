@@ -25,8 +25,6 @@ export const CanvasBottomEnd = ({
   const [isExtended, setIsExtended] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
-  const a = getDefaultGorizontalLock(fSet);
-
   useEffect(() => {
     if (
       fSet.optionalGorizontalLock?.length! > 0 ||

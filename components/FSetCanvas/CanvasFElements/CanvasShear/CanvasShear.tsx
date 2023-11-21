@@ -7,6 +7,7 @@ import { getShear } from '@/utils/maco/getShear';
 import { getShearIcon } from '@/utils/canvas/getShearIcon';
 import { getIconScaleByArticle } from '@/utils/canvas/getIconScaleByArticle';
 import { TListFilter } from '../../FSetCanvas';
+import { getDefaultVerticalLock } from '@/utils/canvas/getDefaultVerticalLock';
 
 type TProps = {
   fSet: IFSet;
@@ -26,11 +27,20 @@ export const CanvasShear = ({
   const [isExtended, setIsExtended] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
+  const defaultVerticalLock = getDefaultVerticalLock(fSet);
+
   useEffect(() => {
-    if (fSet.optionalVerticalLock && fSet.optionalVerticalLock.length === 0) {
-      setIsExtended(true);
-    } else setIsExtended(false);
-  }, [fSet.optionalVerticalLock, fSet.optionalVerticalLock?.length]);
+    if (
+      (!fSet.optionalVerticalLock && getDefaultVerticalLock(fSet)) ||
+      fSet.optionalVerticalLock?.length! > 0
+    ) {
+      setIsExtended(false);
+    } else setIsExtended(true);
+  }, [
+    fSet.optionalVerticalLock,
+    fSet.optionalVerticalLock?.length,
+    defaultVerticalLock,
+  ]);
 
   const [currentShear] = getShear(fSet);
   const ShearIcon = getShearIcon(fSet);
