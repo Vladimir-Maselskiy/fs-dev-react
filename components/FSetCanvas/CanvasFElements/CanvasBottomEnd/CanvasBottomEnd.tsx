@@ -5,6 +5,7 @@ import { StyledCanvasBottomEnd } from './CanvasBottomEnd.styled';
 import BottomEndIcon from '../../../../public/articlesSVG/212689.svg';
 import { getBottomEndingForGetriebe } from '@/utils/maco/getBottomEndingForGetriebe';
 import { TListFilter } from '../../FSetCanvas';
+import { getDefaultGorizontalLock } from '@/utils/canvas/getDefaultGorizontalLock';
 
 type TProps = {
   fSet: IFSet;
@@ -24,14 +25,23 @@ export const CanvasBottomEnd = ({
   const [isExtended, setIsExtended] = useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
+  const a = getDefaultGorizontalLock(fSet);
+
   useEffect(() => {
     if (
-      !fSet.optionalGorizontalLock ||
-      fSet.optionalGorizontalLock.length === 0
+      fSet.optionalGorizontalLock?.length! > 0 ||
+      (getDefaultGorizontalLock(fSet) && !fSet.optionalGorizontalLock)
     ) {
+      setIsExtended(false);
+    } else {
       setIsExtended(true);
-    } else setIsExtended(false);
-  }, [fSet.optionalGorizontalLock, fSet.optionalGorizontalLock?.length]);
+    }
+  }, [
+    fSet.optionalGorizontalLock,
+    fSet.optionalGorizontalLock?.length,
+    fSet.isGorizontalLock,
+    fSet,
+  ]);
 
   const [currentBottomEnd] = getBottomEndingForGetriebe(fSet);
 

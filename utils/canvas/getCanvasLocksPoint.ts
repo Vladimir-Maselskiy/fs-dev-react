@@ -17,9 +17,7 @@ export const getCanvasLocksPoint = ({
       side === 'gorizontal'
         ? getDefaultGorizontalLock(fSet)
         : getDefaultVerticalLock(fSet);
-    console.log('side', side, 'articleItem', articleItem);
     const lockItem = getLockItemMacoByArticle(articleItem?.article);
-    console.log('side', side, 'lockItem', lockItem);
     return [...(lockItem?.VZ || [])];
   }
 
