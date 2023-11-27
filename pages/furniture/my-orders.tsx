@@ -1,12 +1,12 @@
-import { FInputPage } from '@/components/FInputPage/FInputPage';
 import { FurnitureContainer } from '@/components/FurnitureContainer/FurnitureContainer';
 import { MainContainer } from '@/components/MainContainer/MainContainer';
+import { SavedOrders } from '@/components/SavedOrders/SavedOrders';
 
-export default function Elements() {
+export default function MyOrders() {
   return (
     <MainContainer>
       <FurnitureContainer>
-        <div>elements</div>
+        <SavedOrders />
       </FurnitureContainer>
     </MainContainer>
   );

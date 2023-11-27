@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { InputRef } from 'antd';
-import { Button, Form, Input, Popconfirm, Table } from 'antd';
-import { DeleteRowOutlined } from '@ant-design/icons';
+import { InputRef, Tooltip } from 'antd';
+import { Button, Form, Input, Table } from 'antd';
+import {
+  DeleteRowOutlined,
+  FilePdfOutlined,
+  SaveOutlined,
+} from '@ant-design/icons';
 import type { FormInstance } from 'antd/es/form';
 import { IArticleItem } from '@/interfaces/interfaces';
 import { getDataSource } from '@/utils/data-utils/getDataSource';
@@ -11,7 +15,6 @@ import { getPdfFile } from '@/utils/pdf/getPdfFile';
 import { useUserContext } from '@/context/state';
 import { getIsDiscountAvailable } from '@/utils/user-data/getIsDiscountAvailable';
 import { getTotalPriceInFTable } from '@/utils/data-utils/getTotalPriceInFTable';
-import { fetchMockApiStatistic } from '@/utils/api/fetchMockApiStatistic';
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -293,17 +296,46 @@ export const FSetsOrderTable = ({
 
   return (
     <Box display="flex" width="100%" flexDirection="column">
-      <Button
-        type="primary"
-        style={{ width: '80px', height: '40px', marginLeft: 'auto' }}
-        disabled={!(selectedRowKeys.length > 0)}
-        icon={
-          <DeleteRowOutlined style={{ fontSize: '25px', color: 'white' }} />
-        }
-        onClick={() => {
-          handleDelete(selectedRowKeys);
-        }}
-      ></Button>
+      <Box ml="auto" display="flex">
+        {user?.status === 'admin' && (
+          <Tooltip title="Зберегти замовлення">
+            <Button
+              type="primary"
+              style={{ width: '80px', height: '40px' }}
+              icon={
+                <SaveOutlined style={{ fontSize: '25px', color: 'white' }} />
+              }
+              disabled={!(dataSourceWithDiscount.length > 0)}
+            ></Button>
+          </Tooltip>
+        )}
+        {isDiscountAvailable && (
+          <Tooltip title="Отримати PDF">
+            <Button
+              type="primary"
+              style={{ width: '80px', height: '40px', marginLeft: 20 }}
+              icon={
+                <FilePdfOutlined style={{ fontSize: '25px', color: 'white' }} />
+              }
+              onClick={onGetPdfClick}
+              disabled={!(dataSourceWithDiscount.length > 0)}
+            ></Button>
+          </Tooltip>
+        )}
+        <Tooltip title="Видалити вибране" mouseEnterDelay={0.7}>
+          <Button
+            type="primary"
+            style={{ width: '80px', height: '40px', marginLeft: 20 }}
+            disabled={!(selectedRowKeys.length > 0)}
+            icon={
+              <DeleteRowOutlined style={{ fontSize: '25px', color: 'white' }} />
+            }
+            onClick={() => {
+              handleDelete(selectedRowKeys);
+            }}
+          ></Button>
+        </Tooltip>
+      </Box>
       <Table
         components={components}
         rowClassName={() => 'editable-row'}
@@ -323,14 +355,13 @@ export const FSetsOrderTable = ({
               <Table.Summary.Cell index={1} colSpan={isWide767 ? 2 : 1}>
                 Всього
               </Table.Summary.Cell>
-              <Table.Summary.Cell index={2} colSpan={2}>
+              <Table.Summary.Cell index={2} colSpan={isWide767 ? 3 : 2}>
                 <p>{`${totalPrice.toFixed(2)} грн`}</p>
               </Table.Summary.Cell>
             </Table.Summary.Row>
           ) : null;
         }}
       />
-      {isDiscountAvailable && <Button onClick={onGetPdfClick}>Get PDF</Button>}
     </Box>
   );
 };
