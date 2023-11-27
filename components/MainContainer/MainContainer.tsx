@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ConfigProvider, Layout } from 'antd';
+import { ConfigProvider, Divider, Layout } from 'antd';
 import { StyledMainContainer } from './MainContainer.styled';
 
 import Head from 'next/head';
@@ -7,6 +7,7 @@ import { setStartEuroRate } from '@/utils/rate/setStartEuroRate';
 import { useRateContext } from '@/context/state';
 import { getCurrentEuroRate } from '@/utils/rate/getCurrentEuroRate';
 import { IRate } from '@/interfaces/interfaces';
+import { NavBar } from '../NavBar/NavBar';
 
 type Props = {
   children?: JSX.Element;
@@ -53,7 +54,15 @@ export const MainContainer = ({ children }: Props) => {
           <meta name="google" content="notranslate"></meta>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Layout style={{ minWidth: 290, width: '100%' }}>{children}</Layout>
+
+        <Layout style={{ minWidth: 290, width: '100%', padding: 20 }}>
+          <>
+            <NavBar />
+            <Divider />
+
+            {children}
+          </>
+        </Layout>
       </StyledMainContainer>
     </ConfigProvider>
   );

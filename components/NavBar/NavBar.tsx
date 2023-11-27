@@ -158,8 +158,8 @@ export const NavBar = () => {
           </Popover>
         ) : isWide460 ? (
           <>
-            <NextLink path="./account/login">Sign In</NextLink>
-            <NextLinkStyledButton href="./account/register">
+            <NextLink path="/account/login">Sign In</NextLink>
+            <NextLinkStyledButton href="/account/register">
               Try Free
             </NextLinkStyledButton>
           </>
@@ -168,8 +168,8 @@ export const NavBar = () => {
             placement="bottomRight"
             content={
               <Box display="flex" flexDirection="column" fontSize={20}>
-                <Link href="./account/login">Sign In</Link>
-                <Link href="./account/register" style={{ marginTop: 10 }}>
+                <Link href="/account/login">Sign In</Link>
+                <Link href="/account/register" style={{ marginTop: 10 }}>
                   Try Free
                 </Link>
               </Box>

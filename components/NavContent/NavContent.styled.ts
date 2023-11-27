@@ -13,13 +13,11 @@ export const StyledImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 160px);
+  width: 80vw;
+  max-width: 350px;
   padding: 20px;
   border: 2px solid var(--accent-color);
   border-radius: 30px;
-  @media screen and (max-width: 380px) {
-    height: calc(100vw - 50px);
-  }
 `;
 export const StyledImage = styled.img`
   aspect-ratio: 1/1;

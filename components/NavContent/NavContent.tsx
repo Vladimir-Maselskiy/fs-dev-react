@@ -14,7 +14,7 @@ export const NavContent = () => {
     <StyledNavContent>
       <Link
         href={{
-          pathname: '/input-form',
+          pathname: 'furniture/input-form',
           query: { brand: 'maco' },
         }}
       >
@@ -24,7 +24,7 @@ export const NavContent = () => {
       </Link>
       <Link
         href={{
-          pathname: '/input-form',
+          pathname: 'furniture/input-form',
           query: { brand: 'vorne' },
         }}
       >

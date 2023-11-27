@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Box } from '../Box/Box';
-import { NavBar } from '../NavBar/NavBar';
 import { Divider, Spin } from 'antd';
 import { NavContent } from '../NavContent/NavContent';
 
@@ -11,8 +10,6 @@ export const Home = () => {
   }, []);
   return isPageLoaded ? (
     <Box p="20px" display="flex" flexDirection="column" height="100%">
-      <NavBar />
-      <Divider />
       <NavContent />
     </Box>
   ) : (

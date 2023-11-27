@@ -1,16 +1,11 @@
 import React from 'react';
-import {
-  SwiperContainer,
-  StyledAuthLayout,
-  StyledImageBox,
-} from './AuthLayout.styled';
+import { SwiperContainer, StyledAuthLayout } from './AuthLayout.styled';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Pagination, Navigation } from 'swiper';
 import Image from 'next/image';
-import { Logo } from '../Logo/Logo';
 import { Box } from '../Box/Box';
 
 type TProps = {
@@ -20,7 +15,6 @@ type TProps = {
 export const AuthLayout = ({ children }: TProps) => {
   return (
     <Box padding={20}>
-      <Logo />
       <StyledAuthLayout>
         {children}
         <SwiperContainer>

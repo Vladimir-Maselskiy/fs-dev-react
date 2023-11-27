@@ -135,7 +135,6 @@ export const FInputPage = () => {
 
   return isPageLoaded ? (
     <Box p="20px" ref={boxRef}>
-      <NavBar />
       <FormLayout
         fSet={fSet}
         setFSet={setFSet}
