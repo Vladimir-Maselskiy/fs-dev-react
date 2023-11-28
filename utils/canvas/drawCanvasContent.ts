@@ -33,12 +33,14 @@ export const drawCanvasContent = ({
 
       const rectConers = drawWindowOutLine({ fSet, ctx, px });
       drawTypeOfOpening({ fSet, ctx, rectConers });
-      fSet.brand === 'maco' &&
+      if (
+        fSet.brand === 'maco' &&
         fSet.typeOfOpening === 'type-1' &&
+        !fSet.isAntiBreakingOpen
+      ) {
         drawVerticalLockPoints({ fSet, ctx, rectConers });
-      fSet.brand === 'maco' &&
-        fSet.typeOfOpening === 'type-1' &&
         drawGorizontalLockPoints({ fSet, ctx, rectConers });
+      }
     }
   };
 

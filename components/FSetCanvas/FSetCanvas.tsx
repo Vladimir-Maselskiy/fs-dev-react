@@ -60,40 +60,42 @@ export const FSetCanvas = ({
     <StyledCanvasLayout open={isCanvasOpen}>
       <StyledCanvasWrapper style={{ padding: outterPaddingK * px }}>
         <StyledCanvas windowWidth={windowWidth} ref={ref} />
-        {fSet.brand === 'maco' && fSet.typeOfOpening === 'type-1' && (
-          <>
-            <CanvasShear
-              fSet={fSet}
-              setFSet={setFSet}
-              outterPadding={px * outterPaddingK}
-              setIsListOpen={setIsListOpen}
-              setListFilter={setListFilter}
-            />
-            <CanvasBottomEnd
-              fSet={fSet}
-              setFSet={setFSet}
-              outterPadding={px * outterPaddingK}
-              setIsListOpen={setIsListOpen}
-              setListFilter={setListFilter}
-            />
-            <CanvasGorizontalLock
-              fSet={fSet}
-              setFSet={setFSet}
-              outterPadding={px * outterPaddingK}
-              setIsListOpen={setIsListOpen}
-              setListFilter={setListFilter}
-              filteredData={filteredData}
-            />
-            <CanvasVerticalLock
-              fSet={fSet}
-              setFSet={setFSet}
-              outterPadding={px * outterPaddingK}
-              setIsListOpen={setIsListOpen}
-              setListFilter={setListFilter}
-              filteredData={filteredData}
-            />
-          </>
-        )}
+        {fSet.brand === 'maco' &&
+          fSet.typeOfOpening === 'type-1' &&
+          !fSet.isAntiBreakingOpen && (
+            <>
+              <CanvasShear
+                fSet={fSet}
+                setFSet={setFSet}
+                outterPadding={px * outterPaddingK}
+                setIsListOpen={setIsListOpen}
+                setListFilter={setListFilter}
+              />
+              <CanvasBottomEnd
+                fSet={fSet}
+                setFSet={setFSet}
+                outterPadding={px * outterPaddingK}
+                setIsListOpen={setIsListOpen}
+                setListFilter={setListFilter}
+              />
+              <CanvasGorizontalLock
+                fSet={fSet}
+                setFSet={setFSet}
+                outterPadding={px * outterPaddingK}
+                setIsListOpen={setIsListOpen}
+                setListFilter={setListFilter}
+                filteredData={filteredData}
+              />
+              <CanvasVerticalLock
+                fSet={fSet}
+                setFSet={setFSet}
+                outterPadding={px * outterPaddingK}
+                setIsListOpen={setIsListOpen}
+                setListFilter={setListFilter}
+                filteredData={filteredData}
+              />
+            </>
+          )}
       </StyledCanvasWrapper>
       <CanvasFElementsList
         isListOpen={isListOpen}
