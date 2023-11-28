@@ -14,7 +14,6 @@ import { getFSets } from '@/utils/data-utils/getFSets';
 import { IArticleItem, TBrands } from '@/interfaces/interfaces';
 import { FormLayout } from '@/components/FormLayout/FormLayout';
 import { FSetsListTable } from '@/components/FSetsListTable/FSetsListTable';
-import { NavBar } from '../NavBar/NavBar';
 import { getIsDiscountAvailable } from '@/utils/user-data/getIsDiscountAvailable';
 import { DefaultOptionType } from 'antd/es/select';
 import { useRouter } from 'next/router';
@@ -51,10 +50,23 @@ export const FInputPage = () => {
   const [isGetOrderButtonDisabled, setIsGetOrderButtonDisabled] =
     useState(true);
   const [isOrderTableVisible, setIsOrderTableVisible] = useState(false);
+  const [canScroll, setCanScroll] = useState(false);
 
   const boxRef = useRef<HTMLDivElement>(null);
 
   const { Option } = Select;
+
+  useEffect(() => {
+    if (canScroll) {
+      boxRef.current &&
+        boxRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'end',
+        });
+      setCanScroll(false);
+    }
+  }, [canScroll]);
 
   useEffect(() => {
     setIsPageLoaded(true);
@@ -82,12 +94,7 @@ export const FInputPage = () => {
 
     setIsOrderTableVisible(true);
 
-    boxRef.current &&
-      boxRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'end',
-        inline: 'nearest',
-      });
+    setCanScroll(true);
 
     fetchMockApiStatistic({
       user,

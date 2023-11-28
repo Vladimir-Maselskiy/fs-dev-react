@@ -6,6 +6,7 @@ export function getExtensionRC(length: number) {
   const articleItems: IArticleItem[] = [];
 
   while (customLenght > 0) {
+    console.log('customLenght', customLenght);
     if (customLenght > 235) {
       const params = {
         arr: ['201840'],
@@ -24,6 +25,16 @@ export function getExtensionRC(length: number) {
       const currentArticleItems = findElementsByArticle(params);
       if (currentArticleItems) articleItems.push(...currentArticleItems);
       customLenght -= 235;
+      continue;
+    }
+    if (customLenght > 0) {
+      const params = {
+        arr: ['206630'],
+        sortSignificance: '6',
+      };
+      const currentArticleItems = findElementsByArticle(params);
+      if (currentArticleItems) articleItems.push(...currentArticleItems);
+      customLenght -= 140;
       continue;
     }
   }

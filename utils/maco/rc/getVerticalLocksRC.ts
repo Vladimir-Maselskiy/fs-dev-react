@@ -32,7 +32,7 @@ export function getVerticalLocksRC(fSet: IFSet) {
 
   articleItems.push(
     ...findElementsByArticle({
-      arr: ['211976'],
+      arr: ['222215'],
       sortSignificance: '2',
     })!
   );
