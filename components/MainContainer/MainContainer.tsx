@@ -8,6 +8,7 @@ import { useRateContext } from '@/context/state';
 import { getCurrentEuroRate } from '@/utils/rate/getCurrentEuroRate';
 import { IRate } from '@/interfaces/interfaces';
 import { NavBar } from '../NavBar/NavBar';
+import Snowfall from 'react-snowfall';
 
 type Props = {
   children?: JSX.Element;
@@ -57,6 +58,13 @@ export const MainContainer = ({ children }: Props) => {
 
         <Layout style={{ minWidth: 290, width: '100%', padding: 20 }}>
           <>
+            <Snowfall
+              color="rgba(2,140,255,0.13)"
+              snowflakeCount={100}
+              wind={[0.5, 1]}
+              radius={[0.5, 5]}
+              speed={[0.5, 1]}
+            />
             <NavBar />
             <Divider />
 

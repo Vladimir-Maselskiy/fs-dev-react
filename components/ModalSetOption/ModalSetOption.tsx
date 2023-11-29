@@ -219,12 +219,6 @@ export const ModalSetOption = ({
               )}
             </Form.Item>
           )}
-
-          {user?.status === 'admin' && (
-            <Button onClick={onPressLocksOptionButtonClick}>
-              Опції середнього прижиму
-            </Button>
-          )}
         </>
       ),
     },
