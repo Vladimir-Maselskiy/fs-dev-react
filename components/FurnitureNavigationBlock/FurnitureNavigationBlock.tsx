@@ -10,19 +10,19 @@ export const FurnitureNavigationBlock = () => {
     <Box display="flex" ml="auto" width={300}>
       <StyledLink
         href="/furniture/input-form?brand=maco"
-        isActive={'/furniture/input-form?brand=maco'.includes(router.pathname)}
+        $isActive={'/furniture/input-form?brand=maco'.includes(router.pathname)}
       >
         Комплект
       </StyledLink>
       {/* <StyledLink
         href="/furniture/elements"
-        isActive={'/furniture/elements'.includes(router.pathname)}
+        $isActive={'/furniture/elements'.includes(router.pathname)}
       >
         Елементи
       </StyledLink> */}
       <StyledLink
         href="/furniture/my-orders"
-        isActive={'/furniture/my-orders'.includes(router.pathname)}
+        $isActive={'/furniture/my-orders'.includes(router.pathname)}
       >
         Збережені
       </StyledLink>
