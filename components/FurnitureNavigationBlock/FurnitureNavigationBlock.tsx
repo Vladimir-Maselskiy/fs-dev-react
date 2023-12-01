@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 
 export const FurnitureNavigationBlock = () => {
   const router = useRouter();
-  console.log('router', router.pathname);
   return (
     <Box display="flex" ml="auto" width={300}>
       <StyledLink
