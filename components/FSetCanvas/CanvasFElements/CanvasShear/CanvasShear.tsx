@@ -40,6 +40,7 @@ export const CanvasShear = ({
     fSet.optionalVerticalLock,
     fSet.optionalVerticalLock?.length,
     defaultVerticalLock,
+    fSet,
   ]);
 
   const [currentShear] = getShear(fSet);

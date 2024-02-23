@@ -58,16 +58,16 @@ export const MainContainer = ({ children }: Props) => {
 
         <Layout style={{ minWidth: 290, width: '100%', padding: 20 }}>
           <>
+            {/* Сніжинки
             <Snowfall
               color="rgba(2,140,255,0.13)"
               snowflakeCount={100}
               wind={[0.5, 1]}
               radius={[0.5, 5]}
               speed={[0.5, 1]}
-            />
+            /> */}
             <NavBar />
             <Divider />
-
             {children}
           </>
         </Layout>

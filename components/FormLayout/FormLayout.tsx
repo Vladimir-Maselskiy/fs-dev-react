@@ -62,13 +62,13 @@ export const FormLayout = ({
     if (buttonTitle === 'Змінити') {
       setIsGetOrderButtonDisabled(true);
     }
-  }, [buttonTitle]);
+  }, [buttonTitle, setIsGetOrderButtonDisabled]);
 
   useEffect(() => {
     setIsGetOrderButtonDisabled(
       !(fSetsArray.length > 0) || buttonTitle === 'Змінити'
     );
-  }, [fSetsArray, buttonTitle]);
+  }, [fSetsArray, buttonTitle, setIsGetOrderButtonDisabled]);
 
   useEffect(() => {
     setRestrictions(getSetRestrictions(fSet.typeOfOpening, fSet.brand));
