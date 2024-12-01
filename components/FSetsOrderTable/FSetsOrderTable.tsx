@@ -157,6 +157,8 @@ export const FSetsOrderTable = ({
   useEffect(() => {
     if (user?.status === 'finalBuyer' || user?.status === 'installer') {
       setDiscountValue(-10);
+    } else if (user?.status === 'withoutPrice') {
+      setDiscountValue(100);
     } else {
       setDiscountValue(discount);
     }

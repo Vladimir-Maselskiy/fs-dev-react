@@ -39,6 +39,7 @@ export const ALLUserStatus = [
   'dealer',
   'installer',
   'finalBuyer',
+  'withoutPrice',
 ] as const;
 
 export const ALLBrands = ['maco', 'vorne', 'winkhaus'] as const;
