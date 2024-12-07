@@ -1,6 +1,6 @@
 import { IArticleItem, IArticleJSON } from '@/interfaces/interfaces';
-import macoPackageInfo from '../../data/maco.json';
-import vornePackageInfo from '../../data/vorne.json';
+import maco from '../../data/maco.json';
+import vorne from '../../data/vorne.json';
 
 type TParams = {
   brand?: string;
@@ -10,8 +10,6 @@ type TParams = {
 };
 
 export function findElementsByArticle(params: TParams) {
-  const maco = macoPackageInfo.maco as IArticleJSON[];
-  const vorne = vornePackageInfo.vorne as IArticleJSON[];
   let data: IArticleJSON[];
   switch (params.brand) {
     case undefined:
