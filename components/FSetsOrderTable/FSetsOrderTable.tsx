@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { use, useContext, useEffect, useRef, useState } from 'react';
 import { InputRef, Tooltip } from 'antd';
 import { Button, Form, Input, Table } from 'antd';
 import {
@@ -220,7 +220,7 @@ export const FSetsOrderTable = ({
       title: 'Ціна',
       dataIndex: 'price',
       align: 'center',
-      responsive: user ? undefined : [],
+      responsive: user && user.status !== 'withoutPrice' ? undefined : [],
     },
     {
       title: 'Знижка',
@@ -236,7 +236,7 @@ export const FSetsOrderTable = ({
       title: 'Сума',
       dataIndex: 'sum',
       align: 'center',
-      responsive: user ? undefined : [],
+      responsive: user && user.status !== 'withoutPrice' ? undefined : [],
     },
     Table.SELECTION_COLUMN,
   ];
@@ -351,7 +351,7 @@ export const FSetsOrderTable = ({
         rowSelection={rowSelection}
         summary={dataSource => {
           let totalPrice = getTotalPriceInFTable(dataSource);
-          return user ? (
+          return user && user.status !== 'withoutPrice' ? (
             <Table.Summary.Row style={{ fontWeight: 'bold', fontSize: '16px' }}>
               <Table.Summary.Cell index={0} colSpan={3}></Table.Summary.Cell>
               <Table.Summary.Cell index={1} colSpan={isWide767 ? 2 : 1}>
