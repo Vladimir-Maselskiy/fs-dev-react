@@ -1,11 +1,8 @@
-import { IUser } from '@/interfaces/interfaces';
 import { User } from '@/models/userModel';
 import { connectMongo } from '@/utils/mongo/connectMongo';
 import { createError } from '@/utils/mongo/createError';
-import { getIsTokenValid } from '@/utils/mongo/getIsTokenValid';
 import { getTokens } from '@/utils/mongo/getTokens';
 import { getUserDto } from '@/utils/mongo/getUserDto';
-import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function getUserWithGoogleAuth(
@@ -45,6 +42,7 @@ export default async function getUserWithGoogleAuth(
 
     res.status(200).json({});
   } catch (error: any) {
+    console.log('error', error);
     const status = error.cause || error.response?.status;
     const message = error.response?.data || error.message;
 

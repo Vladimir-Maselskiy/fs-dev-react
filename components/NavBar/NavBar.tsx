@@ -17,6 +17,7 @@ import { Logo } from '../Logo/Logo';
 export const NavBar = () => {
   const { user, setUser } = useUserContext();
   const { data: session, status: sessionStatus } = useSession();
+  console.log('user', user, 'session', session, 'sessionStatus', sessionStatus);
 
   const isWide460 = useMediaQuery(460);
 

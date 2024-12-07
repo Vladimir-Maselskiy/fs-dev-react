@@ -23,11 +23,11 @@ export default function LoginPage() {
   const router = useRouter();
   const { data: session } = useSession();
 
-  useEffect(() => {
-    if (session) {
-      router.push('/');
-    }
-  }, [session, router]);
+  // useEffect(() => {
+  //   if (session) {
+  //     router.push('/');
+  //   }
+  // }, [session, router]);
 
   const onFinish = async (values: any) => {
     const { email, password } = values;

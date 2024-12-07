@@ -43,7 +43,14 @@ const userSchema = new Schema(
 
     status: {
       type: String,
-      enum: ['admin', 'manager', 'dealer', 'installer', 'finalBuyer'],
+      enum: [
+        'admin',
+        'manager',
+        'dealer',
+        'installer',
+        'finalBuyer',
+        'withoutPrice',
+      ],
       default: 'finalBuyer',
     },
     image: {
