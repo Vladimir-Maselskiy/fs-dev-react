@@ -2,8 +2,9 @@ import { IItem } from '@/components/FSetsOrderTable/FSetsOrderTable';
 import { IUser } from '@/interfaces/interfaces';
 import axios from 'axios';
 import { getTotalPriceInFTable } from '../data-utils/getTotalPriceInFTable';
+import { getPublicIP } from './getPublicIP';
 
-export const fetchMockApiStatistic = ({
+export const fetchMockApiStatistic = async ({
   user,
   dataSourceWithDiscount,
   discount,
@@ -25,6 +26,8 @@ export const fetchMockApiStatistic = ({
     minute: '2-digit',
   });
 
+  const userIP = (await getPublicIP()).ip;
+
   const date = `${readableDate} ${readableTime}`;
   const totalPrice = getTotalPriceInFTable(dataSourceWithDiscount).toFixed(2);
   axios.post('https://630f7dfe498924524a8f5834.mockapi.io/statistic', {
@@ -34,5 +37,6 @@ export const fetchMockApiStatistic = ({
     totalPrice,
     date,
     discount,
+    userIP,
   });
 };
